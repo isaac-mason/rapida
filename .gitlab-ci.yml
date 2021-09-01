@@ -1,0 +1,96 @@
+image: node:12
+
+stages:
+- common
+- build
+- publish
+
+# Build common NPM packages
+build-common:
+  stage: common
+  only:
+    - tags
+  script:
+    - cd common
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - common/lib/
+    expire_in: 1 day
+
+# Publish common NPM packages
+publish-common:
+  stage: common
+  only:
+    - tags
+  needs:
+    - build-common
+  script:
+    - cd common
+    - echo @isaacmason:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
+    - echo "//gitlab.com/api/v4/projects/29283145/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
+    - npm version $CI_COMMIT_TAG --allow-same-version
+    - npm publish
+
+# Build client and server NPM packages
+build-client:
+  stage: build
+  only:
+    - tags
+  needs: 
+    - publish-common
+  script:
+    - cd client
+    - echo @isaacmason:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
+    - echo "//gitlab.com/api/v4/projects/29283145/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - client/lib/
+    expire_in: 1 day
+
+build-server:
+  stage: build
+  only:
+    - tags
+  needs: 
+    - publish-common
+  script:
+    - cd server
+    - echo @isaacmason:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
+    - echo "//gitlab.com/api/v4/projects/29283145/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - server/lib/
+    expire_in: 1 day
+
+# Publish client and server NPM packages
+publish-client:
+  stage: publish
+  only:
+    - tags
+  needs: 
+    - build-client
+  script:
+    - cd client
+    - echo @isaacmason:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
+    - echo "//gitlab.com/api/v4/projects/29283145/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
+    - npm version $CI_COMMIT_TAG --allow-same-version
+    - npm publish
+
+publish-server:
+  stage: publish
+  only:
+    - tags
+  needs: 
+    - build-server
+  script:
+    - cd server
+    - echo @isaacmason:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
+    - echo "//gitlab.com/api/v4/projects/29283145/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
+    - npm version $CI_COMMIT_TAG --allow-same-version
+    - npm publish
