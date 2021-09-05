@@ -1,0 +1,33 @@
+{
+  "folders": [
+    {
+      "name": "repo",
+      "path": "."
+    },
+    {
+      "path": "common"
+    },
+    {
+      "path": "client"
+    },
+    {
+      "path": "server"
+    },
+    {
+      "path": "docs"
+    },
+  ],
+  "settings": {
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+    "cSpell.words": [
+      "Initialisation",
+      "Initialise",
+      "isaacmason",
+      "rapida",
+      "Strapi"
+    ]
+  },
+  "extensions": {
+    "recommendations": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
+  }
+}
