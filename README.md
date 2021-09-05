@@ -33,8 +33,8 @@ From the project root, run the following:
 > (cd client && npm link)
 
 # Use local version of @isaacmason/rapida-common in the client and server libraries
-> (cd server && npm link "@isaacmason/rapida-common")
-> (cd client && npm link "@isaacmason/rapida-common")
+> (cd server && npm link "@isaacmason/rapida-server")
+> (cd client && npm link "@isaacmason/rapida-client")
 ```
 
 You can now in other projects run the following to use the local version of `@isaacmason/rapida-client` and `@isaacmason/rapida-server`:
