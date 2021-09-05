@@ -1,1 +1,8 @@
-export const Greeter = (name: string) => `Hello ${name}`; 
+import { uuid } from './util/uuid';
+import { empty, notEmpty } from './util/empty';
+
+export {
+  uuid,
+  empty,
+  notEmpty,
+};

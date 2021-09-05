@@ -2,7 +2,13 @@
 
 *rápida - fast*
 
-NPM packages for creating single-player and multi-player web-based games.
+NPM packages for creating single-player and multi-player web-based games with three.js
+
+## Concepts
+
+**Entity**
+
+**Component**
 
 ## Getting Started
 
@@ -34,8 +40,9 @@ From the project root, run the following:
 You can now in other projects run the following to use the local version of `@isaacmason/rapida-client` and `@isaacmason/rapida-server`:
 
 ```
-> (cd other-project-server && npm link "@isaacmason/rapida-server")
-> (cd other-project-client && npm link "@isaacmason/rapida-client")
+# for example:
+> (cd other/project/server && npm link "@isaacmason/rapida-server")
+> (cd other/project/client && npm link "@isaacmason/rapida-client")
 ```
 
 ### 3. Rebuild all packages for local development
