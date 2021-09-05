@@ -1,9 +1,9 @@
 // eslint-disable-next-line max-classes-per-file
-import { uuid } from '@isaacmason/rapida-common';
+import { IComponent, IEntity, uuid } from '@isaacmason/rapida-common';
 import * as three from 'three';
 import Event from './event';
 
-abstract class Component {
+class Component implements IComponent {
   /**
    * This component instances unique id
    */
@@ -27,19 +27,19 @@ abstract class Component {
   /**
    * Initialisation logic. The entity will be available in this method.
    */
-  abstract init(): void;
+  init = (): void => {};
 
   /**
    * Destruction logic
    */
-  abstract destroy(): void;
+  destroy = (): void => {};
 
   /**
    * Update logic
-   * @param timeElapsed the time since the last update for this component in milliseconds
+   * @param timeElapsed the time since the last update for this component in seconds
    */
   // eslint-disable-next-line no-unused-vars
-  abstract update(timeElapsed: number): void;
+  update = (timeElapsed: number): void => {};
 
   /**
    * Adds a handler for events
@@ -93,7 +93,19 @@ abstract class Component {
   }
 }
 
-class Entity {
+const ENTITY_POSITION_UPDATE_EVENT = 'e.position.update';
+interface EntityPositionUpdateEvent {
+  topic: typeof ENTITY_POSITION_UPDATE_EVENT;
+  data: three.Vector3;
+}
+
+const ENTITY_ROTATION_UPDATE_EVENT = 'e.rotation.update';
+interface EntityRotationUpdateEvent {
+  topic: typeof ENTITY_POSITION_UPDATE_EVENT;
+  data: three.Quaternion;
+}
+
+class Entity implements IEntity {
   /**
    * The unique ID of the entity
    */
@@ -133,16 +145,21 @@ class Entity {
   /**
    * The position of the entity
    */
-  position: three.Vector3;
+  get position() {
+    return this.group.position;
+  }
 
   /**
    * The rotation of the entity
    */
-  rotation: three.Quaternion;
+  get rotation() {
+    return this.group.rotation;
+  }
 
   /**
    * The handlers for this entity
    */
+  // todo: entityHandlers: { [eventName: string]: { [handlerName: string]: Function } };
   entityHandlers: { [eventName: string]: Function };
 
   /**
@@ -157,8 +174,6 @@ class Entity {
     this.playing = true;
     this.alive = true;
     this.components = {};
-    this.position = new three.Vector3();
-    this.rotation = new three.Quaternion();
     this.entityHandlers = {};
   }
 
@@ -227,7 +242,9 @@ class Entity {
    */
   addComponent(c: Component): Entity {
     // add the component to the entity
-    this.components[c.name] = c;
+    this.components[c.name] = c as Component;
+    // eslint-disable-next-line no-param-reassign
+    c.entity = this;
     return this;
   }
 
@@ -286,7 +303,7 @@ class Entity {
    * @param p the new position for the entity
    */
   setPosition(p: three.Vector3): Entity {
-    this.position.copy(p);
+    this.group.position.set(p.x, p.y, p.z);
     this.broadcastToEntity({
       topic: 'update.position',
       data: this.position,
@@ -299,7 +316,7 @@ class Entity {
    * @param r the new rotation for the entity
    */
   setRotation(r: three.Quaternion): Entity {
-    this.rotation.copy(r);
+    this.group.rotation.set(r.x, r.y, r.z);
     this.broadcastToEntity({
       topic: 'update.rotation',
       data: this.rotation,
@@ -392,7 +409,7 @@ class Scene {
 
   /**
    * Updates all entities within the scene
-   * @param timeElapsed the time since the last update in milliseconds
+   * @param timeElapsed the time since the last update in seconds
    */
   update(timeElapsed: number): void {
     this.updateHooks.forEach((u) => u(timeElapsed));
@@ -427,4 +444,12 @@ class Scene {
   }
 }
 
-export { Scene, Entity, Component };
+export {
+  Scene,
+  Entity,
+  Component,
+  ENTITY_POSITION_UPDATE_EVENT,
+  ENTITY_ROTATION_UPDATE_EVENT,
+  EntityPositionUpdateEvent,
+  EntityRotationUpdateEvent,
+};

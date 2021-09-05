@@ -1,9 +1,12 @@
+import * as three from 'three';
+import { Camera } from 'three';
 import {
+  ThreeCameraDestroyEvent,
+  ThreeCameraInitEvent,
   THREE_CAMERA_DESTROY,
   THREE_CAMERA_INIT,
-} from 'src/components/camera.component';
-import { Scene } from 'src/core/core';
-import * as three from 'three';
+} from './components/camera.component';
+import { Scene } from './core/core';
 
 /**
  * A simple client runtime to work with the simple scene class.
@@ -37,7 +40,7 @@ class SimpleClientRuntime {
    */
   private previousAnimationFrame: number | undefined;
 
-  constructor(renderer?: three.WebGLRenderer) {
+  constructor(domId: string, renderer?: three.WebGLRenderer) {
     // Set up the renderer
     if (renderer) {
       this.renderer = renderer;
@@ -45,18 +48,21 @@ class SimpleClientRuntime {
       this.renderer = new three.WebGLRenderer({
         antialias: true,
       });
-      this.renderer.outputEncoding = three.sRGBEncoding;
-      this.renderer.gammaFactor = 2.2;
-      this.renderer.shadowMap.enabled = true;
-      this.renderer.shadowMap.type = three.PCFSoftShadowMap;
-      this.renderer.setPixelRatio(window.devicePixelRatio);
-      this.renderer.setSize(window.innerWidth, window.innerHeight);
     }
-    // Create the dom element
-    this.domElement = document.createElement('#renderer-element');
+
+    // Get the dom element with the given ID
+    this.domElement = document.getElementById(domId);
+
+    // Prepend the renderer dom element
+    this.domElement.prepend(this.renderer.domElement);
+    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.setSize(
+      this.domElement.clientWidth,
+      this.domElement.clientHeight
+    );
+
     // Create the event listener for window resizing
-    window.addEventListener('resize', this.onWindowResize, false);
-    this.onWindowResize();
+    window.addEventListener('resize', () => this.onWindowResize(), false);
   }
 
   /**
@@ -68,22 +74,20 @@ class SimpleClientRuntime {
     }
     this.scene.addSceneHandler(
       THREE_CAMERA_INIT,
-      (camera: three.PerspectiveCamera) => {
-        this.camera = camera;
+      (event: ThreeCameraInitEvent) => {
+        this.camera = event.data;
+        this.onWindowResize();
       }
     );
     this.scene.addSceneHandler(
       THREE_CAMERA_DESTROY,
       // eslint-disable-next-line no-unused-vars
-      (camera: three.PerspectiveCamera) => {
+      (event: ThreeCameraDestroyEvent) => {
         this.camera = undefined;
       }
     );
     this.scene.init();
-    requestAnimationFrame((t) => {
-      this.previousAnimationFrame = t;
-    });
-    this.raf();
+    this.RAF();
   }
 
   /**
@@ -91,34 +95,63 @@ class SimpleClientRuntime {
    * If a scene is already playing, the current scene is stopped and the new scene is started.
    * @param s the new scene to start
    */
-  setScene(s: Scene) {
+  setScene(s: Scene): SimpleClientRuntime {
     this.scene?.destroy();
     this.scene = s;
+    return this;
   }
 
   private onWindowResize() {
     if (this.camera === undefined) {
       return;
     }
-    this.camera.aspect = window.innerWidth / window.innerHeight;
+
+    this.camera.aspect =
+      this.domElement.clientWidth / this.domElement.clientHeight;
     this.camera.updateProjectionMatrix();
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setSize(
+      this.domElement.clientWidth,
+      this.domElement.clientHeight
+    );
   }
 
-  private raf() {
+  // todo: sort this render method out
+  private RAF() {
     requestAnimationFrame((t) => {
-      if (this.camera !== undefined && this.scene !== undefined) {
-        const prev = this.previousAnimationFrame || t;
+      if (this.previousAnimationFrame === undefined) {
         this.previousAnimationFrame = t;
-
-        this.renderer.render(this.scene.threeScene, this.camera);
-        this.scene.update(t - prev);
       }
+
+      this.renderer.render(
+        (this.scene as Scene).threeScene,
+        this.camera as Camera
+      );
+      const timeElapsed = t - this.previousAnimationFrame;
+      const timeElapsedS = Math.min(1.0 / 30.0, timeElapsed * 0.001);
+      (this.scene as Scene).update(timeElapsedS);
+
+      this.previousAnimationFrame = t;
+
       setTimeout(() => {
-        this.raf();
+        this.RAF();
       }, 1);
     });
   }
+
+  // private raf() {
+  //   requestAnimationFrame((t) => {
+  //     if (this.camera !== undefined && this.scene !== undefined) {
+  //       const prev = this.previousAnimationFrame || t;
+  //       this.previousAnimationFrame = t;
+
+  //       this.renderer.render(this.scene.threeScene, this.camera);
+  //       this.scene.update(t - prev);
+  //     }
+  //     setTimeout(() => {
+  //       this.raf();
+  //     }, 1);
+  //   });
+  // }
 }
 
 export default SimpleClientRuntime;
