@@ -3,7 +3,7 @@ import {
   Component,
   EntityPositionUpdateEvent,
   ENTITY_POSITION_UPDATE_EVENT,
-} from '../core/core';
+} from '../core';
 
 export const THREE_CAMERA_INIT = 'c.three.camera.init';
 export const THREE_CAMERA_UPDATE = 'c.three.camera.update';
