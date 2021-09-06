@@ -6,7 +6,7 @@ import {
   THREE_CAMERA_DESTROY,
   THREE_CAMERA_INIT,
 } from './components/camera.component';
-import { Scene } from './core/core';
+import { Scene } from './core';
 
 /**
  * A simple client runtime to work with the simple scene class.
