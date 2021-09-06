@@ -87913,7 +87913,7 @@ var Component = /** @class */ (function () {
         this.destroy = function () { };
         /**
          * Update logic
-         * @param timeElapsed the time since the last update for this component in milliseconds
+         * @param timeElapsed the time since the last update for this component in seconds
          */
         // eslint-disable-next-line no-unused-vars
         this.update = function (timeElapsed) { };
@@ -87922,29 +87922,35 @@ var Component = /** @class */ (function () {
     }
     /**
      * Adds a handler for events
-     * @param topicName the topic name
+     * @param eventName the event name
+     * @param handlerName the name of the handler
      * @param handler the handler function
      */
-    Component.prototype.addEntityHandler = function (topicName, handler) {
+    Component.prototype.addEntityHandler = function (eventName, handlerName, handler) {
         if (!this.entity) {
             throw new Error('Component is not currently attached to an entity');
         }
-        this.entity.entityHandlers[topicName] = handler;
+        this.entity.addEntityHandler(eventName, 
+        // prefix the handler name with the component name
+        "" + this.name + handlerName, handler);
         return this;
     };
     /**
      * Adds a handler for scene events
      * @param eventName the event name
+     * @param handlerName the name of the handler
      * @param handler the handler function
      */
-    Component.prototype.addSceneHandler = function (eventName, handler) {
+    Component.prototype.addSceneHandler = function (eventName, handlerName, handler) {
         if (!this.entity) {
             throw new Error('Component is not currently attached to an entity');
         }
         if (this.entity.scene === undefined) {
             throw new Error('The entities scene is not available');
         }
-        this.entity.scene.addSceneHandler(eventName, handler);
+        this.entity.scene.addSceneHandler(eventName, 
+        // prefix the handler name with the component name
+        this.name + "-" + handlerName, handler);
         return this;
     };
     /**
@@ -88072,20 +88078,28 @@ var Entity = /** @class */ (function () {
      * @param eventName the event name
      * @param handler the handler function
      */
-    Entity.prototype.addEntityHandler = function (eventName, handler) {
-        this.entityHandlers[eventName] = handler;
+    Entity.prototype.addEntityHandler = function (eventName, handlerName, handler) {
+        // create the handler object if it does not exist yet
+        if (this.entityHandlers[eventName] === undefined) {
+            this.entityHandlers[eventName] = {};
+        }
+        // add the handler
+        this.entityHandlers[eventName][handlerName] = handler;
         return this;
     };
     /**
      * Adds a handler for scene events
      * @param eventName the event name
+     * @param handlerName the name of the handler
      * @param handler the handler function
      */
-    Entity.prototype.addSceneHandler = function (eventName, handler) {
+    Entity.prototype.addSceneHandler = function (eventName, handlerName, handler) {
         if (this.scene === undefined) {
             throw new Error('Scene is not available');
         }
-        this.scene.addSceneHandler(eventName, handler);
+        this.scene.addSceneHandler(eventName, 
+        // prefix the name with the entity name
+        this.name + "-" + handlerName, handler);
         return this;
     };
     /**
@@ -88093,9 +88107,9 @@ var Entity = /** @class */ (function () {
      * @param event the event to broadcast
      */
     Entity.prototype.broadcastToEntity = function (event) {
-        var handler = this.entityHandlers[event.topic];
-        if (handler !== undefined) {
-            handler(event);
+        var handlers = this.entityHandlers[event.topic];
+        if (handlers !== undefined) {
+            Object.values(handlers).map(function (handler) { return handler(event); });
         }
         return this;
     };
@@ -88107,10 +88121,7 @@ var Entity = /** @class */ (function () {
         if (this.scene === undefined) {
             throw new Error('The scene is not available');
         }
-        var handler = this.scene.sceneHandlers[event.topic];
-        if (handler !== undefined) {
-            handler(event);
-        }
+        this.scene.broadcastToScene(event);
         return this;
     };
     /**
@@ -88189,7 +88200,7 @@ var Scene = /** @class */ (function () {
     };
     /**
      * Updates all entities within the scene
-     * @param timeElapsed the time since the last update in milliseconds
+     * @param timeElapsed the time since the last update in seconds
      */
     Scene.prototype.update = function (timeElapsed) {
         this.updateHooks.forEach(function (u) { return u(timeElapsed); });
@@ -88213,10 +88224,27 @@ var Scene = /** @class */ (function () {
     /**
      * Adds a handler for scene events
      * @param eventName the event name
+     * @param handlerName the name of the handler
      * @param handler the handler function
      */
-    Scene.prototype.addSceneHandler = function (eventName, handler) {
-        this.sceneHandlers[eventName] = handler;
+    Scene.prototype.addSceneHandler = function (eventName, handlerName, handler) {
+        // create the handler object if it does not exist yet
+        if (this.sceneHandlers[eventName] === undefined) {
+            this.sceneHandlers[eventName] = {};
+        }
+        // add the handler
+        this.sceneHandlers[eventName][handlerName] = handler;
+        return this;
+    };
+    /**
+     * Broadcasts an event for handling by the scene
+     * @param event the event to broadcast
+     */
+    Scene.prototype.broadcastToScene = function (event) {
+        var handlers = this.sceneHandlers[event.topic];
+        if (handlers !== undefined) {
+            Object.values(handlers).map(function (handler) { return handler(event); });
+        }
         return this;
     };
     return Scene;
@@ -88263,7 +88291,7 @@ var CameraComponent = /** @class */ (function (_super) {
             // set the initial camera position
             _this.camera.position.set(_this.entity.position.x, _this.entity.position.y, _this.entity.position.z);
             // move the camera with the entity position
-            _this.addEntityHandler(core_1.ENTITY_POSITION_UPDATE_EVENT, function (event) {
+            _this.addEntityHandler(core_1.ENTITY_POSITION_UPDATE_EVENT, 'updateCameraPosition', function (event) {
                 _this.camera.position.set(event.data.x, event.data.y, event.data.z);
             });
         };
@@ -88310,11 +88338,7 @@ var SimpleClientRuntime = /** @class */ (function () {
         // Prepend the renderer dom element
         this.domElement.prepend(this.renderer.domElement);
         this.renderer.setPixelRatio(window.devicePixelRatio);
-        // this.renderer.setSize(
-        //   this.domElement.clientWidth,
-        //   this.domElement.clientHeight
-        // );
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setSize(this.domElement.clientWidth, this.domElement.clientHeight);
         // Create the event listener for window resizing
         window.addEventListener('resize', function () { return _this.onWindowResize(); }, false);
     }
@@ -88326,11 +88350,11 @@ var SimpleClientRuntime = /** @class */ (function () {
         if (this.scene === undefined) {
             throw new Error('Cannot init as the scene is undefined');
         }
-        this.scene.addSceneHandler(camera_component_1.THREE_CAMERA_INIT, function (event) {
+        this.scene.addSceneHandler(camera_component_1.THREE_CAMERA_INIT, 'registerCamera', function (event) {
             _this.camera = event.data;
             _this.onWindowResize();
         });
-        this.scene.addSceneHandler(camera_component_1.THREE_CAMERA_DESTROY, 
+        this.scene.addSceneHandler(camera_component_1.THREE_CAMERA_DESTROY, 'destroyCamera', 
         // eslint-disable-next-line no-unused-vars
         function (event) {
             _this.camera = undefined;
@@ -88413,7 +88437,7 @@ function useFirstRender() {
 }
 
 exports.useFirstRender = useFirstRender;
-},{"react":"../node_modules/react/index.js"}],"examples/spinning-cube.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js"}],"examples/spinning-cube/index.tsx":[function(require,module,exports) {
 "use strict";
 
 var __extends = this && this.__extends || function () {
@@ -88490,7 +88514,7 @@ var react_1 = require("react");
 
 var rapida_client_2 = require("@isaacmason/rapida-client");
 
-var hooks_1 = require("../hooks");
+var hooks_1 = require("../../hooks");
 
 var SpinningCubeComponent = function (_super) {
   __extends(SpinningCubeComponent, _super);
@@ -88583,7 +88607,7 @@ var SpinningCube = function SpinningCube() {
 };
 
 exports.default = SpinningCube;
-},{"react":"../node_modules/react/index.js","@isaacmason/rapida-client":"../node_modules/@isaacmason/rapida-client/lib/index.js","../hooks":"hooks/index.ts"}],"home.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@isaacmason/rapida-client":"../node_modules/@isaacmason/rapida-client/lib/index.js","../../hooks":"hooks/index.ts"}],"home.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
@@ -88764,7 +88788,7 @@ var App = function App() {
 };
 
 exports.default = App;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./examples/spinning-cube":"examples/spinning-cube.tsx","./home":"home.tsx"}],"index.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./examples/spinning-cube":"examples/spinning-cube/index.tsx","./home":"home.tsx"}],"index.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
@@ -88846,7 +88870,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55848" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49784" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
