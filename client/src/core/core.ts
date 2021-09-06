@@ -43,30 +43,50 @@ class Component implements IComponent {
 
   /**
    * Adds a handler for events
-   * @param topicName the topic name
+   * @param eventName the event name
+   * @param handlerName the name of the handler
    * @param handler the handler function
    */
-  addEntityHandler(topicName: string, handler: Function): Component {
+  addEntityHandler(
+    eventName: string,
+    handlerName: string,
+    handler: Function
+  ): Component {
     if (!this.entity) {
       throw new Error('Component is not currently attached to an entity');
     }
-    this.entity.entityHandlers[topicName] = handler;
+    this.entity.addEntityHandler(
+      eventName,
+      // prefix the handler name with the component name
+      `${this.name}${handlerName}`,
+      handler
+    );
     return this;
   }
 
   /**
    * Adds a handler for scene events
    * @param eventName the event name
+   * @param handlerName the name of the handler
    * @param handler the handler function
    */
-  addSceneHandler(eventName: string, handler: Function): Component {
+  addSceneHandler(
+    eventName: string,
+    handlerName: string,
+    handler: Function
+  ): Component {
     if (!this.entity) {
       throw new Error('Component is not currently attached to an entity');
     }
     if (this.entity.scene === undefined) {
       throw new Error('The entities scene is not available');
     }
-    this.entity.scene.addSceneHandler(eventName, handler);
+    this.entity.scene.addSceneHandler(
+      eventName,
+      // prefix the handler name with the component name
+      `${this.name}-${handlerName}`,
+      handler
+    );
     return this;
   }
 
@@ -159,8 +179,7 @@ class Entity implements IEntity {
   /**
    * The handlers for this entity
    */
-  // todo: entityHandlers: { [eventName: string]: { [handlerName: string]: Function } };
-  entityHandlers: { [eventName: string]: Function };
+  entityHandlers: { [eventName: string]: { [handlerName: string]: Function } };
 
   /**
    * The entity of this parent
@@ -253,21 +272,40 @@ class Entity implements IEntity {
    * @param eventName the event name
    * @param handler the handler function
    */
-  addEntityHandler(eventName: string, handler: Function): Entity {
-    this.entityHandlers[eventName] = handler;
+  addEntityHandler(
+    eventName: string,
+    handlerName: string,
+    handler: Function
+  ): Entity {
+    // create the handler object if it does not exist yet
+    if (this.entityHandlers[eventName] === undefined) {
+      this.entityHandlers[eventName] = {};
+    }
+    // add the handler
+    this.entityHandlers[eventName][handlerName] = handler;
     return this;
   }
 
   /**
    * Adds a handler for scene events
    * @param eventName the event name
+   * @param handlerName the name of the handler
    * @param handler the handler function
    */
-  addSceneHandler(eventName: string, handler: Function): Entity {
+  addSceneHandler(
+    eventName: string,
+    handlerName: string,
+    handler: Function
+  ): Entity {
     if (this.scene === undefined) {
       throw new Error('Scene is not available');
     }
-    this.scene.addSceneHandler(eventName, handler);
+    this.scene.addSceneHandler(
+      eventName,
+      // prefix the name with the entity name
+      `${this.name}-${handlerName}`,
+      handler
+    );
     return this;
   }
 
@@ -276,9 +314,9 @@ class Entity implements IEntity {
    * @param event the event to broadcast
    */
   broadcastToEntity(event: Event): Entity {
-    const handler = this.entityHandlers[event.topic];
-    if (handler !== undefined) {
-      handler(event);
+    const handlers = this.entityHandlers[event.topic];
+    if (handlers !== undefined) {
+      Object.values(handlers).map((handler) => handler(event));
     }
     return this;
   }
@@ -291,10 +329,7 @@ class Entity implements IEntity {
     if (this.scene === undefined) {
       throw new Error('The scene is not available');
     }
-    const handler = this.scene.sceneHandlers[event.topic];
-    if (handler !== undefined) {
-      handler(event);
-    }
+    this.scene.broadcastToScene(event);
     return this;
   }
 
@@ -340,7 +375,7 @@ class Scene {
   /**
    * Handlers for scene level events
    */
-  sceneHandlers: { [name: string]: Function };
+  sceneHandlers: { [eventName: string]: { [handlerName: string]: Function } };
 
   /**
    * Functions to be run when the init method is called
@@ -436,10 +471,32 @@ class Scene {
   /**
    * Adds a handler for scene events
    * @param eventName the event name
+   * @param handlerName the name of the handler
    * @param handler the handler function
    */
-  addSceneHandler(eventName: string, handler: Function): Scene {
-    this.sceneHandlers[eventName] = handler;
+  addSceneHandler(
+    eventName: string,
+    handlerName: string,
+    handler: Function
+  ): Scene {
+    // create the handler object if it does not exist yet
+    if (this.sceneHandlers[eventName] === undefined) {
+      this.sceneHandlers[eventName] = {};
+    }
+    // add the handler
+    this.sceneHandlers[eventName][handlerName] = handler;
+    return this;
+  }
+
+  /**
+   * Broadcasts an event for handling by the scene
+   * @param event the event to broadcast
+   */
+  broadcastToScene(event: Event): Scene {
+    const handlers = this.sceneHandlers[event.topic];
+    if (handlers !== undefined) {
+      Object.values(handlers).map((handler) => handler(event));
+    }
     return this;
   }
 }

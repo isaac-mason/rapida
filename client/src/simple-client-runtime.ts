@@ -74,6 +74,7 @@ class SimpleClientRuntime {
     }
     this.scene.addSceneHandler(
       THREE_CAMERA_INIT,
+      'registerCamera',
       (event: ThreeCameraInitEvent) => {
         this.camera = event.data;
         this.onWindowResize();
@@ -81,6 +82,7 @@ class SimpleClientRuntime {
     );
     this.scene.addSceneHandler(
       THREE_CAMERA_DESTROY,
+      'destroyCamera',
       // eslint-disable-next-line no-unused-vars
       (event: ThreeCameraDestroyEvent) => {
         this.camera = undefined;

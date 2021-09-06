@@ -56,6 +56,7 @@ class CameraComponent extends Component {
     // move the camera with the entity position
     this.addEntityHandler(
       ENTITY_POSITION_UPDATE_EVENT,
+      'updateCameraPosition',
       (event: EntityPositionUpdateEvent) => {
         this.camera.position.set(event.data.x, event.data.y, event.data.z);
       }

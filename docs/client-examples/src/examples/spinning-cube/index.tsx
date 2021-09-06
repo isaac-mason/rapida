@@ -2,7 +2,7 @@ import * as React from "react";
 import { three } from '@isaacmason/rapida-client';
 import { useEffect } from "react";
 import { CameraComponent, Component, Entity, Scene, SimpleClientRuntime } from "@isaacmason/rapida-client";
-import { useFirstRender } from "../hooks";
+import { useFirstRender } from "../../hooks";
 
 class SpinningCubeComponent extends Component {
   cube: three.Mesh;
