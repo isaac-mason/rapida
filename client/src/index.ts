@@ -1,8 +1,13 @@
+import { Event, EventHandler } from '@isaacmason/rapida-common';
 import * as three from 'three';
+import * as components from './components';
 import CameraComponent from './components/camera.component';
-import { Component, Entity, Scene } from './core';
-import Event from './core/event';
-import SimpleClientRuntime from './simple-client-runtime';
+import { Component } from './core/component';
+import { Entity } from './core/entity';
+import logger from './core/logger';
+import { NetworkManager } from './core/network-manager';
+import { Runtime, SceneProvider, SceneProviderParams } from './core/runtime';
+import { Scene, SceneParams, SceneType } from './core/scene';
 
 export {
   three,
@@ -10,6 +15,14 @@ export {
   Component,
   Entity,
   Event,
+  EventHandler,
   Scene,
-  SimpleClientRuntime,
+  SceneParams,
+  SceneType,
+  SceneProvider,
+  SceneProviderParams,
+  Runtime,
+  NetworkManager,
+  components,
+  logger,
 };
