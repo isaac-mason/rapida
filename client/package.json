@@ -4,6 +4,7 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
+    "prebuild": "rm -rf ./lib",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .ts"
@@ -11,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/pino": "^6.3.11",
     "@types/three": "^0.131.0",
     "@typescript-eslint/eslint-plugin": "^4.30.0",
     "@typescript-eslint/parser": "^4.30.0",
@@ -28,7 +30,9 @@
     "typescript": "^4.4.2"
   },
   "dependencies": {
-    "@isaacmason/rapida-common": "latest",
+    "@isaacmason/rapida-common": "file:../common",
+    "pino": "^6.13.2",
+    "socket.io-client": "^4.2.0",
     "three": "^0.132.2"
   }
 }

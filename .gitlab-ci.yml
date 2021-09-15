@@ -1,13 +1,12 @@
 image: node:12
 
 stages:
-- common
 - build
 - publish
 
-# Build common NPM packages
+# Build client and server NPM packages
 build-common:
-  stage: common
+  stage: build
   only:
     - tags
   script:
@@ -19,31 +18,14 @@ build-common:
       - common/lib/
     expire_in: 1 day
 
-# Publish common NPM packages
-publish-common:
-  stage: common
+build-client:
+  stage: build
   only:
     - tags
   needs:
     - build-common
   script:
-    - cd common
-    - echo @isaacmason:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
-    - echo "//gitlab.com/api/v4/projects/29283145/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
-    - npm version $CI_COMMIT_TAG --allow-same-version
-    - npm publish
-
-# Build client and server NPM packages
-build-client:
-  stage: build
-  only:
-    - tags
-  needs: 
-    - publish-common
-  script:
     - cd client
-    - echo @isaacmason:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
-    - echo "//gitlab.com/api/v4/projects/29283145/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
     - npm install
     - npm run build
   artifacts:
@@ -55,12 +37,10 @@ build-server:
   stage: build
   only:
     - tags
-  needs: 
-    - publish-common
+  needs:
+    - build-common
   script:
     - cd server
-    - echo @isaacmason:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
-    - echo "//gitlab.com/api/v4/projects/29283145/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
     - npm install
     - npm run build
   artifacts:

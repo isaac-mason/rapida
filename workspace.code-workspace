@@ -16,13 +16,23 @@
     {
       "path": "docs"
     },
+    {
+      "name": "example - client-examples",
+      "path": "examples/client-examples"
+    },
+    {
+      "name": "example - position-syncing",
+      "path": "examples/e2e-examples/position-syncing"
+    }
   ],
   "settings": {
     "typescript.preferences.importModuleSpecifier": "non-relative",
     "cSpell.words": [
       "Initialisation",
       "Initialise",
+      "initialised",
       "isaacmason",
+      "pino",
       "rapida",
       "Strapi"
     ]

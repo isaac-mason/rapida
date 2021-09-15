@@ -6,8 +6,8 @@
     "outDir": "./lib",
     "strict": true,
     "baseUrl": ".",
-    "lib": ["es2015"]
+    "lib": ["es2017"]
   },
   "include": ["src"],
-  "exclude": ["node_modules", "**/__tests__/*"]
+  "exclude": ["node_modules", "**/__tests__/*", "**/*.spec.ts"]
 }

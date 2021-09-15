@@ -1,7 +1,7 @@
 import * as React from "react";
 import { three } from '@isaacmason/rapida-client';
 import { useEffect } from "react";
-import { CameraComponent, Component, Entity, Scene, SimpleClientRuntime } from "@isaacmason/rapida-client";
+import { CameraComponent, Component, Entity, Scene, Runtime, SceneProvider } from "@isaacmason/rapida-client";
 import { useFirstRender } from "../../hooks";
 
 class SpinningCubeComponent extends Component {
@@ -58,24 +58,32 @@ const SpinningCube = () => {
   const firstRender = useFirstRender();
 
   useEffect(() => {
-    const runtime = new SimpleClientRuntime('renderer-root');
+    const runtime = new Runtime({domId: 'renderer-root'});
 
-    const scene = new Scene();
+    const sceneId = 'SpinningCube';
 
-    const camera = new Entity('camera');
-    camera.position.set(0, 0, 500);
-    camera.addComponent(new CameraComponent('camera'));
-    scene.add(camera);
+    const sceneProvider: SceneProvider = ({ runtime, networkManager }): Scene => {
+      const scene = new Scene(sceneId, { runtime, networkManager });
 
-    const light = new Entity('light');
-    light.addComponent(new LightComponent('light'));
-    scene.add(light);
+      const camera = new Entity('camera');
+      camera.position = {x: 0, y: 0, z: 500};
+      camera.addComponent(new CameraComponent(camera, 'camera'));
+      scene.add(camera);
 
-    const cube = new Entity('cube');
-    cube.addComponent(new SpinningCubeComponent('cube'));
-    scene.add(cube);
+      const light = new Entity('light');
+      light.addComponent(new LightComponent(light, 'light'));
+      scene.add(light);
 
-    runtime.setScene(scene).init();
+      const cube = new Entity('cube');
+      cube.addComponent(new SpinningCubeComponent(cube, 'cube'));
+      scene.add(cube);
+
+      return scene;
+    };
+
+    runtime.registerScene(sceneId, sceneProvider);
+
+    runtime.setScene(sceneId);
   }, [firstRender]);
 
   return (
