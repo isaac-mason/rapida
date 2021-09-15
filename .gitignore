@@ -4,4 +4,4 @@ client/lib
 server/lib
 .npmrc
 .cache
-docs/**/dist
+examples/**/dist
