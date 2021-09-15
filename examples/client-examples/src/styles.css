@@ -1,0 +1,85 @@
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+a {
+  cursor: pointer;
+}
+
+#renderer-root {
+  width: 100%;
+  overflow: hidden;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+}
+
+#top-bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 0 0.5rem;
+  height: 40px;
+  border-bottom: 1px solid #999;
+}
+
+#top-bar .separator {
+  padding: 0 0.5rem;
+}
+
+#sidebar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  position: absolute;
+  z-index: 3;
+  left: -220px;
+  width: 200px;
+  height: 100vh;
+  padding: 10px;
+  background-color: #fff;
+  border-right: 1px solid #000;
+}
+
+#sidebar.open {
+  left: 0;
+}
+
+#sidebar .link {
+  margin-top: 0.25rem;
+}
+
+.nav-open {
+  display: block;
+}
+
+.nav-close {
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #999;
+}
+
+.page-home {
+  padding: 1rem;
+}
+/*# sourceMappingURL=styles.css.map */

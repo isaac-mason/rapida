@@ -6,7 +6,8 @@
     "outDir": "./lib",
     "strict": true,
     "baseUrl": ".",
-    "lib": ["dom", "es2017"]
+    "lib": ["dom", "es2017"],
+    "esModuleInterop": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "**/__tests__/*"]
