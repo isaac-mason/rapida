@@ -1,5 +1,6 @@
 import { Event, EventHandler, EventSystem } from '@isaacmason/rapida-common';
 import * as three from 'three';
+import { System } from './system';
 import {
   ThreeCameraDestroyEvent,
   ThreeCameraInitEvent,
@@ -9,6 +10,12 @@ import {
 import { Entity } from './entity';
 import { NetworkManager } from './network-manager';
 import { Runtime } from './runtime';
+import {
+  ADD_ENTITY_TO_SCENE_EVENT_NAME,
+  AddEntityToSceneEvent,
+  REMOVE_ENTITY_FROM_SCENE_EVENT_NAME,
+  RemoveEntityFromSceneEvent,
+} from '../events/scene-events';
 
 /**
  * Scene type enum
@@ -46,9 +53,14 @@ class Scene {
   sceneType: SceneType;
 
   /**
-   * Entities managed by this EntityManager
+   * Entities in the scene
    */
   entities: { [name: string]: Entity } = {};
+
+  /**
+   * Systems in the scene
+   */
+  systems: { [name: string]: System } = {};
 
   /**
    * The currently registered camera
@@ -65,7 +77,10 @@ class Scene {
    * Getter for the runtime network manager
    */
   get networkManager(): NetworkManager {
-    if (this.runtime.networkManager === undefined) {
+    if (
+      this.sceneType === SceneType.OFFLINE ||
+      this.runtime.networkManager === undefined
+    ) {
       throw new Error('network manager is not set on runtime');
     }
     return this.runtime.networkManager;
@@ -103,19 +118,31 @@ class Scene {
 
     // init lifecycle tasks
     this.initJobs = [
-      // Initialise all entities
+      // Initialise all systems and entities
       () => {
-        Object.values(this.entities).map((e) => e.init());
+        Object.values(this.systems).forEach((s) => {
+          if (s.onSystemInit !== undefined) {
+            s.onSystemInit();
+          }
+        });
+        Object.values(this.entities).forEach((e) => e.init());
       },
     ];
 
     // update lifecycle tasks
     this.updateJobs = [
       (timeElapsed: number) => {
+        Object.values(this.systems).map((s) => {
+          if (s.onUpdate !== undefined) {
+            s.onUpdate(timeElapsed);
+          }
+        });
+      },
+      (timeElapsed: number) => {
         const dead: { [id: string]: Entity } = {};
         const alive: { [id: string]: Entity } = {};
 
-        Object.values(this.entities).forEach((e) => {
+        Object.values(this.entities).map((e) => {
           e.update(timeElapsed);
 
           if (e.alive) {
@@ -124,7 +151,7 @@ class Scene {
             dead[e.name] = e;
           }
 
-          Object.values(dead).forEach((d) => {
+          Object.values(dead).map((d) => {
             delete this.entities[d.name];
             this.threeScene.remove(d.group);
             d.destroy();
@@ -195,18 +222,71 @@ class Scene {
   }
 
   /**
-   * Adds an entity
-   * @param e the entity to add
+   * Adds an entity to the scene
+   * @param e the entity or system to add
    */
-  add(e: Entity): Scene {
-    e.setScene(this);
-    this.entities[e.name] = e;
-    this.threeScene.add(e.group);
+  add(value: Entity | System): Scene {
+    if (value instanceof Entity) {
+      // add the entity
+      value.scene = this;
+      this.entities[value.name] = value;
+      this.threeScene.add(value.group);
 
-    // initialise the entity if the scene has already been initialised
-    if (this.initialised) {
-      e.init();
+      // initialise if the scene has already been initialised
+      if (this.initialised) {
+        value.init();
+      }
+
+      // emit the entity to the scene
+      this.emit<AddEntityToSceneEvent>({
+        topic: ADD_ENTITY_TO_SCENE_EVENT_NAME,
+        data: {
+          entity: value,
+        },
+      });
+    } else if (value instanceof System) {
+      // add the system
+      value.scene = this;
+      this.systems[value.name] = value;
+
+      // retroactively add entities to the system
+      Object.values(this.entities)
+        .filter((e) => value.entityFilter && value.entityFilter(e))
+        .map((e) => value.addEntity(e));
+
+      // initialise if the scene has already been initialised
+      if (this.initialised && value.onSystemInit) {
+        value.onSystemInit();
+      }
     }
+
+    return this;
+  }
+
+  /**
+   * Removes an entity or a system from the scene
+   * @param value the entity or system to remove
+   */
+  remove(value: Entity | System): Scene {
+    if (value instanceof Entity) {
+      // remove the entity from the scene
+      delete this.entities[value.name];
+
+      // destroy the entity
+      value.destroy();
+
+      // emit the entity destroy event to the scene
+      this.emit<RemoveEntityFromSceneEvent>({
+        topic: REMOVE_ENTITY_FROM_SCENE_EVENT_NAME,
+        data: {
+          entity: value,
+        },
+      });
+    } else if (value instanceof System) {
+      // remove the system
+      delete this.systems[value.name];
+    }
+
     return this;
   }
 
@@ -234,9 +314,11 @@ class Scene {
    * Broadcasts an event for handling by the scene
    * @param event the event to broadcast
    */
-  emit(event: Event): void {
+  emit<E extends Event | Event>(event: E): void {
     return this.events.emit(event);
   }
 }
 
-export { Scene, SceneParams, SceneType };
+export default Scene;
+
+export { SceneParams, SceneType };
