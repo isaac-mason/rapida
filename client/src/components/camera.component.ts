@@ -31,13 +31,15 @@ class CameraComponent extends Component {
    */
   camera: three.PerspectiveCamera;
 
-  constructor(entity: Entity, name: string, camera?: three.PerspectiveCamera) {
-    super(entity, name);
+  constructor(name: string, camera?: three.PerspectiveCamera) {
+    super(name);
     this.camera = camera || new three.PerspectiveCamera(70, 1, 1, 1000);
-    this.entity.group.add(this.camera);
   }
 
   init = (): void => {
+    // add the camera to the scene
+    this.entity.group.add(this.camera);
+
     // broadcast the camera to the scene
     this.scene.emit({
       topic: THREE_CAMERA_INIT,

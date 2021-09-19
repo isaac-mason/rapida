@@ -64,18 +64,18 @@ describe('EventSystem', () => {
     eventSystem.on(eventName, handler);
 
     eventSystem.emit(event);
-    
+
     expect(handler).toBeCalledTimes(1);
     expect(handler).toBeCalledWith(event);
 
     eventSystem.stop();
 
     eventSystem.emit(event);
-    
+
     expect(handler).toBeCalledTimes(1);
 
     eventSystem.start();
-    
+
     expect(handler).toBeCalledTimes(2);
   });
 
