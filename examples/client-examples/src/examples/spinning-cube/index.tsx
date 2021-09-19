@@ -67,15 +67,15 @@ const SpinningCube = () => {
 
       const camera = new Entity('camera');
       camera.position = {x: 0, y: 0, z: 500};
-      camera.addComponent(new CameraComponent(camera, 'camera'));
+      camera.addComponent(new CameraComponent('camera'));
       scene.add(camera);
 
       const light = new Entity('light');
-      light.addComponent(new LightComponent(light, 'light'));
+      light.addComponent(new LightComponent('light'));
       scene.add(light);
 
       const cube = new Entity('cube');
-      cube.addComponent(new SpinningCubeComponent(cube, 'cube'));
+      cube.addComponent(new SpinningCubeComponent('cube'));
       scene.add(cube);
 
       return scene;

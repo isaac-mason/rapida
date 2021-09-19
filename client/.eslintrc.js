@@ -38,6 +38,7 @@ module.exports = {
     'array-callback-return': 'off',
     'import/no-cycle': 'off',
     'no-plusplus': 'off',
+    'no-param-reassign': 'off',
   },
   settings: {
     'import/resolver': {

@@ -5,9 +5,11 @@ module.exports = {
     es2021: true,
   },
   extends: [
-    'airbnb',
+    'airbnb-base',
     'plugin:prettier/recommended',
     'plugin:import/typescript',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -20,21 +22,20 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   rules: {
     'import/prefer-default-export': 'off',
-    indent: ['error', 2, { SwitchCase: 1 }],
+    indent: 'off',
     'import/extensions': [
       'error',
       'ignorePackages',
       {
-        js: 'never',
-        jsx: 'never',
         ts: 'never',
-        tsx: 'never',
       },
     ],
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'error',
+    'no-underscore-dangle': 'off',
+    'array-callback-return': 'off',
   },
   settings: {
     'import/resolver': {

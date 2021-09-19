@@ -4,6 +4,7 @@ import * as components from './components';
 import CameraComponent from './components/camera.component';
 import { Component } from './core/component';
 import { Entity } from './core/entity';
+import { System, SystemEntityFilter, SystemEntityFilters } from './core/system';
 import logger from './core/logger';
 import { NetworkManager } from './core/network-manager';
 import { Runtime, SceneProvider, SceneProviderParams } from './core/runtime';
@@ -21,6 +22,9 @@ export {
   SceneType,
   SceneProvider,
   SceneProviderParams,
+  System,
+  SystemEntityFilter,
+  SystemEntityFilters,
   Runtime,
   NetworkManager,
   components,
