@@ -8,7 +8,7 @@ import { System, SystemEntityFilter, SystemEntityFilters } from './core/system';
 import logger from './core/logger';
 import { NetworkManager } from './core/network-manager';
 import { Runtime, SceneProvider, SceneProviderParams } from './core/runtime';
-import { Scene, SceneParams, SceneType } from './core/scene';
+import Scene, { SceneParams, SceneType } from './core/scene';
 
 export {
   three,
