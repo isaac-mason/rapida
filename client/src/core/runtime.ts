@@ -2,7 +2,7 @@ import { Logger } from 'pino';
 import * as three from 'three';
 import logger from './logger';
 import { NetworkManager } from './network-manager';
-import { Scene } from './scene';
+import Scene from './scene';
 
 /**
  * Parameters for the scene provider method

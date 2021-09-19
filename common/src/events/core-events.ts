@@ -6,8 +6,8 @@ import { Event, EventHandler } from './index';
 interface ClientConnectionEvent {
   topic: string;
   data: {
-    clientId: string,
-  }
+    clientId: string;
+  };
 }
 
 /**
@@ -18,7 +18,7 @@ const CLIENT_CONNECTION_EVENT_NAME = 'client-connection';
 /**
  * The batch event type
  */
- interface BatchEvent {
+interface BatchEvent {
   topic: string;
   data: Event[];
 }
@@ -28,4 +28,11 @@ const CLIENT_CONNECTION_EVENT_NAME = 'client-connection';
  */
 const BATCH_EVENT_NAME = 'batch';
 
-export { Event, EventHandler, ClientConnectionEvent, CLIENT_CONNECTION_EVENT_NAME, BatchEvent, BATCH_EVENT_NAME };
+export {
+  Event,
+  EventHandler,
+  ClientConnectionEvent,
+  CLIENT_CONNECTION_EVENT_NAME,
+  BatchEvent,
+  BATCH_EVENT_NAME,
+};

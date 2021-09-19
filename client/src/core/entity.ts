@@ -6,7 +6,7 @@ import {
 } from '@isaacmason/rapida-common';
 import * as three from 'three';
 import { Component } from './component';
-import { Scene } from './scene';
+import Scene from './scene';
 
 class Entity {
   /**
@@ -95,15 +95,6 @@ class Entity {
   }
 
   /**
-   * Sets what scene the Entity is in
-   * @param scene the scene
-   */
-  setScene(scene: Scene): Entity {
-    this.scene = scene;
-    return this;
-  }
-
-  /**
    * Initialise the entity
    */
   init(): Entity {
@@ -152,7 +143,6 @@ class Entity {
   addComponent(c: Component): Entity {
     // add the component to the entity
     this.components[c.name] = c as Component;
-    // eslint-disable-next-line no-param-reassign
     c.entity = this;
     return this;
   }
@@ -200,7 +190,7 @@ class Entity {
    * Broadcasts an event for handling by the entity
    * @param event the event to broadcast
    */
-  emit(event: Event): void {
+  emit<E extends Event | Event>(event: E): void {
     return this.events.emit(event);
   }
 }

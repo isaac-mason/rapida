@@ -22,25 +22,28 @@ class EventSystem {
    * Whether the event system is currently processing events
    * If false, events will be put in a buffer for processing
    */
-  processing: boolean = false; 
+  processing = false;
 
   /**
    * The event handlers
    */
-  private handlers: { [eventName: string]: { [handlerId: string]: EventHandler } } = {};
+  private handlers: {
+    [eventName: string]: { [handlerId: string]: EventHandler };
+  } = {};
 
   /**
    * The events that will be processed on the next update
    */
   private buffer: Event[] = [];
 
-
   /**
    * Starts processing events and processes all events in the buffer
    */
   start(): void {
     this.processing = true;
-    this.buffer.splice(0, this.buffer.length).map((e: Event) => this.process(e));
+    this.buffer
+      .splice(0, this.buffer.length)
+      .map((e: Event) => this.process(e));
   }
 
   /**
@@ -58,7 +61,7 @@ class EventSystem {
    * @param handler the handler function
    * @returns the id of the new handler
    */
-   on(eventName: string, handler: EventHandler): string {
+  on(eventName: string, handler: EventHandler): string {
     const id = uuid();
     if (this.handlers[eventName] === undefined) {
       this.handlers[eventName] = {};
@@ -84,7 +87,7 @@ class EventSystem {
    */
   emit(event: Event): void {
     if (this.processing) {
-      this.process(event)
+      this.process(event);
     } else {
       this.buffer.push(event);
     }

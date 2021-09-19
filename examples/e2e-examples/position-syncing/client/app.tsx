@@ -5,6 +5,7 @@ import {
   three,
   CameraComponent,
   Component,
+  System,
   Entity,
   Scene,
   Runtime,
@@ -118,8 +119,8 @@ class PlayerMesh extends Component {
 class PlayerNetworkManager extends Component {
   playerId: string;
 
-  constructor(entity: Entity, name: string, playerId: string) {
-    super(entity, name);
+  constructor(name: string, playerId: string) {
+    super(name);
     this.playerId = playerId;
   }
 
@@ -151,8 +152,8 @@ class PlayerNetworkManager extends Component {
   };
 }
 
-class OtherPlayersNetworkManager extends Component {
-  init = (): void => {
+class OtherPlayersNetworkManager extends System {
+  onSystemInit = (): void => {
     this.networkManager.on(
       OTHER_BOXES_UPDATE_EVENT,
       (event: OtherBoxesUpdateEvent) => {
@@ -167,13 +168,13 @@ class OtherPlayersNetworkManager extends Component {
 
           // create or retrieve the entity
           let entity: Entity;
-          if (this.entity.scene.entities[id] === undefined) {
+          if (this.scene.entities[id] === undefined) {
             logger.debug(`creating missing player "${id}"`);
             entity = new Entity(id);
-            entity.addComponent(new PlayerMesh(entity, "mesh"));
+            entity.addComponent(new PlayerMesh("mesh"));
             this.scene.add(entity);
           } else {
-            entity = this.entity.scene.entities[id];
+            entity = this.scene.entities[id];
           }
 
           // set the entities position
@@ -208,22 +209,21 @@ class LightComponent extends Component {
   };
 }
 
-class GameNetworkManager extends Component {
-  init = (): void => {
+class GameNetworkManager extends System {
+  onSystemInit = (): void => {
     this.networkManager.on(
       PLAYER_INIT_EVENT,
       (event: PlayerInitEvent) => {
         const player = new Entity("player");
-        player.addComponent(new PlayerMesh(player, "mesh"));
-        player.addComponent(new PlayerControls(player, "controls"));
-        player.addComponent(new PlayerNetworkManager(player, "network-manager", event.data.id));
+        player.addComponent(new PlayerMesh("mesh"));
+        player.addComponent(new PlayerControls("controls"));
+        player.addComponent(new PlayerNetworkManager("network-manager", event.data.id));
 
-        const others = new Entity("other-players-network-manager");
-        others.addComponent(
-          new OtherPlayersNetworkManager(others, "other-players-network-manager")
+        this.scene.add(player);
+
+        this.scene.add(
+          new OtherPlayersNetworkManager("other-players-network-manager")
         );
-
-        this.scene.add(player).add(others);
       });
   };
 }
@@ -243,15 +243,14 @@ const App = () => {
 
       const camera = new Entity("camera");
       camera.position = { x: 0, y: 0, z: 500 };
-      camera.addComponent(new CameraComponent(camera, "camera"));
+      camera.addComponent(new CameraComponent("camera"));
+      scene.add(camera);
 
       const light = new Entity("light");
-      light.addComponent(new LightComponent(light, "light"));
+      light.addComponent(new LightComponent("light"));
+      scene.add(light);
 
-      const gameManager = new Entity("game-manager");
-      gameManager.addComponent(new GameNetworkManager(gameManager, "network-manager"))
-
-      scene.add(camera).add(light).add(gameManager);
+      scene.add(new GameNetworkManager("network-manager"))
 
       return scene;
     };

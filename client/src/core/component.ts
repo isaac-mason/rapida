@@ -2,7 +2,7 @@
 import { uuid } from '@isaacmason/rapida-common';
 import { Entity } from './entity';
 import { NetworkManager } from './network-manager';
-import { Scene } from './scene';
+import Scene from './scene';
 
 /**
  * A component of an entity that has data and behaviour
@@ -21,7 +21,22 @@ abstract class Component {
   /**
    * The entity this component belongs to. Set on adding to an Entity.
    */
-  entity: Entity;
+  private _entity?: Entity;
+
+  /**
+   * Gets the entity for the component. Available during init call.
+   */
+  get entity(): Entity {
+    return this._entity as Entity;
+  }
+
+  /**
+   * Sets what entity the component belongs to
+   * @param entity the entity
+   */
+  set entity(entity: Entity) {
+    this._entity = entity;
+  }
 
   /**
    * The scene the components entity is in
@@ -52,9 +67,8 @@ abstract class Component {
     return this.entity.scene.networkManager;
   }
 
-  constructor(entity: Entity, name: string) {
+  constructor(name: string) {
     this.id = uuid();
-    this.entity = entity;
     this.name = name;
   }
 
