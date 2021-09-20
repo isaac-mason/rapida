@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { useEffect } from "react";
 import {
   three,
-  CameraComponent,
+  components,
   Component,
   System,
   Entity,
@@ -68,7 +68,7 @@ class PlayerControls extends Component {
   };
 
   update = (timeElapsed: number) => {
-    const scalar = 100;
+    const scalar = 0.1;
     let dirty = false;
   
     const position = this.entity.position;
@@ -220,6 +220,7 @@ class GameNetworkManager extends System {
         player.addComponent(new PlayerNetworkManager("network-manager", event.data.id));
 
         this.scene.add(player);
+        console.log(player)
 
         this.scene.add(
           new OtherPlayersNetworkManager("other-players-network-manager")
@@ -243,7 +244,7 @@ const App = () => {
 
       const camera = new Entity("camera");
       camera.position = { x: 0, y: 0, z: 500 };
-      camera.addComponent(new CameraComponent("camera"));
+      camera.addComponent(new components.CameraComponent("camera"));
       scene.add(camera);
 
       const light = new Entity("light");

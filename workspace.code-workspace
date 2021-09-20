@@ -5,13 +5,13 @@
       "path": "."
     },
     {
-      "path": "common"
+      "path": "packages/rapida-common"
     },
     {
-      "path": "client"
+      "path": "packages/rapida-client"
     },
     {
-      "path": "server"
+      "path": "packages/rapida-server"
     },
     {
       "path": "docs"
