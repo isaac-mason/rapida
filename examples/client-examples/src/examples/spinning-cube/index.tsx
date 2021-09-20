@@ -1,7 +1,7 @@
 import * as React from "react";
 import { three } from '@isaacmason/rapida-client';
 import { useEffect } from "react";
-import { CameraComponent, Component, Entity, Scene, Runtime, SceneProvider } from "@isaacmason/rapida-client";
+import { components, Component, Entity, Scene, Runtime, SceneProvider } from "@isaacmason/rapida-client";
 import { useFirstRender } from "../../hooks";
 
 class SpinningCubeComponent extends Component {
@@ -21,8 +21,8 @@ class SpinningCubeComponent extends Component {
   }
   
   update = (timeElapsed: number): void => {
-    this.cube.rotation.x += timeElapsed * 2;
-    this.cube.rotation.y += timeElapsed * 0.5;
+    this.cube.rotation.x += timeElapsed * 0.0001;
+    this.cube.rotation.y += timeElapsed * 0.0001;
   }
 
   destroy = (): void => {
@@ -67,7 +67,7 @@ const SpinningCube = () => {
 
       const camera = new Entity('camera');
       camera.position = {x: 0, y: 0, z: 500};
-      camera.addComponent(new CameraComponent('camera'));
+      camera.addComponent(new components.CameraComponent('camera'));
       scene.add(camera);
 
       const light = new Entity('light');

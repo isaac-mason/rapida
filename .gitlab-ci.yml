@@ -10,12 +10,12 @@ build-common:
   only:
     - tags
   script:
-    - cd common
+    - cd packages/rapida-common
     - npm install
     - npm run build
   artifacts:
     paths:
-      - common/lib/
+      - packages/rapida-common/lib/
     expire_in: 1 day
 
 build-client:
@@ -25,12 +25,12 @@ build-client:
   needs:
     - build-common
   script:
-    - cd client
+    - cd packages/rapida-client
     - npm install
     - npm run build
   artifacts:
     paths:
-      - client/lib/
+      - packages/rapida-client/lib/
     expire_in: 1 day
 
 build-server:
@@ -45,7 +45,7 @@ build-server:
     - npm run build
   artifacts:
     paths:
-      - server/lib/
+      - packages/rapida-server/lib/
     expire_in: 1 day
 
 # Publish client and server NPM packages
@@ -56,7 +56,7 @@ publish-client:
   needs: 
     - build-client
   script:
-    - cd client
+    - cd packages/rapida-client
     - echo @isaacmason:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
     - echo "//gitlab.com/api/v4/projects/29283145/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
     - npm version $CI_COMMIT_TAG --allow-same-version
@@ -69,7 +69,7 @@ publish-server:
   needs: 
     - build-server
   script:
-    - cd server
+    - cd packages/rapida-server
     - echo @isaacmason:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
     - echo "//gitlab.com/api/v4/projects/29283145/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
     - npm version $CI_COMMIT_TAG --allow-same-version
