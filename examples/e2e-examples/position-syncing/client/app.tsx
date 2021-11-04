@@ -1,30 +1,39 @@
-import * as React from "react";
-import ReactDOM from "react-dom";
-import { useEffect } from "react";
+/* eslint-disable max-classes-per-file */
 import {
-  three,
-  components,
+  Camera,
   Component,
-  System,
   Entity,
-  Scene,
-  Runtime,
-  NetworkManager,
   logger,
-} from "@isaacmason/rapida-client";
-import { useFirstRender } from "./hooks";
+  NetworkManager,
+  Runtime,
+  Scene,
+  SceneProvider,
+  System,
+} from '@isaacmason/rapida-client';
+import * as three from 'three';
+import * as React from 'react';
+import { useEffect } from 'react';
+import ReactDOM from 'react-dom';
+import { SERVER_ENDPOINT, TESTING_ROOM_ID } from '../common';
 import {
-  SERVER_ENDPOINT,
-  TESTING_ROOM_ID,
-} from "../common";
-import { PLAYER_POSITION_UPDATE, PlayerPositionUpdateEvent } from "../common/events/client-to-server";
-import { OTHER_BOXES_UPDATE_EVENT, OtherBoxesUpdateEvent, PLAYER_INIT_EVENT, PlayerInitEvent } from "../common/events/server-to-client";
-import { SceneProvider } from "@isaacmason/rapida-client/lib/core/runtime";
+  PlayerPositionUpdateEvent,
+  PLAYER_POSITION_UPDATE,
+} from '../common/events/client-to-server';
+import {
+  OtherBoxesUpdateEvent,
+  OTHER_BOXES_UPDATE_EVENT,
+  PlayerInitEvent,
+  PLAYER_INIT_EVENT,
+} from '../common/events/server-to-client';
+import { useFirstRender } from './hooks';
 
 class PlayerControls extends Component {
   up: boolean;
+
   down: boolean;
+
   left: boolean;
+
   right: boolean;
 
   dirty = false;
@@ -36,42 +45,42 @@ class PlayerControls extends Component {
     const D_KEY = 68;
 
     const onDocumentKeyDown = (event) => {
-      var keyCode = event.which;
+      const keyCode = event.which;
 
-      if (keyCode == W_KEY) {
+      if (keyCode === W_KEY) {
         this.up = true;
-      } else if (keyCode == S_KEY) {
+      } else if (keyCode === S_KEY) {
         this.down = true;
-      } else if (keyCode == A_KEY) {
+      } else if (keyCode === A_KEY) {
         this.left = true;
-      } else if (keyCode == D_KEY) {
+      } else if (keyCode === D_KEY) {
         this.right = true;
       }
     };
 
     const onDocumentKeyUp = (event) => {
-      var keyCode = event.which;
+      const keyCode = event.which;
 
-      if (keyCode == W_KEY) {
+      if (keyCode === W_KEY) {
         this.up = false;
-      } else if (keyCode == S_KEY) {
+      } else if (keyCode === S_KEY) {
         this.down = false;
-      } else if (keyCode == A_KEY) {
+      } else if (keyCode === A_KEY) {
         this.left = false;
-      } else if (keyCode == D_KEY) {
+      } else if (keyCode === D_KEY) {
         this.right = false;
       }
     };
 
-    document.addEventListener("keyup", onDocumentKeyUp, false);
-    document.addEventListener("keydown", onDocumentKeyDown, false);
+    document.addEventListener('keyup', onDocumentKeyUp, false);
+    document.addEventListener('keydown', onDocumentKeyDown, false);
   };
 
   update = (timeElapsed: number) => {
     const scalar = 0.1;
     let dirty = false;
-  
-    const position = this.entity.position;
+
+    const { position } = this.entity;
     if (this.up) {
       position.y += scalar * timeElapsed;
       dirty = true;
@@ -102,7 +111,7 @@ class PlayerMesh extends Component {
   init = (): void => {
     const geometry = new three.BoxGeometry(50, 50, 50);
     const material = new three.MeshPhongMaterial({
-      color: "blue",
+      color: 'blue',
       specular: 0x111111,
       shininess: 30,
     });
@@ -134,7 +143,7 @@ class PlayerNetworkManager extends Component {
   };
 
   update = (timeElapsed: number) => {
-    const playerControls = this.entity.getComponent(PlayerControls)
+    const playerControls = this.entity.getComponent(PlayerControls);
     if (playerControls.dirty) {
       playerControls.dirty = false;
       this.networkManager.emit<PlayerPositionUpdateEvent>({
@@ -159,7 +168,7 @@ class OtherPlayersNetworkManager extends System {
       (event: OtherBoxesUpdateEvent) => {
         event.data.forEach((otherBox) => {
           // get the box id
-          const id = otherBox.id;
+          const { id } = otherBox;
 
           // skip if the box is the current player
           if (this.networkManager.clientId === id) {
@@ -171,7 +180,7 @@ class OtherPlayersNetworkManager extends System {
           if (this.scene.entities[id] === undefined) {
             logger.debug(`creating missing player "${id}"`);
             entity = new Entity(id);
-            entity.addComponent(new PlayerMesh("mesh"));
+            entity.addComponent(new PlayerMesh('mesh'));
             this.scene.add(entity);
           } else {
             entity = this.scene.entities[id];
@@ -211,21 +220,20 @@ class LightComponent extends Component {
 
 class GameNetworkManager extends System {
   onSystemInit = (): void => {
-    this.networkManager.on(
-      PLAYER_INIT_EVENT,
-      (event: PlayerInitEvent) => {
-        const player = new Entity("player");
-        player.addComponent(new PlayerMesh("mesh"));
-        player.addComponent(new PlayerControls("controls"));
-        player.addComponent(new PlayerNetworkManager("network-manager", event.data.id));
+    this.networkManager.on(PLAYER_INIT_EVENT, (event: PlayerInitEvent) => {
+      const player = new Entity('player');
+      player.addComponent(new PlayerMesh('mesh'));
+      player.addComponent(new PlayerControls('controls'));
+      player.addComponent(
+        new PlayerNetworkManager('network-manager', event.data.id)
+      );
 
-        this.scene.add(player);
-        console.log(player)
+      this.scene.add(player);
 
-        this.scene.add(
-          new OtherPlayersNetworkManager("other-players-network-manager")
-        );
-      });
+      this.scene.add(
+        new OtherPlayersNetworkManager('other-players-network-manager')
+      );
+    });
   };
 }
 
@@ -235,23 +243,29 @@ const App = () => {
   useEffect(() => {
     const networkManager = new NetworkManager();
 
-    const runtime = new Runtime({ domId: "renderer-root", debug: false, networkManager });
+    const runtime = new Runtime({
+      domId: 'renderer-root',
+      debug: false,
+      networkManager,
+    });
 
-    const sceneId = "ExampleScene";
+    const sceneId = 'ExampleScene';
 
-    const sceneProvider: SceneProvider = ({runtime, networkManager }) => {
-      const scene = new Scene(sceneId, { runtime, networkManager });
+    const sceneProvider: SceneProvider = (sceneContext) => {
+      const scene = new Scene(sceneId, {
+        runtime: sceneContext.runtime,
+        networkManager: sceneContext.networkManager,
+      });
 
-      const camera = new Entity("camera");
-      camera.position = { x: 0, y: 0, z: 500 };
-      camera.addComponent(new components.CameraComponent("camera"));
+      const camera = new Camera('camera');
+      camera.position.set(0, 0, 500);
       scene.add(camera);
 
-      const light = new Entity("light");
-      light.addComponent(new LightComponent("light"));
+      const light = new Entity('light');
+      light.addComponent(new LightComponent('light'));
       scene.add(light);
 
-      scene.add(new GameNetworkManager("network-manager"))
+      scene.add(new GameNetworkManager('network-manager'));
 
       return scene;
     };
@@ -265,4 +279,4 @@ const App = () => {
   return <div id="renderer-root"></div>;
 };
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'));

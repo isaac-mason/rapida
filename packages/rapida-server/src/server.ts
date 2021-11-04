@@ -2,7 +2,8 @@ import { uuid } from '@isaacmason/rapida-common';
 import { createServer, Server as HttpServer } from 'http';
 import logger, { Logger } from 'pino';
 import { Server as SocketServer } from 'socket.io';
-import { Room, RoomManager, RoomManagerProvider } from './core';
+import RoomManager, { RoomManagerProvider } from './room-manager';
+import Room from './room';
 
 interface StartServerParams {
   port: number;

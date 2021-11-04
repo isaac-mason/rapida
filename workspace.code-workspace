@@ -8,11 +8,15 @@
       "path": "packages/rapida-common"
     },
     {
+      "path": "packages/rapida-physics"
+    },
+    {
       "path": "packages/rapida-client"
     },
     {
       "path": "packages/rapida-server"
     },
+    
     {
       "path": "docs"
     },
