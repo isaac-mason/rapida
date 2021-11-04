@@ -48,7 +48,9 @@
   },
   "dependencies": {
     "cannon-es": "^0.18.0",
-    "cannon-es-debugger": "^0.1.4"
+    "cannon-es-debugger": "^0.1.4",
+    "@types/three": "^0.133.0",
+    "three": "^0.133.0"
   },
   "peerDependencies": {
     "@types/three": "^0.133.0",
