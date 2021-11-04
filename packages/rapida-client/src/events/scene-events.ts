@@ -1,4 +1,4 @@
-import { Entity } from '../core/entity';
+import { Entity } from '../ecs/entity';
 
 const ADD_ENTITY_TO_SCENE_EVENT_NAME = 'scene.e.add';
 

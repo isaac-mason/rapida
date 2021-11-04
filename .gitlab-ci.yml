@@ -4,18 +4,24 @@ stages:
 - build
 - publish
 
-# Build client and server NPM packages
+# Build common packages
 build-common:
   stage: build
   only:
     - tags
   script:
+    # build rapida-common
     - cd packages/rapida-common
+    - npm install
+    - npm run build
+    # build rapida-physics
+    - cd ../rapida-physics
     - npm install
     - npm run build
   artifacts:
     paths:
       - packages/rapida-common/lib/
+      - packages/rapida-physics/lib/
     expire_in: 1 day
 
 build-client:
@@ -48,7 +54,20 @@ build-server:
       - packages/rapida-server/lib/
     expire_in: 1 day
 
-# Publish client and server NPM packages
+# Publish NPM packages
+publish-physics:
+  stage: publish
+  only:
+    - tags
+  needs: 
+    - build-common
+  script:
+    - cd packages/rapida-physics
+    - echo @isaacmason:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
+    - echo "//gitlab.com/api/v4/projects/29283145/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
+    - npm version $CI_COMMIT_TAG --allow-same-version
+    - npm publish
+
 publish-client:
   stage: publish
   only:

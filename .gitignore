@@ -1,7 +1,5 @@
 node_modules
-common/lib
-client/lib
-server/lib
+packages/**/lib
 .npmrc
 .cache
 examples/**/dist

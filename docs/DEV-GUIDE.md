@@ -33,7 +33,7 @@ A new version can be set in package.json files with the following commands:
 > VERSION=0.0.1
 
 # update versions
-> (cd common && npm version $VERSION) && (cd server && npm version $VERSION) && (cd client && npm version $VERSION)
+> (cd packages/rapida-common && npm version $VERSION) && (cd packages/rapida-physics && npm version $VERSION) && (cd packages/rapida-server && npm version $VERSION) && (cd packages/rapida-client && npm version $VERSION)
 ```
 
 To build and release the new version in the package registry, create and push new tag based on the `main` branch with the same version.

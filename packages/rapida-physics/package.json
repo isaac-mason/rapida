@@ -1,0 +1,61 @@
+{
+  "name": "@isaacmason/rapida-physics",
+  "version": "0.0.3",
+  "description": "workerised cannon-es",
+  "keywords": [
+    "cannon",
+    "physics"
+  ],
+  "entry": "src/index.ts",
+  "main": "lib/next/index.js",
+  "module": "lib/next/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "rollup -c",
+    "eslint": "eslint .",
+    "eslint-fix": "eslint --fix .",
+    "prebuild": "tsc",
+    "prettier": "prettier --list-different .",
+    "prettier-fix": "prettier --write ."
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.5",
+    "@babel/plugin-transform-runtime": "^7.14.3",
+    "@babel/preset-env": "^7.14.4",
+    "@babel/preset-react": "^7.13.13",
+    "@babel/preset-typescript": "^7.13.0",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.28.0",
+    "@typescript-eslint/parser": "^4.28.0",
+    "eslint": "^7.29.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^2.5.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.24.0",
+    "lint-staged": "^11.0.0",
+    "prettier": "^2.4.1",
+    "rollup": "^2.57.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-sourcemaps": "^0.6.3",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "rollup-plugin-web-worker-loader": "^1.6.1",
+    "typescript": "^4.3.4"
+  },
+  "dependencies": {
+    "cannon-es": "^0.18.0",
+    "cannon-es-debugger": "^0.1.4"
+  },
+  "peerDependencies": {
+    "@types/three": "^0.133.0",
+    "three": "^0.133.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": "eslint --cache --fix",
+    "*.{js,jsx,ts,tsx,md}": "prettier --write"
+  }
+}
