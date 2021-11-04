@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { uuid } from '@isaacmason/rapida-common';
 import { Physics } from '@isaacmason/rapida-physics';
 import { Entity } from './entity';
@@ -87,12 +86,12 @@ abstract class Component {
   /**
    * Initialisation logic. The entity will be available in this method.
    */
-  init = (): void => {};
+  init: (() => void) | undefined = undefined;
 
   /**
    * Destruction logic
    */
-  destroy = (): void => {};
+  destroy: (() => void) | undefined = undefined;
 
   /**
    * Update logic for the component

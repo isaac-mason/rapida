@@ -1,5 +1,4 @@
 const path = require('path');
-// const liveServer = require('rollup-plugin-live-server');
 const resolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
 const typescript = require('rollup-plugin-typescript2');
