@@ -39,6 +39,13 @@ module.exports = {
     'import/no-cycle': 'off',
     'no-plusplus': 'off',
     'no-param-reassign': 'off',
+    '@typescript-eslint/no-unused-vars': [
+      'warn',
+      {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+      },
+    ],
   },
   settings: {
     'import/resolver': {

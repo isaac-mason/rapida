@@ -1,45 +1,31 @@
-import * as React from "react";
-import { useState } from "react";
-import {
-  BrowserRouter as Router, Link, Route, Switch
-} from "react-router-dom";
-import SpinningCube from "./examples/spinning-cube";
-import Home from "./home";
-
-type NavItem = {
-  name: string;
-  path: string;
-};
+import * as React from 'react';
+import { useState } from 'react';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import FallingCubes from './examples/falling-cubes';
+import SpinningCube from './examples/spinning-cube';
+import Home from './home';
 
 type NavRoute = {
   title: string;
   path: string;
-  component: any;
-}
+};
 
-const navItems: NavItem[] = [
-  {
-    name: 'Home',
-    path: '/',
-  },
-  {
-    name: 'Simple Spinning Cube',
-    path: '/examples/spinning-cube',
-  }
-];
+const homeNav: NavRoute = {
+  title: 'Home',
+  path: '/',
+};
 
-const routes: NavRoute[] = [
-  {
-    title: 'Simple Spinning Cube',
-    path: '/examples/spinning-cube',
-    component: SpinningCube,
-  },
-  {
-    title: 'Home',
-    path: '/',
-    component: Home,
-  },
-]
+const spinningCubeNav: NavRoute = {
+  title: 'Simple Spinning Cube',
+  path: '/examples/spinning-cube',
+};
+
+const fallingCubesNav: NavRoute = {
+  title: 'Physics Falling Cubes',
+  path: '/examples/falling-cubes',
+};
+
+const navItems: NavRoute[] = [homeNav, spinningCubeNav, fallingCubesNav];
 
 const App = () => {
   const [open, setOpen] = useState(false);
@@ -50,8 +36,13 @@ const App = () => {
         Close Nav
       </a>
       {navItems.map((i) => (
-        <Link key={i.path} to={i.path} className="link" onClick={() => setOpen(false)}>
-          {i.name}
+        <Link
+          key={i.path}
+          to={i.path}
+          className="link"
+          onClick={() => setOpen(false)}
+        >
+          {i.title}
         </Link>
       ))}
     </div>
@@ -67,16 +58,28 @@ const App = () => {
           </a>
           <div className="separator">|</div>
           <Switch>
-            {routes.map((i) => (
-              <Route key={i.path} path={i.path} component={() => (<div>{i.title}</div>)}/>
+            {navItems.map((i) => (
+              <Route
+                key={i.path}
+                path={i.path}
+                component={() => <div>{i.title}</div>}
+              />
             ))}
           </Switch>
         </div>
-        <Switch>
-          {routes.map((i) => (
-            <Route key={i.path} path={i.path} component={() => (<div className="content">{i.component()}</div>)}/>
-          ))}
-        </Switch>
+        <div className="content">
+          <Switch>
+            <Route path={fallingCubesNav.path}>
+              <FallingCubes />
+            </Route>
+            <Route path={spinningCubeNav.path}>
+              <SpinningCube />
+            </Route>
+            <Route path={homeNav.path}>
+              <Home />
+            </Route>
+          </Switch>
+        </div>
       </Router>
     </div>
   );

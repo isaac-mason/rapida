@@ -12,7 +12,7 @@ interface Event {
 /**
  * An event handler that takes an event or a type that extends the event type
  */
-type EventHandler = <C extends Event | Event>(event: C) => void;
+type EventHandler = <E extends Event | Event>(event: E) => void;
 
 /**
  * A simple event handling system
@@ -43,7 +43,7 @@ class EventSystem {
     this.processing = true;
     this.buffer
       .splice(0, this.buffer.length)
-      .map((e: Event) => this.process(e));
+      .forEach((e: Event) => this.process(e));
   }
 
   /**
@@ -100,7 +100,9 @@ class EventSystem {
   private process(event: Event): void {
     const handlers = this.handlers[event.topic];
     if (handlers !== undefined) {
-      Object.values(handlers).map((handler: EventHandler) => handler(event));
+      Object.values(handlers).forEach((handler: EventHandler) =>
+        handler(event)
+      );
     }
   }
 }
