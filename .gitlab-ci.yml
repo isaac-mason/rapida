@@ -46,7 +46,7 @@ build-server:
   needs:
     - build-common
   script:
-    - cd server
+    - cd packages/rapida-server
     - npm install
     - npm run build
   artifacts:
