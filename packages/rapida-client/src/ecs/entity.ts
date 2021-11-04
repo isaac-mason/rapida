@@ -103,7 +103,7 @@ class Entity {
    * Initialise the entity
    */
   init(): Entity {
-    this.components.forEach((c) => c.init());
+    this.components.forEach((c) => c.init && c.init());
     this.events.start();
     return this;
   }
@@ -120,7 +120,7 @@ class Entity {
    * Destroy the entities components
    */
   destroy(): void {
-    this.components.forEach((c) => c.destroy());
+    this.components.forEach((c) => c.destroy && c.destroy());
   }
 
   /**
@@ -149,7 +149,7 @@ class Entity {
     this.components.set(c.name, c);
     c.entity = this;
 
-    if (this._scene && this._scene.initialised) {
+    if (this._scene && this._scene.initialised && c.init) {
       c.init();
     }
 
@@ -171,7 +171,9 @@ class Entity {
       this.updatePool.delete(c.id);
     }
 
-    c.destroy();
+    if (c.destroy) {
+      c.destroy();
+    }
 
     return this;
   }
