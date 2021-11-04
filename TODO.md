@@ -1,6 +1,4 @@
 # TODO
 
-- Job system - the "S" of "ECS" - tool for data oriented programming
-- Client performance investigation
-- A decent way of sharing data between entities
-- Physics
+- Add missing typing to rapida-physics
+- Add support for multiple cameras

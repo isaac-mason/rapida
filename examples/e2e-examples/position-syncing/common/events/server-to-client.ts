@@ -1,4 +1,3 @@
-// !todo: player init event
 // clean up needing to init on adding to scene if scene is already init-ed
 // game manager adding player and others
 export const PLAYER_INIT_EVENT = 'player.init';
