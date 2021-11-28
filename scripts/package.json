@@ -1,0 +1,23 @@
+{
+  "name": "rapida",
+  "version": "1.0.0",
+  "description": "NPM packages for creating single-player and multi-player web-based games.",
+  "scripts": {
+    "storybook": "cd ../packages/rapida && npm run storybook",
+    "install-all": "concurrently \"cd ../packages/rapida-physics && npm i\" \"cd ../packages/rapida-common && npm i\" \"cd ../packages/rapida && npm i\" \"cd ../packages/rapida-server && npm i\"",
+    "build": "(cd ../packages/rapida-common && npm run build) && (cd ../packages/rapida-physics && npm run build) && concurrently \"cd ../packages/rapida && npm run build\" \"cd ../packages/rapida-server && npm run build\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/isaacmason/rapida.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/isaacmason/rapida/issues"
+  },
+  "homepage": "https://gitlab.com/isaacmason/rapida#readme",
+  "devDependencies": {
+    "concurrently": "^6.2.1"
+  }
+}

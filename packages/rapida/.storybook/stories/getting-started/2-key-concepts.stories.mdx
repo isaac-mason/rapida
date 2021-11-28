@@ -1,0 +1,78 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+
+<Meta title="Getting Started/2 - Key Concepts" />
+
+# Key Concepts
+
+There are a few key concepts to understand before jumping into using Rapida.
+
+Rapida uses a variant of an ECS (Entity Component System) to organise logic. If you are not familiar with what an ECS is, you should do some quick reading first:
+- https://en.wikipedia.org/wiki/Entity_component_system 
+
+## `World`
+
+A `World` can contain several of the following:
+- [Scenes](#scene)
+- [Systems](#system)
+- [Spaces](#space)
+- [Cameras](#camera)
+- [Views](#view)
+- [Physics Worlds](#physics)
+
+An entire game could be built within one world.
+
+## `Entity`
+
+An Entity is a simple class that has an id and can contain [Components](#component).
+
+Entities themselves have no behaviour, but they can have [Components](#component) added to them, and can have [Systems](#system) interact with them and their components.
+
+## `Component`
+
+Components define data and or behaviours for [Entities](#entity).
+
+Following ECS best practices, Components would only contain data, and the logic for mutating that data would live in a [System](#system).
+
+For game objects that won't have similar logic replicated though, it is possible and acceptable to put logic in components themselves.
+
+## `Space`
+
+A space contains a collection of [Entities](#entity).
+
+Spaces are useful to represent a collection of entities that interact with each other.
+
+For example, you could have a space to represent a room in a game. On entering the room, the space containing entities 
+for that room could be added to the world, and on leaving the room, the space could be removed from the world.
+
+## `Scene`
+
+A `Scene` is a simple wrapper around a three js scene that can contain three objects.
+
+[Entities](#entity) don't belong to Scenes, rather [Components](#component) and [Systems](#system) can add to scenes.
+This makes it much more straightforward to have multiple scenes in one [World](#world).
+
+## `Camera`
+
+A `Camera` is a slim wrapper around three js cameras. 
+
+## `View`
+
+A view defines how a portion of the WebGLRenderers canvas should be rendered.
+
+It requires a [Camera](#camera) and a [Scene](#scene) to be given, as well as an optional viewport and scissor argument.
+
+The **viewport** sets how to convert from a shader's clip space to some portion of the canvas's pixel space.
+
+The **scissor** defines the shape outside of which nothing can be rendered.
+
+In most cases, a world will only have one view.
+
+Some examples of how multiple views could be used are:
+- A two player split screen game, where each player has a view of half the screen
+- A part of a HUD in the corner of the screen renders its own 3d map of the environment
+
+
+
+## `Runtime`
+
+The `Runtime` contains the three js WebGLRenderer and facilitates loops to run a `World`. Only one world can be run at a time per Runtime.

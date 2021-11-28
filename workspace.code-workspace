@@ -11,7 +11,7 @@
       "path": "packages/rapida-physics"
     },
     {
-      "path": "packages/rapida-client"
+      "path": "packages/rapida"
     },
     {
       "path": "packages/rapida-server"
@@ -21,12 +21,8 @@
       "path": "docs"
     },
     {
-      "name": "example - client-examples",
-      "path": "examples/client-examples"
-    },
-    {
       "name": "example - position-syncing",
-      "path": "examples/e2e-examples/position-syncing"
+      "path": "examples/client-server-position-syncing"
     }
   ],
   "settings": {

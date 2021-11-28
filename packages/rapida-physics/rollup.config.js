@@ -8,7 +8,8 @@ const pkg = require('./package.json');
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
-const moduleName = pkg.name.split('/').pop().replace(/-/g, '');
+const external = ['three']
+
 const config = [];
 
 config.push({
@@ -18,10 +19,11 @@ config.push({
     format: 'esm',
     sourcemap: true,
   },
+  external,
   plugins: [
     resolve({ extensions }),
     commonjs(),
-    workerLoader({ inline: true }),
+    workerLoader({ inline: true, sourcemap: true }),
     typescript({
       typescript: require('typescript'),
       cacheRoot: path.resolve(__dirname, '.rts2_cache'),

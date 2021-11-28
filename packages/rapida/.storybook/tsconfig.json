@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@isaacmason/rapida": ["../src/index.ts"],
+    }
+  },
+  "extends": "../tsconfig",
+  "exclude": [],
+  "include": ["./stories/*"]
+}

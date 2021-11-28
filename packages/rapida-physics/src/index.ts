@@ -1,4 +1,4 @@
 import Physics from './physics';
-import { PhysicsObjectApi, PhysicsParams, PhysicsWorldCreationParams, BodyType } from './types';
+import { PhysicsObjectApi, PhysicsParams, PhysicsWorldCreationParams, BodyType, Triplet } from './types';
 
-export { Physics, PhysicsWorldCreationParams, PhysicsParams, PhysicsObjectApi, BodyType };
+export { Physics, PhysicsWorldCreationParams, PhysicsParams, PhysicsObjectApi, BodyType, Triplet };

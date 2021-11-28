@@ -129,7 +129,11 @@ class Room {
       });
 
       // emit a client connection event
-      this.logger.debug('Emitting ClientConnection event for id %s', socket.id);
+      this.logger.debug(
+        'Emitting %s event for id %s',
+        Events.CLIENT_CONNECTION_EVENT_NAME,
+        socket.id
+      );
       connection.emit({
         topic: Events.CLIENT_CONNECTION_EVENT_NAME,
         data: {

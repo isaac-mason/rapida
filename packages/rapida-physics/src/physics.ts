@@ -132,8 +132,19 @@ function apply(index: number, buffers: Buffers, object?: Object3D) {
 }
 
 class Physics {
+  /**
+   * A name for the physics world
+   */
+  id: string;
+
+  /**
+   * The physics world parameters
+   */
   params: PhysicsParams;
 
+  /**
+   * The physics web worker
+   */
   _worker: Worker = new WebWorker() as Worker;
 
   get worker(): Worker {
@@ -181,6 +192,7 @@ class Physics {
   bodies: { [uuid: string]: number } = {};
 
   constructor({
+    id,
     shouldInvalidate,
     stepSize,
     gravity,
@@ -195,6 +207,7 @@ class Physics {
     defaultContactMaterial,
     size,
   }: PhysicsWorldCreationParams) {
+    this.id = id || Date.now().toString();
     this.params = {
       shouldInvalidate: shouldInvalidate || true,
       stepSize: stepSize || 1 / 60,
@@ -276,8 +289,13 @@ class Physics {
 
     const currentWorker = this.worker;
 
-    const objectCount =
-      object instanceof InstancedMesh ? (object.instanceMatrix.setUsage(DynamicDrawUsage), object.count) : 1;
+    let objectCount: number;
+    if (object instanceof InstancedMesh) {
+      object.instanceMatrix.setUsage(DynamicDrawUsage);
+      objectCount = object.count;
+    } else {
+      objectCount = 1;
+    }
 
     const uuid =
       object instanceof InstancedMesh
