@@ -47,7 +47,7 @@ A Runtime for rapida worlds
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:85](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/runtime/index.ts#L85)
+[rapida/src/runtime/index.ts:85](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/runtime/index.ts#L85)
 
 ## Properties
 
@@ -59,7 +59,7 @@ Whether the runtime is in debug mode
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:50](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/runtime/index.ts#L50)
+[rapida/src/runtime/index.ts:50](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/runtime/index.ts#L50)
 
 ___
 
@@ -71,7 +71,7 @@ The DOM element for the renderer
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:56](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/runtime/index.ts#L56)
+[rapida/src/runtime/index.ts:56](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/runtime/index.ts#L56)
 
 ___
 
@@ -83,7 +83,7 @@ The effect composer for the renderer
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:35](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/runtime/index.ts#L35)
+[rapida/src/runtime/index.ts:35](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/runtime/index.ts#L35)
 
 ___
 
@@ -97,7 +97,7 @@ Set back to false after killing the loop
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:63](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/runtime/index.ts#L63)
+[rapida/src/runtime/index.ts:63](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/runtime/index.ts#L63)
 
 ___
 
@@ -109,7 +109,7 @@ The logger for the runtime
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:40](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/runtime/index.ts#L40)
+[rapida/src/runtime/index.ts:40](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/runtime/index.ts#L40)
 
 ___
 
@@ -121,7 +121,7 @@ The time of the previous animation frame
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:73](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/runtime/index.ts#L73)
+[rapida/src/runtime/index.ts:73](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/runtime/index.ts#L73)
 
 ___
 
@@ -133,7 +133,7 @@ The renderer for the World
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:30](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/runtime/index.ts#L30)
+[rapida/src/runtime/index.ts:30](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/runtime/index.ts#L30)
 
 ___
 
@@ -145,7 +145,7 @@ The resize observer for the renderer dom element
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:83](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/runtime/index.ts#L83)
+[rapida/src/runtime/index.ts:83](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/runtime/index.ts#L83)
 
 ___
 
@@ -157,7 +157,7 @@ The stats.js instance for the runtime
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:78](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/runtime/index.ts#L78)
+[rapida/src/runtime/index.ts:78](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/runtime/index.ts#L78)
 
 ___
 
@@ -169,7 +169,7 @@ The time in milliseconds to wait before running another runtime update
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:68](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/runtime/index.ts#L68)
+[rapida/src/runtime/index.ts:68](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/runtime/index.ts#L68)
 
 ___
 
@@ -181,7 +181,7 @@ The current world in play
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:25](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/runtime/index.ts#L25)
+[rapida/src/runtime/index.ts:25](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/runtime/index.ts#L25)
 
 ___
 
@@ -197,7 +197,7 @@ The world providers for the runtime
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:45](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/runtime/index.ts#L45)
+[rapida/src/runtime/index.ts:45](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/runtime/index.ts#L45)
 
 ## Methods
 
@@ -213,7 +213,7 @@ Destroys the runtime
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:194](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/runtime/index.ts#L194)
+[rapida/src/runtime/index.ts:194](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/runtime/index.ts#L194)
 
 ___
 
@@ -229,7 +229,7 @@ The game logic loop
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:258](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/runtime/index.ts#L258)
+[rapida/src/runtime/index.ts:258](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/runtime/index.ts#L258)
 
 ___
 
@@ -245,7 +245,7 @@ Handles resizing
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:204](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/runtime/index.ts#L204)
+[rapida/src/runtime/index.ts:204](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/runtime/index.ts#L204)
 
 ___
 
@@ -261,7 +261,7 @@ The physics loop
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:278](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/runtime/index.ts#L278)
+[rapida/src/runtime/index.ts:278](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/runtime/index.ts#L278)
 
 ___
 
@@ -284,7 +284,7 @@ Registers a new world provider
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:138](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/runtime/index.ts#L138)
+[rapida/src/runtime/index.ts:138](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/runtime/index.ts#L138)
 
 ___
 
@@ -300,7 +300,7 @@ The render loop
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:222](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/runtime/index.ts#L222)
+[rapida/src/runtime/index.ts:222](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/runtime/index.ts#L222)
 
 ___
 
@@ -323,4 +323,4 @@ If a world is already playing, the current world is stopped and the new world is
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:147](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/runtime/index.ts#L147)
+[rapida/src/runtime/index.ts:147](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/runtime/index.ts#L147)

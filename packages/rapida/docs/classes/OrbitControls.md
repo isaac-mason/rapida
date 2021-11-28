@@ -48,7 +48,7 @@ A component that creates three js orbit controls
 
 #### Defined in
 
-[rapida/src/camera/orbit-controls.ts:35](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/camera/orbit-controls.ts#L35)
+[rapida/src/camera/orbit-controls.ts:35](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/orbit-controls.ts#L35)
 
 ## Properties
 
@@ -60,7 +60,7 @@ The three js orbit controls
 
 #### Defined in
 
-[rapida/src/camera/orbit-controls.ts:28](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/camera/orbit-controls.ts#L28)
+[rapida/src/camera/orbit-controls.ts:28](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/orbit-controls.ts#L28)
 
 ___
 
@@ -72,7 +72,7 @@ Params for creating the orbit controls
 
 #### Defined in
 
-[rapida/src/camera/orbit-controls.ts:33](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/camera/orbit-controls.ts#L33)
+[rapida/src/camera/orbit-controls.ts:33](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/orbit-controls.ts#L33)
 
 ## Accessors
 
@@ -90,7 +90,7 @@ CameraControls.camera
 
 #### Defined in
 
-[rapida/src/camera/camera-controls.ts:6](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/camera/camera-controls.ts#L6)
+[rapida/src/camera/camera-controls.ts:6](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera-controls.ts#L6)
 
 • `set` **camera**(`c`): `void`
 
@@ -110,7 +110,7 @@ CameraControls.camera
 
 #### Defined in
 
-[rapida/src/camera/camera-controls.ts:10](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/camera/camera-controls.ts#L10)
+[rapida/src/camera/camera-controls.ts:10](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera-controls.ts#L10)
 
 ___
 
@@ -128,7 +128,7 @@ CameraControls.rendererElement
 
 #### Defined in
 
-[rapida/src/camera/camera-controls.ts:14](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/camera/camera-controls.ts#L14)
+[rapida/src/camera/camera-controls.ts:14](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera-controls.ts#L14)
 
 ## Methods
 
@@ -146,7 +146,7 @@ CameraControls.rendererElement
 
 #### Defined in
 
-[rapida/src/camera/orbit-controls.ts:61](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/camera/orbit-controls.ts#L61)
+[rapida/src/camera/orbit-controls.ts:61](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/orbit-controls.ts#L61)
 
 ___
 
@@ -164,7 +164,7 @@ ___
 
 #### Defined in
 
-[rapida/src/camera/orbit-controls.ts:46](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/camera/orbit-controls.ts#L46)
+[rapida/src/camera/orbit-controls.ts:46](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/orbit-controls.ts#L46)
 
 ___
 
@@ -188,4 +188,4 @@ CameraControls.update
 
 #### Defined in
 
-[rapida/src/camera/orbit-controls.ts:57](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/camera/orbit-controls.ts#L57)
+[rapida/src/camera/orbit-controls.ts:57](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/orbit-controls.ts#L57)

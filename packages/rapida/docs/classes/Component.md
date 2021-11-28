@@ -1,6 +1,8 @@
 # Class: Component
 
-A component of an entity that has data and behaviour
+Component that has data and behavior through lifecycle hooks, and can be added to an entity.
+
+This class should be extended to add fields for data, and to set the methods `onInit`, `onUpdate`, and `onDestroy`.
 
 ## Table of contents
 
@@ -38,7 +40,7 @@ Constructor for a Component
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:57](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/component.ts#L57)
+[rapida/src/ecs/component.ts:59](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/component.ts#L59)
 
 ## Properties
 
@@ -50,7 +52,7 @@ The entity this component belongs to. Set on adding to an Entity.
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:22](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/component.ts#L22)
+[rapida/src/ecs/component.ts:24](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/component.ts#L24)
 
 ___
 
@@ -62,7 +64,7 @@ This component instances unique id
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:17](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/component.ts#L17)
+[rapida/src/ecs/component.ts:19](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/component.ts#L19)
 
 ___
 
@@ -74,7 +76,7 @@ Destruction logic
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:76](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/component.ts#L76)
+[rapida/src/ecs/component.ts:78](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/component.ts#L78)
 
 ___
 
@@ -86,7 +88,7 @@ Initialisation logic. The entity will be available in this method.
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:64](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/component.ts#L64)
+[rapida/src/ecs/component.ts:66](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/component.ts#L66)
 
 ___
 
@@ -101,7 +103,7 @@ If this method is not implemented in a component it will not be added to the upd
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:71](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/component.ts#L71)
+[rapida/src/ecs/component.ts:73](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/component.ts#L73)
 
 ## Accessors
 
@@ -117,7 +119,7 @@ Gets the entity for the component. Available during init call.
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:27](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/component.ts#L27)
+[rapida/src/ecs/component.ts:29](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/component.ts#L29)
 
 • `set` **entity**(`entity`): `void`
 
@@ -135,7 +137,7 @@ Sets what entity the component belongs to
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:35](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/component.ts#L35)
+[rapida/src/ecs/component.ts:37](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/component.ts#L37)
 
 ___
 
@@ -151,7 +153,7 @@ The Space the components entity is in
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:42](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/component.ts#L42)
+[rapida/src/ecs/component.ts:44](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/component.ts#L44)
 
 ___
 
@@ -167,4 +169,4 @@ The World the components entity is in
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:49](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/component.ts#L49)
+[rapida/src/ecs/component.ts:51](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/component.ts#L51)

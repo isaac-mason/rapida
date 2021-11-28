@@ -62,7 +62,7 @@
 
 #### Defined in
 
-[rapida/src/camera/camera.ts:6](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/camera/camera.ts#L6)
+[rapida/src/camera/camera.ts:6](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera.ts#L6)
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:6](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/component.ts#L6)
+[rapida/src/ecs/component.ts:6](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/component.ts#L6)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:10](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L10)
+[rapida/src/ecs/entity.ts:10](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/entity.ts#L10)
 
 ___
 
@@ -145,7 +145,7 @@ ___
 
 #### Defined in
 
-[rapida/src/ecs/query.ts:12](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/query.ts#L12)
+[rapida/src/ecs/query.ts:12](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/query.ts#L12)
 
 ___
 
@@ -166,7 +166,7 @@ Parameters for creating a new rapida runtime
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:11](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/runtime/index.ts#L11)
+[rapida/src/runtime/index.ts:11](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/runtime/index.ts#L11)
 
 ___
 
@@ -182,7 +182,7 @@ ___
 
 #### Defined in
 
-[rapida/src/scene/scene.ts:4](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/scene/scene.ts#L4)
+[rapida/src/scene/scene.ts:4](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/scene/scene.ts#L4)
 
 ___
 
@@ -194,13 +194,13 @@ Params for creating a new Space
 
 #### Type declaration
 
-| Name | Type |
-| :------ | :------ |
-| `id?` | `string` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `id?` | `string` | An id for the space, must be unique |
 
 #### Defined in
 
-[rapida/src/ecs/space.ts:17](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/space.ts#L17)
+[rapida/src/ecs/space.ts:17](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/space.ts#L17)
 
 ___
 
@@ -217,7 +217,7 @@ ___
 
 #### Defined in
 
-[rapida/src/ecs/system.ts:12](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/system.ts#L12)
+[rapida/src/ecs/system.ts:12](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/system.ts#L12)
 
 ___
 
@@ -239,7 +239,7 @@ ___
 
 #### Defined in
 
-[rapida/src/view/view.ts:28](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/view/view.ts#L28)
+[rapida/src/view/view.ts:28](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/view/view.ts#L28)
 
 ___
 
@@ -255,7 +255,7 @@ ___
 
 #### Defined in
 
-[rapida/src/world/world-provider.ts:4](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/world/world-provider.ts#L4)
+[rapida/src/world/world-provider.ts:4](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world-provider.ts#L4)
 
 ___
 
@@ -263,16 +263,18 @@ ___
 
 Ƭ **WorldParams**: `Object`
 
+Params for creating a world
+
 #### Type declaration
 
-| Name | Type |
-| :------ | :------ |
-| `id?` | `string` |
-| `runtime` | [`Runtime`](classes/Runtime.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `id?` | `string` | The unique id for the world |
+| `runtime` | [`Runtime`](classes/Runtime.md) | The runtime the world is in |
 
 #### Defined in
 
-[rapida/src/world/world.ts:31](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/world/world.ts#L31)
+[rapida/src/world/world.ts:34](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L34)
 
 ___
 
@@ -296,7 +298,7 @@ ___
 
 #### Defined in
 
-[rapida/src/world/world-provider.ts:8](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/world/world-provider.ts#L8)
+[rapida/src/world/world-provider.ts:8](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world-provider.ts#L8)
 
 ## Functions
 

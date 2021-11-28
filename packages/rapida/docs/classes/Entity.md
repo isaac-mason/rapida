@@ -1,5 +1,7 @@
 # Class: Entity
 
+Entity that contains components and calls component lifecycle methods
+
 ## Table of contents
 
 ### Constructors
@@ -12,10 +14,10 @@
 - [componentNames](Entity.md#componentnames)
 - [componentUpdatePool](Entity.md#componentupdatepool)
 - [components](Entity.md#components)
+- [enabled](Entity.md#enabled)
 - [events](Entity.md#events)
 - [id](Entity.md#id)
 - [initialised](Entity.md#initialised)
-- [playing](Entity.md#playing)
 - [space](Entity.md#space)
 
 ### Methods
@@ -30,7 +32,6 @@
 - [on](Entity.md#on)
 - [removeComponent](Entity.md#removecomponent)
 - [removeHandler](Entity.md#removehandler)
-- [setPlaying](Entity.md#setplaying)
 
 ## Constructors
 
@@ -47,7 +48,7 @@
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:64](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L64)
+[rapida/src/ecs/entity.ts:67](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/entity.ts#L67)
 
 ## Properties
 
@@ -60,7 +61,7 @@ If false, the entity will be destroyed by the Space on the next update
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:41](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L41)
+[rapida/src/ecs/entity.ts:44](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/entity.ts#L44)
 
 ___
 
@@ -72,7 +73,7 @@ A set of the names in this entity
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:29](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L29)
+[rapida/src/ecs/entity.ts:32](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/entity.ts#L32)
 
 ___
 
@@ -84,7 +85,7 @@ A map of component ids to update functions
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:56](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L56)
+[rapida/src/ecs/entity.ts:59](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/entity.ts#L59)
 
 ___
 
@@ -96,7 +97,20 @@ The components for this entity
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:24](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L24)
+[rapida/src/ecs/entity.ts:27](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/entity.ts#L27)
+
+___
+
+### enabled
+
+• **enabled**: `boolean` = `true`
+
+Whether the entity should be updated
+TODO: implement handling
+
+#### Defined in
+
+[rapida/src/ecs/entity.ts:38](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/entity.ts#L38)
 
 ___
 
@@ -108,7 +122,7 @@ The entities event system
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:62](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L62)
+[rapida/src/ecs/entity.ts:65](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/entity.ts#L65)
 
 ___
 
@@ -120,7 +134,7 @@ The unique ID of the entity
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:19](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L19)
+[rapida/src/ecs/entity.ts:22](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/entity.ts#L22)
 
 ___
 
@@ -132,20 +146,7 @@ Whether the entity has been initialised
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:46](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L46)
-
-___
-
-### playing
-
-• **playing**: `boolean` = `true`
-
-Whether the entity is 'playing', or whether updates are occurring
-TODO: implement handling
-
-#### Defined in
-
-[rapida/src/ecs/entity.ts:35](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L35)
+[rapida/src/ecs/entity.ts:49](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/entity.ts#L49)
 
 ___
 
@@ -157,7 +158,7 @@ The space the entity is in
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:51](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L51)
+[rapida/src/ecs/entity.ts:54](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/entity.ts#L54)
 
 ## Methods
 
@@ -173,7 +174,7 @@ Initialise the entity
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:75](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L75)
+[rapida/src/ecs/entity.ts:78](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/entity.ts#L78)
 
 ___
 
@@ -195,7 +196,7 @@ Updates the entity
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:85](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L85)
+[rapida/src/ecs/entity.ts:88](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/entity.ts#L88)
 
 ___
 
@@ -217,7 +218,7 @@ Adds a component to the entity
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:114](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L114)
+[rapida/src/ecs/entity.ts:108](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/entity.ts#L108)
 
 ___
 
@@ -233,7 +234,7 @@ Destroy the entities components and set the entity as dead
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:96](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L96)
+[rapida/src/ecs/entity.ts:99](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/entity.ts#L99)
 
 ___
 
@@ -261,7 +262,7 @@ Broadcasts an event for handling by the entity
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:267](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L267)
+[rapida/src/ecs/entity.ts:261](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/entity.ts#L261)
 
 ___
 
@@ -291,7 +292,7 @@ the component if it is found, or null
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:223](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L223)
+[rapida/src/ecs/entity.ts:217](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/entity.ts#L217)
 
 ___
 
@@ -315,7 +316,7 @@ whether the entity contains the given component
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:196](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L196)
+[rapida/src/ecs/entity.ts:190](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/entity.ts#L190)
 
 ___
 
@@ -340,7 +341,7 @@ the id of the created handler
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:250](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L250)
+[rapida/src/ecs/entity.ts:244](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/entity.ts#L244)
 
 ___
 
@@ -363,7 +364,7 @@ The value can either be a Component constructor, or the component instance itsel
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:156](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L156)
+[rapida/src/ecs/entity.ts:150](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/entity.ts#L150)
 
 ___
 
@@ -386,26 +387,4 @@ Removes an event handler by handler id
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:259](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L259)
-
-___
-
-### setPlaying
-
-▸ **setPlaying**(`playing`): [`Entity`](Entity.md)
-
-Sets whether the entity is playing
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `playing` | `boolean` | the new state |
-
-#### Returns
-
-[`Entity`](Entity.md)
-
-#### Defined in
-
-[rapida/src/ecs/entity.ts:105](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/ecs/entity.ts#L105)
+[rapida/src/ecs/entity.ts:253](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/entity.ts#L253)

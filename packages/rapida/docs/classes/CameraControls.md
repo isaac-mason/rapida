@@ -43,7 +43,7 @@
 
 #### Defined in
 
-[rapida/src/camera/camera-controls.ts:4](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/camera/camera-controls.ts#L4)
+[rapida/src/camera/camera-controls.ts:4](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera-controls.ts#L4)
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 #### Defined in
 
-[rapida/src/camera/camera-controls.ts:20](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/camera/camera-controls.ts#L20)
+[rapida/src/camera/camera-controls.ts:20](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera-controls.ts#L20)
 
 ## Accessors
 
@@ -81,7 +81,7 @@ ___
 
 #### Defined in
 
-[rapida/src/camera/camera-controls.ts:6](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/camera/camera-controls.ts#L6)
+[rapida/src/camera/camera-controls.ts:6](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera-controls.ts#L6)
 
 • `set` **camera**(`c`): `void`
 
@@ -97,7 +97,7 @@ ___
 
 #### Defined in
 
-[rapida/src/camera/camera-controls.ts:10](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/camera/camera-controls.ts#L10)
+[rapida/src/camera/camera-controls.ts:10](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera-controls.ts#L10)
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 #### Defined in
 
-[rapida/src/camera/camera-controls.ts:14](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/camera/camera-controls.ts#L14)
+[rapida/src/camera/camera-controls.ts:14](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera-controls.ts#L14)
 
 ## Methods
 
@@ -125,7 +125,7 @@ ___
 
 #### Defined in
 
-[rapida/src/camera/camera-controls.ts:22](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/camera/camera-controls.ts#L22)
+[rapida/src/camera/camera-controls.ts:22](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera-controls.ts#L22)
 
 ___
 
@@ -139,4 +139,4 @@ ___
 
 #### Defined in
 
-[rapida/src/camera/camera-controls.ts:18](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/camera/camera-controls.ts#L18)
+[rapida/src/camera/camera-controls.ts:18](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera-controls.ts#L18)

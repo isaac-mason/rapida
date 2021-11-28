@@ -34,7 +34,7 @@ Constructor for the scene
 
 #### Defined in
 
-[rapida/src/scene/scene.ts:27](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/scene/scene.ts#L27)
+[rapida/src/scene/scene.ts:27](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/scene/scene.ts#L27)
 
 ## Properties
 
@@ -46,7 +46,7 @@ The unique ID for the scene
 
 #### Defined in
 
-[rapida/src/scene/scene.ts:15](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/scene/scene.ts#L15)
+[rapida/src/scene/scene.ts:15](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/scene/scene.ts#L15)
 
 ___
 
@@ -58,7 +58,7 @@ The three js scene
 
 #### Defined in
 
-[rapida/src/scene/scene.ts:20](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/scene/scene.ts#L20)
+[rapida/src/scene/scene.ts:20](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/scene/scene.ts#L20)
 
 ## Methods
 
@@ -81,7 +81,7 @@ Used for adding three objects
 
 #### Defined in
 
-[rapida/src/scene/scene.ts:36](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/scene/scene.ts#L36)
+[rapida/src/scene/scene.ts:36](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/scene/scene.ts#L36)
 
 ___
 
@@ -104,4 +104,4 @@ Used for removing three objects
 
 #### Defined in
 
-[rapida/src/scene/scene.ts:53](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/scene/scene.ts#L53)
+[rapida/src/scene/scene.ts:53](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/scene/scene.ts#L53)

@@ -50,7 +50,7 @@ A view that the runtime should render
 
 #### Defined in
 
-[rapida/src/view/view.ts:137](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/view/view.ts#L137)
+[rapida/src/view/view.ts:137](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/view/view.ts#L137)
 
 ## Properties
 
@@ -62,7 +62,7 @@ The views camera
 
 #### Defined in
 
-[rapida/src/view/view.ts:71](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/view/view.ts#L71)
+[rapida/src/view/view.ts:71](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/view/view.ts#L71)
 
 ___
 
@@ -74,7 +74,7 @@ The clear color the renderer should use for this view. Defaults to black - 0x000
 
 #### Defined in
 
-[rapida/src/view/view.ts:96](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/view/view.ts#L96)
+[rapida/src/view/view.ts:96](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/view/view.ts#L96)
 
 ___
 
@@ -86,7 +86,7 @@ Whether clearDepth should be called after rendering this view
 
 #### Defined in
 
-[rapida/src/view/view.ts:91](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/view/view.ts#L91)
+[rapida/src/view/view.ts:91](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/view/view.ts#L91)
 
 ___
 
@@ -98,7 +98,7 @@ The effect composer for the view
 
 #### Defined in
 
-[rapida/src/view/view.ts:121](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/view/view.ts#L121)
+[rapida/src/view/view.ts:121](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/view/view.ts#L121)
 
 ___
 
@@ -110,7 +110,7 @@ A unique identifier for the view
 
 #### Defined in
 
-[rapida/src/view/view.ts:66](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/view/view.ts#L66)
+[rapida/src/view/view.ts:66](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/view/view.ts#L66)
 
 ___
 
@@ -122,7 +122,7 @@ The relative mouse position on the view.
 
 #### Defined in
 
-[rapida/src/view/view.ts:101](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/view/view.ts#L101)
+[rapida/src/view/view.ts:101](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/view/view.ts#L101)
 
 ___
 
@@ -134,7 +134,7 @@ The render pass for the view
 
 #### Defined in
 
-[rapida/src/view/view.ts:131](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/view/view.ts#L131)
+[rapida/src/view/view.ts:131](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/view/view.ts#L131)
 
 ___
 
@@ -146,7 +146,7 @@ The views scene
 
 #### Defined in
 
-[rapida/src/view/view.ts:76](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/view/view.ts#L76)
+[rapida/src/view/view.ts:76](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/view/view.ts#L76)
 
 ___
 
@@ -158,7 +158,7 @@ The scissor for the view. The shape outside of which nothing can be rendered
 
 #### Defined in
 
-[rapida/src/view/view.ts:86](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/view/view.ts#L86)
+[rapida/src/view/view.ts:86](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/view/view.ts#L86)
 
 ___
 
@@ -179,7 +179,7 @@ The current size of the viewport in pixels
 
 #### Defined in
 
-[rapida/src/view/view.ts:106](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/view/view.ts#L106)
+[rapida/src/view/view.ts:106](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/view/view.ts#L106)
 
 ___
 
@@ -191,7 +191,7 @@ The viewport for the view. Sets how to convert from a shader's clip space to som
 
 #### Defined in
 
-[rapida/src/view/view.ts:81](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/view/view.ts#L81)
+[rapida/src/view/view.ts:81](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/view/view.ts#L81)
 
 ___
 
@@ -203,7 +203,7 @@ The world the view belongs to
 
 #### Defined in
 
-[rapida/src/view/view.ts:126](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/view/view.ts#L126)
+[rapida/src/view/view.ts:126](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/view/view.ts#L126)
 
 ## Accessors
 
@@ -217,7 +217,7 @@ The world the view belongs to
 
 #### Defined in
 
-[rapida/src/view/view.ts:133](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/view/view.ts#L133)
+[rapida/src/view/view.ts:133](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/view/view.ts#L133)
 
 ## Methods
 
@@ -233,7 +233,7 @@ Destroys the view
 
 #### Defined in
 
-[rapida/src/view/view.ts:193](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/view/view.ts#L193)
+[rapida/src/view/view.ts:193](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/view/view.ts#L193)
 
 ___
 
@@ -247,7 +247,7 @@ ___
 
 #### Defined in
 
-[rapida/src/view/view.ts:172](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/view/view.ts#L172)
+[rapida/src/view/view.ts:172](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/view/view.ts#L172)
 
 ___
 
@@ -261,7 +261,7 @@ ___
 
 #### Defined in
 
-[rapida/src/view/view.ts:198](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/view/view.ts#L198)
+[rapida/src/view/view.ts:198](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/view/view.ts#L198)
 
 ___
 
@@ -282,7 +282,7 @@ ___
 
 #### Defined in
 
-[rapida/src/view/view.ts:210](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/view/view.ts#L210)
+[rapida/src/view/view.ts:210](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/view/view.ts#L210)
 
 ___
 
@@ -304,4 +304,4 @@ Sets the camera for the view to use
 
 #### Defined in
 
-[rapida/src/view/view.ts:168](https://gitlab.com/isaacmason/rapida/-/blob/bdcd146/packages/rapida/src/view/view.ts#L168)
+[rapida/src/view/view.ts:168](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/view/view.ts#L168)
