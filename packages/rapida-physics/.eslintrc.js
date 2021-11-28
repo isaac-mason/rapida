@@ -20,7 +20,7 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint'],
-  ignorePatterns: ['rollup.config.js'],
+  ignorePatterns: ['rollup.config.js', 'webpack.config.js'],
   rules: {
     'import/prefer-default-export': 'off',
     indent: 'off',

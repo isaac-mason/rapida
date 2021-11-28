@@ -36,6 +36,7 @@ module.exports = {
     '@typescript-eslint/no-shadow': 'error',
     'no-underscore-dangle': 'off',
     'array-callback-return': 'off',
+    'import/no-cycle': 'off',
   },
   settings: {
     'import/resolver': {

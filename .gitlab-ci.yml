@@ -31,12 +31,12 @@ build-client:
   needs:
     - build-common
   script:
-    - cd packages/rapida-client
+    - cd packages/rapida
     - npm install
     - npm run build
   artifacts:
     paths:
-      - packages/rapida-client/lib/
+      - packages/rapida/lib/
     expire_in: 1 day
 
 build-server:
@@ -75,7 +75,7 @@ publish-client:
   needs: 
     - build-client
   script:
-    - cd packages/rapida-client
+    - cd packages/rapida
     - echo @isaacmason:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
     - echo "//gitlab.com/api/v4/projects/29283145/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
     - npm version $CI_COMMIT_TAG --allow-same-version

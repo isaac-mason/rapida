@@ -1,4 +1,4 @@
-import { Event, EventHandler } from './index';
+import Event from './event';
 
 /**
  * The client connection event type
@@ -29,8 +29,6 @@ interface BatchEvent {
 const BATCH_EVENT_NAME = 'batch';
 
 export {
-  Event,
-  EventHandler,
   ClientConnectionEvent,
   CLIENT_CONNECTION_EVENT_NAME,
   BatchEvent,

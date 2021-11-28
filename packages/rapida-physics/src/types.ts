@@ -576,6 +576,7 @@ export interface RaycastVehicleProps {
 }
 
 export type PhysicsWorldCreationParams = {
+  id?: string;
   shouldInvalidate?: boolean;
   tolerance?: number;
   stepSize?: number;
