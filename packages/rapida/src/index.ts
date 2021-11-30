@@ -1,4 +1,4 @@
-import { Event, EventHandler, uuid } from '@isaacmason/rapida-common';
+import { Event, EventHandler, uuid } from '@rapidajs/rapida-common';
 import {
   Camera,
   CameraParams,

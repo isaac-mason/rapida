@@ -56,7 +56,7 @@ Constructor for a World
 
 #### Defined in
 
-[rapida/src/world/world.ts:109](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L109)
+[rapida/src/world/world.ts:109](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L109)
 
 ## Properties
 
@@ -68,7 +68,7 @@ Factories for creating something new in a world
 
 #### Defined in
 
-[rapida/src/world/world.ts:255](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L255)
+[rapida/src/world/world.ts:255](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L255)
 
 ___
 
@@ -80,7 +80,7 @@ Cameras for the world
 
 #### Defined in
 
-[rapida/src/world/world.ts:78](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L78)
+[rapida/src/world/world.ts:78](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L78)
 
 ___
 
@@ -92,7 +92,7 @@ The event system for the world
 
 #### Defined in
 
-[rapida/src/world/world.ts:103](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L103)
+[rapida/src/world/world.ts:103](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L103)
 
 ___
 
@@ -104,7 +104,7 @@ A unique id for the world
 
 #### Defined in
 
-[rapida/src/world/world.ts:53](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L53)
+[rapida/src/world/world.ts:53](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L53)
 
 ___
 
@@ -116,7 +116,7 @@ Whether the world has been initialised
 
 #### Defined in
 
-[rapida/src/world/world.ts:88](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L88)
+[rapida/src/world/world.ts:88](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L88)
 
 ___
 
@@ -128,7 +128,7 @@ Physics worlds within the world
 
 #### Defined in
 
-[rapida/src/world/world.ts:68](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L68)
+[rapida/src/world/world.ts:68](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L68)
 
 ___
 
@@ -140,7 +140,7 @@ The query manager for the world
 
 #### Defined in
 
-[rapida/src/world/world.ts:98](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L98)
+[rapida/src/world/world.ts:98](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L98)
 
 ___
 
@@ -152,7 +152,7 @@ The runtime the world is in
 
 #### Defined in
 
-[rapida/src/world/world.ts:83](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L83)
+[rapida/src/world/world.ts:83](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L83)
 
 ___
 
@@ -164,7 +164,7 @@ Scenes in the world
 
 #### Defined in
 
-[rapida/src/world/world.ts:63](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L63)
+[rapida/src/world/world.ts:63](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L63)
 
 ___
 
@@ -176,7 +176,7 @@ Spaces in the world
 
 #### Defined in
 
-[rapida/src/world/world.ts:58](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L58)
+[rapida/src/world/world.ts:58](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L58)
 
 ___
 
@@ -188,7 +188,7 @@ The system manager for the world
 
 #### Defined in
 
-[rapida/src/world/world.ts:93](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L93)
+[rapida/src/world/world.ts:93](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L93)
 
 ___
 
@@ -200,7 +200,7 @@ Views for the world
 
 #### Defined in
 
-[rapida/src/world/world.ts:73](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L73)
+[rapida/src/world/world.ts:73](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L73)
 
 ## Accessors
 
@@ -216,7 +216,7 @@ Retrieves world factories
 
 #### Defined in
 
-[rapida/src/world/world.ts:307](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L307)
+[rapida/src/world/world.ts:307](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L307)
 
 ## Methods
 
@@ -238,7 +238,7 @@ Adds a system to the World
 
 #### Defined in
 
-[rapida/src/world/world.ts:120](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L120)
+[rapida/src/world/world.ts:120](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L120)
 
 ___
 
@@ -254,7 +254,7 @@ Destroys the world
 
 #### Defined in
 
-[rapida/src/world/world.ts:215](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L215)
+[rapida/src/world/world.ts:215](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L215)
 
 ___
 
@@ -282,7 +282,7 @@ Broadcasts an event for handling by the scene
 
 #### Defined in
 
-[rapida/src/world/world.ts:248](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L248)
+[rapida/src/world/world.ts:248](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L248)
 
 ___
 
@@ -298,7 +298,7 @@ Initialises the world
 
 #### Defined in
 
-[rapida/src/world/world.ts:153](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L153)
+[rapida/src/world/world.ts:153](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L153)
 
 ___
 
@@ -329,7 +329,7 @@ the id of the new handler
 
 #### Defined in
 
-[rapida/src/world/world.ts:228](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L228)
+[rapida/src/world/world.ts:228](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L228)
 
 ___
 
@@ -345,7 +345,7 @@ Handles resizing
 
 #### Defined in
 
-[rapida/src/world/world.ts:208](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L208)
+[rapida/src/world/world.ts:208](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L208)
 
 ___
 
@@ -367,7 +367,7 @@ Removes from the scene
 
 #### Defined in
 
-[rapida/src/world/world.ts:129](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L129)
+[rapida/src/world/world.ts:129](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L129)
 
 ___
 
@@ -390,7 +390,7 @@ Removes an event handler by handler id
 
 #### Defined in
 
-[rapida/src/world/world.ts:240](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L240)
+[rapida/src/world/world.ts:240](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L240)
 
 ___
 
@@ -412,7 +412,7 @@ Updates the world
 
 #### Defined in
 
-[rapida/src/world/world.ts:185](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L185)
+[rapida/src/world/world.ts:185](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L185)
 
 ___
 
@@ -428,4 +428,4 @@ Steps the physics world
 
 #### Defined in
 
-[rapida/src/world/world.ts:198](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/world/world.ts#L198)
+[rapida/src/world/world.ts:198](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/world/world.ts#L198)

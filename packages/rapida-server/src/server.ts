@@ -1,4 +1,4 @@
-import { uuid } from '@isaacmason/rapida-common';
+import { uuid } from '@rapidajs/rapida-common';
 import { createServer, Server as HttpServer } from 'http';
 import logger, { Logger } from 'pino';
 import { Server as SocketServer } from 'socket.io';

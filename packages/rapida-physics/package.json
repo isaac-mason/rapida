@@ -1,5 +1,5 @@
 {
-  "name": "@isaacmason/rapida-physics",
+  "name": "@rapidajs/rapida-physics",
   "version": "0.0.4",
   "description": "workerised cannon-es",
   "keywords": [

@@ -2,7 +2,7 @@ import {
   Physics,
   PhysicsObjectApi,
   BodyType,
-} from '@isaacmason/rapida-physics';
+} from '@rapidajs/rapida-physics';
 import { Component } from '../../../../src';
 
 class BallPitContainer extends Component {

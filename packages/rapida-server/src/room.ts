@@ -1,7 +1,7 @@
 import logger, { Logger } from 'pino';
 import { performance } from 'perf_hooks';
 import { Namespace, Socket } from 'socket.io';
-import { EventHandler, Event, Events } from '@isaacmason/rapida-common';
+import { EventHandler, Event, Events } from '@rapidajs/rapida-common';
 import Connection from './connection';
 import RoomManager, { RoomManagerProvider } from './room-manager';
 

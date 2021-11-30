@@ -2,7 +2,7 @@ import {
   BodyType,
   Physics,
   PhysicsObjectApi,
-} from '@isaacmason/rapida-physics';
+} from '@rapidajs/rapida-physics';
 import { Mesh, Raycaster, Vector3 } from 'three';
 import { Camera, Component, View } from '../../../../src';
 

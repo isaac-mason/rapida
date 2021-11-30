@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@isaacmason/rapida": ["../src/index.ts"],
+      "@rapidajs/rapida": ["../src/index.ts"],
     }
   },
   "extends": "../tsconfig",

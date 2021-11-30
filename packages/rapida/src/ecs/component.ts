@@ -1,4 +1,4 @@
-import { uuid } from '@isaacmason/rapida-common';
+import { uuid } from '@rapidajs/rapida-common';
 import { World } from '../world';
 import { Entity } from './entity';
 import { Space } from './space';

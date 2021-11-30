@@ -1,4 +1,4 @@
-import { uuid } from '@isaacmason/rapida-common';
+import { uuid } from '@rapidajs/rapida-common';
 import * as three from 'three';
 import { World } from '../world';
 import CameraControls from './camera-controls';

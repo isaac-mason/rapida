@@ -38,7 +38,7 @@ Queries can contain a minimum of one and a maximum of three conditions, the `all
 
 #### Defined in
 
-[rapida/src/ecs/query.ts:44](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/query.ts#L44)
+[rapida/src/ecs/query.ts:44](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/ecs/query.ts#L44)
 
 ## Properties
 
@@ -50,7 +50,7 @@ A list of all component names that are involved in the conditions for this query
 
 #### Defined in
 
-[rapida/src/ecs/query.ts:37](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/query.ts#L37)
+[rapida/src/ecs/query.ts:37](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/ecs/query.ts#L37)
 
 ___
 
@@ -62,7 +62,7 @@ The current entities matched by the query
 
 #### Defined in
 
-[rapida/src/ecs/query.ts:32](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/query.ts#L32)
+[rapida/src/ecs/query.ts:32](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/ecs/query.ts#L32)
 
 ___
 
@@ -74,7 +74,7 @@ The query dedupe string
 
 #### Defined in
 
-[rapida/src/ecs/query.ts:27](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/query.ts#L27)
+[rapida/src/ecs/query.ts:27](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/ecs/query.ts#L27)
 
 ___
 
@@ -86,7 +86,7 @@ The query description for this query
 
 #### Defined in
 
-[rapida/src/ecs/query.ts:42](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/query.ts#L42)
+[rapida/src/ecs/query.ts:42](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/ecs/query.ts#L42)
 
 ## Methods
 
@@ -108,7 +108,7 @@ Adds an entity to the query
 
 #### Defined in
 
-[rapida/src/ecs/query.ts:70](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/query.ts#L70)
+[rapida/src/ecs/query.ts:70](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/ecs/query.ts#L70)
 
 ___
 
@@ -132,7 +132,7 @@ whether an entity matches the conditions of the query description
 
 #### Defined in
 
-[rapida/src/ecs/query.ts:87](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/query.ts#L87)
+[rapida/src/ecs/query.ts:87](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/ecs/query.ts#L87)
 
 ___
 
@@ -154,7 +154,7 @@ Removes an entity from the query
 
 #### Defined in
 
-[rapida/src/ecs/query.ts:78](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/query.ts#L78)
+[rapida/src/ecs/query.ts:78](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/ecs/query.ts#L78)
 
 ___
 
@@ -178,4 +178,4 @@ a string that identifies a query description
 
 #### Defined in
 
-[rapida/src/ecs/query.ts:116](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/ecs/query.ts#L116)
+[rapida/src/ecs/query.ts:116](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/ecs/query.ts#L116)

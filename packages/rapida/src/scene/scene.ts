@@ -1,4 +1,4 @@
-import { uuid } from '@isaacmason/rapida-common';
+import { uuid } from '@rapidajs/rapida-common';
 import * as three from 'three';
 
 type SceneParams = {

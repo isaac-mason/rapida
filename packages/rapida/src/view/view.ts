@@ -1,4 +1,4 @@
-import { uuid } from '@isaacmason/rapida-common';
+import { uuid } from '@rapidajs/rapida-common';
 import { Color, PerspectiveCamera, Vector2, WebGLRenderer } from 'three';
 import { EffectComposer, RenderPass } from 'three-stdlib';
 import { Scene } from '../scene';

@@ -1,6 +1,6 @@
 import logger, { Logger } from 'pino';
 import { Socket } from 'socket.io';
-import { EventHandler, Event, Events } from '@isaacmason/rapida-common';
+import { EventHandler, Event, Events } from '@rapidajs/rapida-common';
 import Room from './room';
 
 interface ConnectionParams {

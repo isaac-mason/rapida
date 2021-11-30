@@ -2,7 +2,7 @@ import {
   BodyType,
   Physics,
   PhysicsObjectApi,
-} from '@isaacmason/rapida-physics';
+} from '@rapidajs/rapida-physics';
 import {
   DynamicDrawUsage,
   InstancedMesh,

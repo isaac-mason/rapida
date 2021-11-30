@@ -1,4 +1,4 @@
-import { Event, EventHandler, Events, uuid } from '@isaacmason/rapida-common';
+import { Event, EventHandler, Events, uuid } from '@rapidajs/rapida-common';
 import { io, Socket } from 'socket.io-client';
 import { Room } from './room';
 

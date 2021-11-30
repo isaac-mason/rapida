@@ -3,7 +3,7 @@ import {
   EventHandler,
   EventSystem,
   uuid,
-} from '@isaacmason/rapida-common';
+} from '@rapidajs/rapida-common';
 import { World } from '../world';
 import { Query, QueryDescription } from './query';
 

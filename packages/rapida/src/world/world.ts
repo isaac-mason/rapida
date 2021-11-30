@@ -1,13 +1,13 @@
 import {
   Physics,
   PhysicsWorldCreationParams,
-} from '@isaacmason/rapida-physics';
+} from '@rapidajs/rapida-physics';
 import {
   Event,
   EventHandler,
   EventSystem,
   uuid,
-} from '@isaacmason/rapida-common';
+} from '@rapidajs/rapida-common';
 import { Runtime } from '../runtime';
 import { Scene, SceneParams } from '../scene';
 import { View, ViewParams } from '../view';

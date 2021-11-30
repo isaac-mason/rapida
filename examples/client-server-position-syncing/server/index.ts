@@ -4,7 +4,7 @@ import {
   Room,
   RoomManager,
   Server,
-} from '@isaacmason/rapida-server';
+} from '@rapidajs/rapida-server';
 import { CLIENT_ENDPOINT, SCENE_ID, TESTING_ROOM_ID } from 'common';
 import {
   PlayerPositionUpdateEvent,

@@ -11,9 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@isaacmason/rapida": "file:../../packages/rapida",
-    "@isaacmason/rapida-physics": "file:../../packages/rapida-physics",
-    "@isaacmason/rapida-server": "file:../../packages/rapida-server",
+    "@rapidajs/rapida": "file:../../packages/rapida",
+    "@rapidajs/rapida-physics": "file:../../packages/rapida-physics",
+    "@rapidajs/rapida-server": "file:../../packages/rapida-server",
     "@types/three": "^0.133.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

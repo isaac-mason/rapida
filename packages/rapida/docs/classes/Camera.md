@@ -41,7 +41,7 @@ A camera that can exist in a world
 
 #### Defined in
 
-[rapida/src/camera/camera.ts:40](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera.ts#L40)
+[rapida/src/camera/camera.ts:40](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/camera/camera.ts#L40)
 
 ## Properties
 
@@ -53,7 +53,7 @@ The cameras controls
 
 #### Defined in
 
-[rapida/src/camera/camera.ts:28](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera.ts#L28)
+[rapida/src/camera/camera.ts:28](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/camera/camera.ts#L28)
 
 ___
 
@@ -65,7 +65,7 @@ A unique id for the camera
 
 #### Defined in
 
-[rapida/src/camera/camera.ts:18](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera.ts#L18)
+[rapida/src/camera/camera.ts:18](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/camera/camera.ts#L18)
 
 ___
 
@@ -77,7 +77,7 @@ Whether the camera has been initialised
 
 #### Defined in
 
-[rapida/src/camera/camera.ts:38](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera.ts#L38)
+[rapida/src/camera/camera.ts:38](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/camera/camera.ts#L38)
 
 ___
 
@@ -89,7 +89,7 @@ The three js camera
 
 #### Defined in
 
-[rapida/src/camera/camera.ts:23](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera.ts#L23)
+[rapida/src/camera/camera.ts:23](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/camera/camera.ts#L23)
 
 ___
 
@@ -101,7 +101,7 @@ The world the camera belongs to
 
 #### Defined in
 
-[rapida/src/camera/camera.ts:33](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera.ts#L33)
+[rapida/src/camera/camera.ts:33](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/camera/camera.ts#L33)
 
 ## Accessors
 
@@ -115,7 +115,7 @@ The world the camera belongs to
 
 #### Defined in
 
-[rapida/src/camera/camera.ts:46](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera.ts#L46)
+[rapida/src/camera/camera.ts:46](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/camera/camera.ts#L46)
 
 • `set` **position**(`vector3`): `void`
 
@@ -131,7 +131,7 @@ The world the camera belongs to
 
 #### Defined in
 
-[rapida/src/camera/camera.ts:50](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera.ts#L50)
+[rapida/src/camera/camera.ts:50](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/camera/camera.ts#L50)
 
 ## Methods
 
@@ -147,7 +147,7 @@ Initialisation logic for the camera
 
 #### Defined in
 
-[rapida/src/camera/camera.ts:57](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera.ts#L57)
+[rapida/src/camera/camera.ts:57](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/camera/camera.ts#L57)
 
 ___
 
@@ -163,7 +163,7 @@ Destruction logic for the camera
 
 #### Defined in
 
-[rapida/src/camera/camera.ts:68](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera.ts#L68)
+[rapida/src/camera/camera.ts:68](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/camera/camera.ts#L68)
 
 ___
 
@@ -185,4 +185,4 @@ Sets the controls for the camera
 
 #### Defined in
 
-[rapida/src/camera/camera.ts:77](https://gitlab.com/isaacmason/rapida/-/blob/dccb014/packages/rapida/src/camera/camera.ts#L77)
+[rapida/src/camera/camera.ts:77](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/camera/camera.ts#L77)

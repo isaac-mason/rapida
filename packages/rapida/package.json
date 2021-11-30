@@ -1,5 +1,5 @@
 {
-  "name": "@isaacmason/rapida",
+  "name": "@rapidajs/rapida",
   "version": "0.0.4",
   "description": "",
   "main": "lib/index.js",
@@ -58,7 +58,7 @@
     "typescript": "^4.4.2"
   },
   "dependencies": {
-    "@isaacmason/rapida-common": "file:../rapida-common",
+    "@rapidajs/rapida-common": "file:../rapida-common",
     "@jest/globals": "^27.2.0",
     "@types/stats.js": "^0.17.0",
     "@types/three": "^0.133.0",
@@ -72,7 +72,7 @@
     "typedoc-plugin-markdown": "^3.11.7"
   },
   "peerDependencies": {
-    "@isaacmason/rapida-physics": "file:../rapida-physics",
+    "@rapidajs/rapida-physics": "file:../rapida-physics",
     "three": "^0.133.0"
   }
 }
