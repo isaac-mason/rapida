@@ -63,7 +63,7 @@ publish-physics:
     - build-common
   script:
     - cd packages/rapida-physics
-    - echo @isaacmason:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
+    - echo @rapidajs:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
     - echo "//gitlab.com/api/v4/projects/29283145/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
     - npm version $CI_COMMIT_TAG --allow-same-version
     - npm publish
@@ -76,7 +76,7 @@ publish-client:
     - build-client
   script:
     - cd packages/rapida
-    - echo @isaacmason:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
+    - echo @rapidajs:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
     - echo "//gitlab.com/api/v4/projects/29283145/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
     - npm version $CI_COMMIT_TAG --allow-same-version
     - npm publish
@@ -89,7 +89,7 @@ publish-server:
     - build-server
   script:
     - cd packages/rapida-server
-    - echo @isaacmason:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
+    - echo @rapidajs:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
     - echo "//gitlab.com/api/v4/projects/29283145/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
     - npm version $CI_COMMIT_TAG --allow-same-version
     - npm publish
