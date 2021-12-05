@@ -7,6 +7,4 @@ type WorldContext = {
 
 type WorldProvider = (worldContext: WorldContext) => World;
 
-export default WorldProvider;
-
-export { WorldContext };
+export { WorldProvider, WorldContext };

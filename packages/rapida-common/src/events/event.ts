@@ -7,4 +7,4 @@ interface Event {
   data: any;
 }
 
-export default Event;
+export { Event };

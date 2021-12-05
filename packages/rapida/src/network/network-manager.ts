@@ -20,7 +20,7 @@ class NetworkManager {
    * Handlers for the room
    */
   private handlers: {
-    [eventName: string]: { [handlerName: string]: EventHandler };
+    [eventName: string]: { [handlerName: string]: EventHandler<Event> };
   } = {};
 
   /**
@@ -108,12 +108,12 @@ class NetworkManager {
    * @param handler the handler function
    * @returns the id of the created room handler
    */
-  on = (eventName: string, handler: EventHandler): string => {
+  on = <E extends Event | Event>(eventName: string, handler: EventHandler<E>): string => {
     const id = uuid();
     if (this.handlers[eventName] === undefined) {
       this.handlers[eventName] = {};
     }
-    this.handlers[eventName][id] = handler;
+    this.handlers[eventName][id] = handler as EventHandler<Event>;
     return id;
   };
 

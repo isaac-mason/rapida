@@ -241,7 +241,10 @@ class Entity {
    * @param handler the handler function
    * @returns the id of the created handler
    */
-  on(eventName: string, handler: EventHandler): string {
+  on<E extends Event | Event>(
+    eventName: string,
+    handler: EventHandler<E>
+  ): string {
     return this.events.on(eventName, handler);
   }
 
@@ -262,7 +265,5 @@ class Entity {
     return this.events.emit(event);
   }
 }
-
-export default Entity;
 
 export { Entity, EntityParams };

@@ -33,7 +33,7 @@ class Connection {
    * Handlers for the connection
    */
   private handlers: {
-    [eventName: string]: { [handlerName: string]: EventHandler };
+    [eventName: string]: { [handlerName: string]: EventHandler<Event> };
   } = {};
 
   /**
@@ -81,7 +81,7 @@ class Connection {
   addHandler = (
     eventName: string,
     handlerName: string,
-    handler: EventHandler
+    handler: EventHandler<Event>
   ): void => {
     if (this.handlers[eventName] === undefined) {
       this.handlers[eventName] = {};

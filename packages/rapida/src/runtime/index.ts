@@ -1,6 +1,4 @@
 import { Logger } from 'pino';
-import * as three from 'three';
-import { EffectComposer } from 'three-stdlib';
 import Stats from 'stats.js';
 import logger from '../common/logger';
 import { World, WorldProvider } from '../world';
@@ -9,8 +7,6 @@ import { World, WorldProvider } from '../world';
  * Parameters for creating a new rapida runtime
  */
 type RuntimeParams = {
-  domId: string;
-  renderer?: three.WebGLRenderer;
   maxUpdatesPerSecond?: number;
   debug?: boolean;
 };
@@ -23,16 +19,6 @@ class Runtime {
    * The current world in play
    */
   world?: World;
-
-  /**
-   * The renderer for the World
-   */
-  renderer: three.WebGLRenderer;
-
-  /**
-   * The effect composer for the renderer
-   */
-  effectComposer: EffectComposer;
 
   /**
    * The logger for the runtime
@@ -77,44 +63,15 @@ class Runtime {
    */
   private stats: Stats = new Stats();
 
-  /**
-   * The resize observer for the renderer dom element
-   */
-  private resizeObserver: ResizeObserver;
-
-  constructor({ domId, renderer, maxUpdatesPerSecond, debug }: RuntimeParams) {
+  constructor(params?: RuntimeParams) {
     // Set update delay
-    this.updateDelay = 1000 / (maxUpdatesPerSecond || 60);
-
-    // Set up the renderer
-    if (renderer) {
-      this.renderer = renderer;
-    } else {
-      this.renderer = new three.WebGLRenderer({
-        antialias: true,
-      });
-    }
-
-    // Create the effect composer
-    this.effectComposer = new EffectComposer(this.renderer);
-
-    // Get the dom element with the given ID
-    this.domElement = document.getElementById(domId);
-
-    // Prepend the renderer dom element
-    this.domElement.prepend(this.renderer.domElement);
-    this.renderer.setPixelRatio(window.devicePixelRatio);
-
-    // Create the event listener for the renderer dom element resizing
-    window.addEventListener('resize', () => this.onResize(), false);
-    this.resizeObserver = new ResizeObserver(() => this.onResize());
-    this.resizeObserver.observe(this.renderer.domElement);
+    this.updateDelay = 1000 / (params?.maxUpdatesPerSecond || 60);
 
     // init world providers map
     this.worldProviders = {};
 
     // set whether the runtime should be in debug mode
-    this.debug = debug || false;
+    this.debug = params?.debug || false;
 
     // setup stats if in debug mode
     if (this.debug) {
@@ -181,10 +138,6 @@ class Runtime {
     this.physicsLoop();
     this.renderLoop();
 
-    // run the onResize method
-    this.onResize();
-
-    // return the runtime
     return this;
   }
 
@@ -195,56 +148,19 @@ class Runtime {
     this.world?.destroy();
     this.stats.dom.remove();
     this.stats.end();
-    this.resizeObserver.disconnect();
   }
 
   /**
-   * Handles resizing
-   */
-  onResize(): void {
-    if (this.world === undefined) {
-      return;
-    }
-
-    this.renderer.setSize(
-      this.domElement.clientWidth,
-      this.domElement.clientHeight
-    );
-
-    this.world.views.forEach((v) => {
-      v._onResize();
-    });
-  }
-
-  /**
-   * The render loop
+   * Runs the render loop for the runtime
    */
   private renderLoop() {
-    requestAnimationFrame((t) => {
+    requestAnimationFrame((_t) => {
       if (this.killLoop === true) {
         this.killLoop = false;
         return;
       }
 
-      // render all views
-      const rect = this.renderer.domElement.getBoundingClientRect();
-      this.world?.views.forEach((view) => {
-        this.renderer.setScissorTest(true);
-        this.renderer.setScissor(
-          view.scissor.left * rect.width,
-          view.scissor.top * rect.height,
-          view.scissor.width * rect.width,
-          view.scissor.height * rect.height
-        );
-        this.renderer.setViewport(
-          view.viewport.left * rect.width,
-          view.viewport.top * rect.height,
-          view.viewport.width * rect.width,
-          view.viewport.height * rect.height
-        );
-
-        view.effectComposer.render();
-      });
+      this.world?.render();
 
       this.stats.update();
 

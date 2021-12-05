@@ -2,8 +2,8 @@
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { Entity } from './entity';
 import { Component } from './component';
-import { QueryConditionType, QueryDescription } from './query';
-import QueryManager from './query-manager';
+import { QueryDescription } from './query';
+import { QueryManager } from './query-manager';
 import { Space } from './space';
 import { World } from '..';
 

@@ -1,22 +1,21 @@
 import { useEffect } from '@storybook/client-api';
-import { Color, PerspectiveCamera } from 'three';
+import { Color, PerspectiveCamera, WebGLRenderer } from 'three';
 import { Runtime, World, WorldProvider } from '../../../src';
-import { BallPitContainer } from './physics-ball-pit/ball-pit-container.component';
-import { Cursor } from './physics-ball-pit/cursor.component';
-import { Lights } from './physics-ball-pit/lights.component';
-import { Spheres } from './physics-ball-pit/spheres.component';
+import { BallPitContainer } from './interactive-ball-pit/ball-pit-container.component';
+import { Cursor } from './interactive-ball-pit/cursor.component';
+import { Lights } from './interactive-ball-pit/lights.component';
+import { Spheres } from './interactive-ball-pit/spheres.component';
 
 // @ts-expect-error webpack image import
 import cursorImage from '../../resources/cursor.png';
 
 export default {
-  title: 'Examples / Physics Ball Pit',
+  title: 'Physics / Interactive Ball Pit',
 };
 
-export const Default = () => {
+export const InteractiveBallPit = () => {
   useEffect(() => {
     const runtime = new Runtime({
-      domId: 'renderer-root',
       debug: true,
     });
 
@@ -26,6 +25,14 @@ export const Default = () => {
       const world = new World({
         id: worldId,
         runtime: worldContext.runtime,
+      });
+
+      const renderer = world.create.renderer.webgl({
+        domElementId: 'renderer-root',
+        renderer: new WebGLRenderer({
+          precision: 'lowp',
+          powerPreference: 'high-performance',
+        }),
       });
 
       const physics = world.create.physics({
@@ -42,7 +49,8 @@ export const Default = () => {
       });
       camera.position.set(0, 0, 40);
 
-      const view = world.create.view({
+      const view = renderer.create.view({
+        id: 'ball-pit-view',
         camera,
         scene,
       });
@@ -55,7 +63,7 @@ export const Default = () => {
         components: [new Spheres({ physics, scene, view })],
       });
       space.create.entity({
-        components: [new Cursor({ physics, camera, view })],
+        components: [new Cursor({ physics, camera, view, scene })],
       });
 
       return world;
@@ -75,7 +83,7 @@ export const Default = () => {
     height: 100%;
   }
 
-  #renderer-root canvas {
+  #renderer-root #ball-pit-view {
     cursor: url("${cursorImage}")
       39 39,
     auto;

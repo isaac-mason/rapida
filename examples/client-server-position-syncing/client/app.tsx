@@ -69,7 +69,6 @@ class PlayerControls extends Component {
   dirty = false;
 
   onInit = (): void => {
-    console.log('PlayerControls')
     this.playerMesh = this.entity.get(PlayerMesh);
 
     const W_KEY = 87;

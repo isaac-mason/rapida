@@ -149,4 +149,4 @@ class QueryManager {
   }
 }
 
-export default QueryManager;
+export { QueryManager };

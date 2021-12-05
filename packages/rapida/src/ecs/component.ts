@@ -78,6 +78,4 @@ abstract class Component {
   onDestroy: (() => void) | undefined = undefined;
 }
 
-export default Component;
-
 export { Component, ComponentParams };

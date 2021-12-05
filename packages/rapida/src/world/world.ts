@@ -1,7 +1,4 @@
-import {
-  Physics,
-  PhysicsWorldCreationParams,
-} from '@rapidajs/rapida-physics';
+import { Physics, PhysicsWorldCreationParams } from '@rapidajs/rapida-physics';
 import {
   Event,
   EventHandler,
@@ -10,7 +7,6 @@ import {
 } from '@rapidajs/rapida-common';
 import { Runtime } from '../runtime';
 import { Scene, SceneParams } from '../scene';
-import { View, ViewParams } from '../view';
 import {
   System,
   Space,
@@ -19,13 +15,25 @@ import {
   QueryManager,
 } from '../ecs';
 import { Camera, CameraParams } from '../camera';
+import {
+  RendererManager,
+  WebGLRenderer,
+  WebGLRendererParams,
+  CSSRenderer,
+  CSSRendererParams,
+} from '../renderer';
+
+type RendererFactories = {
+  webgl: (params: WebGLRendererParams) => WebGLRenderer;
+  css: (params: CSSRendererParams) => CSSRenderer;
+};
 
 type WorldFactories = {
   space: (params?: SpaceParams) => Space;
-  view: (params: ViewParams) => View;
   camera: (params?: CameraParams) => Camera;
   scene: (params?: SceneParams) => Scene;
   physics: (params: PhysicsWorldCreationParams) => Physics;
+  renderer: RendererFactories;
 };
 
 /**
@@ -44,7 +52,7 @@ type WorldParams = {
 };
 
 /**
- * A World that can contain systems, spaces containing entities, scenes, physics worlds, and views
+ * A World that can contain systems, spaces containing entities, scenes, physics worlds, and renderers
  */
 class World {
   /**
@@ -68,24 +76,9 @@ class World {
   physics: Map<string, Physics> = new Map();
 
   /**
-   * Views for the world
-   */
-  views: Map<string, View> = new Map();
-
-  /**
    * Cameras for the world
    */
   cameras: Map<string, Camera> = new Map();
-
-  /**
-   * The runtime the world is in
-   */
-  runtime: Runtime;
-
-  /**
-   * Whether the world has been initialised
-   */
-  initialised = false;
 
   /**
    * The system manager for the world
@@ -96,6 +89,21 @@ class World {
    * The query manager for the world
    */
   queryManager: QueryManager;
+
+  /**
+   * The renderer manager for the world
+   */
+  rendererManager: RendererManager;
+
+  /**
+   * Whether the world has been initialised
+   */
+  initialised = false;
+
+  /**
+   * The runtime the world is in
+   */
+  runtime: Runtime;
 
   /**
    * The event system for the world
@@ -111,6 +119,7 @@ class World {
     this.runtime = runtime;
     this.queryManager = new QueryManager(this);
     this.systemManager = new SystemManager(this);
+    this.rendererManager = new RendererManager();
   }
 
   /**
@@ -126,7 +135,7 @@ class World {
    * Removes from the scene
    * @param value the value to remove
    */
-  remove(value: System | Space | Scene | Physics | View | Camera): World {
+  remove(value: System | Space | Scene | Physics | Camera): World {
     if (value instanceof System) {
       this.systemManager.removeSystem(value);
     } else if (value instanceof Space) {
@@ -137,11 +146,8 @@ class World {
     } else if (value instanceof Physics) {
       this.physics.delete(value.id);
       value.destroy();
-    } else if (value instanceof View) {
-      this.views.delete(value.id);
     } else if (value instanceof Camera) {
       this.cameras.delete(value.id);
-      value.destroy();
     }
 
     return this;
@@ -151,22 +157,15 @@ class World {
    * Initialises the world
    */
   init(): void {
+    // Initialise the renderer manager
+    this.rendererManager._init();
+
     // Initialise systems
     this.systemManager._init();
 
     // Initialise spaces
     this.spaces.forEach((s) => {
       s._init();
-    });
-
-    // Initialise cameras
-    this.cameras.forEach((c) => {
-      c._init();
-    });
-
-    // Initialise views
-    this.views.forEach((v) => {
-      v._init();
     });
 
     // Initialise physics
@@ -179,17 +178,25 @@ class World {
   }
 
   /**
+   * Renders the world
+   */
+  render(): void {
+    this.rendererManager.render();
+  }
+
+  /**
    * Updates the world
    * @param timeElapsed the time elapsed in milliseconds
    */
   update(timeElapsed: number): void {
+    // update the renderer manager
+    this.rendererManager._update();
+
     // update systems
     this.systemManager._update(timeElapsed);
 
     // update spaces
-    this.spaces.forEach((s) => {
-      s._update(timeElapsed);
-    });
+    this.spaces.forEach((s) => s._update(timeElapsed));
   }
 
   /**
@@ -203,17 +210,11 @@ class World {
   }
 
   /**
-   * Handles resizing
-   */
-  onResize(): void {
-    this.views.forEach((v) => v._onResize());
-  }
-
-  /**
    * Destroys the world
    */
   destroy(): void {
-    this.systemManager.destroy();
+    this.rendererManager._destroy();
+    this.systemManager._destroy();
     this.spaces.forEach((s) => s.destroy());
     this.physics.forEach((p) => p.destroy());
   }
@@ -225,9 +226,9 @@ class World {
    * @param handler the handler function
    * @returns the id of the new handler
    */
-  on<_E extends Event | Event>(
+  on<E extends Event | Event>(
     eventName: string,
-    handler: EventHandler
+    handler: EventHandler<E>
   ): string {
     return this.events.on(eventName, handler);
   }
@@ -250,6 +251,24 @@ class World {
   }
 
   /**
+   * Factories for creating renderers in the world
+   */
+  private _rendererFactories: RendererFactories = {
+    webgl: (params: WebGLRendererParams): WebGLRenderer => {
+      const renderer = new WebGLRenderer(params);
+      this.rendererManager.addRenderer(renderer);
+
+      return renderer;
+    },
+    css: (params: CSSRendererParams): CSSRenderer => {
+      const renderer = new CSSRenderer(params);
+      this.rendererManager.addRenderer(renderer);
+
+      return renderer;
+    },
+  };
+
+  /**
    * Factories for creating something new in a world
    */
   private _factories: WorldFactories = {
@@ -263,23 +282,9 @@ class World {
 
       return space;
     },
-    view: (params: ViewParams): View => {
-      const view = new View(this, params);
-      this.views.set(view.id, view);
-
-      if (this.initialised) {
-        view._init();
-      }
-
-      return view;
-    },
     camera: (params?: CameraParams): Camera => {
       const camera = new Camera(this, params);
       this.cameras.set(camera.id, camera);
-
-      if (this.initialised) {
-        camera._init();
-      }
 
       return camera;
     },
@@ -299,6 +304,7 @@ class World {
 
       return physics;
     },
+    renderer: this._rendererFactories,
   };
 
   /**
@@ -308,7 +314,5 @@ class World {
     return this._factories;
   }
 }
-
-export default World;
 
 export { World, WorldParams };

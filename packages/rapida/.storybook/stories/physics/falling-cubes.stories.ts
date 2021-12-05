@@ -1,8 +1,4 @@
-import {
-  BodyType,
-  Physics,
-  PhysicsObjectApi,
-} from '@rapidajs/rapida-physics';
+import { BodyType, Physics, PhysicsObjectApi } from '@rapidajs/rapida-physics';
 import { useEffect } from '@storybook/client-api';
 import {
   AmbientLight,
@@ -18,10 +14,9 @@ import {
   Vector3,
   WebGLRenderer,
 } from 'three';
+import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
 import {
   Component,
-  Entity,
-  OrbitControls,
   Runtime,
   Scene,
   Space,
@@ -31,10 +26,10 @@ import {
 } from '../../../src';
 
 export default {
-  title: 'Physics/Cubes',
+  title: 'Physics / Falling Cubes',
 };
 
-export const Default = () => {
+export const FallingCubes = () => {
   const randomCubeColour = (): string => {
     const colours = ['#2F394D', '#EEE1B3', '#EA8C55', '#D68FD6', '#4C934C'];
     return colours[Math.floor(Math.random() * colours.length)];
@@ -219,15 +214,8 @@ export const Default = () => {
   }
 
   useEffect(() => {
-    const renderer = new WebGLRenderer({
-      precision: 'lowp',
-      powerPreference: 'high-performance',
-    });
-
     const runtime = new Runtime({
-      domId: 'renderer-root',
       debug: true,
-      renderer,
     });
 
     const worldId = 'FallingCubes';
@@ -236,6 +224,14 @@ export const Default = () => {
       const world = new World({
         id: worldId,
         runtime: worldContext.runtime,
+      });
+
+      const renderer = world.create.renderer.webgl({
+        domElementId: 'renderer-root',
+        renderer: new WebGLRenderer({
+          precision: 'lowp',
+          powerPreference: 'high-performance',
+        }),
       });
 
       const physics = world.create.physics({
@@ -249,28 +245,21 @@ export const Default = () => {
       const threeCamera = new PerspectiveCamera(50, 1, 20, 1000);
       const camera = world.create.camera({ id: 'camera', camera: threeCamera });
       camera.position.set(0, 10, 70);
-      camera.setControls(
-        new OrbitControls({
-          target: [0, 0, 0],
-          enablePan: true,
-          enableDamping: true,
-          enableZoom: true,
-        })
-      );
 
-      world.create.view({
-        id: 'mainView',
+      const view = renderer.create.view({
         camera,
         scene,
       });
 
+      new OrbitControls(camera.threeCamera, view.domElement);
+
       const space = world.create.space({ id: SPACE_NAME });
 
       space.create.entity().addComponent(new LightComponent({ scene }));
-  
-      space.create.entity().addComponent(
-        new GroundComponent({ scene, physics })
-      );
+
+      space.create
+        .entity()
+        .addComponent(new GroundComponent({ scene, physics }));
 
       const cubeEmitter = new CubeEmitterSystem({ space, scene, physics });
       world.addSystem(cubeEmitter);
