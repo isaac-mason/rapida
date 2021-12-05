@@ -109,7 +109,7 @@ class SystemManager {
   /**
    * Destroys all systems
    */
-  destroy(): void {
+  _destroy(): void {
     this.systems.forEach((s) => s.destroy());
   }
 

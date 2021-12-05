@@ -51,7 +51,7 @@ class Room {
    * Handlers for the room
    */
   private handlers: {
-    [eventName: string]: { [handlerName: string]: EventHandler };
+    [eventName: string]: { [handlerName: string]: EventHandler<Event> };
   } = {};
 
   /**
@@ -118,7 +118,7 @@ class Room {
         );
 
         if (eventName === Events.BATCH_EVENT_NAME) {
-          (event as Events.BatchEvent).data.forEach((e) => {
+          (event as Events.BatchEvent).data.forEach((e: Event) => {
             this.process(e);
             connection.process(e);
           });
@@ -212,16 +212,16 @@ class Room {
    * @param handlerName the name for the handler. Must be unique for the eventName.
    * @param handler the handler function
    */
-  addHandler = (
+  addHandler = <E extends Event | Event>(
     eventName: string,
     handlerName: string,
-    handler: EventHandler
+    handler: EventHandler<E>
   ): void => {
     if (this.handlers[eventName] === undefined) {
       this.handlers[eventName] = {};
     }
 
-    this.handlers[eventName][handlerName] = handler;
+    this.handlers[eventName][handlerName] = handler as EventHandler<Event>;
   };
 
   /**

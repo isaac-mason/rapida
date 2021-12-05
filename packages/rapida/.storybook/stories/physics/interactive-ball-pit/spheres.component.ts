@@ -57,7 +57,7 @@ class Spheres extends Component {
       {
         type: BodyType.DYNAMIC,
         args: 1,
-        position: [4 - Math.random() * 8, this.view.size.height, 0],
+        position: [4 - Math.random() * 8, this.view.viewportSize.height, 0],
         rotation: [0, 0, 0],
         fixedRotation: false,
         mass: 1,

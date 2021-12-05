@@ -12,12 +12,9 @@ A Runtime for rapida worlds
 
 - [debug](Runtime.md#debug)
 - [domElement](Runtime.md#domelement)
-- [effectComposer](Runtime.md#effectcomposer)
 - [killLoop](Runtime.md#killloop)
 - [log](Runtime.md#log)
 - [previousGameLoopFrame](Runtime.md#previousgameloopframe)
-- [renderer](Runtime.md#renderer)
-- [resizeObserver](Runtime.md#resizeobserver)
 - [stats](Runtime.md#stats)
 - [updateDelay](Runtime.md#updatedelay)
 - [world](Runtime.md#world)
@@ -27,7 +24,6 @@ A Runtime for rapida worlds
 
 - [destroy](Runtime.md#destroy)
 - [gameLoop](Runtime.md#gameloop)
-- [onResize](Runtime.md#onresize)
 - [physicsLoop](Runtime.md#physicsloop)
 - [registerWorld](Runtime.md#registerworld)
 - [renderLoop](Runtime.md#renderloop)
@@ -37,17 +33,17 @@ A Runtime for rapida worlds
 
 ### constructor
 
-• **new Runtime**(`__namedParameters`)
+• **new Runtime**(`params?`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `__namedParameters` | [`RuntimeParams`](../modules.md#runtimeparams) |
+| `params?` | [`RuntimeParams`](../modules.md#runtimeparams) |
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:85](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/runtime/index.ts#L85)
+[rapida/src/runtime/index.ts:66](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L66)
 
 ## Properties
 
@@ -59,7 +55,7 @@ Whether the runtime is in debug mode
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:50](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/runtime/index.ts#L50)
+[rapida/src/runtime/index.ts:36](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L36)
 
 ___
 
@@ -71,19 +67,7 @@ The DOM element for the renderer
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:56](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/runtime/index.ts#L56)
-
-___
-
-### effectComposer
-
-• **effectComposer**: `EffectComposer`<`WebGLRenderTarget`\>
-
-The effect composer for the renderer
-
-#### Defined in
-
-[rapida/src/runtime/index.ts:35](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/runtime/index.ts#L35)
+[rapida/src/runtime/index.ts:42](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L42)
 
 ___
 
@@ -97,7 +81,7 @@ Set back to false after killing the loop
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:63](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/runtime/index.ts#L63)
+[rapida/src/runtime/index.ts:49](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L49)
 
 ___
 
@@ -109,7 +93,7 @@ The logger for the runtime
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:40](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/runtime/index.ts#L40)
+[rapida/src/runtime/index.ts:26](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L26)
 
 ___
 
@@ -121,31 +105,7 @@ The time of the previous animation frame
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:73](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/runtime/index.ts#L73)
-
-___
-
-### renderer
-
-• **renderer**: `WebGLRenderer`
-
-The renderer for the World
-
-#### Defined in
-
-[rapida/src/runtime/index.ts:30](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/runtime/index.ts#L30)
-
-___
-
-### resizeObserver
-
-• `Private` **resizeObserver**: `ResizeObserver`
-
-The resize observer for the renderer dom element
-
-#### Defined in
-
-[rapida/src/runtime/index.ts:83](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/runtime/index.ts#L83)
+[rapida/src/runtime/index.ts:59](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L59)
 
 ___
 
@@ -157,7 +117,7 @@ The stats.js instance for the runtime
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:78](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/runtime/index.ts#L78)
+[rapida/src/runtime/index.ts:64](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L64)
 
 ___
 
@@ -169,7 +129,7 @@ The time in milliseconds to wait before running another runtime update
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:68](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/runtime/index.ts#L68)
+[rapida/src/runtime/index.ts:54](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L54)
 
 ___
 
@@ -181,7 +141,7 @@ The current world in play
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:25](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/runtime/index.ts#L25)
+[rapida/src/runtime/index.ts:21](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L21)
 
 ___
 
@@ -197,7 +157,7 @@ The world providers for the runtime
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:45](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/runtime/index.ts#L45)
+[rapida/src/runtime/index.ts:31](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L31)
 
 ## Methods
 
@@ -213,7 +173,7 @@ Destroys the runtime
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:194](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/runtime/index.ts#L194)
+[rapida/src/runtime/index.ts:147](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L147)
 
 ___
 
@@ -229,23 +189,7 @@ The game logic loop
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:258](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/runtime/index.ts#L258)
-
-___
-
-### onResize
-
-▸ **onResize**(): `void`
-
-Handles resizing
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[rapida/src/runtime/index.ts:204](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/runtime/index.ts#L204)
+[rapida/src/runtime/index.ts:174](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L174)
 
 ___
 
@@ -261,7 +205,7 @@ The physics loop
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:278](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/runtime/index.ts#L278)
+[rapida/src/runtime/index.ts:194](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L194)
 
 ___
 
@@ -284,7 +228,7 @@ Registers a new world provider
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:138](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/runtime/index.ts#L138)
+[rapida/src/runtime/index.ts:95](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L95)
 
 ___
 
@@ -292,7 +236,7 @@ ___
 
 ▸ `Private` **renderLoop**(): `void`
 
-The render loop
+Runs the render loop for the runtime
 
 #### Returns
 
@@ -300,7 +244,7 @@ The render loop
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:222](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/runtime/index.ts#L222)
+[rapida/src/runtime/index.ts:156](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L156)
 
 ___
 
@@ -323,4 +267,4 @@ If a world is already playing, the current world is stopped and the new world is
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:147](https://gitlab.com/rapidajs/rapida/-/blob/b5e99c9/packages/rapida/src/runtime/index.ts#L147)
+[rapida/src/runtime/index.ts:104](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L104)

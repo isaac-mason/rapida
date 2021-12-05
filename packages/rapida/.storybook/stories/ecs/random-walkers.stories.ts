@@ -2,26 +2,27 @@ import { useEffect } from '@storybook/client-api';
 import {
   AmbientLight,
   Color,
+  Fog,
   Mesh,
   MeshLambertMaterial,
   PerspectiveCamera,
   SphereBufferGeometry,
   Vector3,
-  WebGLRenderer,
+  WebGLRenderer
 } from 'three';
+import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
 import {
   Component,
   Entity,
-  OrbitControls,
   Runtime,
   Scene,
   System,
   World,
-  WorldProvider,
+  WorldProvider
 } from '../../../src';
 
 export default {
-  title: 'ECS / Example - Random Walkers',
+  title: 'ECS / Random Walkers',
 };
 
 const DARK_BLUE = '#003366';
@@ -159,16 +160,9 @@ class RestingSystem extends System {
   };
 }
 
-export const Default = () => {
+export const RandomWalkers = () => {
   useEffect(() => {
-    const renderer = new WebGLRenderer({
-      precision: 'lowp',
-      powerPreference: 'high-performance',
-    });
-
     const runtime = new Runtime({
-      domId: 'renderer-root',
-      renderer,
       debug: true,
     });
 
@@ -180,7 +174,17 @@ export const Default = () => {
         runtime: worldContext.runtime,
       });
 
+      const renderer = world.create.renderer.webgl({
+        domElementId: 'renderer-root',
+        renderer: new WebGLRenderer({
+          precision: 'lowp',
+          powerPreference: 'high-performance',
+        }),
+      });
+
       const scene = world.create.scene();
+      scene.threeScene.fog = new Fog('red', 40, 110);
+      
       scene.threeScene.background = new Color(DARK_BLUE);
 
       scene.add(new AmbientLight(0xffffff, 1.5));
@@ -189,19 +193,13 @@ export const Default = () => {
         camera: new PerspectiveCamera(50, 1, 20, 1000),
       });
       camera.position.set(0, 10, 60);
-      camera.setControls(
-        new OrbitControls({
-          target: [0, 0, 0],
-          enablePan: true,
-          enableDamping: true,
-          enableZoom: true,
-        })
-      );
 
-      world.create.view({
+      const view = renderer.create.view({
         camera,
         scene,
       });
+
+      new OrbitControls(camera.threeCamera, view.domElement);
 
       const space = world.create.space();
 

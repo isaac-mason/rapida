@@ -1,46 +1,40 @@
+import { useEffect } from '@storybook/client-api';
 import * as three from 'three';
 import {
   Runtime,
   World,
   WorldContext,
   WorldProvider,
-  OrbitControls,
-} from '../../../../src';
-import { useEffect } from '@storybook/client-api'
-
-// @ts-expect-error mdx import
-import docs from '../1-view.stories.mdx';
+} from '../../../src';
 
 export default {
-  title: 'Views & Cameras & Scenes / One View',
-  parameters: {
-    docs: {
-      page: docs, 
-    }
-  }
+  title: 'Views / One View',
 };
 
-export const Example = () => {
+export const OneView = () => {
   useEffect(() => {
-    const runtime = new Runtime({
-      domId: 'renderer-root-1',
-    });
+    const runtime = new Runtime();
 
-    const worldId = 'SpinningCube';
+    const worldId = 'world';
 
-    const worldProvider: WorldProvider = (worldContext: WorldContext): World => {
+    const worldProvider: WorldProvider = (
+      worldContext: WorldContext
+    ): World => {
       const world = new World({
         id: worldId,
         runtime: worldContext.runtime,
+      });
+
+      const renderer = world.create.renderer.webgl({
+        domElementId: 'renderer-root-1',
       });
 
       const scene = world.create.scene({ id: 'mainScene' });
 
       const camera = world.create.camera({ id: 'mainCamera' });
       camera.position.set(0, 0, 500);
-      camera.setControls(new OrbitControls({ target: [0, 0, 0] }));
 
-      world.create.view({
+      renderer.create.view({
         camera,
         scene,
       });
@@ -58,7 +52,7 @@ export const Example = () => {
       });
       const cube = new three.Mesh(geometry, material);
       cube.position.set(0, 0, 0);
-  
+
       scene.add(cube);
 
       return world;
@@ -73,11 +67,11 @@ export const Example = () => {
 
   return `
   <style>
-  #renderer-root {
+  #renderer-root-1 {
     width: 100%;
     height: 20em;
   }
   </style>
   <div id="renderer-root-1"></div>
   `;
-}
+};

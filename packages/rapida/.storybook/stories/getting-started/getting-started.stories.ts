@@ -1,22 +1,20 @@
 import * as three from 'three';
 import {
   Component,
-  View,
-  Entity,
   Scene,
   Runtime,
   World,
   WorldContext,
   WorldProvider,
-  OrbitControls,
 } from '../../../src';
-import { useEffect } from '@storybook/client-api'
+import { useEffect } from '@storybook/client-api';
+import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
 
 export default {
-  title: 'Getting Started/"Hello World"',
-}
+  title: 'Getting Started / Hello World',
+};
 
-export const Cube = () => {
+export const HelloWorld = () => {
   class SpinningCubeComponent extends Component {
     cube: three.Mesh;
     scene: Scene;
@@ -25,7 +23,7 @@ export const Cube = () => {
       super();
       this.scene = scene;
     }
-  
+
     onInit = (): void => {
       const geometry = new three.BoxGeometry(50, 50, 50);
       const material = new three.MeshPhongMaterial({
@@ -35,20 +33,20 @@ export const Cube = () => {
       });
       this.cube = new three.Mesh(geometry, material);
       this.cube.position.set(0, 0, 0);
-  
+
       this.scene.add(this.cube);
     };
-  
+
     onUpdate = (timeElapsed: number): void => {
       this.cube.rotation.x += timeElapsed * 0.0001;
       this.cube.rotation.y += timeElapsed * 0.0001;
     };
-  
+
     onDestroy = (): void => {
       this.scene.remove(this.cube);
     };
   }
-  
+
   class LightComponent extends Component {
     lights: three.Group;
     scene: Scene;
@@ -57,52 +55,58 @@ export const Cube = () => {
       super();
       this.scene = scene;
     }
-  
+
     onInit = (): void => {
       this.lights = new three.Group();
-  
+
       const directionalLight = new three.DirectionalLight(0xffffff, 1);
       directionalLight.position.set(300, 0, 300);
       directionalLight.lookAt(new three.Vector3(0, 0, 0));
       this.lights.add(directionalLight);
-  
+
       const ambientLight = new three.AmbientLight(0xffffff, 0.5);
       ambientLight.position.set(0, -200, 400);
       ambientLight.lookAt(new three.Vector3(0, 0, 0));
       this.lights.add(ambientLight);
-  
+
       this.scene.add(this.lights);
     };
-  
+
     onDestroy = (): void => {
       this.scene.remove(this.lights);
     };
   }
-  
+
   useEffect(() => {
     const runtime = new Runtime({
-      domId: 'renderer-root',
       debug: true,
     });
 
     const worldId = 'SpinningCube';
 
-    const worldProvider: WorldProvider = (worldContext: WorldContext): World => {
+    const worldProvider: WorldProvider = (
+      worldContext: WorldContext
+    ): World => {
       const world = new World({
         id: worldId,
         runtime: worldContext.runtime,
       });
 
-      const scene = world.create.scene({ id: 'mainScene' });
+      const renderer = world.create.renderer.webgl({
+        domElementId: 'renderer-root',
+      });
 
-      const camera = world.create.camera({ id: 'mainCamera' });
+      const scene = world.create.scene();
+
+      const camera = world.create.camera();
       camera.position.set(0, 0, 500);
-      camera.setControls(new OrbitControls({ target: [0, 0, 0] }));
 
-      world.create.view({
+      const view = renderer.create.view({
         camera,
         scene,
       });
+
+      new OrbitControls(camera.threeCamera, view.domElement);
 
       const space = world.create.space();
 
@@ -131,4 +135,4 @@ export const Cube = () => {
   </style>
   <div id="renderer-root"></div>
   `;
-}
+};

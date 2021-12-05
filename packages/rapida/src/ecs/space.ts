@@ -147,9 +147,9 @@ class Space {
    * @param handler the handler function
    * @returns the id of the new handler
    */
-  on<_E extends Event | Event>(
+  on<E extends Event | Event>(
     eventName: string,
-    handler: EventHandler
+    handler: EventHandler<E>
   ): string {
     return this.events.on(eventName, handler);
   }
@@ -189,7 +189,5 @@ class Space {
     return this._factories;
   }
 }
-
-export default Space;
 
 export { Space, SpaceParams };

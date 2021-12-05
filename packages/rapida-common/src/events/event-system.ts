@@ -1,5 +1,5 @@
-import Event from './event';
-import EventHandler from './event-handler';
+import { Event } from './event';
+import { EventHandler } from './event-handler';
 import { uuid } from '../util/uuid';
 
 /**
@@ -10,7 +10,7 @@ class EventSystem {
    * The event handlers
    */
   private handlers: {
-    [eventName: string]: { [handlerId: string]: EventHandler };
+    [eventName: string]: { [handlerId: string]: EventHandler<Event> };
   } = {};
 
   /**
@@ -34,12 +34,15 @@ class EventSystem {
    * @param handler the handler function
    * @returns the id of the new handler
    */
-  on(eventName: string, handler: EventHandler): string {
+  on<E extends Event | Event>(
+    eventName: string,
+    handler: EventHandler<E>
+  ): string {
     const id = uuid();
     if (this.handlers[eventName] === undefined) {
       this.handlers[eventName] = {};
     }
-    this.handlers[eventName][id] = handler;
+    this.handlers[eventName][id] = handler as EventHandler<Event>;
     return id;
   }
 
@@ -70,11 +73,11 @@ class EventSystem {
   private process(event: Event): void {
     const handlers = this.handlers[event.topic];
     if (handlers !== undefined) {
-      Object.values(handlers).forEach((handler: EventHandler) =>
+      Object.values(handlers).forEach((handler: EventHandler<Event>) =>
         handler(event)
       );
     }
   }
 }
 
-export default EventSystem;
+export { EventSystem };

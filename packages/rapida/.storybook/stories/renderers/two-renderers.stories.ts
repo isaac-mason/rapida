@@ -4,29 +4,18 @@ import {
   World,
   WorldContext,
   WorldProvider,
-  OrbitControls,
-} from '../../../../src';
+} from '../../../src';
 import { useEffect } from '@storybook/client-api'
 
-// @ts-expect-error mdx import
-import docs from '../1-view.stories.mdx';
-
 export default {
-  title: 'Views & Cameras & Scenes / Splitscreen',
-  parameters: {
-    docs: {
-      page: docs, 
-    }
-  }
+  title: 'Renderers / Two Renderers',
 };
 
-export const Example = () => {
+export const TwoRenderers = () => {
   useEffect(() => {
-    const runtime = new Runtime({
-      domId: 'renderer-root-2',
-    });
+    const runtime = new Runtime();
 
-    const worldId = 'SpinningCube';
+    const worldId = 'world';
 
     const worldProvider: WorldProvider = (worldContext: WorldContext): World => {
       const world = new World({
@@ -34,44 +23,22 @@ export const Example = () => {
         runtime: worldContext.runtime,
       });
 
+      const rendererOne = world.create.renderer.webgl({ domElementId: 'renderer-root-1' });
+      const rendererTwo = world.create.renderer.webgl({ domElementId: 'renderer-root-2' });
+
       const scene = world.create.scene({ id: 'mainScene' });
 
-      const camera = world.create.camera();
+      const camera = world.create.camera({ id: 'mainCamera' });
       camera.position.set(0, 0, 500);
-      camera.setControls(new OrbitControls({ target: [0, 0, 0] }));
 
-      world.create.view({
+      rendererOne.create.view({
         camera,
         scene,
-        viewport: {
-          top: 0,
-          left: 0,
-          width: 0.5,
-          height: 1,
-        },
-        scissor: {
-          top: 0,
-          left: 0,
-          width: 0.5,
-          height: 1,
-        }
       });
 
-      world.create.view({
+      rendererTwo.create.view({
         camera,
         scene,
-        viewport: {
-          top: 0,
-          left: 0.5,
-          width: 0.5,
-          height: 1,
-        },
-        scissor: {
-          top: 0,
-          left: 0.5,
-          width: 0.5,
-          height: 1,
-        }
       });
 
       const ambientLight = new three.AmbientLight(0xffffff, 1);
@@ -102,11 +69,13 @@ export const Example = () => {
 
   return `
   <style>
-  #renderer-root {
+  #renderer-root-1, #renderer-root-2 {
     width: 100%;
+    margin-bottom: 1rem;
     height: 20em;
   }
   </style>
+  <div id="renderer-root-1"></div>
   <div id="renderer-root-2"></div>
   `;
 }

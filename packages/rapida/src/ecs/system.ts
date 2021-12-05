@@ -110,7 +110,10 @@ abstract class System {
    * @param eventName the event name
    * @param handler the event handler
    */
-  on(eventName: string, handler: EventHandler): void {
+  on<E extends Event | Event>(
+    eventName: string,
+    handler: EventHandler<E>
+  ): void {
     this.events.on(eventName, handler);
   }
 
@@ -138,7 +141,5 @@ abstract class System {
    */
   onUpdate?: (timeElapsed: number) => void = undefined;
 }
-
-export default System;
 
 export { System, SystemParams };
