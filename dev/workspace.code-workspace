@@ -2,27 +2,27 @@
   "folders": [
     {
       "name": "repo",
-      "path": "."
+      "path": ".."
     },
     {
-      "path": "packages/rapida-common"
+      "path": "../packages/rapida-common"
     },
     {
-      "path": "packages/rapida-physics"
+      "path": "../packages/rapida-physics"
     },
     {
-      "path": "packages/rapida"
+      "path": "../packages/rapida"
     },
     {
-      "path": "packages/rapida-server"
+      "path": "../packages/rapida-server"
     },
     
     {
-      "path": "docs"
+      "path": "../markdown"
     },
     {
       "name": "example - position-syncing",
-      "path": "examples/client-server-position-syncing"
+      "path": "../examples/client-server-position-syncing"
     }
   ],
   "settings": {

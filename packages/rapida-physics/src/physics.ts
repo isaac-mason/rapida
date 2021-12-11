@@ -376,6 +376,7 @@ class Physics {
   /**
    * Retrieves physics factories
    */
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public get create() {
     return this._factories;
   }
