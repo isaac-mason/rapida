@@ -36,7 +36,7 @@ export const InteractiveBallPit = () => {
       });
 
       const physics = world.create.physics({
-        gravity: [0, -30, 0],
+        gravity: [0, -10, 0],
       });
 
       const scene = world.create.scene();

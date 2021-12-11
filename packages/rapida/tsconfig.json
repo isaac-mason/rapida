@@ -8,12 +8,9 @@
     "lib": ["webworker", "dom", "es2019"],
     "skipLibCheck": true,
     "esModuleInterop": true,
-    // needed for jest
     "allowJs": false,
-    // Ensure that .d.ts files are created by tsc, but not .js files
     "declaration": true,
     "emitDeclarationOnly": true,
-    // "isolatedModules": true,
   },
   "include": ["src"],
   "exclude": ["node_modules", "**/__tests__/*", "**/*.spec.ts"]

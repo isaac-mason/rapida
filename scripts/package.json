@@ -1,22 +1,25 @@
 {
   "name": "rapida",
   "version": "1.0.0",
-  "description": "NPM packages for creating single-player and multi-player web-based games.",
+  "description": "Dev scripts for the rapida multi-package repo",
   "scripts": {
-    "storybook": "cd ../packages/rapida && npm run storybook",
-    "install-all": "concurrently \"cd ../packages/rapida-physics && npm i\" \"cd ../packages/rapida-common && npm i\" \"cd ../packages/rapida && npm i\" \"cd ../packages/rapida-server && npm i\"",
-    "build": "(cd ../packages/rapida-common && npm run build) && (cd ../packages/rapida-physics && npm run build) && concurrently \"cd ../packages/rapida && npm run build\" \"cd ../packages/rapida-server && npm run build\""
+    "storybook": "concurrently \"cd ../packages/rapida && npm run storybook\" \"cd ../packages/rapida-physics && npm run storybook\"",
+    "install": "concurrently \"cd ../packages/rapida-physics && npm i\" \"cd ../packages/rapida-common && npm i\" \"cd ../packages/rapida && npm i\" \"cd ../packages/rapida-server && npm i\"",
+    "build": "(cd ../packages/rapida-common && npm run build) && (cd ../packages/rapida-physics && npm run build) && concurrently \"cd ../packages/rapida && npm run build\" \"cd ../packages/rapida-server && npm run build\"",
+    "test": "(cd ../packages/rapida && npm run test)",
+    "docs": "concurrently \"cd ../packages/rapida-physics && npm run docs\" \"cd ../packages/rapida && npm run docs\"",
+    "release": "npm run install && npm run build && npm run test && npm run docs"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/isaacmason/rapida.git"
+    "url": "git+ssh://git@gitlab.com/rapidajs/rapida.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/isaacmason/rapida/issues"
+    "url": "https://gitlab.com/rapidajs/rapida/issues"
   },
-  "homepage": "https://gitlab.com/isaacmason/rapida#readme",
+  "homepage": "https://gitlab.com/rapidajs/rapida#readme",
   "devDependencies": {
     "concurrently": "^6.2.1"
   }

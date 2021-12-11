@@ -37,6 +37,12 @@ module.exports = {
     '@typescript-eslint/no-shadow': 'error',
     'no-underscore-dangle': 'off',
     'array-callback-return': 'off',
+    'no-plusplus': 'off',
+    'no-restricted-syntax': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    'no-param-reassign': 'off',
+    'no-continue': 'off',
+    'no-restricted-globals': 'off',
   },
   settings: {
     'import/resolver': {

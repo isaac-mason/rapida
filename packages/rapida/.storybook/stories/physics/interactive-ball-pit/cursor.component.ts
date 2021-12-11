@@ -40,7 +40,7 @@ class Cursor extends Component {
     this.mesh = new Mesh(geometry, material);
     this.scene.add(this.mesh);
 
-    const [_, sphereApi] = this.physics.sphere(
+    const [_, sphereApi] = this.physics.create.sphere(
       {
         type: BodyType.STATIC,
         args: radius,

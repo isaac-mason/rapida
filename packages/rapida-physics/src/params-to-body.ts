@@ -30,8 +30,7 @@ const prepareConvexPolyhedron = ([v, faces, n, a, boundingSphereRadius]) => [
   },
 ];
 
-// @ts-expect-error todo: typed
-function createShape(type, args) {
+function createShape(type: BodyShapeType, args: any) {
   switch (type) {
     case 'Box':
       // @ts-expect-error TODO: type

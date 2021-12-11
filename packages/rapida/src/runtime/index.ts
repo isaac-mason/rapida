@@ -7,7 +7,8 @@ import { World, WorldProvider } from '../world';
  * Parameters for creating a new rapida runtime
  */
 type RuntimeParams = {
-  maxUpdatesPerSecond?: number;
+  maxGameLoopUpdatesPerSecond?: number;
+  maxPhysicsUpdatesPerSecond?: number;
   debug?: boolean;
 };
 
@@ -26,6 +27,21 @@ class Runtime {
   log: Logger;
 
   /**
+   * The time in milliseconds to wait before running another game loop update
+   */
+  gameLoopUpdateDelayMs: number;
+
+  /**
+   * The time in milliseconds to wait before running another physics update
+   */
+  physicsUpdateDelayMs: number;
+
+  /**
+   * The delta value for the physics worlds, based on the runtime maxPhysicsUpdatesPerSecond
+   */
+  physicsDelta: number;
+
+  /**
    * The world providers for the runtime
    */
   private worldProviders: { [id: string]: WorldProvider } = {};
@@ -36,12 +52,6 @@ class Runtime {
   private debug: boolean;
 
   /**
-   * The DOM element for the renderer
-   */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private domElement: any;
-
-  /**
    * Whether the render loop should be interrupted
    * If set to true, the loop will be stopped on the next loop
    * Set back to false after killing the loop
@@ -49,23 +59,30 @@ class Runtime {
   private killLoop = false;
 
   /**
-   * The time in milliseconds to wait before running another runtime update
-   */
-  private updateDelay: number;
-
-  /**
    * The time of the previous animation frame
    */
   private previousGameLoopFrame: number | undefined;
+
+  /**
+   * The time of the previous physics frame
+   */
+  private previousPhysicsFrame: number | undefined;
 
   /**
    * The stats.js instance for the runtime
    */
   private stats: Stats = new Stats();
 
+  /**
+   * Constructor for a rapida runtime
+   * @param params params for constructing the rapida runtime
+   */
   constructor(params?: RuntimeParams) {
-    // Set update delay
-    this.updateDelay = 1000 / (params?.maxUpdatesPerSecond || 60);
+    this.gameLoopUpdateDelayMs =
+      1000 / (params?.maxGameLoopUpdatesPerSecond || 60);
+    this.physicsUpdateDelayMs =
+      1000 / (params?.maxGameLoopUpdatesPerSecond || 60);
+    this.physicsDelta = 1 / (params?.maxGameLoopUpdatesPerSecond || 60);
 
     // init world providers map
     this.worldProviders = {};
@@ -185,7 +202,7 @@ class Runtime {
 
     setTimeout(() => {
       this.gameLoop();
-    }, this.updateDelay);
+    }, this.gameLoopUpdateDelayMs);
   }
 
   /**
@@ -197,11 +214,15 @@ class Runtime {
       return;
     }
 
-    this.world?.updatePhysics();
+    const now = performance.now() / 1000;
+    const timeElapsed = now - (this.previousPhysicsFrame as number);
+    this.world?.updatePhysics(timeElapsed);
+
+    this.previousPhysicsFrame = now;
 
     setTimeout(() => {
       this.physicsLoop();
-    }, this.updateDelay);
+    }, this.physicsUpdateDelayMs);
   }
 }
 

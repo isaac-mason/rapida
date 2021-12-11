@@ -62,6 +62,7 @@
   "dependencies": {
     "@jest/globals": "^27.2.0",
     "@rapidajs/rapida-common": "file:../rapida-common",
+    "@rapidajs/rapida-physics": "file:../rapida-physics",
     "@types/stats.js": "^0.17.0",
     "@types/three": ">=0.128.0",
     "jest-mock": "^27.1.1",
@@ -74,7 +75,6 @@
     "typedoc-plugin-markdown": "^3.11.7"
   },
   "peerDependencies": {
-    "@rapidajs/rapida-physics": "file:../rapida-physics",
     "three": "^0.133.0"
   }
 }

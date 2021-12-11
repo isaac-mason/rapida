@@ -98,7 +98,7 @@ abstract class System {
   /**
    * Destroy logic for the system
    */
-  destroy(): void {
+  _destroy(): void {
     // run on system destroy hook if present
     if (this.onDestroy) {
       this.onDestroy();
