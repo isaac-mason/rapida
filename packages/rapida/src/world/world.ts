@@ -49,6 +49,16 @@ type WorldParams = {
    * The runtime the world is in
    */
   runtime: Runtime;
+
+  /**
+   * The maximum game loop updates to run per second
+   */
+  maxGameLoopUpdatesPerSecond?: number;
+
+  /**
+   * The maximum physics loop updates to run per second
+   */
+  maxPhysicsUpdatesPerSecond?: number;
 };
 
 /**
@@ -111,12 +121,29 @@ class World {
   private events = new EventSystem();
 
   /**
+   * The maximum game loop updates to run per second
+   */
+  _maxGameLoopUpdatesPerSecond: number;
+
+  /**
+   * The maximum physics loop updates to run per second
+   */
+  _maxPhysicsUpdatesPerSecond: number;
+
+  /**
    * Constructor for a World
    * @param id a unique id for the world
    */
-  constructor({ id, runtime }: WorldParams) {
+  constructor({
+    id,
+    runtime,
+    maxGameLoopUpdatesPerSecond,
+    maxPhysicsUpdatesPerSecond,
+  }: WorldParams) {
     this.id = id || uuid();
     this.runtime = runtime;
+    this._maxGameLoopUpdatesPerSecond = maxGameLoopUpdatesPerSecond || 60;
+    this._maxPhysicsUpdatesPerSecond = maxPhysicsUpdatesPerSecond || 60;
     this.queryManager = new QueryManager(this);
     this.systemManager = new SystemManager(this);
     this.rendererManager = new RendererManager();

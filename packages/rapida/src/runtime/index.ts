@@ -7,8 +7,6 @@ import { World, WorldProvider } from '../world';
  * Parameters for creating a new rapida runtime
  */
 type RuntimeParams = {
-  maxGameLoopUpdatesPerSecond?: number;
-  maxPhysicsUpdatesPerSecond?: number;
   debug?: boolean;
 };
 
@@ -29,17 +27,17 @@ class Runtime {
   /**
    * The time in milliseconds to wait before running another game loop update
    */
-  gameLoopUpdateDelayMs: number;
+  gameLoopUpdateDelayMs?: number;
 
   /**
    * The time in milliseconds to wait before running another physics update
    */
-  physicsUpdateDelayMs: number;
+  physicsUpdateDelayMs?: number;
 
   /**
    * The delta value for the physics worlds, based on the runtime maxPhysicsUpdatesPerSecond
    */
-  physicsDelta: number;
+  physicsDelta?: number;
 
   /**
    * The world providers for the runtime
@@ -78,12 +76,6 @@ class Runtime {
    * @param params params for constructing the rapida runtime
    */
   constructor(params?: RuntimeParams) {
-    this.gameLoopUpdateDelayMs =
-      1000 / (params?.maxGameLoopUpdatesPerSecond || 60);
-    this.physicsUpdateDelayMs =
-      1000 / (params?.maxGameLoopUpdatesPerSecond || 60);
-    this.physicsDelta = 1 / (params?.maxGameLoopUpdatesPerSecond || 60);
-
     // init world providers map
     this.worldProviders = {};
 
@@ -141,6 +133,11 @@ class Runtime {
     if (this.world === undefined) {
       throw new Error('Cannot init as the newly provided world is undefined');
     }
+
+    // define loops to run based on world settings
+    this.gameLoopUpdateDelayMs = 1000 / this.world._maxGameLoopUpdatesPerSecond;
+    this.physicsUpdateDelayMs = 1000 / this.world._maxGameLoopUpdatesPerSecond;
+    this.physicsDelta = 1 / this.world._maxGameLoopUpdatesPerSecond;
 
     // set killLoop to false now in case anything went wrong
     this.killLoop = false;
