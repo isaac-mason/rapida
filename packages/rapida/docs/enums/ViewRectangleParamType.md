@@ -20,7 +20,7 @@ Enum of supported types for a view rectangle param
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:171](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/renderer/view.ts#L171)
+[rapida/src/renderer/view.ts:171](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L171)
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:173](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/renderer/view.ts#L173)
+[rapida/src/renderer/view.ts:173](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L173)
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:172](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/renderer/view.ts#L172)
+[rapida/src/renderer/view.ts:172](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L172)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:175](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/renderer/view.ts#L175)
+[rapida/src/renderer/view.ts:175](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L175)
 
 ___
 
@@ -60,4 +60,4 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:174](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/renderer/view.ts#L174)
+[rapida/src/renderer/view.ts:174](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L174)

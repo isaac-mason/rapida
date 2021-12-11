@@ -1,5 +1,6 @@
-import { MaterialOptions, Shape, RayOptions } from 'cannon-es';
+import { MaterialOptions, RayOptions, Shape } from 'cannon-es';
 import { Euler, Object3D, Vector3 } from 'three';
+import { PhysicsEventTopic } from './events/physics-event-topic';
 
 export type Triplet = [x: number, y: number, z: number];
 export type VectorTypes = Vector3 | Triplet;
@@ -135,10 +136,13 @@ export interface RaycastVehiclePublicApi {
 }
 
 export type Buffers = { positions: Float32Array; quaternions: Float32Array };
+
 export type Refs = { [uuid: string]: Object3D };
+
 type WorkerContact = WorkerCollideEvent['data']['contact'];
+
 export type CollideEvent = Omit<WorkerCollideEvent['data'], 'body' | 'target' | 'contact'> & {
-  topic: 'collide';
+  topic: PhysicsEventTopic.COLLIDE;
   body: Object3D;
   target: Object3D;
   contact: Omit<WorkerContact, 'bi' | 'bj'> & {
@@ -146,22 +150,26 @@ export type CollideEvent = Omit<WorkerCollideEvent['data'], 'body' | 'target' | 
     bj: Object3D;
   };
 };
+
 export type CollideBeginEvent = {
-  topic: 'collideBegin';
+  topic: PhysicsEventTopic.COLLIDE_BEGIN;
   target: Object3D;
   body: Object3D;
 };
+
 export type CollideEndEvent = {
-  topic: 'collideEnd';
+  topic: PhysicsEventTopic.COLLIDE_END;
   target: Object3D;
   body: Object3D;
 };
+
 export type RayhitEvent = Omit<WorkerRayhitEvent['data'], 'body'> & {
   body: Object3D | null;
-  topic: 'rayhit';
+  topic: PhysicsEventTopic.RAYHIT;
 };
 
 type CannonEvent = CollideBeginEvent | CollideEndEvent | CollideEvent | RayhitEvent;
+
 type CallbackByTopic<T extends { topic: string }> = {
   [K in T['topic']]?: T extends { topic: K } ? (e: T) => void : never;
 };
@@ -317,9 +325,9 @@ type UnsubscribeMessage = Operation<'unsubscribe', number>;
 
 type SubscriptionMessage = SubscribeMessage | UnsubscribeMessage;
 
-export type WorldPropName = 'axisIndex' | 'broadphase' | 'gravity' | 'iterations' | 'stepSize' | 'tolerance';
+export type WorldPropName = 'axisIndex' | 'broadphase' | 'gravity' | 'iterations' | 'tolerance';
 
-type WorldMessage<T extends WorldPropName> = Operation<SetOpName<T>, Required<PhysicsParams[T]>>;
+type WorldMessage<T extends WorldPropName> = Operation<SetOpName<T>, Required<PhysicsWorldConfig[T]>>;
 
 type CannonMessage =
   | ApplyMessage
@@ -359,9 +367,9 @@ export type Broadphase = 'Naive' | 'SAP';
 export type Observation = { [K in AtomicName]: [id: number, value: PropValue<K>, type: K] }[AtomicName];
 
 export type WorkerFrameMessage = {
-  topic: 'frame';
+  topic: PhysicsEventTopic.FRAME;
   data: Buffers & {
-    topic: 'frame';
+    topic: PhysicsEventTopic.FRAME;
     observations: Observation[];
     active: boolean;
     bodies?: string[];
@@ -369,7 +377,7 @@ export type WorkerFrameMessage = {
 };
 
 export type FrameMessage = {
-  topic: 'frame';
+  topic: PhysicsEventTopic.FRAME;
   positions: Float32Array;
   quaternions: Float32Array;
   observations: Observation[];
@@ -379,7 +387,7 @@ export type FrameMessage = {
 
 export type WorkerCollideEvent = {
   data: {
-    topic: 'collide';
+    topic: PhysicsEventTopic.COLLIDE;
     target: string;
     body: string;
     contact: {
@@ -406,7 +414,7 @@ export type WorkerCollideEvent = {
 
 export type WorkerRayhitEvent = {
   data: {
-    topic: 'rayhit';
+    topic: PhysicsEventTopic.RAYHIT;
     ray: {
       from: number[];
       to: number[];
@@ -430,14 +438,14 @@ export type WorkerRayhitEvent = {
 
 export type WorkerCollideBeginEvent = {
   data: {
-    topic: 'collideBegin';
+    topic: PhysicsEventTopic.COLLIDE_BEGIN;
     bodyA: string;
     bodyB: string;
   };
 };
 export type WorkerCollideEndEvent = {
   data: {
-    topic: 'collideEnd';
+    topic: PhysicsEventTopic.COLLIDE_END;
     bodyA: string;
     bodyB: string;
   };
@@ -575,11 +583,21 @@ export interface RaycastVehicleProps {
   indexUpAxis?: number;
 }
 
-export type PhysicsWorldCreationParams = {
+export type DefaultContactMaterial = {
+  friction?: number;
+  restitution?: number;
+  contactEquationStiffness?: number;
+  contactEquationRelaxation?: number;
+  frictionEquationStiffness?: number;
+  frictionEquationRelaxation?: number;
+};
+
+export type PhysicsParams = {
+  /**
+   * An optional id for the physics world
+   */
   id?: string;
-  shouldInvalidate?: boolean;
   tolerance?: number;
-  stepSize?: number;
   iterations?: number;
   allowSleep?: boolean;
   broadphase?: Broadphase;
@@ -588,21 +606,14 @@ export type PhysicsWorldCreationParams = {
   quatNormalizeSkip?: number;
   solver?: 'GS' | 'Split';
   axisIndex?: number;
-  defaultContactMaterial?: {
-    friction?: number;
-    restitution?: number;
-    contactEquationStiffness?: number;
-    contactEquationRelaxation?: number;
-    frictionEquationStiffness?: number;
-    frictionEquationRelaxation?: number;
-  };
+  defaultContactMaterial?: DefaultContactMaterial;
   size?: number;
+  maxSubSteps?: number;
+  delta?: number;
 };
 
-export type PhysicsParams = {
-  shouldInvalidate: boolean;
+export type PhysicsWorldConfig = {
   tolerance: number;
-  stepSize: number;
   iterations: number;
   allowSleep: boolean;
   broadphase: Broadphase;
@@ -620,4 +631,6 @@ export type PhysicsParams = {
     frictionEquationRelaxation?: number;
   };
   size: number;
+  maxSubSteps: number;
+  delta: number;
 };

@@ -45,7 +45,7 @@ class BallPitContainer extends Component {
     ];
 
     planes.forEach((p) => {
-      this.physics.plane({
+      this.physics.create.plane({
         type: BodyType.STATIC,
         position: p.position,
         rotation: p.rotation,

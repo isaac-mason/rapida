@@ -15,7 +15,8 @@
     "noEmit": false,
     "declaration": true,
     "emitDeclarationOnly": false,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "skipLibCheck": true
   },
   "exclude": [
     "lib",

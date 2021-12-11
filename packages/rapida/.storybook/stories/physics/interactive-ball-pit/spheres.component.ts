@@ -53,7 +53,7 @@ class Spheres extends Component {
     (this.mesh as Object3D).receiveShadow = true;
     this.scene.add(this.mesh);
 
-    const [_, sphereApi] = this.physics.sphere(
+    const [_, sphereApi] = this.physics.create.sphere(
       {
         type: BodyType.DYNAMIC,
         args: 1,

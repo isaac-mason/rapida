@@ -103,7 +103,7 @@ class Space {
   /**
    * Destroy the space. Removes all entities from the space.
    */
-  destroy(): void {
+  _destroy(): void {
     this.entities.forEach((e) => this.remove(e));
   }
 

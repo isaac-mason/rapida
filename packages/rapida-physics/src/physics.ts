@@ -1,15 +1,7 @@
-/* eslint-disable class-methods-use-this */
 /* eslint-disable no-return-assign */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable import/extensions */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-plusplus */
-/* eslint-disable no-param-reassign */
-/* eslint-disable-next-line no-restricted-syntax */
 import {
   DynamicDrawUsage,
   Euler,
@@ -20,11 +12,14 @@ import {
   Quaternion,
   Vector3,
 } from 'three';
-
 // @ts-expect-error expected
+// eslint-disable-next-line import/no-unresolved
 import WebWorker from 'web-worker:./worker.ts';
-import { capitalize, getUUID, isString, makeTriplet, prepare, setupCollision } from './utils';
-
+import { AddBodiesEvent } from './events/body/add-bodies';
+import { InitEvent } from './events/init';
+import { PhysicsEventTopic } from './events/physics-event-topic';
+import { StepEvent } from './events/step';
+import { AddRaycastVehicleEvent } from './events/vehicle/add-raycast-vehicle';
 import type {
   AtomicName,
   BodyShapeType,
@@ -34,9 +29,11 @@ import type {
   CollideEndEvent,
   CollideEvent,
   ConstraintORHingeApi,
+  DefaultContactMaterial,
+  IncomingWorkerMessage,
   PhysicsContext,
   PhysicsParams,
-  PhysicsWorldCreationParams,
+  PhysicsWorldConfig,
   PropValue,
   RaycastVehicleProps,
   RaycastVehiclePublicApi,
@@ -49,7 +46,6 @@ import type {
   SubscriptionName,
   SubscriptionTarget,
   VectorName,
-  IncomingWorkerMessage,
 } from './types';
 import {
   Api,
@@ -62,6 +58,7 @@ import {
   ConvexPolyhedronArgs,
   ConvexPolyhedronProps,
   CylinderProps,
+  DebugApi,
   DistanceConstraintOpts,
   HeightfieldProps,
   HingeConstraintOpts,
@@ -80,6 +77,7 @@ import {
   WorkerFrameMessage,
   WorkerRayhitEvent,
 } from './types';
+import { capitalize, getUUID, isString, makeTriplet, prepare, setupCollision } from './utils';
 
 function noop() {
   /* no action taken */
@@ -99,10 +97,10 @@ function subscribe<T extends SubscriptionName>(
     const id = subscribe.incrementingId++;
     subscriptions[id] = { [type]: callback };
     const uuid = getUUID(ref, index);
-    uuid && worker.postMessage({ topic: 'subscribe', uuid, params: { id, type, target } });
+    uuid && worker.postMessage({ topic: PhysicsEventTopic.SUBSCRIBE, uuid, params: { id, type, target } });
     return () => {
       delete subscriptions[id];
-      worker.postMessage({ topic: 'unsubscribe', params: id });
+      worker.postMessage({ topic: PhysicsEventTopic.UNSUBSCRIBE, params: id });
     };
   };
 }
@@ -131,6 +129,9 @@ function apply(index: number, buffers: Buffers, object?: Object3D) {
   return m.identity();
 }
 
+/**
+ * Cannon Physics World that runs in a web worker
+ */
 class Physics {
   /**
    * A name for the physics world
@@ -140,61 +141,149 @@ class Physics {
   /**
    * The physics world parameters
    */
-  params: PhysicsParams;
+  config: PhysicsWorldConfig;
+
+  /**
+   * A debugger for the physics world that if set, will be called on adding to and removing from the world
+   */
+  debugger: DebugApi | undefined;
 
   /**
    * The physics web worker
    */
   _worker: Worker = new WebWorker() as Worker;
 
+  /**
+   * Getter for the physics web worker
+   */
   get worker(): Worker {
     return this._worker;
   }
 
-  set worker(value: Worker) {
-    this._worker = value;
-    this._worker.postMessage({ topic: 'setWorker', params: value });
+  /**
+   * Sets the axis angle
+   */
+  get axisIndex(): number {
+    return this.config.axisIndex;
   }
 
+  /**
+   * Sets the axis angle
+   */
   set axisIndex(value: number) {
-    this.params.axisIndex = value;
-    this.worker.postMessage({ topic: 'setAxisIndex', params: value });
+    this.config.axisIndex = value;
+    this.worker.postMessage({ topic: PhysicsEventTopic.SET_AXIS_INDEX, params: value });
   }
 
+  /**
+   * Gets the broadphase for the world
+   */
+  get broadphase(): Broadphase {
+    return this.config.broadphase;
+  }
+
+  /**
+   * Sets the broadphase for the world
+   */
   set broadphase(value: Broadphase) {
-    this.params.broadphase = value;
-    this.worker.postMessage({ topic: 'setBroadphase', params: value });
+    this.config.broadphase = value;
+    this.worker.postMessage({ topic: PhysicsEventTopic.SET_BROADPHASE, params: value });
   }
 
+  /**
+   * Gets the gravity for the world
+   */
+  get gravity(): Triplet {
+    return this.config.gravity;
+  }
+
+  /**
+   * Sets the gravity for the world
+   */
   set gravity(value: Triplet) {
-    this.params.gravity = value;
-    this.worker.postMessage({ topic: 'setGravity', params: value });
+    this.config.gravity = value;
+    this.worker.postMessage({ topic: PhysicsEventTopic.SET_GRAVITY, params: value });
   }
 
+  /**
+   * Gets the iterations for the world
+   */
+  get iterations(): number {
+    return this.config.iterations;
+  }
+
+  /**
+   * Sets the iterations for the world
+   */
   set iterations(value: number) {
-    this.params.iterations = value;
-    this.worker.postMessage({ topic: 'setIterations', params: value });
+    this.config.iterations = value;
+    this.worker.postMessage({ topic: PhysicsEventTopic.SET_ITERATIONS, params: value });
   }
 
+  /**
+   * Gets the tolerance for the world
+   */
+  get tolerance(): number {
+    return this.config.tolerance;
+  }
+
+  /**
+   * Sets the tolerance for the world
+   */
   set tolerance(value: number) {
-    this.params.tolerance = value;
-    this.worker.postMessage({ topic: 'setTolerance', params: value });
+    this.config.tolerance = value;
+    this.worker.postMessage({ topic: PhysicsEventTopic.SET_TOLERANCE, params: value });
   }
 
+  /**
+   * Gets the default contact material for the world
+   */
+  get defaultContactMaterial(): DefaultContactMaterial {
+    return this.config.defaultContactMaterial;
+  }
+
+  /**
+   * Sets the default contact material for the world
+   */
+  set defaultContactMaterial(value: DefaultContactMaterial) {
+    this.config.defaultContactMaterial = value;
+    this.worker.postMessage({
+      topic: PhysicsEventTopic.SET_DEFAULT_CONTACT_MATERIAL,
+      params: this.config.defaultContactMaterial,
+    });
+  }
+
+  /**
+   * A map of body uuids to their reference Object3D objects
+   */
   refs: Refs = {};
 
+  /**
+   * The buffers that are shared with the worker
+   */
   buffers: Buffers;
 
+  /**
+   * A map of body uuids to event handlers for cannon events
+   */
   events: PhysicsContext['events'] = {};
 
+  /**
+   * Subscriptions to body properties
+   */
   subscriptions: PhysicsContext['subscriptions'] = {};
 
+  /**
+   * A map of body uuids to their ordered position
+   */
   bodies: { [uuid: string]: number } = {};
 
+  /**
+   * Constructor for a Physics world
+   * @param params
+   */
   constructor({
     id,
-    shouldInvalidate,
-    stepSize,
     gravity,
     tolerance,
     iterations,
@@ -206,11 +295,12 @@ class Physics {
     solver,
     defaultContactMaterial,
     size,
-  }: PhysicsWorldCreationParams) {
+    maxSubSteps,
+    delta,
+  }: PhysicsParams) {
     this.id = id || Date.now().toString();
-    this.params = {
-      shouldInvalidate: shouldInvalidate || true,
-      stepSize: stepSize || 1 / 60,
+
+    this.config = {
       gravity: gravity || [0, -10, 0],
       tolerance: tolerance || 0.001,
       iterations: iterations || 5,
@@ -222,456 +312,495 @@ class Physics {
       solver: solver || 'GS',
       defaultContactMaterial: defaultContactMaterial || { contactEquationStiffness: 1e6 },
       size: size || 1000,
+      maxSubSteps: maxSubSteps || 5,
+      delta: delta || 1 / 60,
     };
 
     this.buffers = {
-      positions: new Float32Array(this.params.size * 3),
-      quaternions: new Float32Array(this.params.size * 4),
+      positions: new Float32Array(this.config.size * 3),
+      quaternions: new Float32Array(this.config.size * 4),
     };
-  }
 
-  start(): void {
     this.worker.onmessage = (e: IncomingWorkerMessage) => {
       const { topic } = e.data;
 
-      if (topic === 'frame') {
-        this.handleFrame(e as WorkerFrameMessage);
-      } else if (topic === 'collide') {
-        this.handleCollide(e as WorkerCollideEvent);
-      } else if (topic === 'collideBegin') {
-        this.handleCollideBegin(e as WorkerCollideBeginEvent);
-      } else if (topic === 'collideEnd') {
-        this.handleCollideEnd(e as WorkerCollideEndEvent);
-      } else if (topic === 'rayhit') {
-        this.handleRayhit(e as WorkerRayhitEvent);
+      if (topic === PhysicsEventTopic.FRAME) {
+        this.handleFrame(e as unknown as WorkerFrameMessage);
+      } else if (topic === PhysicsEventTopic.COLLIDE) {
+        this.handleCollide(e as unknown as WorkerCollideEvent);
+      } else if (topic === PhysicsEventTopic.COLLIDE_BEGIN) {
+        this.handleCollideBegin(e as unknown as WorkerCollideBeginEvent);
+      } else if (topic === PhysicsEventTopic.COLLIDE_END) {
+        this.handleCollideEnd(e as unknown as WorkerCollideEndEvent);
+      } else if (topic === PhysicsEventTopic.RAYHIT) {
+        this.handleRayhit(e as unknown as WorkerRayhitEvent);
       }
     };
 
     this.worker.postMessage({
-      topic: 'init',
+      topic: PhysicsEventTopic.INIT,
       params: {
-        gravity: this.params.gravity,
-        tolerance: this.params.tolerance,
-        stepSize: this.params.stepSize,
-        shouldInvalidate: this.params.shouldInvalidate,
-        iterations: this.params.iterations,
-        broadphase: this.params.broadphase,
-        allowSleep: this.params.allowSleep,
-        axisIndex: this.params.axisIndex,
-        defaultContactMaterial: this.params.defaultContactMaterial,
-        quatNormalizeFast: this.params.quatNormalizeFast,
-        quatNormalizeSkip: this.params.quatNormalizeSkip,
-        solver: this.params.solver,
+        gravity: this.config.gravity,
+        tolerance: this.config.tolerance,
+        iterations: this.config.iterations,
+        broadphase: this.config.broadphase,
+        allowSleep: this.config.allowSleep,
+        axisIndex: this.config.axisIndex,
+        defaultContactMaterial: this.config.defaultContactMaterial,
+        quatNormalizeFast: this.config.quatNormalizeFast,
+        quatNormalizeSkip: this.config.quatNormalizeSkip,
+        solver: this.config.solver,
+        maxSubSteps: this.config.maxSubSteps,
+        delta: this.config.delta,
       },
-    });
+    } as InitEvent);
   }
 
   destroy(): void {
     this.worker.terminate();
   }
 
-  step(): void {
+  step(timeElapsed?: number): void {
     if (this.buffers.positions.byteLength !== 0 && this.buffers.quaternions.byteLength !== 0) {
-      this.worker.postMessage({ topic: 'step', ...this.buffers }, [
-        this.buffers.positions.buffer,
-        this.buffers.quaternions.buffer,
-      ]);
+      this.worker.postMessage(
+        {
+          topic: PhysicsEventTopic.STEP,
+          timeElapsed: timeElapsed || this.config.delta,
+          ...this.buffers,
+        } as StepEvent,
+        [this.buffers.positions.buffer, this.buffers.quaternions.buffer],
+      );
     }
   }
 
-  body<B extends BodyParams<unknown>>(
-    type: BodyShapeType,
-    params: B,
-    argsFn: ArgFn<B['args']>,
-    ref: Object3D | null,
-  ): Api {
-    const object = ref || new Object3D();
-
-    const currentWorker = this.worker;
-
-    let objectCount: number;
-    if (object instanceof InstancedMesh) {
-      object.instanceMatrix.setUsage(DynamicDrawUsage);
-      objectCount = object.count;
-    } else {
-      objectCount = 1;
-    }
-
-    const uuid =
-      object instanceof InstancedMesh
-        ? new Array(objectCount).fill(0).map((_, i) => `${object.uuid}/${i}`)
-        : [object.uuid];
-
-    const bodyParams: (B & { args: unknown })[] =
-      object instanceof InstancedMesh
-        ? uuid.map((id, i) => {
-            prepare(temp, params);
-            object.setMatrixAt(i, temp.matrix);
-            object.instanceMatrix.needsUpdate = true;
-            this.refs[id] = object;
-
-            setupCollision(this.events, params, id);
-
-            return { ...params, args: argsFn(params.args) };
-          })
-        : uuid.map((id, _) => {
-            prepare(object, params);
-            this.refs[id] = object;
-
-            setupCollision(this.events, params, id);
-
-            return { ...params, args: argsFn(params.args) };
-          });
-
-    // Register on mount, unregister on unmount
-    currentWorker.postMessage({
-      topic: 'addBodies',
-      type,
-      uuid,
-      params: bodyParams.map(
-        ({
-          onCollide,
-          onCollideBegin: _onCollideBegin,
-          onCollideEnd: _onCollideEnd,
-          ...serializableProps
-        }) => {
-          return { onCollide: Boolean(onCollide), ...serializableProps };
-        },
-      ),
-    });
-
-    const api = () => {
-      const makeVec = (type: VectorName, index?: number) => {
-        const topic: SetOpName<VectorName> = `set${capitalize(type)}`;
-        return {
-          set: (x: number, y: number, z: number) => {
-            const uuid = getUUID(object, index);
-            uuid && this.worker.postMessage({ topic, params: [x, y, z], uuid });
-          },
-          copy: ({ x, y, z }: Vector3 | Euler) => {
-            const uuid = getUUID(object, index);
-            uuid && this.worker.postMessage({ topic, params: [x, y, z], uuid });
-          },
-          subscribe: subscribe(object, this.worker, this.subscriptions, type, index),
-        };
-      };
-
-      const makeAtomic = <T extends AtomicName>(type: T, index?: number) => {
-        const topic: SetOpName<T> = `set${capitalize(type)}`;
-        return {
-          set: (value: PropValue<T>) => {
-            const uuid = getUUID(object, index);
-            uuid && this.worker.postMessage({ topic, params: value, uuid });
-          },
-          subscribe: subscribe(object, this.worker, this.subscriptions, type, index),
-        };
-      };
-
-      const makeApi = (index?: number): WorkerApi => {
-        return {
-          // Vectors
-          position: makeVec('position', index),
-          rotation: makeVec('quaternion', index),
-          velocity: makeVec('velocity', index),
-          angularVelocity: makeVec('angularVelocity', index),
-          linearFactor: makeVec('linearFactor', index),
-          angularFactor: makeVec('angularFactor', index),
-          // Atomic params
-          allowSleep: makeAtomic('allowSleep', index),
-          angularDamping: makeAtomic('angularDamping', index),
-          collisionFilterGroup: makeAtomic('collisionFilterGroup', index),
-          collisionFilterMask: makeAtomic('collisionFilterMask', index),
-          collisionResponse: makeAtomic('collisionResponse', index),
-          isTrigger: makeAtomic('isTrigger', index),
-          fixedRotation: makeAtomic('fixedRotation', index),
-          linearDamping: makeAtomic('linearDamping', index),
-          mass: makeAtomic('mass', index),
-          material: makeAtomic('material', index),
-          sleepSpeedLimit: makeAtomic('sleepSpeedLimit', index),
-          sleepTimeLimit: makeAtomic('sleepTimeLimit', index),
-          userData: makeAtomic('userData', index),
-          // Apply functions
-          applyForce: (force: Triplet, worldPoint: Triplet) => {
-            const uuid = getUUID(object, index);
-            uuid && this.worker.postMessage({ topic: 'applyForce', params: [force, worldPoint], uuid });
-          },
-          applyImpulse: (impulse: Triplet, worldPoint: Triplet) => {
-            const uuid = getUUID(object, index);
-            uuid && this.worker.postMessage({ topic: 'applyImpulse', params: [impulse, worldPoint], uuid });
-          },
-          applyLocalForce: (force: Triplet, localPoint: Triplet) => {
-            const uuid = getUUID(object, index);
-            uuid && this.worker.postMessage({ topic: 'applyLocalForce', params: [force, localPoint], uuid });
-          },
-          applyLocalImpulse: (impulse: Triplet, localPoint: Triplet) => {
-            const uuid = getUUID(object, index);
-            uuid &&
-              this.worker.postMessage({ topic: 'applyLocalImpulse', params: [impulse, localPoint], uuid });
-          },
-          applyTorque: (torque: Triplet) => {
-            const uuid = getUUID(object, index);
-            uuid && this.worker.postMessage({ topic: 'applyTorque', params: [torque], uuid });
-          },
-          // force particular sleep state
-          wakeUp: () => {
-            const uuid = getUUID(object, index);
-            uuid && this.worker.postMessage({ topic: 'wakeUp', uuid });
-          },
-          sleep: () => {
-            const uuid = getUUID(object, index);
-            uuid && this.worker.postMessage({ topic: 'sleep', uuid });
-          },
-          // destroy
-          destroy: () => {
-            uuid.forEach((id) => {
-              delete this.refs[id];
-              delete this.events[id];
-            });
-            this.worker.postMessage({ topic: 'removeBodies', uuid });
-          },
-        };
-      };
-
-      const cache: { [index: number]: WorkerApi } = {};
-
-      return {
-        ...makeApi(undefined),
-        at: (index: number) => cache[index] || (cache[index] = makeApi(index)),
-      };
-    };
-
-    return [object, api()];
+  /**
+   * Retrieves physics factories
+   */
+  public get create() {
+    return this._factories;
   }
 
-  plane(params: PlaneProps, ref: Object3D | null = null) {
-    return this.body<PlaneProps>('Plane', params, () => [], ref);
-  }
+  private _factories = {
+    body: <B extends BodyParams<unknown>>(
+      type: BodyShapeType,
+      params: B,
+      argsFn: ArgFn<B['args']>,
+      ref: Object3D | null,
+    ): Api => {
+      const object = ref || new Object3D();
 
-  box(params: BoxProps, ref: Object3D | null = null) {
-    const defaultBoxArgs: Triplet = [1, 1, 1];
-    return this.body<BoxProps>('Box', params, (args = defaultBoxArgs): Triplet => args, ref);
-  }
+      const currentWorker = this.worker;
 
-  cylinder(params: CylinderProps, ref: Object3D | null = null) {
-    return this.body<CylinderProps>('Cylinder', params, (args = [] as []) => args, ref);
-  }
-
-  heightfield(params: HeightfieldProps, ref: Object3D | null = null) {
-    return this.body<HeightfieldProps>('Heightfield', params, (args) => args, ref);
-  }
-
-  particle(params: ParticleProps, ref: Object3D | null = null) {
-    return this.body<ParticleProps>('Particle', params, () => [], ref);
-  }
-
-  sphere(params: SphereProps, ref: Object3D | null = null) {
-    return this.body<SphereProps>('Sphere', params, (radius = 1): [number] => [radius], ref);
-  }
-
-  trimesh(params: TrimeshProps, ref: Object3D | null = null) {
-    return this.body<TrimeshProps>('Trimesh', params, (args) => args, ref);
-  }
-
-  convexPolyhedron(params: ConvexPolyhedronProps, ref: Object3D | null = null) {
-    return this.body<ConvexPolyhedronProps>(
-      'ConvexPolyhedron',
-      params,
-      ([vertices, faces, normals, axes, boundingSphereRadius] = []): ConvexPolyhedronArgs<Triplet> => [
-        vertices && vertices.map(makeTriplet),
-        faces,
-        normals && normals.map(makeTriplet),
-        axes && axes.map(makeTriplet),
-        boundingSphereRadius,
-      ],
-      ref,
-    );
-  }
-
-  compoundBody(params: CompoundBodyProps, ref: Object3D | null = null) {
-    return this.body('Compound', params, (args) => args as unknown[], ref);
-  }
-
-  ray(mode: RayMode, options: RayHookOptions, callback: (e: RayhitEvent) => void) {
-    const uuid = MathUtils.generateUUID();
-
-    this.events[uuid] = { rayhit: callback };
-    this.worker.postMessage({ topic: 'addRay', uuid, params: { mode, ...options } });
-
-    const api = {
-      destroy: () => {
-        this.worker.postMessage({ topic: 'removeRay', uuid });
-        delete this.events[uuid];
-      },
-    };
-
-    return [uuid, api];
-  }
-
-  raycastClosest(options: RayHookOptions, callback: (e: RayhitEvent) => void) {
-    this.ray('Closest', options, callback);
-  }
-
-  raycastAny(options: RayHookOptions, callback: (e: RayhitEvent) => void) {
-    this.ray('Any', options, callback);
-  }
-
-  raycastAll(options: RayHookOptions, callback: (e: RayhitEvent) => void) {
-    this.ray('All', options, callback);
-  }
-
-  raycastVehicle(
-    params: RaycastVehicleProps,
-    ref: Object3D | null = null,
-  ): [Object3D, RaycastVehiclePublicApi] {
-    const object = ref || new Object3D();
-
-    const currentWorker = this.worker;
-    const uuid: string[] = [object.uuid];
-    const raycastVehicleProps = params;
-
-    const chassisBodyUUID = getUUID(raycastVehicleProps.chassisBody);
-
-    const wheelUUIDs = raycastVehicleProps.wheels.map((ref) => getUUID(ref));
-
-    if (!chassisBodyUUID || !wheelUUIDs.every(isString)) {
-      throw new Error('missing uuids');
-    }
-
-    currentWorker.postMessage({
-      topic: 'addRaycastVehicle',
-      uuid,
-      params: [
-        chassisBodyUUID,
-        wheelUUIDs,
-        raycastVehicleProps.wheelInfos,
-        raycastVehicleProps?.indexForwardAxis || 2,
-        raycastVehicleProps?.indexRightAxis || 0,
-        raycastVehicleProps?.indexUpAxis || 1,
-      ],
-    });
-
-    const api: () => RaycastVehiclePublicApi = () => {
-      return {
-        sliding: {
-          subscribe: subscribe(object, this.worker, this.subscriptions, 'sliding', undefined, 'vehicles'),
-        },
-        setSteeringValue: (value: number, wheelIndex: number) => {
-          const uuid = getUUID(object);
-          uuid &&
-            this.worker.postMessage({
-              topic: 'setRaycastVehicleSteeringValue',
-              params: [value, wheelIndex],
-              uuid,
-            });
-        },
-        applyEngineForce: (value: number, wheelIndex: number) => {
-          const uuid = getUUID(object);
-          uuid &&
-            this.worker.postMessage({
-              topic: 'applyRaycastVehicleEngineForce',
-              params: [value, wheelIndex],
-              uuid,
-            });
-        },
-        setBrake: (brake: number, wheelIndex: number) => {
-          const uuid = getUUID(object);
-          uuid &&
-            this.worker.postMessage({ topic: 'setRaycastVehicleBrake', params: [brake, wheelIndex], uuid });
-        },
-        destroy: () => {
-          currentWorker.postMessage({ topic: 'removeRaycastVehicle', uuid });
-        },
-      };
-    };
-    return [object, api()];
-  }
-
-  constraint<T extends 'Hinge' | ConstraintTypes>(
-    type: T,
-    bodyA: Object3D,
-    bodyB: Object3D,
-    optns: any = {},
-  ): ConstraintORHingeApi<T> {
-    const uuid = MathUtils.generateUUID();
-
-    if (bodyA && bodyB) {
-      this.worker.postMessage({
-        topic: 'addConstraint',
-        params: [bodyA.uuid, bodyB.uuid, optns],
-        type,
-        uuid,
-      });
-    }
-
-    const api = () => {
-      const common = {
-        enable: () => this.worker.postMessage({ topic: 'enableConstraint', uuid }),
-        disable: () => this.worker.postMessage({ topic: 'disableConstraint', uuid }),
-        destroy: () => this.worker.postMessage({ topic: 'removeConstraint', uuid }),
-      };
-
-      if (type === 'Hinge') {
-        return {
-          ...common,
-          enableMotor: () => this.worker.postMessage({ topic: 'enableConstraintMotor', uuid }),
-          disableMotor: () => this.worker.postMessage({ topic: 'disableConstraintMotor', uuid }),
-          setMotorSpeed: (value: number) =>
-            this.worker.postMessage({ topic: 'setConstraintMotorSpeed', uuid, params: value }),
-          setMotorMaxForce: (value: number) =>
-            this.worker.postMessage({ topic: 'setConstraintMotorMaxForce', uuid, params: value }),
-        };
+      let objectCount: number;
+      if (object instanceof InstancedMesh) {
+        object.instanceMatrix.setUsage(DynamicDrawUsage);
+        objectCount = object.count;
+      } else {
+        objectCount = 1;
       }
 
-      return common;
-    };
+      const uuid =
+        object instanceof InstancedMesh
+          ? new Array(objectCount).fill(0).map((_, i) => `${object.uuid}/${i}`)
+          : [object.uuid];
 
-    return [bodyA, bodyB, api()] as ConstraintORHingeApi<T>;
-  }
+      const bodyParams: (B & { args: unknown })[] =
+        object instanceof InstancedMesh
+          ? uuid.map((id, i) => {
+              prepare(temp, params);
+              object.setMatrixAt(i, temp.matrix);
+              object.instanceMatrix.needsUpdate = true;
+              this.refs[id] = object;
 
-  pointToPointConstraint(bodyA: Object3D, bodyB: Object3D, optns: PointToPointConstraintOpts) {
-    return this.constraint('PointToPoint', bodyA, bodyB, optns);
-  }
+              if (this.debugger) {
+                this.debugger.add(id, params, type);
+              }
 
-  coneTwistConstraint(bodyA: Object3D, bodyB: Object3D, optns: ConeTwistConstraintOpts) {
-    return this.constraint('ConeTwist', bodyA, bodyB, optns);
-  }
+              setupCollision(this.events, params, id);
 
-  distanceConstraint(bodyA: Object3D, bodyB: Object3D, optns: DistanceConstraintOpts) {
-    return this.constraint('Distance', bodyA, bodyB, optns);
-  }
+              return { ...params, args: argsFn(params.args) };
+            })
+          : uuid.map((id, _) => {
+              prepare(object, params);
+              this.refs[id] = object;
 
-  hingeConstraint(bodyA: Object3D, bodyB: Object3D, optns: HingeConstraintOpts) {
-    return this.constraint('Hinge', bodyA, bodyB, optns);
-  }
+              setupCollision(this.events, params, id);
 
-  lockConstraint(bodyA: Object3D, bodyB: Object3D, optns: LockConstraintOpts) {
-    return this.constraint('Lock', bodyA, bodyB, optns);
-  }
+              if (this.debugger) {
+                this.debugger.add(id, params, type);
+              }
 
-  spring(bodyA: Object3D, bodyB: Object3D, optns: SpringOptns): SpringApi {
-    const uuid = MathUtils.generateUUID();
+              return { ...params, args: argsFn(params.args) };
+            });
 
-    this.worker.postMessage({
-      topic: 'addSpring',
-      uuid,
-      params: [bodyA.uuid, bodyB.uuid, optns],
-    });
+      // Register on mount, unregister on unmount
+      currentWorker.postMessage({
+        topic: PhysicsEventTopic.ADD_BODIES,
+        type,
+        uuid,
+        params: bodyParams.map(
+          ({
+            onCollide,
+            onCollideBegin: _onCollideBegin,
+            onCollideEnd: _onCollideEnd,
+            ...serializableProps
+          }) => {
+            return { onCollide: Boolean(onCollide), ...serializableProps };
+          },
+        ),
+      } as AddBodiesEvent);
 
-    const api = () => ({
-      uuid,
-      setStiffness: (value: number) =>
-        this.worker.postMessage({ topic: 'setSpringStiffness', params: value, uuid }),
-      setRestLength: (value: number) =>
-        this.worker.postMessage({ topic: 'setSpringRestLength', params: value, uuid }),
-      setDamping: (value: number) =>
-        this.worker.postMessage({ topic: 'setSpringDamping', params: value, uuid }),
-      destroy: () => {
-        this.worker.postMessage({ topic: 'removeSpring', uuid });
-      },
-    });
+      const api = () => {
+        const makeVec = (type: VectorName, index?: number) => {
+          const topic: SetOpName<VectorName> = `set${capitalize(type)}`;
+          return {
+            set: (x: number, y: number, z: number) => {
+              const uuid = getUUID(object, index);
+              uuid && this.worker.postMessage({ topic, params: [x, y, z], uuid });
+            },
+            copy: ({ x, y, z }: Vector3 | Euler) => {
+              const uuid = getUUID(object, index);
+              uuid && this.worker.postMessage({ topic, params: [x, y, z], uuid });
+            },
+            subscribe: subscribe(object, this.worker, this.subscriptions, type, index),
+          };
+        };
 
-    return [uuid, bodyA, bodyB, api()];
-  }
+        const makeAtomic = <T extends AtomicName>(type: T, index?: number) => {
+          const topic: SetOpName<T> = `set${capitalize(type)}`;
+          return {
+            set: (value: PropValue<T>) => {
+              const uuid = getUUID(object, index);
+              uuid && this.worker.postMessage({ topic, params: value, uuid });
+            },
+            subscribe: subscribe(object, this.worker, this.subscriptions, type, index),
+          };
+        };
+
+        const makeApi = (index?: number): WorkerApi => {
+          return {
+            // Vectors
+            position: makeVec('position', index),
+            rotation: makeVec('quaternion', index),
+            velocity: makeVec('velocity', index),
+            angularVelocity: makeVec('angularVelocity', index),
+            linearFactor: makeVec('linearFactor', index),
+            angularFactor: makeVec('angularFactor', index),
+            // Atomic params
+            allowSleep: makeAtomic('allowSleep', index),
+            angularDamping: makeAtomic('angularDamping', index),
+            collisionFilterGroup: makeAtomic('collisionFilterGroup', index),
+            collisionFilterMask: makeAtomic('collisionFilterMask', index),
+            collisionResponse: makeAtomic('collisionResponse', index),
+            isTrigger: makeAtomic('isTrigger', index),
+            fixedRotation: makeAtomic('fixedRotation', index),
+            linearDamping: makeAtomic('linearDamping', index),
+            mass: makeAtomic('mass', index),
+            material: makeAtomic('material', index),
+            sleepSpeedLimit: makeAtomic('sleepSpeedLimit', index),
+            sleepTimeLimit: makeAtomic('sleepTimeLimit', index),
+            userData: makeAtomic('userData', index),
+            // Apply functions
+            applyForce: (force: Triplet, worldPoint: Triplet) => {
+              const uuid = getUUID(object, index);
+              uuid &&
+                this.worker.postMessage({
+                  topic: PhysicsEventTopic.APPLY_FORCE,
+                  params: [force, worldPoint],
+                  uuid,
+                });
+            },
+            applyImpulse: (impulse: Triplet, worldPoint: Triplet) => {
+              const uuid = getUUID(object, index);
+              uuid &&
+                this.worker.postMessage({
+                  topic: PhysicsEventTopic.APPLY_IMPULSE,
+                  params: [impulse, worldPoint],
+                  uuid,
+                });
+            },
+            applyLocalForce: (force: Triplet, localPoint: Triplet) => {
+              const uuid = getUUID(object, index);
+              uuid &&
+                this.worker.postMessage({
+                  topic: PhysicsEventTopic.APPLY_LOCAL_FORCE,
+                  params: [force, localPoint],
+                  uuid,
+                });
+            },
+            applyLocalImpulse: (impulse: Triplet, localPoint: Triplet) => {
+              const uuid = getUUID(object, index);
+              uuid &&
+                this.worker.postMessage({
+                  topic: PhysicsEventTopic.APPLY_LOCAL_IMPULSE,
+                  params: [impulse, localPoint],
+                  uuid,
+                });
+            },
+            applyTorque: (torque: Triplet) => {
+              const uuid = getUUID(object, index);
+              uuid &&
+                this.worker.postMessage({ topic: PhysicsEventTopic.APPLY_TORQUE, params: torque, uuid });
+            },
+            // force particular sleep state
+            wakeUp: () => {
+              const uuid = getUUID(object, index);
+              uuid && this.worker.postMessage({ topic: PhysicsEventTopic.WAKE_UP, uuid });
+            },
+            sleep: () => {
+              const uuid = getUUID(object, index);
+              uuid && this.worker.postMessage({ topic: PhysicsEventTopic.SLEEP, uuid });
+            },
+            // destroy
+            destroy: () => {
+              uuid.forEach((id) => {
+                delete this.refs[id];
+
+                if (this.debugger) {
+                  this.debugger.remove(id);
+                }
+
+                delete this.events[id];
+              });
+              this.worker.postMessage({ topic: PhysicsEventTopic.REMOVE_BODIES, uuid });
+            },
+          };
+        };
+
+        const cache: { [index: number]: WorkerApi } = {};
+
+        return {
+          ...makeApi(undefined),
+          at: (index: number) => cache[index] || (cache[index] = makeApi(index)),
+        };
+      };
+
+      return [object, api()];
+    },
+    plane: (params: PlaneProps, ref: Object3D | null = null) => {
+      return this._factories.body<PlaneProps>('Plane', params, () => [], ref);
+    },
+    box: (params: BoxProps, ref: Object3D | null = null) => {
+      const defaultBoxArgs: Triplet = [1, 1, 1];
+      return this._factories.body<BoxProps>('Box', params, (args = defaultBoxArgs): Triplet => args, ref);
+    },
+    cylinder: (params: CylinderProps, ref: Object3D | null = null) => {
+      return this._factories.body<CylinderProps>('Cylinder', params, (args = [] as []) => args, ref);
+    },
+    heightfield: (params: HeightfieldProps, ref: Object3D | null = null) => {
+      return this._factories.body<HeightfieldProps>('Heightfield', params, (args) => args, ref);
+    },
+    particle: (params: ParticleProps, ref: Object3D | null = null) => {
+      return this._factories.body<ParticleProps>('Particle', params, () => [], ref);
+    },
+    sphere: (params: SphereProps, ref: Object3D | null = null) => {
+      return this._factories.body<SphereProps>('Sphere', params, (radius = 1): [number] => [radius], ref);
+    },
+    trimesh: (params: TrimeshProps, ref: Object3D | null = null) => {
+      return this._factories.body<TrimeshProps>('Trimesh', params, (args) => args, ref);
+    },
+    convexPolyhedron: (params: ConvexPolyhedronProps, ref: Object3D | null = null) => {
+      return this._factories.body<ConvexPolyhedronProps>(
+        'ConvexPolyhedron',
+        params,
+        ([vertices, faces, normals, axes, boundingSphereRadius] = []): ConvexPolyhedronArgs<Triplet> => [
+          vertices && vertices.map(makeTriplet),
+          faces,
+          normals && normals.map(makeTriplet),
+          axes && axes.map(makeTriplet),
+          boundingSphereRadius,
+        ],
+        ref,
+      );
+    },
+    compoundBody: (params: CompoundBodyProps, ref: Object3D | null = null) => {
+      return this._factories.body('Compound', params, (args) => args as unknown[], ref);
+    },
+    ray: (mode: RayMode, options: RayHookOptions, callback: (e: RayhitEvent) => void) => {
+      const uuid = MathUtils.generateUUID();
+
+      this.events[uuid] = { rayhit: callback };
+      this.worker.postMessage({ topic: PhysicsEventTopic.ADD_RAY, uuid, params: { mode, ...options } });
+
+      const api = {
+        destroy: () => {
+          this.worker.postMessage({ topic: PhysicsEventTopic.REMOVE_RAY, uuid });
+          delete this.events[uuid];
+        },
+      };
+
+      return [uuid, api];
+    },
+    raycastClosest: (options: RayHookOptions, callback: (e: RayhitEvent) => void) => {
+      this._factories.ray('Closest', options, callback);
+    },
+    raycastAny: (options: RayHookOptions, callback: (e: RayhitEvent) => void) => {
+      this._factories.ray('Any', options, callback);
+    },
+    raycastAll: (options: RayHookOptions, callback: (e: RayhitEvent) => void) => {
+      this._factories.ray('All', options, callback);
+    },
+    raycastVehicle: (
+      params: RaycastVehicleProps,
+      ref: Object3D | null = null,
+    ): [Object3D, RaycastVehiclePublicApi] => {
+      const object = ref || new Object3D();
+
+      const currentWorker = this.worker;
+      const { uuid } = object;
+      const raycastVehicleProps = params;
+
+      const chassisBodyUUID = getUUID(raycastVehicleProps.chassisBody);
+
+      const wheelUUIDs = raycastVehicleProps.wheels.map((ref) => getUUID(ref));
+
+      if (!chassisBodyUUID || !wheelUUIDs.every(isString)) {
+        throw new Error('missing uuids');
+      }
+
+      currentWorker.postMessage({
+        topic: PhysicsEventTopic.ADD_RAYCAST_VEHICLE,
+        uuid,
+        params: [
+          chassisBodyUUID,
+          wheelUUIDs,
+          raycastVehicleProps.wheelInfos,
+          raycastVehicleProps?.indexForwardAxis || 2,
+          raycastVehicleProps?.indexRightAxis || 0,
+          raycastVehicleProps?.indexUpAxis || 1,
+        ],
+      } as AddRaycastVehicleEvent);
+
+      const api: () => RaycastVehiclePublicApi = () => {
+        return {
+          sliding: {
+            subscribe: subscribe(object, this.worker, this.subscriptions, 'sliding', undefined, 'vehicles'),
+          },
+          setSteeringValue: (value: number, wheelIndex: number) => {
+            const uuid = getUUID(object);
+            uuid &&
+              this.worker.postMessage({
+                topic: PhysicsEventTopic.SET_RAYCAST_VEHICLE_STEERING_VALUE,
+                params: [value, wheelIndex],
+                uuid,
+              });
+          },
+          applyEngineForce: (value: number, wheelIndex: number) => {
+            const uuid = getUUID(object);
+            uuid &&
+              this.worker.postMessage({
+                topic: PhysicsEventTopic.APPLY_RAYCAST_VEHICLE_ENGINE_FORCE,
+                params: [value, wheelIndex],
+                uuid,
+              });
+          },
+          setBrake: (brake: number, wheelIndex: number) => {
+            const uuid = getUUID(object);
+            uuid &&
+              this.worker.postMessage({
+                topic: PhysicsEventTopic.SET_RAYCAST_VEHICLE_BRAKE,
+                params: [brake, wheelIndex],
+                uuid,
+              });
+          },
+          destroy: () => {
+            currentWorker.postMessage({ topic: PhysicsEventTopic.REMOVE_RAYCAST_VEHICLE, uuid });
+          },
+        };
+      };
+      return [object, api()];
+    },
+    constraint: <T extends 'Hinge' | ConstraintTypes>(
+      type: T,
+      bodyA: Object3D,
+      bodyB: Object3D,
+      optns: any = {},
+    ): ConstraintORHingeApi<T> => {
+      const uuid = MathUtils.generateUUID();
+
+      if (bodyA && bodyB) {
+        this.worker.postMessage({
+          topic: PhysicsEventTopic.ADD_CONSTRAINT,
+          params: [bodyA.uuid, bodyB.uuid, optns],
+          type,
+          uuid,
+        });
+      }
+
+      const api = () => {
+        const common = {
+          enable: () => this.worker.postMessage({ topic: PhysicsEventTopic.ENABLE_CONSTRAINT, uuid }),
+          disable: () => this.worker.postMessage({ topic: PhysicsEventTopic.DISABLE_CONSTRAINT, uuid }),
+          destroy: () => this.worker.postMessage({ topic: PhysicsEventTopic.REMOVE_CONSTRAINT, uuid }),
+        };
+
+        if (type === 'Hinge') {
+          return {
+            ...common,
+            enableMotor: () =>
+              this.worker.postMessage({ topic: PhysicsEventTopic.ENABLE_CONSTRAINT_MOTOR, uuid }),
+            disableMotor: () =>
+              this.worker.postMessage({ topic: PhysicsEventTopic.DISABLE_CONSTRAINT_MOTOR, uuid }),
+            setMotorSpeed: (value: number) =>
+              this.worker.postMessage({
+                topic: PhysicsEventTopic.SET_CONSTRAINT_MOTOR_SPEED,
+                uuid,
+                params: value,
+              }),
+            setMotorMaxForce: (value: number) =>
+              this.worker.postMessage({
+                topic: PhysicsEventTopic.SET_CONSTRAINT_MOTOR_MAX_FORCE,
+                uuid,
+                params: value,
+              }),
+          };
+        }
+
+        return common;
+      };
+
+      return [bodyA, bodyB, api()] as ConstraintORHingeApi<T>;
+    },
+    pointToPointConstraint: (bodyA: Object3D, bodyB: Object3D, optns: PointToPointConstraintOpts) => {
+      return this._factories.constraint('PointToPoint', bodyA, bodyB, optns);
+    },
+    coneTwistConstraint: (bodyA: Object3D, bodyB: Object3D, optns: ConeTwistConstraintOpts) => {
+      return this._factories.constraint('ConeTwist', bodyA, bodyB, optns);
+    },
+    distanceConstraint: (bodyA: Object3D, bodyB: Object3D, optns: DistanceConstraintOpts) => {
+      return this._factories.constraint('Distance', bodyA, bodyB, optns);
+    },
+    hingeConstraint: (bodyA: Object3D, bodyB: Object3D, optns: HingeConstraintOpts) => {
+      return this._factories.constraint('Hinge', bodyA, bodyB, optns);
+    },
+    lockConstraint: (bodyA: Object3D, bodyB: Object3D, optns: LockConstraintOpts) => {
+      return this._factories.constraint('Lock', bodyA, bodyB, optns);
+    },
+    spring: (bodyA: Object3D, bodyB: Object3D, optns: SpringOptns): SpringApi => {
+      const uuid = MathUtils.generateUUID();
+
+      this.worker.postMessage({
+        topic: PhysicsEventTopic.ADD_SPRING,
+        uuid,
+        params: [bodyA.uuid, bodyB.uuid, optns],
+      });
+
+      const api = () => ({
+        uuid,
+        setStiffness: (value: number) =>
+          this.worker.postMessage({ topic: PhysicsEventTopic.SET_SPRING_STIFFNESS, params: value, uuid }),
+        setRestLength: (value: number) =>
+          this.worker.postMessage({ topic: PhysicsEventTopic.SET_SPRING_REST_LENGTH, params: value, uuid }),
+        setDamping: (value: number) =>
+          this.worker.postMessage({ topic: PhysicsEventTopic.SET_SPRING_DAMPING, params: value, uuid }),
+        destroy: () => {
+          this.worker.postMessage({ topic: PhysicsEventTopic.REMOVE_SPRING, uuid });
+        },
+      });
+
+      return [uuid, bodyA, bodyB, api()];
+    },
+  };
 
   private handleFrame(e: WorkerFrameMessage) {
     this.buffers.positions = e.data.positions;
@@ -705,9 +834,6 @@ class Physics {
         }
       }
     }
-    // if (shouldInvalidate) {
-    //   invalidate()
-    // }
   }
 
   private handleCollide(e: WorkerCollideEvent) {
@@ -763,4 +889,4 @@ class Physics {
   }
 }
 
-export default Physics;
+export { Physics };

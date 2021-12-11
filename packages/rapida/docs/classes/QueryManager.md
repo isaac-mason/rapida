@@ -39,7 +39,7 @@ QueryManager that manages Query class instances
 
 #### Defined in
 
-[rapida/src/ecs/query-manager.ts:23](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/ecs/query-manager.ts#L23)
+[rapida/src/ecs/query-manager.ts:23](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/query-manager.ts#L23)
 
 ## Properties
 
@@ -51,7 +51,7 @@ A map of entity ids and a set of queries the entity is part of
 
 #### Defined in
 
-[rapida/src/ecs/query-manager.ts:21](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/ecs/query-manager.ts#L21)
+[rapida/src/ecs/query-manager.ts:21](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/query-manager.ts#L21)
 
 ___
 
@@ -63,7 +63,7 @@ A map of query dedupe strings to query instances
 
 #### Defined in
 
-[rapida/src/ecs/query-manager.ts:11](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/ecs/query-manager.ts#L11)
+[rapida/src/ecs/query-manager.ts:11](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/query-manager.ts#L11)
 
 ___
 
@@ -75,7 +75,7 @@ The world the query manager is in
 
 #### Defined in
 
-[rapida/src/ecs/query-manager.ts:16](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/ecs/query-manager.ts#L16)
+[rapida/src/ecs/query-manager.ts:16](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/query-manager.ts#L16)
 
 ## Methods
 
@@ -99,7 +99,7 @@ a set of queries an entity is part of
 
 #### Defined in
 
-[rapida/src/ecs/query-manager.ts:140](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/ecs/query-manager.ts#L140)
+[rapida/src/ecs/query-manager.ts:140](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/query-manager.ts#L140)
 
 ___
 
@@ -123,7 +123,7 @@ If the query already exists, it is returned
 
 #### Defined in
 
-[rapida/src/ecs/query-manager.ts:33](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/ecs/query-manager.ts#L33)
+[rapida/src/ecs/query-manager.ts:33](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/query-manager.ts#L33)
 
 ___
 
@@ -145,7 +145,7 @@ Returns whether the query manager has the query
 
 #### Defined in
 
-[rapida/src/ecs/query-manager.ts:70](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/ecs/query-manager.ts#L70)
+[rapida/src/ecs/query-manager.ts:70](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/query-manager.ts#L70)
 
 ___
 
@@ -168,7 +168,7 @@ Updates queries after a component has been added to an entity
 
 #### Defined in
 
-[rapida/src/ecs/query-manager.ts:94](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/ecs/query-manager.ts#L94)
+[rapida/src/ecs/query-manager.ts:94](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/query-manager.ts#L94)
 
 ___
 
@@ -191,7 +191,7 @@ Updates queries after a component has been removed from an entity
 
 #### Defined in
 
-[rapida/src/ecs/query-manager.ts:107](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/ecs/query-manager.ts#L107)
+[rapida/src/ecs/query-manager.ts:107](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/query-manager.ts#L107)
 
 ___
 
@@ -213,7 +213,7 @@ Updates queries after a query has been removed from the world
 
 #### Defined in
 
-[rapida/src/ecs/query-manager.ts:79](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/ecs/query-manager.ts#L79)
+[rapida/src/ecs/query-manager.ts:79](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/query-manager.ts#L79)
 
 ___
 
@@ -235,7 +235,7 @@ Removes a query from the query manager
 
 #### Defined in
 
-[rapida/src/ecs/query-manager.ts:62](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/ecs/query-manager.ts#L62)
+[rapida/src/ecs/query-manager.ts:62](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/query-manager.ts#L62)
 
 ___
 
@@ -258,4 +258,4 @@ Updates a query for an entity
 
 #### Defined in
 
-[rapida/src/ecs/query-manager.ts:120](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/ecs/query-manager.ts#L120)
+[rapida/src/ecs/query-manager.ts:120](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/query-manager.ts#L120)

@@ -11,12 +11,14 @@ A Runtime for rapida worlds
 ### Properties
 
 - [debug](Runtime.md#debug)
-- [domElement](Runtime.md#domelement)
+- [gameLoopUpdateDelayMs](Runtime.md#gameloopupdatedelayms)
 - [killLoop](Runtime.md#killloop)
 - [log](Runtime.md#log)
+- [physicsDelta](Runtime.md#physicsdelta)
+- [physicsUpdateDelayMs](Runtime.md#physicsupdatedelayms)
 - [previousGameLoopFrame](Runtime.md#previousgameloopframe)
+- [previousPhysicsFrame](Runtime.md#previousphysicsframe)
 - [stats](Runtime.md#stats)
-- [updateDelay](Runtime.md#updatedelay)
 - [world](Runtime.md#world)
 - [worldProviders](Runtime.md#worldproviders)
 
@@ -35,15 +37,17 @@ A Runtime for rapida worlds
 
 • **new Runtime**(`params?`)
 
+Constructor for a rapida runtime
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `params?` | [`RuntimeParams`](../modules.md#runtimeparams) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `params?` | [`RuntimeParams`](../modules.md#runtimeparams) | params for constructing the rapida runtime |
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:66](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L66)
+[rapida/src/runtime/index.ts:80](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/runtime/index.ts#L80)
 
 ## Properties
 
@@ -55,19 +59,19 @@ Whether the runtime is in debug mode
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:36](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L36)
+[rapida/src/runtime/index.ts:52](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/runtime/index.ts#L52)
 
 ___
 
-### domElement
+### gameLoopUpdateDelayMs
 
-• `Private` **domElement**: `any`
+• **gameLoopUpdateDelayMs**: `number`
 
-The DOM element for the renderer
+The time in milliseconds to wait before running another game loop update
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:42](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L42)
+[rapida/src/runtime/index.ts:32](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/runtime/index.ts#L32)
 
 ___
 
@@ -81,7 +85,7 @@ Set back to false after killing the loop
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:49](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L49)
+[rapida/src/runtime/index.ts:59](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/runtime/index.ts#L59)
 
 ___
 
@@ -93,7 +97,31 @@ The logger for the runtime
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:26](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L26)
+[rapida/src/runtime/index.ts:27](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/runtime/index.ts#L27)
+
+___
+
+### physicsDelta
+
+• **physicsDelta**: `number`
+
+The delta value for the physics worlds, based on the runtime maxPhysicsUpdatesPerSecond
+
+#### Defined in
+
+[rapida/src/runtime/index.ts:42](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/runtime/index.ts#L42)
+
+___
+
+### physicsUpdateDelayMs
+
+• **physicsUpdateDelayMs**: `number`
+
+The time in milliseconds to wait before running another physics update
+
+#### Defined in
+
+[rapida/src/runtime/index.ts:37](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/runtime/index.ts#L37)
 
 ___
 
@@ -105,7 +133,19 @@ The time of the previous animation frame
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:59](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L59)
+[rapida/src/runtime/index.ts:64](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/runtime/index.ts#L64)
+
+___
+
+### previousPhysicsFrame
+
+• `Private` **previousPhysicsFrame**: `undefined` \| `number`
+
+The time of the previous physics frame
+
+#### Defined in
+
+[rapida/src/runtime/index.ts:69](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/runtime/index.ts#L69)
 
 ___
 
@@ -117,19 +157,7 @@ The stats.js instance for the runtime
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:64](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L64)
-
-___
-
-### updateDelay
-
-• `Private` **updateDelay**: `number`
-
-The time in milliseconds to wait before running another runtime update
-
-#### Defined in
-
-[rapida/src/runtime/index.ts:54](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L54)
+[rapida/src/runtime/index.ts:74](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/runtime/index.ts#L74)
 
 ___
 
@@ -141,7 +169,7 @@ The current world in play
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:21](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L21)
+[rapida/src/runtime/index.ts:22](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/runtime/index.ts#L22)
 
 ___
 
@@ -157,7 +185,7 @@ The world providers for the runtime
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:31](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L31)
+[rapida/src/runtime/index.ts:47](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/runtime/index.ts#L47)
 
 ## Methods
 
@@ -173,7 +201,7 @@ Destroys the runtime
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:147](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L147)
+[rapida/src/runtime/index.ts:164](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/runtime/index.ts#L164)
 
 ___
 
@@ -189,7 +217,7 @@ The game logic loop
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:174](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L174)
+[rapida/src/runtime/index.ts:191](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/runtime/index.ts#L191)
 
 ___
 
@@ -205,7 +233,7 @@ The physics loop
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:194](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L194)
+[rapida/src/runtime/index.ts:211](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/runtime/index.ts#L211)
 
 ___
 
@@ -228,7 +256,7 @@ Registers a new world provider
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:95](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L95)
+[rapida/src/runtime/index.ts:112](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/runtime/index.ts#L112)
 
 ___
 
@@ -244,7 +272,7 @@ Runs the render loop for the runtime
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:156](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L156)
+[rapida/src/runtime/index.ts:173](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/runtime/index.ts#L173)
 
 ___
 
@@ -267,4 +295,4 @@ If a world is already playing, the current world is stopped and the new world is
 
 #### Defined in
 
-[rapida/src/runtime/index.ts:104](https://gitlab.com/rapidajs/rapida/-/blob/6cbf5c3/packages/rapida/src/runtime/index.ts#L104)
+[rapida/src/runtime/index.ts:121](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/runtime/index.ts#L121)

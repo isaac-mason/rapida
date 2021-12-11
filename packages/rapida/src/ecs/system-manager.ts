@@ -70,16 +70,15 @@ class SystemManager {
   removeSystem(system: System): SystemManager {
     this.systems.delete(system.id);
 
-    system.destroy();
-
     Object.entries(system.queryDescriptions).forEach(
       ([queryName, queryDescription]: [string, QueryDescription]) => {
         const query = this.world.queryManager.getQuery(queryDescription);
         this.removeSystemFromQuery(query, system);
         delete system.queries[queryName];
-        system.destroy();
       }
     );
+
+    system._destroy();
 
     return this;
   }
@@ -110,7 +109,7 @@ class SystemManager {
    * Destroys all systems
    */
   _destroy(): void {
-    this.systems.forEach((s) => s.destroy());
+    this.systems.forEach((s) => s._destroy());
   }
 
   /**

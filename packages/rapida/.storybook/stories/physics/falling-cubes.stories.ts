@@ -37,10 +37,6 @@ export const FallingCubes = () => {
 
   const LIGHT_BLUE = '#89CFF0';
 
-  const SPACE_NAME = 'main';
-  const SCENE_NAME = 'main';
-  const PHYSICS_NAME = 'main';
-
   class FallingCubeComponent extends Component {
     scene: Scene;
     physics: Physics;
@@ -66,7 +62,7 @@ export const FallingCubes = () => {
       this.mesh.matrixAutoUpdate = false;
       this.scene.add(this.mesh);
 
-      const [_, cubeApi] = this.physics.box(
+      const [_, cubeApi] = this.physics.create.box(
         {
           type: BodyType.DYNAMIC,
           args: [3, 3, 3],
@@ -82,9 +78,9 @@ export const FallingCubes = () => {
       this.cubeApi = cubeApi;
 
       cubeApi.velocity.set(
-        Math.round(Math.random() * 4) - 2,
-        50,
-        Math.round(Math.random() * 4) - 2
+        Math.random() - 0.5,
+        30,
+        Math.random() - 0.5
       );
 
       cubeApi.angularVelocity.set(
@@ -157,7 +153,7 @@ export const FallingCubes = () => {
     }
 
     onInit = (): void => {
-      const [_, plane] = this.physics.plane({
+      const [_, plane] = this.physics.create.plane({
         type: BodyType.STATIC,
         position: [0, -10, 0],
         rotation: [-Math.PI / 2, 0, 0],
@@ -235,11 +231,10 @@ export const FallingCubes = () => {
       });
 
       const physics = world.create.physics({
-        id: PHYSICS_NAME,
-        gravity: [0, -30, 0],
+        gravity: [0, -10, 0],
       });
 
-      const scene = world.create.scene({ id: SCENE_NAME });
+      const scene = world.create.scene();
       scene.threeScene.background = new Color(LIGHT_BLUE);
 
       const threeCamera = new PerspectiveCamera(50, 1, 20, 1000);
@@ -253,7 +248,7 @@ export const FallingCubes = () => {
 
       new OrbitControls(camera.threeCamera, view.domElement);
 
-      const space = world.create.space({ id: SPACE_NAME });
+      const space = world.create.space();
 
       space.create.entity().addComponent(new LightComponent({ scene }));
 

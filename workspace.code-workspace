@@ -26,7 +26,7 @@
     }
   ],
   "settings": {
-    "typescript.preferences.importModuleSpecifier": "non-relative",
+    "typescript.preferences.importModuleSpecifier": "relative",
     "cSpell.words": [
       "Initialisation",
       "Initialise",
@@ -36,7 +36,8 @@
       "pino",
       "rapida",
       "Strapi"
-    ]
+    ],
+    "javascript.preferences.importModuleSpecifier": "relative"
   },
   "extensions": {
     "recommendations": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]

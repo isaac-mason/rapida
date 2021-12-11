@@ -1,4 +1,4 @@
-import { Physics, PhysicsWorldCreationParams } from '@rapidajs/rapida-physics';
+import { Physics, PhysicsParams } from '@rapidajs/rapida-physics';
 import {
   Event,
   EventHandler,
@@ -32,7 +32,7 @@ type WorldFactories = {
   space: (params?: SpaceParams) => Space;
   camera: (params?: CameraParams) => Camera;
   scene: (params?: SceneParams) => Scene;
-  physics: (params: PhysicsWorldCreationParams) => Physics;
+  physics: (params: PhysicsParams) => Physics;
   renderer: RendererFactories;
 };
 
@@ -135,12 +135,12 @@ class World {
    * Removes from the scene
    * @param value the value to remove
    */
-  remove(value: System | Space | Scene | Physics | Camera): World {
+  remove(value: System | Space | Scene | Physics | Camera): void {
     if (value instanceof System) {
       this.systemManager.removeSystem(value);
     } else if (value instanceof Space) {
       this.spaces.delete(value.id);
-      value.destroy();
+      value._destroy();
     } else if (value instanceof Scene) {
       this.scenes.delete(value.id);
     } else if (value instanceof Physics) {
@@ -149,8 +149,6 @@ class World {
     } else if (value instanceof Camera) {
       this.cameras.delete(value.id);
     }
-
-    return this;
   }
 
   /**
@@ -166,11 +164,6 @@ class World {
     // Initialise spaces
     this.spaces.forEach((s) => {
       s._init();
-    });
-
-    // Initialise physics
-    this.physics.forEach((p) => {
-      p.start();
     });
 
     // Set the world to be initialised
@@ -202,10 +195,9 @@ class World {
   /**
    * Steps the physics world
    */
-  updatePhysics(): void {
-    // update physics worlds
+  updatePhysics(timeElapsed: number): void {
     this.physics.forEach((p) => {
-      p.step();
+      p.step(timeElapsed);
     });
   }
 
@@ -215,7 +207,7 @@ class World {
   destroy(): void {
     this.rendererManager._destroy();
     this.systemManager._destroy();
-    this.spaces.forEach((s) => s.destroy());
+    this.spaces.forEach((s) => s._destroy());
     this.physics.forEach((p) => p.destroy());
   }
 
@@ -254,12 +246,22 @@ class World {
    * Factories for creating renderers in the world
    */
   private _rendererFactories: RendererFactories = {
+    /**
+     * Creates a new webgl renderer
+     * @param params params for the webgl renderer
+     * @returns the new webgl renderer
+     */
     webgl: (params: WebGLRendererParams): WebGLRenderer => {
       const renderer = new WebGLRenderer(params);
       this.rendererManager.addRenderer(renderer);
 
       return renderer;
     },
+    /**
+     * Creates a new css renderer
+     * @param params the params for the css renderer
+     * @returns the new css renderer
+     */
     css: (params: CSSRendererParams): CSSRenderer => {
       const renderer = new CSSRenderer(params);
       this.rendererManager.addRenderer(renderer);
@@ -272,6 +274,11 @@ class World {
    * Factories for creating something new in a world
    */
   private _factories: WorldFactories = {
+    /**
+     * Creates a space in the world
+     * @param params the params for the space
+     * @returns the new space
+     */
     space: (params?: SpaceParams): Space => {
       const space = new Space(this, params);
       this.spaces.set(space.id, space);
@@ -282,28 +289,45 @@ class World {
 
       return space;
     },
+    /**
+     * Creates a camera in the world
+     * @param params the params for the camera
+     * @returns the new camera
+     */
     camera: (params?: CameraParams): Camera => {
       const camera = new Camera(this, params);
       this.cameras.set(camera.id, camera);
 
       return camera;
     },
+    /**
+     * Creates a scene in the world
+     * @param params the params for the scene
+     * @returns the new scene
+     */
     scene: (params?: SceneParams): Scene => {
       const scene = new Scene(params);
       this.scenes.set(scene.id, scene);
 
       return scene;
     },
-    physics: (params: PhysicsWorldCreationParams): Physics => {
-      const physics = new Physics(params);
+    /**
+     * Creates a physics instance in the world
+     * @param params the params for the new physics instance
+     * @returns the new physics instance
+     */
+    physics: (params: Exclude<PhysicsParams, 'delta'>): Physics => {
+      const physics = new Physics({
+        ...params,
+        delta: this.runtime.physicsDelta,
+      });
       this.physics.set(physics.id, physics);
-
-      if (this.initialised) {
-        physics.start();
-      }
 
       return physics;
     },
+    /**
+     * Factories for creating a renderer in the world
+     */
     renderer: this._rendererFactories,
   };
 
