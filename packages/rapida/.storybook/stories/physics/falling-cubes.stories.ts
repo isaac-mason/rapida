@@ -4,15 +4,13 @@ import {
   AmbientLight,
   BoxGeometry,
   Color,
-  DirectionalLight,
-  Group,
-  Mesh,
+  DirectionalLight, Mesh,
   MeshBasicMaterial,
   MeshPhongMaterial,
   PerspectiveCamera,
   PlaneGeometry,
   Vector3,
-  WebGLRenderer,
+  WebGLRenderer
 } from 'three';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
 import {
@@ -22,7 +20,7 @@ import {
   Space,
   System,
   World,
-  WorldProvider,
+  WorldProvider
 } from '../../../src';
 
 export default {
@@ -77,11 +75,7 @@ export const FallingCubes = () => {
 
       this.cubeApi = cubeApi;
 
-      cubeApi.velocity.set(
-        Math.random() - 0.5,
-        30,
-        Math.random() - 0.5
-      );
+      cubeApi.velocity.set(Math.random() - 0.5, 30, Math.random() - 0.5);
 
       cubeApi.angularVelocity.set(
         Math.random() * 5 - 2.5,
@@ -139,76 +133,6 @@ export const FallingCubes = () => {
     };
   }
 
-  class GroundComponent extends Component {
-    scene: Scene;
-    physics: Physics;
-    mesh: Mesh;
-
-    plane: PhysicsObjectApi;
-
-    constructor({ scene, physics }: { scene: Scene; physics: Physics }) {
-      super();
-      this.scene = scene;
-      this.physics = physics;
-    }
-
-    onInit = (): void => {
-      const [_, plane] = this.physics.create.plane({
-        type: BodyType.STATIC,
-        position: [0, -10, 0],
-        rotation: [-Math.PI / 2, 0, 0],
-        mass: 0,
-        material: {
-          friction: 0.0,
-          restitution: 0.3,
-        },
-      });
-      this.plane = plane;
-
-      const geometry = new PlaneGeometry(150, 150, 1, 1);
-      const material = new MeshBasicMaterial({ color: LIGHT_BLUE });
-      this.mesh = new Mesh(geometry, material);
-      this.mesh.rotation.set(-Math.PI / 2, 0, 0);
-      this.mesh.position.y = -10;
-      this.scene.add(this.mesh);
-    };
-
-    onDestroy = (): void => {
-      this.scene.remove(this.mesh);
-      this.plane.destroy();
-    };
-  }
-
-  class LightComponent extends Component {
-    scene: Scene;
-    lights: Group;
-
-    constructor({ scene }: { scene: Scene }) {
-      super();
-      this.scene = scene;
-    }
-
-    onInit = (): void => {
-      this.lights = new Group();
-
-      const directionalLight = new DirectionalLight(0xffffff, 0.75);
-      directionalLight.position.set(100, 100, 100);
-      directionalLight.lookAt(new Vector3(0, 0, 0));
-      this.lights.add(directionalLight);
-
-      const ambientLight = new AmbientLight(0xffffff, 0.75);
-      ambientLight.position.set(50, 50, 50);
-      ambientLight.lookAt(new Vector3(0, 0, 0));
-      this.lights.add(ambientLight);
-
-      this.scene.add(this.lights);
-    };
-
-    onDestroy = (): void => {
-      this.scene.remove(this.lights);
-    };
-  }
-
   useEffect(() => {
     const runtime = new Runtime({
       debug: true,
@@ -248,13 +172,36 @@ export const FallingCubes = () => {
 
       new OrbitControls(camera.threeCamera, view.domElement);
 
+      const directionalLight = new DirectionalLight(0xffffff, 0.75);
+      directionalLight.position.set(100, 100, 100);
+      directionalLight.lookAt(new Vector3(0, 0, 0));
+      scene.add(directionalLight);
+
+      const ambientLight = new AmbientLight(0xffffff, 0.75);
+      ambientLight.position.set(50, 50, 50);
+      ambientLight.lookAt(new Vector3(0, 0, 0));
+      scene.add(ambientLight);
+
+      const [_, plane] = physics.create.plane({
+        type: BodyType.STATIC,
+        position: [0, -10, 0],
+        rotation: [-Math.PI / 2, 0, 0],
+        mass: 0,
+        material: {
+          friction: 0.0,
+          restitution: 0.3,
+        },
+      });
+
+      const planeMesh = new Mesh(
+        new PlaneGeometry(150, 150, 1, 1),
+        new MeshBasicMaterial({ color: LIGHT_BLUE })
+      );
+      planeMesh.rotation.set(-Math.PI / 2, 0, 0);
+      planeMesh.position.y = -10;
+      scene.add(planeMesh);
+
       const space = world.create.space();
-
-      space.create.entity().addComponent(new LightComponent({ scene }));
-
-      space.create
-        .entity()
-        .addComponent(new GroundComponent({ scene, physics }));
 
       const cubeEmitter = new CubeEmitterSystem({ space, scene, physics });
       world.addSystem(cubeEmitter);

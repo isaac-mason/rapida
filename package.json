@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "Dev scripts for the rapida multi-package repo",
   "scripts": {
-    "storybook": "concurrently \"cd ../packages/rapida && npm run storybook\" \"cd ../packages/rapida-physics && npm run storybook\"",
-    "install": "concurrently \"cd ../packages/rapida-physics && npm i\" \"cd ../packages/rapida-common && npm i\" \"cd ../packages/rapida && npm i\" \"cd ../packages/rapida-server && npm i\"",
-    "build": "(cd ../packages/rapida-common && npm run build) && (cd ../packages/rapida-physics && npm run build) && concurrently \"cd ../packages/rapida && npm run build\" \"cd ../packages/rapida-server && npm run build\"",
-    "test": "(cd ../packages/rapida && npm run test)",
-    "docs": "concurrently \"cd ../packages/rapida-physics && npm run docs\" \"cd ../packages/rapida && npm run docs\"",
+    "storybook": "concurrently \"cd ./packages/rapida && npm run storybook\" \"cd ./packages/rapida-physics && npm run storybook\"",
+    "install": "concurrently \"cd ./packages/rapida-physics && npm i\" \"cd ./packages/rapida-common && npm i\" \"cd ./packages/rapida && npm i\" \"cd ./packages/rapida-server && npm i\"",
+    "build": "(cd ./packages/rapida-common && npm run build) && (cd ./packages/rapida-physics && npm run build) && concurrently \"cd ./packages/rapida && npm run build\" \"cd ./packages/rapida-server && npm run build\"",
+    "test": "(cd ./packages/rapida && npm run test)",
+    "docs": "concurrently \"cd ./packages/rapida-physics && npm run docs\" \"cd ./packages/rapida && npm run docs\"",
     "prerelease": "npm run install && npm run build && npm run test && npm run docs",
     "change": "npx changeset",
     "release": "npx changeset version"

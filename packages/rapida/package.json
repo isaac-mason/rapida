@@ -64,7 +64,7 @@
     "@rapidajs/rapida-common": "file:../rapida-common",
     "@rapidajs/rapida-physics": "file:../rapida-physics",
     "@types/stats.js": "^0.17.0",
-    "@types/three": ">=0.128.0",
+    "@types/three": "^0.133.0",
     "jest-mock": "^27.1.1",
     "pino": "^6.13.2",
     "socket.io-client": "^4.2.0",
