@@ -5,25 +5,17 @@
       "path": ".."
     },
     {
-      "path": "../packages/rapida-common"
+      "path": "../packages/rapida"
     },
     {
       "path": "../packages/rapida-physics"
     },
     {
-      "path": "../packages/rapida"
+      "path": "../packages/rapida-common"
     },
     {
       "path": "../packages/rapida-server"
     },
-    
-    {
-      "path": "../markdown"
-    },
-    {
-      "name": "example - position-syncing",
-      "path": "../examples/client-server-position-syncing"
-    }
   ],
   "settings": {
     "typescript.preferences.importModuleSpecifier": "relative",
