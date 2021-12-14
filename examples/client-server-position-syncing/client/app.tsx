@@ -4,7 +4,7 @@ import {
   Entity,
   logger,
   NetworkManager,
-  Runtime,
+  Engine,
   Scene,
   Space,
   System,
@@ -319,7 +319,7 @@ class GameNetworkManager extends System {
         ],
       });
 
-      this.world.addSystem(
+      this.world.add.system(
         new OtherPlayersNetworkManager({
           space: this.gameSpace,
           scene: this.gameScene,
@@ -340,7 +340,7 @@ const App = () => {
   const firstRender = useFirstRender();
 
   useEffect(() => {
-    const runtime = new Runtime({
+    const engine = new Engine({
       domId: 'renderer-root',
       debug: true,
     });
@@ -350,7 +350,7 @@ const App = () => {
     const worldId = 'ExampleWorld';
 
     const worldProvider: WorldProvider = (worldContext) => {
-      const world = new World({ id: worldId, runtime: worldContext.runtime });
+      const world = new World({ id: worldId, engine: worldContext.engine });
 
       const networkManager = new NetworkManager();
 
@@ -366,7 +366,7 @@ const App = () => {
       const light = space.create.entity();
       light.addComponent(new LightComponent({ scene }));
 
-      world.addSystem(
+      world.add.system(
         new GameNetworkManager({
           gameSpace: space,
           gameScene: scene,
@@ -377,8 +377,8 @@ const App = () => {
       return world;
     };
 
-    runtime.registerWorld(worldId, worldProvider);
-    runtime.startWorld(worldId);
+    engine.registerWorld(worldId, worldProvider);
+    engine.startWorld(worldId);
   }, [firstRender]);
 
   return <div id="renderer-root"></div>;

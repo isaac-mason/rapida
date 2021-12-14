@@ -16,6 +16,7 @@
 - [CSSView](classes/CSSView.md)
 - [Camera](classes/Camera.md)
 - [Component](classes/Component.md)
+- [Engine](classes/Engine.md)
 - [Entity](classes/Entity.md)
 - [NetworkManager](classes/NetworkManager.md)
 - [Physics](classes/Physics.md)
@@ -23,7 +24,6 @@
 - [Query](classes/Query.md)
 - [QueryManager](classes/QueryManager.md)
 - [RendererManager](classes/RendererManager.md)
-- [Runtime](classes/Runtime.md)
 - [Scene](classes/Scene.md)
 - [Space](classes/Space.md)
 - [System](classes/System.md)
@@ -81,6 +81,7 @@
 - [CylinderProps](modules.md#cylinderprops)
 - [DebugApi](modules.md#debugapi)
 - [DefaultContactMaterial](modules.md#defaultcontactmaterial)
+- [EngineParams](modules.md#engineparams)
 - [EntityParams](modules.md#entityparams)
 - [EventHandler](modules.md#eventhandler)
 - [FrameMessage](modules.md#framemessage)
@@ -104,7 +105,6 @@
 - [RayMode](modules.md#raymode)
 - [RayhitEvent](modules.md#rayhitevent)
 - [Refs](modules.md#refs)
-- [RuntimeParams](modules.md#runtimeparams)
 - [SceneParams](modules.md#sceneparams)
 - [SerializableBodyProps](modules.md#serializablebodyprops)
 - [SetOpName](modules.md#setopname)
@@ -324,7 +324,7 @@ Parameters for creating a CSSRenderer
 
 #### Defined in
 
-[rapida/src/renderer/css-renderer.ts:15](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/css-renderer.ts#L15)
+[rapida/src/renderer/css-renderer.ts:15](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/css-renderer.ts#L15)
 
 ___
 
@@ -346,7 +346,7 @@ Params for creating a css view
 
 #### Defined in
 
-[rapida/src/renderer/css-view.ts:11](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/css-view.ts#L11)
+[rapida/src/renderer/css-view.ts:11](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/css-view.ts#L11)
 
 ___
 
@@ -363,7 +363,7 @@ ___
 
 #### Defined in
 
-[rapida/src/camera/camera.ts:5](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/camera/camera.ts#L5)
+[rapida/src/camera/camera.ts:5](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/camera/camera.ts#L5)
 
 ___
 
@@ -425,7 +425,7 @@ ___
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:6](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/component.ts#L6)
+[rapida/src/ecs/component.ts:6](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/component.ts#L6)
 
 ___
 
@@ -549,6 +549,24 @@ rapida-physics/lib/types.d.ts:446
 
 ___
 
+### EngineParams
+
+Ƭ **EngineParams**: `Object`
+
+Parameters for creating a new rapida engine
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `debug?` | `boolean` |
+
+#### Defined in
+
+rapida/src/engine/index.ts:9
+
+___
+
 ### EntityParams
 
 Ƭ **EntityParams**: `Object`
@@ -562,7 +580,7 @@ ___
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:10](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/entity.ts#L10)
+[rapida/src/ecs/entity.ts:10](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/entity.ts#L10)
 
 ___
 
@@ -854,7 +872,7 @@ ___
 
 #### Defined in
 
-[rapida/src/ecs/query.ts:12](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/query.ts#L12)
+[rapida/src/ecs/query.ts:12](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/query.ts#L12)
 
 ___
 
@@ -902,26 +920,6 @@ rapida-physics/lib/types.d.ts:100
 
 ___
 
-### RuntimeParams
-
-Ƭ **RuntimeParams**: `Object`
-
-Parameters for creating a new rapida runtime
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `debug?` | `boolean` |
-| `maxGameLoopUpdatesPerSecond?` | `number` |
-| `maxPhysicsUpdatesPerSecond?` | `number` |
-
-#### Defined in
-
-[rapida/src/runtime/index.ts:9](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/runtime/index.ts#L9)
-
-___
-
 ### SceneParams
 
 Ƭ **SceneParams**: `Object`
@@ -934,7 +932,7 @@ ___
 
 #### Defined in
 
-[rapida/src/scene/scene.ts:4](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/scene/scene.ts#L4)
+[rapida/src/scene/scene.ts:4](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/scene/scene.ts#L4)
 
 ___
 
@@ -994,7 +992,7 @@ Params for creating a new Space
 
 #### Defined in
 
-[rapida/src/ecs/space.ts:17](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/space.ts#L17)
+[rapida/src/ecs/space.ts:17](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/space.ts#L17)
 
 ___
 
@@ -1071,7 +1069,7 @@ ___
 
 #### Defined in
 
-[rapida/src/ecs/system.ts:12](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system.ts#L12)
+[rapida/src/ecs/system.ts:12](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/system.ts#L12)
 
 ___
 
@@ -1159,7 +1157,7 @@ Type for a view event name
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:163](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L163)
+[rapida/src/renderer/view.ts:163](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L163)
 
 ___
 
@@ -1177,7 +1175,7 @@ A view interaction event subscription that contains a method for unsubscribing
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:63](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L63)
+[rapida/src/renderer/view.ts:63](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L63)
 
 ___
 
@@ -1196,7 +1194,7 @@ A mouse event for a webgl view
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:85](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L85)
+[rapida/src/renderer/view.ts:85](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L85)
 
 ___
 
@@ -1217,7 +1215,7 @@ A view rectangle given by decimal percentage values
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:228](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L228)
+[rapida/src/renderer/view.ts:228](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L228)
 
 ___
 
@@ -1236,7 +1234,7 @@ A view rectangle parameter with a type and value
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:181](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L181)
+[rapida/src/renderer/view.ts:181](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L181)
 
 ___
 
@@ -1252,7 +1250,7 @@ A ViewParam, which can either be a:
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:193](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L193)
+[rapida/src/renderer/view.ts:193](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L193)
 
 ___
 
@@ -1275,7 +1273,7 @@ ViewRectangleParams provides parameters for a view rectangle
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:206](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L206)
+[rapida/src/renderer/view.ts:206](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L206)
 
 ___
 
@@ -1296,7 +1294,7 @@ The size of a view in pixels
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:218](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L218)
+[rapida/src/renderer/view.ts:218](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L218)
 
 ___
 
@@ -1306,7 +1304,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:90](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L90)
+[rapida/src/renderer/view.ts:90](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L90)
 
 ___
 
@@ -1332,7 +1330,7 @@ A touch event for a webgl view
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:105](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L105)
+[rapida/src/renderer/view.ts:105](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L105)
 
 ___
 
@@ -1351,7 +1349,7 @@ Params for creating a WebGLRenderer
 
 #### Defined in
 
-[rapida/src/renderer/webgl-renderer.ts:16](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-renderer.ts#L16)
+[rapida/src/renderer/webgl-renderer.ts:16](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-renderer.ts#L16)
 
 ___
 
@@ -1376,7 +1374,7 @@ Params for creating a webgl view
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:25](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L25)
+[rapida/src/renderer/webgl-view.ts:25](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L25)
 
 ___
 
@@ -1531,11 +1529,11 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `runtime` | [`Runtime`](classes/Runtime.md) |
+| `engine` | [`Engine`](classes/Engine.md) |
 
 #### Defined in
 
-[rapida/src/world/world-provider.ts:4](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/world/world-provider.ts#L4)
+[rapida/src/world/world-provider.ts:4](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/world/world-provider.ts#L4)
 
 ___
 
@@ -1549,12 +1547,14 @@ Params for creating a world
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
+| `engine` | [`Engine`](classes/Engine.md) | The engine instance the world is in |
 | `id?` | `string` | The unique id for the world |
-| `runtime` | [`Runtime`](classes/Runtime.md) | The runtime the world is in |
+| `maxGameLoopUpdatesPerSecond?` | `number` | The maximum game loop updates to run per second |
+| `maxPhysicsUpdatesPerSecond?` | `number` | The maximum physics loop updates to run per second |
 
 #### Defined in
 
-[rapida/src/world/world.ts:42](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/world/world.ts#L42)
+[rapida/src/world/world.ts:29](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/world/world.ts#L29)
 
 ___
 
@@ -1588,7 +1588,7 @@ ___
 
 #### Defined in
 
-[rapida/src/world/world-provider.ts:8](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/world/world-provider.ts#L8)
+[rapida/src/world/world-provider.ts:8](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/world/world-provider.ts#L8)
 
 ## Variables
 
@@ -1598,7 +1598,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:27](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L27)
+[rapida/src/renderer/view.ts:27](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L27)
 
 ___
 
@@ -1608,7 +1608,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:42](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L42)
+[rapida/src/renderer/view.ts:42](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L42)
 
 ___
 
@@ -1618,7 +1618,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:53](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L53)
+[rapida/src/renderer/view.ts:53](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L53)
 
 ___
 

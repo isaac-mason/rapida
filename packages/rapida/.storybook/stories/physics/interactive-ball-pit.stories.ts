@@ -1,6 +1,6 @@
 import { useEffect } from '@storybook/client-api';
 import { Color, PerspectiveCamera, WebGLRenderer } from 'three';
-import { Runtime, World, WorldProvider } from '../../../src';
+import { Engine, World, WorldProvider } from '../../../src';
 import { BallPitContainer } from './interactive-ball-pit/ball-pit-container.component';
 import { Cursor } from './interactive-ball-pit/cursor.component';
 import { Lights } from './interactive-ball-pit/lights.component';
@@ -15,7 +15,7 @@ export default {
 
 export const InteractiveBallPit = () => {
   useEffect(() => {
-    const runtime = new Runtime({
+    const engine = new Engine({
       debug: true,
     });
 
@@ -24,7 +24,7 @@ export const InteractiveBallPit = () => {
     const worldProvider: WorldProvider = (worldContext): World => {
       const world = new World({
         id: worldId,
-        runtime: worldContext.runtime,
+        engine: worldContext.engine,
       });
 
       const renderer = world.create.renderer.webgl({
@@ -69,11 +69,11 @@ export const InteractiveBallPit = () => {
       return world;
     };
 
-    runtime.registerWorld(worldId, worldProvider);
+    engine.registerWorld(worldId, worldProvider);
 
-    runtime.startWorld(worldId);
+    engine.startWorld(worldId);
 
-    return () => runtime.destroy();
+    return () => engine.destroy();
   });
 
   return `

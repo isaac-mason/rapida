@@ -41,7 +41,7 @@ The clients unique id. Set after the room has been joined.
 
 #### Defined in
 
-[rapida/src/network/network-manager.ts:17](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/network/network-manager.ts#L17)
+[rapida/src/network/network-manager.ts:17](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/network/network-manager.ts#L17)
 
 ___
 
@@ -53,7 +53,7 @@ A buffer of events waiting to be emitted
 
 #### Defined in
 
-[rapida/src/network/network-manager.ts:29](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/network/network-manager.ts#L29)
+[rapida/src/network/network-manager.ts:29](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/network/network-manager.ts#L29)
 
 ___
 
@@ -69,7 +69,7 @@ Handlers for the room
 
 #### Defined in
 
-[rapida/src/network/network-manager.ts:22](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/network/network-manager.ts#L22)
+[rapida/src/network/network-manager.ts:22](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/network/network-manager.ts#L22)
 
 ___
 
@@ -81,7 +81,7 @@ A buffer of events waiting to be processed
 
 #### Defined in
 
-[rapida/src/network/network-manager.ts:34](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/network/network-manager.ts#L34)
+[rapida/src/network/network-manager.ts:34](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/network/network-manager.ts#L34)
 
 ___
 
@@ -93,7 +93,7 @@ The current room
 
 #### Defined in
 
-[rapida/src/network/network-manager.ts:12](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/network/network-manager.ts#L12)
+[rapida/src/network/network-manager.ts:12](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/network/network-manager.ts#L12)
 
 ___
 
@@ -105,7 +105,7 @@ The client socket.io socket
 
 #### Defined in
 
-[rapida/src/network/network-manager.ts:39](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/network/network-manager.ts#L39)
+[rapida/src/network/network-manager.ts:39](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/network/network-manager.ts#L39)
 
 ## Methods
 
@@ -133,7 +133,7 @@ Emits an event to the room
 
 #### Defined in
 
-[rapida/src/network/network-manager.ts:135](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/network/network-manager.ts#L135)
+[rapida/src/network/network-manager.ts:135](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/network/network-manager.ts#L135)
 
 ___
 
@@ -156,7 +156,7 @@ Joins the room
 
 #### Defined in
 
-[rapida/src/network/network-manager.ts:76](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/network/network-manager.ts#L76)
+[rapida/src/network/network-manager.ts:76](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/network/network-manager.ts#L76)
 
 ___
 
@@ -187,7 +187,7 @@ the id of the created room handler
 
 #### Defined in
 
-[rapida/src/network/network-manager.ts:111](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/network/network-manager.ts#L111)
+[rapida/src/network/network-manager.ts:111](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/network/network-manager.ts#L111)
 
 ___
 
@@ -210,7 +210,7 @@ Removes an event handler by handler id
 
 #### Defined in
 
-[rapida/src/network/network-manager.ts:125](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/network/network-manager.ts#L125)
+[rapida/src/network/network-manager.ts:125](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/network/network-manager.ts#L125)
 
 ___
 
@@ -226,4 +226,4 @@ Emits events in the emit buffer, broadcasts events in the process buffer
 
 #### Defined in
 
-[rapida/src/network/network-manager.ts:44](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/network/network-manager.ts#L44)
+[rapida/src/network/network-manager.ts:44](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/network/network-manager.ts#L44)

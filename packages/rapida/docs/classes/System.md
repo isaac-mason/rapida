@@ -52,7 +52,7 @@ Constructor for a System
 
 #### Defined in
 
-[rapida/src/ecs/system.ts:73](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system.ts#L73)
+[rapida/src/ecs/system.ts:73](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/system.ts#L73)
 
 ## Properties
 
@@ -64,7 +64,7 @@ The world the system is in
 
 #### Defined in
 
-[rapida/src/ecs/system.ts:38](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system.ts#L38)
+[rapida/src/ecs/system.ts:38](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/system.ts#L38)
 
 ___
 
@@ -76,7 +76,7 @@ Whether the system is enabled and should update
 
 #### Defined in
 
-[rapida/src/ecs/system.ts:33](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system.ts#L33)
+[rapida/src/ecs/system.ts:33](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/system.ts#L33)
 
 ___
 
@@ -88,7 +88,7 @@ The event system for this system
 
 #### Defined in
 
-[rapida/src/ecs/system.ts:67](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system.ts#L67)
+[rapida/src/ecs/system.ts:67](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/system.ts#L67)
 
 ___
 
@@ -100,7 +100,7 @@ The id for the system
 
 #### Defined in
 
-[rapida/src/ecs/system.ts:28](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system.ts#L28)
+[rapida/src/ecs/system.ts:28](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/system.ts#L28)
 
 ___
 
@@ -120,7 +120,7 @@ Logic for destruction of the system. Called on removing a System from a Scene.
 
 #### Defined in
 
-[rapida/src/ecs/system.ts:136](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system.ts#L136)
+[rapida/src/ecs/system.ts:136](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/system.ts#L136)
 
 ___
 
@@ -140,7 +140,7 @@ Logic for initialisation of the system. Called during System construction.
 
 #### Defined in
 
-[rapida/src/ecs/system.ts:131](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system.ts#L131)
+[rapida/src/ecs/system.ts:131](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/system.ts#L131)
 
 ___
 
@@ -166,7 +166,7 @@ Logic for a systems update loop
 
 #### Defined in
 
-[rapida/src/ecs/system.ts:142](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system.ts#L142)
+[rapida/src/ecs/system.ts:142](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/system.ts#L142)
 
 ___
 
@@ -182,7 +182,7 @@ A map of query names to queries
 
 #### Defined in
 
-[rapida/src/ecs/system.ts:57](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system.ts#L57)
+[rapida/src/ecs/system.ts:57](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/system.ts#L57)
 
 ___
 
@@ -194,7 +194,7 @@ A map of query names to query descriptions
 
 #### Defined in
 
-[rapida/src/ecs/system.ts:62](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system.ts#L62)
+[rapida/src/ecs/system.ts:62](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/system.ts#L62)
 
 ## Accessors
 
@@ -210,7 +210,7 @@ Gets the world
 
 #### Defined in
 
-[rapida/src/ecs/system.ts:43](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system.ts#L43)
+[rapida/src/ecs/system.ts:43](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/system.ts#L43)
 
 • `set` **world**(`w`): `void`
 
@@ -228,7 +228,7 @@ Sets the world
 
 #### Defined in
 
-[rapida/src/ecs/system.ts:50](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system.ts#L50)
+[rapida/src/ecs/system.ts:50](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/system.ts#L50)
 
 ## Methods
 
@@ -244,7 +244,7 @@ Destroy logic for the system
 
 #### Defined in
 
-[rapida/src/ecs/system.ts:101](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system.ts#L101)
+[rapida/src/ecs/system.ts:101](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/system.ts#L101)
 
 ___
 
@@ -260,7 +260,7 @@ Initialises the system
 
 #### Defined in
 
-[rapida/src/ecs/system.ts:81](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system.ts#L81)
+[rapida/src/ecs/system.ts:81](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/system.ts#L81)
 
 ___
 
@@ -282,7 +282,7 @@ Updates the system
 
 #### Defined in
 
-[rapida/src/ecs/system.ts:91](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system.ts#L91)
+[rapida/src/ecs/system.ts:91](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/system.ts#L91)
 
 ___
 
@@ -310,7 +310,7 @@ Emits an event to the system
 
 #### Defined in
 
-[rapida/src/ecs/system.ts:124](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system.ts#L124)
+[rapida/src/ecs/system.ts:124](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/system.ts#L124)
 
 ___
 
@@ -339,4 +339,4 @@ Adds an event handler for the system
 
 #### Defined in
 
-[rapida/src/ecs/system.ts:113](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system.ts#L113)
+[rapida/src/ecs/system.ts:113](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/ecs/system.ts#L113)

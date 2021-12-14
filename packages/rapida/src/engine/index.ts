@@ -4,48 +4,33 @@ import logger from '../common/logger';
 import { World, WorldProvider } from '../world';
 
 /**
- * Parameters for creating a new rapida runtime
+ * Parameters for creating a new rapida engine
  */
-type RuntimeParams = {
+type EngineParams = {
   debug?: boolean;
 };
 
 /**
- * A Runtime for rapida worlds
+ * Engine for rapida worlds
  */
-class Runtime {
+class Engine {
   /**
    * The current world in play
    */
   world?: World;
 
   /**
-   * The logger for the runtime
+   * The logger for the engine
    */
   log: Logger;
 
   /**
-   * The time in milliseconds to wait before running another game loop update
-   */
-  gameLoopUpdateDelayMs?: number;
-
-  /**
-   * The time in milliseconds to wait before running another physics update
-   */
-  physicsUpdateDelayMs?: number;
-
-  /**
-   * The delta value for the physics worlds, based on the runtime maxPhysicsUpdatesPerSecond
-   */
-  physicsDelta?: number;
-
-  /**
-   * The world providers for the runtime
+   * The world providers
    */
   private worldProviders: { [id: string]: WorldProvider } = {};
 
   /**
-   * Whether the runtime is in debug mode
+   * Whether in debug mode
    */
   private debug: boolean;
 
@@ -67,19 +52,19 @@ class Runtime {
   private previousPhysicsFrame: number | undefined;
 
   /**
-   * The stats.js instance for the runtime
+   * The stats.js instance
    */
   private stats: Stats = new Stats();
 
   /**
-   * Constructor for a rapida runtime
-   * @param params params for constructing the rapida runtime
+   * Constructor for an Engine
+   * @param params params for constructing the rapida Engine
    */
-  constructor(params?: RuntimeParams) {
+  constructor(params?: EngineParams) {
     // init world providers map
     this.worldProviders = {};
 
-    // set whether the runtime should be in debug mode
+    // set whether the Engine should be in debug mode
     this.debug = params?.debug || false;
 
     // setup stats if in debug mode
@@ -110,7 +95,7 @@ class Runtime {
    * If a world is already playing, the current world is stopped and the new world is started.
    * @param worldId the new world to start
    */
-  startWorld(worldId: string): Runtime {
+  startWorld(worldId: string): Engine {
     // clean up running world
     if (this.world !== undefined) {
       // kill the render loop
@@ -128,16 +113,11 @@ class Runtime {
 
     // create the world
     this.world = worldProvider({
-      runtime: this,
+      engine: this,
     });
     if (this.world === undefined) {
       throw new Error('Cannot init as the newly provided world is undefined');
     }
-
-    // define loops to run based on world settings
-    this.gameLoopUpdateDelayMs = 1000 / this.world._maxGameLoopUpdatesPerSecond;
-    this.physicsUpdateDelayMs = 1000 / this.world._maxPhysicsUpdatesPerSecond;
-    this.physicsDelta = 1 / this.world._maxPhysicsUpdatesPerSecond;
 
     // set killLoop to false now in case anything went wrong
     this.killLoop = false;
@@ -148,6 +128,7 @@ class Runtime {
     // start the loops
     const t = performance.now();
     this.previousGameLoopFrame = t;
+    this.previousPhysicsFrame = t / 1000;
     this.gameLoop();
     this.physicsLoop();
     this.renderLoop();
@@ -156,7 +137,7 @@ class Runtime {
   }
 
   /**
-   * Destroys the runtime
+   * Destroys the engine
    */
   destroy(): void {
     this.world?.destroy();
@@ -165,7 +146,7 @@ class Runtime {
   }
 
   /**
-   * Runs the render loop for the runtime
+   * Runs the render loop for the engine
    */
   private renderLoop() {
     requestAnimationFrame((_t) => {
@@ -193,13 +174,14 @@ class Runtime {
 
     const t = performance.now();
     const timeElapsed = t - (this.previousGameLoopFrame as number);
+
     this.world?.update(timeElapsed);
 
     this.previousGameLoopFrame = performance.now();
 
     setTimeout(() => {
       this.gameLoop();
-    }, this.gameLoopUpdateDelayMs);
+    }, this.world?._gameLoopUpdateDelayMs);
   }
 
   /**
@@ -219,8 +201,8 @@ class Runtime {
 
     setTimeout(() => {
       this.physicsLoop();
-    }, this.physicsUpdateDelayMs);
+    }, this.world?._physicsUpdateDelayMs);
   }
 }
 
-export { Runtime, RuntimeParams };
+export { Engine, EngineParams };

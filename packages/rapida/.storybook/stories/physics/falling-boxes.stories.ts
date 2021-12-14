@@ -4,30 +4,44 @@ import {
   AmbientLight,
   BoxGeometry,
   Color,
-  DirectionalLight, Mesh,
+  DirectionalLight,
+  Mesh,
   MeshBasicMaterial,
   MeshPhongMaterial,
   PerspectiveCamera,
   PlaneGeometry,
   Vector3,
-  WebGLRenderer
+  WebGLRenderer,
 } from 'three';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
 import {
   Component,
-  Runtime,
+  Engine,
   Scene,
   Space,
   System,
   World,
-  WorldProvider
+  WorldProvider,
 } from '../../../src';
 
 export default {
-  title: 'Physics / Falling Cubes',
+  title: 'Physics / Falling Boxes',
 };
 
-export const FallingCubes = () => {
+export const FallingBoxes = ({
+  spawnInterval,
+  timeAlive,
+  gravity,
+  box,
+}: {
+  spawnInterval: number;
+  timeAlive: number;
+  gravity: { x: number, y: number, z: number };
+  box: {
+    size: { x: number, y: number, z: number };
+    mass: number;
+  }
+}) => {
   const randomCubeColour = (): string => {
     const colours = ['#2F394D', '#EEE1B3', '#EA8C55', '#D68FD6', '#4C934C'];
     return colours[Math.floor(Math.random() * colours.length)];
@@ -49,7 +63,7 @@ export const FallingCubes = () => {
     }
 
     onInit = (): void => {
-      const geometry = new BoxGeometry(3, 3, 3);
+      const geometry = new BoxGeometry(box.size.x, box.size.y, box.size.z);
       const material = new MeshPhongMaterial({
         color: randomCubeColour(),
         specular: 0x111111,
@@ -63,11 +77,11 @@ export const FallingCubes = () => {
       const [_, cubeApi] = this.physics.create.box(
         {
           type: BodyType.DYNAMIC,
-          args: [3, 3, 3],
+          args: [box.size.x, box.size.y, box.size.z],
           position: [0, 0, 0],
           rotation: [0, 0, 0],
           fixedRotation: false,
-          mass: 1,
+          mass: box.mass,
           allowSleep: false,
         },
         this.mesh
@@ -85,7 +99,7 @@ export const FallingCubes = () => {
 
       setTimeout(() => {
         this.destroy();
-      }, 30000);
+      }, timeAlive);
     };
 
     destroy = (): void => {
@@ -94,7 +108,7 @@ export const FallingCubes = () => {
     };
   }
 
-  class CubeEmitterSystem extends System {
+  class CubeSpawner extends System {
     space: Space;
     scene: Scene;
     physics: Physics;
@@ -126,7 +140,7 @@ export const FallingCubes = () => {
     onUpdate = (timeElapsed: number): void => {
       this.msCounter += timeElapsed;
 
-      if (this.msCounter >= 250) {
+      if (this.msCounter >= spawnInterval) {
         this.msCounter = 0;
         this.createFallingCube();
       }
@@ -134,16 +148,16 @@ export const FallingCubes = () => {
   }
 
   useEffect(() => {
-    const runtime = new Runtime({
+    const engine = new Engine({
       debug: true,
     });
 
-    const worldId = 'FallingCubes';
+    const worldId = 'FallingBoxes';
 
     const worldProvider: WorldProvider = (worldContext): World => {
       const world = new World({
         id: worldId,
-        runtime: worldContext.runtime,
+        engine: worldContext.engine,
       });
 
       const renderer = world.create.renderer.webgl({
@@ -155,7 +169,7 @@ export const FallingCubes = () => {
       });
 
       const physics = world.create.physics({
-        gravity: [0, -10, 0],
+        gravity: [gravity.x, gravity.y, gravity.z],
       });
 
       const scene = world.create.scene();
@@ -182,7 +196,7 @@ export const FallingCubes = () => {
       ambientLight.lookAt(new Vector3(0, 0, 0));
       scene.add(ambientLight);
 
-      const [_, plane] = physics.create.plane({
+      physics.create.plane({
         type: BodyType.STATIC,
         position: [0, -10, 0],
         rotation: [-Math.PI / 2, 0, 0],
@@ -203,17 +217,17 @@ export const FallingCubes = () => {
 
       const space = world.create.space();
 
-      const cubeEmitter = new CubeEmitterSystem({ space, scene, physics });
-      world.addSystem(cubeEmitter);
+      const cubeEmitter = new CubeSpawner({ space, scene, physics });
+      world.add.system(cubeEmitter);
 
       return world;
     };
 
-    runtime.registerWorld(worldId, worldProvider);
+    engine.registerWorld(worldId, worldProvider);
 
-    runtime.startWorld(worldId);
+    engine.startWorld(worldId);
 
-    return () => runtime.destroy();
+    return () => engine.destroy();
   });
 
   return `
@@ -225,4 +239,22 @@ export const FallingCubes = () => {
   </style>
   <div id="renderer-root"></div>
   `;
+};
+
+FallingBoxes.args = {
+  spawnInterval: 250,
+  timeAlive: 30000,
+  gravity: {
+    x: 0,
+    y: -10,
+    z: 0,
+  },
+  box: {
+    size: {
+      x: 3,
+      y: 3,
+      z: 3,
+    },
+    mass: 1,
+  }
 };

@@ -1,8 +1,8 @@
 import { World } from './world';
-import { Runtime } from '../runtime';
+import { Engine } from '../engine';
 
 type WorldContext = {
-  runtime: Runtime;
+  engine: Engine;
 };
 
 type WorldProvider = (worldContext: WorldContext) => World;

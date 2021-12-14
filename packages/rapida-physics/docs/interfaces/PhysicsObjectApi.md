@@ -394,7 +394,7 @@ WorkerApi.applyForce
 
 #### Defined in
 
-[src/types.ts:76](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L76)
+[src/types.ts:76](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L76)
 
 ___
 
@@ -419,7 +419,7 @@ WorkerApi.applyImpulse
 
 #### Defined in
 
-[src/types.ts:77](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L77)
+[src/types.ts:77](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L77)
 
 ___
 
@@ -444,7 +444,7 @@ WorkerApi.applyLocalForce
 
 #### Defined in
 
-[src/types.ts:78](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L78)
+[src/types.ts:78](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L78)
 
 ___
 
@@ -469,7 +469,7 @@ WorkerApi.applyLocalImpulse
 
 #### Defined in
 
-[src/types.ts:79](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L79)
+[src/types.ts:79](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L79)
 
 ___
 
@@ -493,7 +493,7 @@ WorkerApi.applyTorque
 
 #### Defined in
 
-[src/types.ts:80](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L80)
+[src/types.ts:80](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L80)
 
 ___
 
@@ -513,7 +513,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:87](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L87)
+[src/types.ts:87](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L87)
 
 ___
 
@@ -531,7 +531,7 @@ WorkerApi.destroy
 
 #### Defined in
 
-[src/types.ts:83](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L83)
+[src/types.ts:83](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L83)
 
 ___
 
@@ -549,7 +549,7 @@ WorkerApi.sleep
 
 #### Defined in
 
-[src/types.ts:82](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L82)
+[src/types.ts:82](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L82)
 
 ___
 
@@ -567,4 +567,4 @@ WorkerApi.wakeUp
 
 #### Defined in
 
-[src/types.ts:81](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L81)
+[src/types.ts:81](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L81)

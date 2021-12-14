@@ -51,7 +51,7 @@ BodyParams.allowSleep
 
 #### Defined in
 
-[src/types.ts:44](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L44)
+[src/types.ts:44](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L44)
 
 ___
 
@@ -65,7 +65,7 @@ BodyParams.angularDamping
 
 #### Defined in
 
-[src/types.ts:45](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L45)
+[src/types.ts:45](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L45)
 
 ___
 
@@ -99,7 +99,7 @@ BodyParams.args
 
 #### Defined in
 
-[src/types.ts:468](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L468)
+[src/types.ts:468](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L468)
 
 ___
 
@@ -113,7 +113,7 @@ BodyParams.collisionFilterGroup
 
 #### Defined in
 
-[src/types.ts:46](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L46)
+[src/types.ts:46](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L46)
 
 ___
 
@@ -127,7 +127,7 @@ BodyParams.collisionFilterMask
 
 #### Defined in
 
-[src/types.ts:47](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L47)
+[src/types.ts:47](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L47)
 
 ___
 
@@ -141,7 +141,7 @@ BodyParams.collisionResponse
 
 #### Defined in
 
-[src/types.ts:48](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L48)
+[src/types.ts:48](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L48)
 
 ___
 
@@ -155,7 +155,7 @@ BodyParams.fixedRotation
 
 #### Defined in
 
-[src/types.ts:49](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L49)
+[src/types.ts:49](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L49)
 
 ___
 
@@ -169,7 +169,7 @@ BodyParams.isTrigger
 
 #### Defined in
 
-[src/types.ts:50](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L50)
+[src/types.ts:50](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L50)
 
 ___
 
@@ -183,7 +183,7 @@ BodyParams.linearDamping
 
 #### Defined in
 
-[src/types.ts:51](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L51)
+[src/types.ts:51](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L51)
 
 ___
 
@@ -207,7 +207,7 @@ BodyParams.mass
 
 #### Defined in
 
-[src/types.ts:52](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L52)
+[src/types.ts:52](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L52)
 
 ___
 
@@ -221,7 +221,7 @@ BodyParams.material
 
 #### Defined in
 
-[src/types.ts:53](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L53)
+[src/types.ts:53](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L53)
 
 ___
 
@@ -251,7 +251,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:513](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L513)
+[src/types.ts:513](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L513)
 
 ___
 
@@ -265,7 +265,7 @@ BodyParams.sleepSpeedLimit
 
 #### Defined in
 
-[src/types.ts:54](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L54)
+[src/types.ts:54](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L54)
 
 ___
 
@@ -279,7 +279,7 @@ BodyParams.sleepTimeLimit
 
 #### Defined in
 
-[src/types.ts:55](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L55)
+[src/types.ts:55](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L55)
 
 ___
 
@@ -293,7 +293,7 @@ BodyParams.type
 
 #### Defined in
 
-[src/types.ts:469](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L469)
+[src/types.ts:469](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L469)
 
 ___
 
@@ -307,7 +307,7 @@ BodyParams.userData
 
 #### Defined in
 
-[src/types.ts:56](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L56)
+[src/types.ts:56](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L56)
 
 ___
 
@@ -341,7 +341,7 @@ BodyParams.onCollide
 
 #### Defined in
 
-[src/types.ts:470](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L470)
+[src/types.ts:470](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L470)
 
 ___
 
@@ -365,7 +365,7 @@ BodyParams.onCollideBegin
 
 #### Defined in
 
-[src/types.ts:471](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L471)
+[src/types.ts:471](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L471)
 
 ___
 
@@ -389,4 +389,4 @@ BodyParams.onCollideEnd
 
 #### Defined in
 
-[src/types.ts:472](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L472)
+[src/types.ts:472](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L472)

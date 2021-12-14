@@ -166,7 +166,7 @@ Worker.postMessage
 
 #### Defined in
 
-[src/types.ts:348](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L348)
+[src/types.ts:348](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L348)
 
 ___
 

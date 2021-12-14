@@ -54,7 +54,7 @@ Constructor for a WebGLRenderer
 
 #### Defined in
 
-[rapida/src/renderer/webgl-renderer.ts:64](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-renderer.ts#L64)
+[rapida/src/renderer/webgl-renderer.ts:64](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-renderer.ts#L64)
 
 ## Properties
 
@@ -66,7 +66,7 @@ Factories for creating new objects within the renderer
 
 #### Defined in
 
-[rapida/src/renderer/webgl-renderer.ts:210](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-renderer.ts#L210)
+[rapida/src/renderer/webgl-renderer.ts:210](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-renderer.ts#L210)
 
 ___
 
@@ -78,7 +78,7 @@ The DOM element for the renderer
 
 #### Defined in
 
-[rapida/src/renderer/webgl-renderer.ts:43](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-renderer.ts#L43)
+[rapida/src/renderer/webgl-renderer.ts:43](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-renderer.ts#L43)
 
 ___
 
@@ -94,7 +94,7 @@ The id for the renderer
 
 #### Defined in
 
-[rapida/src/renderer/webgl-renderer.ts:28](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-renderer.ts#L28)
+[rapida/src/renderer/webgl-renderer.ts:28](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-renderer.ts#L28)
 
 ___
 
@@ -106,7 +106,7 @@ Whether the view manager is initialised
 
 #### Defined in
 
-[rapida/src/renderer/webgl-renderer.ts:58](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-renderer.ts#L58)
+[rapida/src/renderer/webgl-renderer.ts:58](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-renderer.ts#L58)
 
 ___
 
@@ -118,7 +118,7 @@ The ordered views according the views zIndex values
 
 #### Defined in
 
-[rapida/src/renderer/webgl-renderer.ts:48](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-renderer.ts#L48)
+[rapida/src/renderer/webgl-renderer.ts:48](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-renderer.ts#L48)
 
 ___
 
@@ -130,7 +130,7 @@ The three js renderer
 
 #### Defined in
 
-[rapida/src/renderer/webgl-renderer.ts:33](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-renderer.ts#L33)
+[rapida/src/renderer/webgl-renderer.ts:33](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-renderer.ts#L33)
 
 ___
 
@@ -142,7 +142,7 @@ The resize observer for the renderer dom element
 
 #### Defined in
 
-[rapida/src/renderer/webgl-renderer.ts:53](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-renderer.ts#L53)
+[rapida/src/renderer/webgl-renderer.ts:53](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-renderer.ts#L53)
 
 ___
 
@@ -154,7 +154,7 @@ Views for the webgl renderer
 
 #### Defined in
 
-[rapida/src/renderer/webgl-renderer.ts:38](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-renderer.ts#L38)
+[rapida/src/renderer/webgl-renderer.ts:38](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-renderer.ts#L38)
 
 ## Accessors
 
@@ -170,7 +170,7 @@ Retrieves renderer factories
 
 #### Defined in
 
-[rapida/src/renderer/webgl-renderer.ts:222](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-renderer.ts#L222)
+[rapida/src/renderer/webgl-renderer.ts:222](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-renderer.ts#L222)
 
 ## Methods
 
@@ -192,7 +192,7 @@ Adds a view to the renderer
 
 #### Defined in
 
-[rapida/src/renderer/webgl-renderer.ts:142](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-renderer.ts#L142)
+[rapida/src/renderer/webgl-renderer.ts:142](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-renderer.ts#L142)
 
 ___
 
@@ -212,7 +212,7 @@ Destroys the renderer and all views
 
 #### Defined in
 
-[rapida/src/renderer/webgl-renderer.ts:117](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-renderer.ts#L117)
+[rapida/src/renderer/webgl-renderer.ts:117](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-renderer.ts#L117)
 
 ___
 
@@ -232,7 +232,7 @@ Initialises views
 
 #### Defined in
 
-[rapida/src/renderer/webgl-renderer.ts:99](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-renderer.ts#L99)
+[rapida/src/renderer/webgl-renderer.ts:99](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-renderer.ts#L99)
 
 ___
 
@@ -252,7 +252,7 @@ Handles resizing
 
 #### Defined in
 
-[rapida/src/renderer/webgl-renderer.ts:129](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-renderer.ts#L129)
+[rapida/src/renderer/webgl-renderer.ts:129](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-renderer.ts#L129)
 
 ___
 
@@ -274,7 +274,7 @@ Removes a view from the renderer
 
 #### Defined in
 
-[rapida/src/renderer/webgl-renderer.ts:160](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-renderer.ts#L160)
+[rapida/src/renderer/webgl-renderer.ts:160](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-renderer.ts#L160)
 
 ___
 
@@ -294,7 +294,7 @@ Renders all views for the renderer
 
 #### Defined in
 
-[rapida/src/renderer/webgl-renderer.ts:170](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-renderer.ts#L170)
+[rapida/src/renderer/webgl-renderer.ts:170](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-renderer.ts#L170)
 
 ___
 
@@ -310,7 +310,7 @@ Sorts the views in the renderer by their z index
 
 #### Defined in
 
-[rapida/src/renderer/webgl-renderer.ts:203](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-renderer.ts#L203)
+[rapida/src/renderer/webgl-renderer.ts:203](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-renderer.ts#L203)
 
 ___
 
@@ -326,4 +326,4 @@ Updates views to process interaction events
 
 #### Defined in
 
-[rapida/src/renderer/webgl-renderer.ts:110](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-renderer.ts#L110)
+[rapida/src/renderer/webgl-renderer.ts:110](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-renderer.ts#L110)

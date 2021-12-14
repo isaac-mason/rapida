@@ -75,7 +75,7 @@ Constructor for a WebGLView
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:211](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L211)
+[rapida/src/renderer/webgl-view.ts:211](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L211)
 
 ## Properties
 
@@ -87,7 +87,7 @@ The current size of the scissor for the view. The shape outside of which nothing
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:174](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L174)
+[rapida/src/renderer/webgl-view.ts:174](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L174)
 
 ___
 
@@ -99,7 +99,7 @@ Parameters for the scissor that are used to recalculate the scissor on resize
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:114](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L114)
+[rapida/src/renderer/webgl-view.ts:114](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L114)
 
 ___
 
@@ -111,7 +111,7 @@ The current size of the viewport for the view. Sets how to convert from a shader
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:169](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L169)
+[rapida/src/renderer/webgl-view.ts:169](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L169)
 
 ___
 
@@ -123,7 +123,7 @@ Parameters for the viewport that are used to recalculate the viewport on resize
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:94](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L94)
+[rapida/src/renderer/webgl-view.ts:94](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L94)
 
 ___
 
@@ -139,7 +139,7 @@ The views camera
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:79](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L79)
+[rapida/src/renderer/webgl-view.ts:79](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L79)
 
 ___
 
@@ -151,7 +151,7 @@ The clear color the renderer should use for this view. Defaults to black - 0x000
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:139](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L139)
+[rapida/src/renderer/webgl-view.ts:139](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L139)
 
 ___
 
@@ -163,7 +163,7 @@ Whether clearDepth should be called after rendering this view
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:134](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L134)
+[rapida/src/renderer/webgl-view.ts:134](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L134)
 
 ___
 
@@ -179,7 +179,7 @@ The dom element for the view
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:154](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L154)
+[rapida/src/renderer/webgl-view.ts:154](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L154)
 
 ___
 
@@ -191,7 +191,7 @@ A map of dom event listener names to data about listeners
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:194](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L194)
+[rapida/src/renderer/webgl-view.ts:194](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L194)
 
 ___
 
@@ -203,7 +203,7 @@ The effect composer for the view
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:149](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L149)
+[rapida/src/renderer/webgl-view.ts:149](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L149)
 
 ___
 
@@ -215,7 +215,7 @@ The events system for the view which is used for mouse and touch events
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:189](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L189)
+[rapida/src/renderer/webgl-view.ts:189](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L189)
 
 ___
 
@@ -231,7 +231,7 @@ A unique identifier for the view
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:74](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L74)
+[rapida/src/renderer/webgl-view.ts:74](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L74)
 
 ___
 
@@ -243,7 +243,7 @@ The relative mouse position on the view.
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:144](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L144)
+[rapida/src/renderer/webgl-view.ts:144](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L144)
 
 ___
 
@@ -255,7 +255,7 @@ The render pass for the view
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:184](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L184)
+[rapida/src/renderer/webgl-view.ts:184](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L184)
 
 ___
 
@@ -267,7 +267,7 @@ The renderer the view belongs to
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:179](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L179)
+[rapida/src/renderer/webgl-view.ts:179](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L179)
 
 ___
 
@@ -283,7 +283,7 @@ The views scene
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:84](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L84)
+[rapida/src/renderer/webgl-view.ts:84](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L84)
 
 ___
 
@@ -295,7 +295,7 @@ The size of the scissor in pixels
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:164](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L164)
+[rapida/src/renderer/webgl-view.ts:164](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L164)
 
 ___
 
@@ -311,7 +311,7 @@ The size of the view in pixels
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:159](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L159)
+[rapida/src/renderer/webgl-view.ts:159](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L159)
 
 ___
 
@@ -327,7 +327,7 @@ The z index for the view. Determines what order the views are rendered in, there
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:89](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L89)
+[rapida/src/renderer/webgl-view.ts:89](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L89)
 
 ## Accessors
 
@@ -347,7 +347,7 @@ View.rendererDomElement
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:202](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L202)
+[rapida/src/renderer/webgl-view.ts:202](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L202)
 
 ___
 
@@ -363,7 +363,7 @@ Getter for the scissor params
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:119](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L119)
+[rapida/src/renderer/webgl-view.ts:119](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L119)
 
 • `set` **scissor**(`v`): `void`
 
@@ -381,7 +381,7 @@ Setter for the scissor params. Resizes the view on setting.
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:126](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L126)
+[rapida/src/renderer/webgl-view.ts:126](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L126)
 
 ___
 
@@ -397,7 +397,7 @@ Getter for the viewport params
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:99](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L99)
+[rapida/src/renderer/webgl-view.ts:99](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L99)
 
 • `set` **viewport**(`v`): `void`
 
@@ -415,7 +415,7 @@ Setter for the viewport params. Resizes the view on setting.
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:106](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L106)
+[rapida/src/renderer/webgl-view.ts:106](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L106)
 
 ## Methods
 
@@ -444,7 +444,7 @@ Adds a view event handler and sets up the dom event listener if it does not exis
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:418](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L418)
+[rapida/src/renderer/webgl-view.ts:418](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L418)
 
 ___
 
@@ -460,7 +460,7 @@ Destroys the view
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:294](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L294)
+[rapida/src/renderer/webgl-view.ts:294](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L294)
 
 ___
 
@@ -490,7 +490,7 @@ the relative mouse position for the view
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:376](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L376)
+[rapida/src/renderer/webgl-view.ts:376](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L376)
 
 ___
 
@@ -506,7 +506,7 @@ Initialises the view
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:280](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L280)
+[rapida/src/renderer/webgl-view.ts:280](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L280)
 
 ___
 
@@ -522,7 +522,7 @@ Handles resizing
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:305](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L305)
+[rapida/src/renderer/webgl-view.ts:305](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L305)
 
 ___
 
@@ -551,7 +551,7 @@ Removes a handler for a view event and removes the dom event listener if there a
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:395](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L395)
+[rapida/src/renderer/webgl-view.ts:395](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L395)
 
 ___
 
@@ -567,7 +567,7 @@ Updates the view
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:287](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L287)
+[rapida/src/renderer/webgl-view.ts:287](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L287)
 
 ___
 
@@ -595,7 +595,7 @@ a view rectangle of decimal percentages
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:279](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L279)
+[rapida/src/renderer/view.ts:279](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L279)
 
 ___
 
@@ -624,4 +624,4 @@ Adds an event handler for a view mouse or touch event
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:351](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L351)
+[rapida/src/renderer/webgl-view.ts:351](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/webgl-view.ts#L351)
