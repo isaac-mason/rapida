@@ -25,11 +25,6 @@ class Engine {
   log: Logger;
 
   /**
-   * The world providers
-   */
-  private worldProviders: { [id: string]: WorldProvider } = {};
-
-  /**
    * Whether in debug mode
    */
   private debug: boolean;
@@ -61,9 +56,6 @@ class Engine {
    * @param params params for constructing the rapida Engine
    */
   constructor(params?: EngineParams) {
-    // init world providers map
-    this.worldProviders = {};
-
     // set whether the Engine should be in debug mode
     this.debug = params?.debug || false;
 
@@ -82,20 +74,11 @@ class Engine {
   }
 
   /**
-   * Registers a new world provider
-   * @param worldId the world ID
-   * @param worldProvider a function that returns a new World for a given worldId
-   */
-  registerWorld = (worldId: string, worldProvider: WorldProvider): void => {
-    this.worldProviders[worldId] = worldProvider;
-  };
-
-  /**
    * Sets the world that is playing.
    * If a world is already playing, the current world is stopped and the new world is started.
    * @param worldId the new world to start
    */
-  startWorld(worldId: string): Engine {
+  run(worldProvider: WorldProvider): Engine {
     // clean up running world
     if (this.world !== undefined) {
       // kill the render loop
@@ -103,12 +86,6 @@ class Engine {
 
       // destroy the world
       this.world.destroy();
-    }
-
-    // get the world provider
-    const worldProvider = this.worldProviders[worldId];
-    if (worldProvider === undefined) {
-      throw new Error('there is no world provider for the given world id');
     }
 
     // create the world

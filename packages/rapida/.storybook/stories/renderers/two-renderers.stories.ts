@@ -60,9 +60,7 @@ export const TwoRenderers = () => {
       return world;
     };
 
-    engine.registerWorld(worldId, worldProvider);
-
-    engine.startWorld(worldId);
+    engine.run(worldProvider);
 
     return () => engine.destroy();
   });

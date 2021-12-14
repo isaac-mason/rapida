@@ -119,9 +119,7 @@ export const HelloWorld = () => {
       return world;
     };
 
-    engine.registerWorld(worldId, worldProvider);
-
-    engine.startWorld(worldId);
+    engine.run(worldProvider);
 
     return () => engine.destroy();
   });
