@@ -11,11 +11,8 @@ Engine for rapida worlds
 ### Properties
 
 - [debug](Engine.md#debug)
-- [gameLoopUpdateDelayMs](Engine.md#gameloopupdatedelayms)
 - [killLoop](Engine.md#killloop)
 - [log](Engine.md#log)
-- [physicsDelta](Engine.md#physicsdelta)
-- [physicsUpdateDelayMs](Engine.md#physicsupdatedelayms)
 - [previousGameLoopFrame](Engine.md#previousgameloopframe)
 - [previousPhysicsFrame](Engine.md#previousphysicsframe)
 - [stats](Engine.md#stats)
@@ -47,7 +44,7 @@ Constructor for an Engine
 
 #### Defined in
 
-rapida/src/engine/index.ts:78
+[rapida/src/engine/index.ts:63](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L63)
 
 ## Properties
 
@@ -59,19 +56,7 @@ Whether in debug mode
 
 #### Defined in
 
-rapida/src/engine/index.ts:50
-
-___
-
-### gameLoopUpdateDelayMs
-
-• `Optional` **gameLoopUpdateDelayMs**: `number`
-
-The time in milliseconds to wait before running another game loop update
-
-#### Defined in
-
-rapida/src/engine/index.ts:30
+[rapida/src/engine/index.ts:35](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L35)
 
 ___
 
@@ -85,7 +70,7 @@ Set back to false after killing the loop
 
 #### Defined in
 
-rapida/src/engine/index.ts:57
+[rapida/src/engine/index.ts:42](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L42)
 
 ___
 
@@ -97,31 +82,7 @@ The logger for the engine
 
 #### Defined in
 
-rapida/src/engine/index.ts:25
-
-___
-
-### physicsDelta
-
-• `Optional` **physicsDelta**: `number`
-
-The delta value for the physics worlds, based on maxPhysicsUpdatesPerSecond
-
-#### Defined in
-
-rapida/src/engine/index.ts:40
-
-___
-
-### physicsUpdateDelayMs
-
-• `Optional` **physicsUpdateDelayMs**: `number`
-
-The time in milliseconds to wait before running another physics update
-
-#### Defined in
-
-rapida/src/engine/index.ts:35
+[rapida/src/engine/index.ts:25](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L25)
 
 ___
 
@@ -133,7 +94,7 @@ The time of the previous animation frame
 
 #### Defined in
 
-rapida/src/engine/index.ts:62
+[rapida/src/engine/index.ts:47](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L47)
 
 ___
 
@@ -145,7 +106,7 @@ The time of the previous physics frame
 
 #### Defined in
 
-rapida/src/engine/index.ts:67
+[rapida/src/engine/index.ts:52](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L52)
 
 ___
 
@@ -157,7 +118,7 @@ The stats.js instance
 
 #### Defined in
 
-rapida/src/engine/index.ts:72
+[rapida/src/engine/index.ts:57](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L57)
 
 ___
 
@@ -169,7 +130,7 @@ The current world in play
 
 #### Defined in
 
-rapida/src/engine/index.ts:20
+[rapida/src/engine/index.ts:20](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L20)
 
 ___
 
@@ -185,7 +146,7 @@ The world providers
 
 #### Defined in
 
-rapida/src/engine/index.ts:45
+[rapida/src/engine/index.ts:30](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L30)
 
 ## Methods
 
@@ -201,7 +162,7 @@ Destroys the engine
 
 #### Defined in
 
-rapida/src/engine/index.ts:161
+[rapida/src/engine/index.ts:142](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L142)
 
 ___
 
@@ -217,7 +178,7 @@ The game logic loop
 
 #### Defined in
 
-rapida/src/engine/index.ts:188
+[rapida/src/engine/index.ts:169](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L169)
 
 ___
 
@@ -233,7 +194,7 @@ The physics loop
 
 #### Defined in
 
-rapida/src/engine/index.ts:208
+[rapida/src/engine/index.ts:190](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L190)
 
 ___
 
@@ -256,7 +217,7 @@ Registers a new world provider
 
 #### Defined in
 
-rapida/src/engine/index.ts:104
+[rapida/src/engine/index.ts:89](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L89)
 
 ___
 
@@ -272,7 +233,7 @@ Runs the render loop for the engine
 
 #### Defined in
 
-rapida/src/engine/index.ts:170
+[rapida/src/engine/index.ts:151](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L151)
 
 ___
 
@@ -295,4 +256,4 @@ If a world is already playing, the current world is stopped and the new world is
 
 #### Defined in
 
-rapida/src/engine/index.ts:113
+[rapida/src/engine/index.ts:98](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L98)

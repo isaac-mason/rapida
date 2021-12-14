@@ -27,7 +27,7 @@ Enum for all supported view interaction events
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:13](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L13)
+[rapida/src/renderer/view.ts:13](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/renderer/view.ts#L13)
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:15](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L15)
+[rapida/src/renderer/view.ts:15](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/renderer/view.ts#L15)
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:17](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L17)
+[rapida/src/renderer/view.ts:17](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/renderer/view.ts#L17)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:18](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L18)
+[rapida/src/renderer/view.ts:18](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/renderer/view.ts#L18)
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:14](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L14)
+[rapida/src/renderer/view.ts:14](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/renderer/view.ts#L14)
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:19](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L19)
+[rapida/src/renderer/view.ts:19](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/renderer/view.ts#L19)
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:20](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L20)
+[rapida/src/renderer/view.ts:20](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/renderer/view.ts#L20)
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:16](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L16)
+[rapida/src/renderer/view.ts:16](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/renderer/view.ts#L16)
 
 ___
 
@@ -107,7 +107,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:24](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L24)
+[rapida/src/renderer/view.ts:24](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/renderer/view.ts#L24)
 
 ___
 
@@ -117,7 +117,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:22](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L22)
+[rapida/src/renderer/view.ts:22](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/renderer/view.ts#L22)
 
 ___
 
@@ -127,7 +127,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:23](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L23)
+[rapida/src/renderer/view.ts:23](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/renderer/view.ts#L23)
 
 ___
 
@@ -137,4 +137,4 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:21](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/view.ts#L21)
+[rapida/src/renderer/view.ts:21](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/renderer/view.ts#L21)

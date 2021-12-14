@@ -39,7 +39,7 @@ Whether the renderer manager is initialised
 
 #### Defined in
 
-[rapida/src/renderer/renderer-manager.ts:21](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/renderer-manager.ts#L21)
+[rapida/src/renderer/renderer-manager.ts:21](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/renderer/renderer-manager.ts#L21)
 
 ___
 
@@ -51,7 +51,7 @@ The renderers in the renderer manager
 
 #### Defined in
 
-[rapida/src/renderer/renderer-manager.ts:11](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/renderer-manager.ts#L11)
+[rapida/src/renderer/renderer-manager.ts:11](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/renderer/renderer-manager.ts#L11)
 
 ___
 
@@ -63,7 +63,7 @@ A map of renderers that have an update method
 
 #### Defined in
 
-[rapida/src/renderer/renderer-manager.ts:16](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/renderer-manager.ts#L16)
+[rapida/src/renderer/renderer-manager.ts:16](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/renderer/renderer-manager.ts#L16)
 
 ## Methods
 
@@ -79,7 +79,7 @@ Destroys the renderer manager
 
 #### Defined in
 
-[rapida/src/renderer/renderer-manager.ts:43](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/renderer-manager.ts#L43)
+[rapida/src/renderer/renderer-manager.ts:43](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/renderer/renderer-manager.ts#L43)
 
 ___
 
@@ -95,7 +95,7 @@ Initialises the renderer manager
 
 #### Defined in
 
-[rapida/src/renderer/renderer-manager.ts:26](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/renderer-manager.ts#L26)
+[rapida/src/renderer/renderer-manager.ts:26](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/renderer/renderer-manager.ts#L26)
 
 ___
 
@@ -111,7 +111,7 @@ Updates the renderer manager to run renderer and view logic that isn't rendering
 
 #### Defined in
 
-[rapida/src/renderer/renderer-manager.ts:34](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/renderer-manager.ts#L34)
+[rapida/src/renderer/renderer-manager.ts:34](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/renderer/renderer-manager.ts#L34)
 
 ___
 
@@ -133,7 +133,7 @@ Adds a renderer to the RendererManager
 
 #### Defined in
 
-[rapida/src/renderer/renderer-manager.ts:58](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/renderer-manager.ts#L58)
+[rapida/src/renderer/renderer-manager.ts:58](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/renderer/renderer-manager.ts#L58)
 
 ___
 
@@ -155,7 +155,7 @@ Removes a renderer from the RendererManager
 
 #### Defined in
 
-[rapida/src/renderer/renderer-manager.ts:74](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/renderer-manager.ts#L74)
+[rapida/src/renderer/renderer-manager.ts:74](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/renderer/renderer-manager.ts#L74)
 
 ___
 
@@ -171,4 +171,4 @@ Calls the render method for all renderers
 
 #### Defined in
 
-[rapida/src/renderer/renderer-manager.ts:50](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida/src/renderer/renderer-manager.ts#L50)
+[rapida/src/renderer/renderer-manager.ts:50](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/renderer/renderer-manager.ts#L50)

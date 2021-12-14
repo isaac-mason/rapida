@@ -69,7 +69,7 @@ export const OneView = () => {
   <style>
   #renderer-root-1 {
     width: 100%;
-    height: 20em;
+    height: 100%;
   }
   </style>
   <div id="renderer-root-1"></div>

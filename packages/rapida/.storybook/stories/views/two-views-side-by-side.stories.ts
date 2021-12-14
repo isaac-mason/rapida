@@ -141,7 +141,7 @@ export const TwoViewsSideBySide = () => {
   <style>
   #renderer-root {
     width: 100%;
-    height: 80vh;
+    height: 100%;
   }
   </style>
   <div id="renderer-root"></div>

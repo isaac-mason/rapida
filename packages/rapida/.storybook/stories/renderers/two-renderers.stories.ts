@@ -71,8 +71,7 @@ export const TwoRenderers = () => {
   <style>
   #renderer-root-1, #renderer-root-2 {
     width: 100%;
-    margin-bottom: 1rem;
-    height: 20em;
+    height: 50%;
   }
   </style>
   <div id="renderer-root-1"></div>

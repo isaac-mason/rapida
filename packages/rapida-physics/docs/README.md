@@ -111,7 +111,7 @@
 
 #### Defined in
 
-[src/types.ts:241](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L241)
+[src/types.ts:241](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L241)
 
 ___
 
@@ -121,7 +121,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:41](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L41)
+[src/types.ts:41](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L41)
 
 ___
 
@@ -131,7 +131,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:59](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L59)
+[src/types.ts:59](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L59)
 
 ___
 
@@ -141,7 +141,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:24](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L24)
+[src/types.ts:24](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L24)
 
 ___
 
@@ -169,7 +169,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:43](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L43)
+[src/types.ts:43](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L43)
 
 ___
 
@@ -185,7 +185,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:466](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L466)
+[src/types.ts:466](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L466)
 
 ___
 
@@ -201,7 +201,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:475](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L475)
+[src/types.ts:475](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L475)
 
 ___
 
@@ -211,7 +211,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:488](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L488)
+[src/types.ts:488](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L488)
 
 ___
 
@@ -221,7 +221,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:505](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L505)
+[src/types.ts:505](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L505)
 
 ___
 
@@ -231,7 +231,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:365](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L365)
+[src/types.ts:365](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L365)
 
 ___
 
@@ -248,7 +248,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:138](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L138)
+[src/types.ts:138](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L138)
 
 ___
 
@@ -266,7 +266,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:154](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L154)
+[src/types.ts:154](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L154)
 
 ___
 
@@ -284,7 +284,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:160](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L160)
+[src/types.ts:160](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L160)
 
 ___
 
@@ -294,7 +294,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:144](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L144)
+[src/types.ts:144](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L144)
 
 ___
 
@@ -304,7 +304,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:90](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L90)
+[src/types.ts:90](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L90)
 
 ___
 
@@ -320,7 +320,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:125](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L125)
+[src/types.ts:125](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L125)
 
 ___
 
@@ -330,7 +330,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:123](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L123)
+[src/types.ts:123](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L123)
 
 ___
 
@@ -346,7 +346,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:496](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L496)
+[src/types.ts:496](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L496)
 
 ___
 
@@ -356,7 +356,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:511](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L511)
+[src/types.ts:511](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L511)
 
 ___
 
@@ -366,7 +366,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:490](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L490)
+[src/types.ts:490](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L490)
 
 ___
 
@@ -376,7 +376,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:506](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L506)
+[src/types.ts:506](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L506)
 
 ___
 
@@ -393,7 +393,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:360](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L360)
+[src/types.ts:360](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L360)
 
 ___
 
@@ -414,7 +414,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:586](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L586)
+[src/types.ts:586](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L586)
 
 ___
 
@@ -435,7 +435,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:379](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L379)
+[src/types.ts:379](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L379)
 
 ___
 
@@ -445,7 +445,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:492](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L492)
+[src/types.ts:492](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L492)
 
 ___
 
@@ -455,7 +455,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:510](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L510)
+[src/types.ts:510](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L510)
 
 ___
 
@@ -465,7 +465,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:99](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L99)
+[src/types.ts:99](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L99)
 
 ___
 
@@ -475,7 +475,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:458](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L458)
+[src/types.ts:458](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L458)
 
 ___
 
@@ -485,7 +485,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:546](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L546)
+[src/types.ts:546](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L546)
 
 ___
 
@@ -495,7 +495,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:367](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L367)
+[src/types.ts:367](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L367)
 
 ___
 
@@ -505,7 +505,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:507](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L507)
+[src/types.ts:507](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L507)
 
 ___
 
@@ -526,7 +526,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:351](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L351)
+[src/types.ts:351](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L351)
 
 ___
 
@@ -545,7 +545,7 @@ Debugging information available to a debugger
 
 #### Defined in
 
-[src/physics-debugger.ts:18](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/physics-debugger.ts#L18)
+[src/physics-debugger.ts:18](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/physics-debugger.ts#L18)
 
 ___
 
@@ -557,7 +557,7 @@ Color for the physics debugger to use
 
 #### Defined in
 
-[src/physics-debugger.ts:23](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/physics-debugger.ts#L23)
+[src/physics-debugger.ts:23](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/physics-debugger.ts#L23)
 
 ___
 
@@ -586,7 +586,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:595](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L595)
+[src/types.ts:595](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L595)
 
 ___
 
@@ -620,7 +620,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:615](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L615)
+[src/types.ts:615](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L615)
 
 ___
 
@@ -630,7 +630,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:504](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L504)
+[src/types.ts:504](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L504)
 
 ___
 
@@ -646,7 +646,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:184](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L184)
+[src/types.ts:184](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L184)
 
 ___
 
@@ -656,7 +656,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:39](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L39)
+[src/types.ts:39](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L39)
 
 ___
 
@@ -666,7 +666,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:239](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L239)
+[src/types.ts:239](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L239)
 
 ___
 
@@ -676,7 +676,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:237](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L237)
+[src/types.ts:237](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L237)
 
 ___
 
@@ -686,7 +686,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:166](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L166)
+[src/types.ts:166](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L166)
 
 ___
 
@@ -700,7 +700,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:140](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L140)
+[src/types.ts:140](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L140)
 
 ___
 
@@ -716,7 +716,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:302](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L302)
+[src/types.ts:302](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L302)
 
 ___
 
@@ -732,7 +732,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:192](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L192)
+[src/types.ts:192](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L192)
 
 ___
 
@@ -742,7 +742,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:479](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L479)
+[src/types.ts:479](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L479)
 
 ___
 
@@ -752,7 +752,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:508](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L508)
+[src/types.ts:508](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L508)
 
 ___
 
@@ -762,7 +762,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:112](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L112)
+[src/types.ts:112](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L112)
 
 ___
 
@@ -772,7 +772,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:179](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L179)
+[src/types.ts:179](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L179)
 
 ___
 
@@ -782,7 +782,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:37](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L37)
+[src/types.ts:37](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L37)
 
 ___
 
@@ -792,7 +792,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:314](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L314)
+[src/types.ts:314](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L314)
 
 ___
 
@@ -802,7 +802,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:180](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L180)
+[src/types.ts:180](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L180)
 
 ___
 
@@ -812,7 +812,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:491](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L491)
+[src/types.ts:491](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L491)
 
 ___
 
@@ -822,7 +822,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:509](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L509)
+[src/types.ts:509](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L509)
 
 ___
 
@@ -832,7 +832,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:5](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L5)
+[src/types.ts:5](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L5)
 
 ___
 
@@ -842,7 +842,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:66](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L66)
+[src/types.ts:66](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L66)
 
 ___
 
@@ -852,7 +852,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:34](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L34)
+[src/types.ts:34](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L34)
 
 ___
 
@@ -862,7 +862,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:7](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L7)
+[src/types.ts:7](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L7)
 
 ___
 
@@ -872,7 +872,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:6](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L6)
+[src/types.ts:6](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L6)
 
 ___
 
@@ -882,7 +882,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:74](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L74)
+[src/types.ts:74](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L74)
 
 ___
 
@@ -901,7 +901,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:439](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L439)
+[src/types.ts:439](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L439)
 
 ___
 
@@ -920,7 +920,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:446](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L446)
+[src/types.ts:446](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L446)
 
 ___
 
@@ -954,7 +954,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:388](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L388)
+[src/types.ts:388](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L388)
 
 ___
 
@@ -964,7 +964,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:453](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L453)
+[src/types.ts:453](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L453)
 
 ___
 
@@ -981,7 +981,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:369](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L369)
+[src/types.ts:369](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L369)
 
 ___
 
@@ -1015,7 +1015,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:415](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L415)
+[src/types.ts:415](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L415)
 
 ___
 
@@ -1025,7 +1025,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:328](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L328)
+[src/types.ts:328](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L328)
 
 ## Variables
 
@@ -1035,7 +1035,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:9](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L9)
+[src/types.ts:9](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L9)
 
 ___
 
@@ -1045,7 +1045,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:36](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L36)
+[src/types.ts:36](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L36)
 
 ___
 
@@ -1055,4 +1055,4 @@ ___
 
 #### Defined in
 
-[src/types.ts:26](https://gitlab.com/rapidajs/rapida/-/blob/ac79872/packages/rapida-physics/src/types.ts#L26)
+[src/types.ts:26](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L26)

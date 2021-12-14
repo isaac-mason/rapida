@@ -88,14 +88,14 @@ export const TwoViewsEmbedded = () => {
         viewport: {
           right: 0,
           top: 0,
-          width: 0.2,
-          height: 0.2,
+          width: '200px',
+          height: '200px',
         },
         scissor: {
           right: 0,
           top: 0,
-          width: 0.2,
-          height: 0.2,
+          width: '200px',
+          height: '200px',
         },
       });
 
@@ -131,7 +131,7 @@ export const TwoViewsEmbedded = () => {
   <style>
   #renderer-root {
     width: 100%;
-    height: 80vh;
+    height: 100%;
   }
   </style>
   <div id="renderer-root"></div>

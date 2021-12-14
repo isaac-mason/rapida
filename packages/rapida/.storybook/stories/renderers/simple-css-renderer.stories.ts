@@ -96,7 +96,7 @@ export const SimpleCSSRenderer = () => {
   <style>
   #renderer-root {
     width: 100%;
-    height: 30em;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
