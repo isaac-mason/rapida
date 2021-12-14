@@ -136,8 +136,8 @@ class Runtime {
 
     // define loops to run based on world settings
     this.gameLoopUpdateDelayMs = 1000 / this.world._maxGameLoopUpdatesPerSecond;
-    this.physicsUpdateDelayMs = 1000 / this.world._maxGameLoopUpdatesPerSecond;
-    this.physicsDelta = 1 / this.world._maxGameLoopUpdatesPerSecond;
+    this.physicsUpdateDelayMs = 1000 / this.world._maxPhysicsUpdatesPerSecond;
+    this.physicsDelta = 1 / this.world._maxPhysicsUpdatesPerSecond;
 
     // set killLoop to false now in case anything went wrong
     this.killLoop = false;
