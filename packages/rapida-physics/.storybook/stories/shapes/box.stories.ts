@@ -3,15 +3,15 @@ import { BodyType } from '../../../lib/next';
 import { createBasicSetup } from '../utils/create-basic-setup';
 
 export default {
-  title: 'Examples / Gravity',
+  title: 'Shapes / Box',
 };
 
-export const Gravity = ({ gravity }: { gravity: { x: number; y: number; z: number } }) => {
+export const Box = () => {
   useEffect(() => {
     const { renderer, physics, start, destroy } = createBasicSetup();
     document.getElementById('renderer-root').prepend(renderer.domElement);
 
-    physics.gravity = [gravity.x, gravity.y, gravity.z];
+    physics.gravity = [0, -10, 0];
 
     physics.create.box(
       {
@@ -55,7 +55,3 @@ export const Gravity = ({ gravity }: { gravity: { x: number; y: number; z: numbe
   <div id="renderer-root"></div>
   `;
 };
-
-Gravity.args = {
-  gravity: { x: 0, y: -10, z: 0 },
-}

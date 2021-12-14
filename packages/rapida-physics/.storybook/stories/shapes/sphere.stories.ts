@@ -3,25 +3,25 @@ import { BodyType } from '../../../lib/next';
 import { createBasicSetup } from '../utils/create-basic-setup';
 
 export default {
-  title: 'Examples / Gravity',
+  title: 'Shapes / Sphere',
 };
 
-export const Gravity = ({ gravity }: { gravity: { x: number; y: number; z: number } }) => {
+export const Sphere = () => {
   useEffect(() => {
     const { renderer, physics, start, destroy } = createBasicSetup();
     document.getElementById('renderer-root').prepend(renderer.domElement);
 
-    physics.gravity = [gravity.x, gravity.y, gravity.z];
+    physics.gravity = [0, -10, 0];
 
-    physics.create.box(
+    physics.create.sphere(
       {
         type: BodyType.DYNAMIC,
-        size: [20, 20, 20],
+        radius: 20,
         mass: 1,
         position: [0, 75, 0],
         rotation: [0, 0, 0],
-        velocity: [Math.round(Math.random() * 4) - 2, 50, Math.round(Math.random() * 4) - 2],
-        angularVelocity: [Math.random() * 5 - 2.5, Math.random() * 5 - 2.5, Math.random() * 5 - 2.5],
+        velocity: [Math.random(), 10, Math.random()],
+        angularVelocity: [Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5],
         fixedRotation: false,
         allowSleep: false,
       },
@@ -55,7 +55,3 @@ export const Gravity = ({ gravity }: { gravity: { x: number; y: number; z: numbe
   <div id="renderer-root"></div>
   `;
 };
-
-Gravity.args = {
-  gravity: { x: 0, y: -10, z: 0 },
-}

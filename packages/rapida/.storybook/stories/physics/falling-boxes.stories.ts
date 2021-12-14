@@ -77,19 +77,19 @@ export const FallingBoxes = ({
       const [_, cubeApi] = this.physics.create.box(
         {
           type: BodyType.DYNAMIC,
-          args: [box.size.x, box.size.y, box.size.z],
+          size: [box.size.x, box.size.y, box.size.z],
           position: [0, 0, 0],
           rotation: [0, 0, 0],
           fixedRotation: false,
           mass: box.mass,
-          allowSleep: false,
+          allowSleep: true,
         },
         this.mesh
       );
 
       this.cubeApi = cubeApi;
 
-      cubeApi.velocity.set(Math.random() - 0.5, 30, Math.random() - 0.5);
+      cubeApi.velocity.set(Math.random() - 0.5, 15, Math.random() - 0.5);
 
       cubeApi.angularVelocity.set(
         Math.random() * 5 - 2.5,
@@ -169,15 +169,17 @@ export const FallingBoxes = ({
       });
 
       const physics = world.create.physics({
+        allowSleep: true,
         gravity: [gravity.x, gravity.y, gravity.z],
       });
 
       const scene = world.create.scene();
       scene.threeScene.background = new Color(LIGHT_BLUE);
 
-      const threeCamera = new PerspectiveCamera(50, 1, 20, 1000);
+      const threeCamera = new PerspectiveCamera(50, 1, 1, 1000);
       const camera = world.create.camera({ id: 'camera', camera: threeCamera });
-      camera.position.set(0, 10, 70);
+      camera.position.set(0, 10, 40);
+      camera.threeCamera.lookAt(0, 0, 0);
 
       const view = renderer.create.view({
         camera,
@@ -249,9 +251,9 @@ FallingBoxes.args = {
   },
   box: {
     size: {
-      x: 3,
-      y: 3,
-      z: 3,
+      x: 1,
+      y: 1,
+      z: 1,
     },
     mass: 1,
   }

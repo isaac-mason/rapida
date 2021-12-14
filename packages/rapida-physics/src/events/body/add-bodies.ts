@@ -1,6 +1,6 @@
 import paramsToBody from '../../params-to-body';
 import { State } from '../../state';
-import { BodyShapeType, SerializableBodyProps } from '../../types';
+import { BodyShapeType, SerializableBodyParams } from '../../types';
 import { syncBodies } from '../sync-bodies';
 import { PhysicsEventTopic } from '../physics-event-topic';
 
@@ -10,7 +10,7 @@ export type AddBodiesEvent = {
   topic: PhysicsEventTopic.ADD_BODIES;
   type: BodyShapeType;
   uuid: string[];
-  params: SerializableBodyProps[];
+  params: SerializableBodyParams[];
 };
 
 export const handleAddBodies = (e: AddBodiesEvent, state: State): void => {

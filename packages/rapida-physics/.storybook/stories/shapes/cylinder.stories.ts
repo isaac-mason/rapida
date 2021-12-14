@@ -3,29 +3,40 @@ import { BodyType } from '../../../lib/next';
 import { createBasicSetup } from '../utils/create-basic-setup';
 
 export default {
-  title: 'Examples / Gravity',
+  title: 'Shapes / Cylinder',
 };
 
-export const Gravity = ({ gravity }: { gravity: { x: number; y: number; z: number } }) => {
+export const Cylinder = ({
+  radiusTop,
+  radiusBottom,
+  height,
+  numSegments,
+}: {
+  radiusTop: number;
+  radiusBottom: number;
+  height: number;
+  numSegments: number;
+}) => {
   useEffect(() => {
     const { renderer, physics, start, destroy } = createBasicSetup();
     document.getElementById('renderer-root').prepend(renderer.domElement);
 
-    physics.gravity = [gravity.x, gravity.y, gravity.z];
+    physics.gravity = [0, -10, 0];
 
-    physics.create.box(
-      {
-        type: BodyType.DYNAMIC,
-        size: [20, 20, 20],
-        mass: 1,
-        position: [0, 75, 0],
-        rotation: [0, 0, 0],
-        velocity: [Math.round(Math.random() * 4) - 2, 50, Math.round(Math.random() * 4) - 2],
-        angularVelocity: [Math.random() * 5 - 2.5, Math.random() * 5 - 2.5, Math.random() * 5 - 2.5],
-        fixedRotation: false,
-        allowSleep: false,
-      },
-    );
+    physics.create.cylinder({
+      type: BodyType.DYNAMIC,
+      radiusTop,
+      radiusBottom,
+      height,
+      numSegments,
+      mass: 1,
+      position: [0, 75, 0],
+      rotation: [0, 0, 0],
+      velocity: [Math.random(), 10, Math.random()],
+      angularVelocity: [0.5, 0.2, 0.3],
+      fixedRotation: false,
+      allowSleep: false,
+    });
 
     physics.create.plane({
       type: BodyType.STATIC,
@@ -56,6 +67,9 @@ export const Gravity = ({ gravity }: { gravity: { x: number; y: number; z: numbe
   `;
 };
 
-Gravity.args = {
-  gravity: { x: 0, y: -10, z: 0 },
-}
+Cylinder.args = {
+  radiusTop: 20,
+  radiusBottom: 1,
+  height: 100,
+  numSegments: 10,
+};
