@@ -6,9 +6,6 @@ import { Camera } from '../../camera';
 import { Scene } from '../../scene';
 import { Renderer } from '../renderer';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-const noop = (): void => {};
-
 /**
  * XRRenderer modes
  */
@@ -131,11 +128,10 @@ class XRRenderer implements Renderer {
 
     // conditionally append the xr interaction button
     if (appendButton) {
-      if (this.mode === XRRendererMode.AR) {
-        this.buttonDomElement = ARButton.createButton(this.three);
-      } else {
-        this.buttonDomElement = VRButton.createButton(this.three);
-      }
+      this.buttonDomElement =
+        this.mode === XRRendererMode.AR
+          ? ARButton.createButton(this.three)
+          : VRButton.createButton(this.three);
 
       this.domElement.append(this.buttonDomElement);
     }
