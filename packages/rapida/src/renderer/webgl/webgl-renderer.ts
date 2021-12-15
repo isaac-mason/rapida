@@ -1,6 +1,6 @@
 import { uuid } from '@rapidajs/rapida-common';
 import { WebGLRenderer as ThreeWebGLRenderer } from 'three';
-import { Renderer } from './renderer';
+import { Renderer } from '../renderer';
 import { WebGLView, WebGLViewParams } from './webgl-view';
 
 /**
@@ -25,12 +25,12 @@ class WebGLRenderer implements Renderer {
   /**
    * The id for the renderer
    */
-  id: string;
+  id = uuid();
 
   /**
    * The three js renderer
    */
-  renderer: ThreeWebGLRenderer;
+  three: ThreeWebGLRenderer;
 
   /**
    * Views for the webgl renderer
@@ -62,8 +62,7 @@ class WebGLRenderer implements Renderer {
    * @param params the params for the new renderer
    */
   constructor(params: WebGLRendererParams) {
-    this.id = uuid();
-    this.renderer =
+    this.three =
       params?.renderer || new ThreeWebGLRenderer({ antialias: true });
 
     // Create the renderer dom element for views within the renderer
@@ -75,22 +74,22 @@ class WebGLRenderer implements Renderer {
     this.domElement.style.position = 'relative';
 
     // Set up the three js renderer dom element
-    this.renderer.domElement.style.position = 'absolute';
-    this.renderer.domElement.style.top = '0';
-    this.renderer.domElement.style.left = '0';
-    this.renderer.domElement.style.width = '100%';
-    this.renderer.domElement.style.height = '100%';
-    this.domElement.appendChild(this.renderer.domElement);
+    this.three.domElement.style.position = 'absolute';
+    this.three.domElement.style.top = '0';
+    this.three.domElement.style.left = '0';
+    this.three.domElement.style.width = '100%';
+    this.three.domElement.style.height = '100%';
+    this.domElement.appendChild(this.three.domElement);
 
     // Set the pixel ratio for the renderer
-    if (this.renderer instanceof ThreeWebGLRenderer) {
-      this.renderer.setPixelRatio(window.devicePixelRatio);
+    if (this.three instanceof ThreeWebGLRenderer) {
+      this.three.setPixelRatio(window.devicePixelRatio);
     }
 
     // Create the event listener for the renderer dom element resizing
     window.addEventListener('resize', () => this.onResize(), false);
     this.resizeObserver = new ResizeObserver(() => this.onResize());
-    this.resizeObserver.observe(this.renderer.domElement);
+    this.resizeObserver.observe(this.three.domElement);
   }
 
   /**
@@ -119,15 +118,15 @@ class WebGLRenderer implements Renderer {
       v._destroy();
     });
     this.resizeObserver.disconnect();
-    this.renderer.forceContextLoss();
-    this.renderer.dispose();
+    this.three.forceContextLoss();
+    this.three.dispose();
   }
 
   /**
    * Handles resizing
    */
   onResize(): void {
-    this.renderer.setSize(
+    this.three.setSize(
       this.domElement.clientWidth,
       this.domElement.clientHeight
     );
@@ -168,17 +167,17 @@ class WebGLRenderer implements Renderer {
    * Renders all views for the renderer
    */
   render(): void {
-    const rect = this.renderer.domElement.getBoundingClientRect();
+    const rect = this.three.domElement.getBoundingClientRect();
 
     this.views.forEach((view: WebGLView) => {
-      this.renderer.setScissorTest(true);
-      this.renderer.setScissor(
+      this.three.setScissorTest(true);
+      this.three.setScissor(
         view._scissor.left * rect.width,
         view._scissor.bottom * rect.height,
         view._scissor.width * rect.width,
         view._scissor.height * rect.height
       );
-      this.renderer.setViewport(
+      this.three.setViewport(
         view._viewport.left * rect.width,
         view._viewport.bottom * rect.height,
         view._viewport.width * rect.width,
@@ -186,11 +185,11 @@ class WebGLRenderer implements Renderer {
       );
 
       if (view.clearColor) {
-        this.renderer.setClearColor(view.clearColor);
+        this.three.setClearColor(view.clearColor);
       }
 
       if (view.clearDepth) {
-        this.renderer.clearDepth();
+        this.three.clearDepth();
       }
 
       view.effectComposer.render();

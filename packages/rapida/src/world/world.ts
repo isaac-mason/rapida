@@ -22,6 +22,7 @@ import {
   CSSRenderer,
   CSSRendererParams,
 } from '../renderer';
+import { XRRenderer, XRRendererParams } from '../renderer/xr/xr-renderer';
 
 /**
  * Params for creating a world
@@ -293,6 +294,17 @@ class World {
 
       return renderer;
     },
+    /**
+     * Creates a new xr renderer
+     * @param params the params for the xr renderer
+     * @returns the new xr renderer
+     */
+    xr: (params: XRRendererParams): XRRenderer => {
+      const renderer = new XRRenderer(params);
+      this.rendererManager.addRenderer(renderer);
+
+      return renderer;
+    },
   };
 
   /**
@@ -322,6 +334,7 @@ class World {
     renderer: {
       webgl: (params: WebGLRendererParams) => WebGLRenderer;
       css: (params: CSSRendererParams) => CSSRenderer;
+      xr: (params: XRRendererParams) => XRRenderer;
     };
   } = {
     /**

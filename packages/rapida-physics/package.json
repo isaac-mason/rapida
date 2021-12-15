@@ -17,7 +17,8 @@
     "prebuild": "tsc",
     "prettier": "prettier --list-different .",
     "prettier-fix": "prettier --write .",
-    "storybook": "start-storybook -p 6007",
+    "storybook": "start-storybook -p 6008",
+    "storybook:https": "start-storybook -p 6008 --https --ssl-cert ../../dev/ca.crt --ssl-key ../../dev/ca.key",
     "build-storybook": "build-storybook",
     "docs": "typedoc --hideBreadcrumbs --out docs src/index.ts && rm docs/README.md && mv docs/modules.md docs/README.md"
   },

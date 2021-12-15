@@ -1,8 +1,8 @@
 import { EventHandler, EventSystem, uuid } from '@rapidajs/rapida-common';
 import { Color, PerspectiveCamera, Vector2 } from 'three';
 import { EffectComposer, RenderPass } from 'three-stdlib';
-import { Camera } from '../camera';
-import { Scene } from '../scene';
+import { Camera } from '../../camera';
+import { Scene } from '../../scene';
 import {
   View,
   ViewEventName,
@@ -16,7 +16,7 @@ import {
   VIEW_ALL_EVENT_NAMES,
   VIEW_MOUSE_EVENTS,
   VIEW_TOUCH_EVENTS,
-} from './view';
+} from '../view';
 import { WebGLRenderer } from './webgl-renderer';
 
 /**
@@ -234,7 +234,7 @@ class WebGLView extends View {
     }
 
     // create the effect composer for the view
-    this.effectComposer = new EffectComposer(this.renderer.renderer);
+    this.effectComposer = new EffectComposer(this.renderer.three);
 
     // create the render pass for the view
     this.renderPass = new RenderPass(

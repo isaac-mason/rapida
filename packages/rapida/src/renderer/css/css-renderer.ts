@@ -1,6 +1,6 @@
 import { uuid } from '@rapidajs/rapida-common';
 import { CSSView, CSSViewParams } from './css-view';
-import { Renderer } from './renderer';
+import { Renderer } from '../renderer';
 
 /**
  * Factories for creating something in the renderer
