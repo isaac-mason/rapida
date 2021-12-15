@@ -43,6 +43,11 @@ class Space {
   entities: Map<string, Entity> = new Map();
 
   /**
+   * A map of component ids to update functions for all components in the space
+   */
+  _componentUpdatePool: Map<string, (timeElapsed: number) => void> = new Map();
+
+  /**
    * Whether the space has been initialised
    */
   initialised = false;
@@ -74,6 +79,9 @@ class Space {
    * @param timeElapsed the time since the last update in milliseconds
    */
   _update(timeElapsed: number): void {
+    // Run all component updates
+    this._componentUpdatePool.forEach((update) => update(timeElapsed));
+
     // update entities
     const dead: Entity[] = [];
     const alive: Entity[] = [];

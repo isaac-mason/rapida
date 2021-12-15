@@ -104,11 +104,6 @@ class World {
   engine: Engine;
 
   /**
-   * The event system for the world
-   */
-  private events = new EventSystem();
-
-  /**
    * The maximum game loop updates to run per second
    */
   _maxGameLoopUpdatesPerSecond: number;
@@ -132,6 +127,11 @@ class World {
    * The delta value for the physics worlds, based on _maxPhysicsUpdatesPerSecond
    */
   _physicsDelta?: number;
+
+  /**
+   * The event system for the world
+   */
+  private events = new EventSystem();
 
   /**
    * Constructor for a World
