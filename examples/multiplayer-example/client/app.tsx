@@ -2,8 +2,6 @@
 import {
   Component,
   Entity,
-  logger,
-  NetworkManager,
   Engine,
   Scene,
   Space,
@@ -11,21 +9,11 @@ import {
   World,
   WorldProvider,
 } from '@rapidajs/rapida';
+import geckos, { ClientChannel } from '@geckos.io/client';
 import * as React from 'react';
 import { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import * as three from 'three';
-import { SERVER_ENDPOINT, TESTING_ROOM_ID } from '../common';
-import {
-  PlayerPositionUpdateEvent,
-  PLAYER_POSITION_UPDATE,
-} from '../common/events/client-to-server';
-import {
-  OtherBoxesUpdateEvent,
-  OTHER_BOXES_UPDATE_EVENT,
-  PlayerInitEvent,
-  PLAYER_INIT_EVENT,
-} from '../common/events/server-to-client';
 import { useFirstRender } from './hooks';
 
 class PlayerMesh extends Component {
@@ -144,111 +132,98 @@ class PlayerNetworkManager extends Component {
 
   playerControls?: PlayerControls;
 
-  networkManager: NetworkManager;
+  io: ClientChannel;
 
-  constructor({
-    playerId,
-    networkManager,
-  }: {
-    playerId: string;
-    networkManager: NetworkManager;
-  }) {
+  constructor({ playerId, io }: { playerId: string; io: ClientChannel }) {
     super();
     this.playerId = playerId;
-    this.networkManager = networkManager;
+    this.io = io;
   }
 
   onInit = (): void => {
     this.playerMesh = this.entity.get(PlayerMesh);
     this.playerControls = this.entity.get(PlayerControls);
 
-    this.networkManager.on(
-      PLAYER_POSITION_UPDATE,
-      (event: PlayerPositionUpdateEvent) => {
-        this.playerMesh.cube.position.set(
-          event.data.position.x,
-          event.data.position.y,
-          event.data.position.z
-        );
-      }
-    );
+    this.io.on('player-position-update', (d) => {
+      const data = d as { x: number; y: number; z: number };
+      this.playerMesh.cube.position.set(data.x, data.y, data.z);
+    });
   };
 
-  onUpdate = (timeElapsed: number) => {
+  onUpdate = (_timeElapsed: number) => {
     if (this.playerControls.dirty) {
       this.playerControls.dirty = false;
-      this.networkManager.emit<PlayerPositionUpdateEvent>({
-        topic: PLAYER_POSITION_UPDATE,
-        data: {
-          id: this.playerId,
-          position: {
-            x: this.playerMesh.cube.position.x,
-            y: this.playerMesh.cube.position.y,
-            z: this.playerMesh.cube.position.z,
-          },
-        },
+
+      this.io.emit('player-frame', {
+        id: this.playerId,
+        x: this.playerMesh.cube.position.x,
+        y: this.playerMesh.cube.position.y,
+        z: this.playerMesh.cube.position.z,
       });
     }
   };
 }
 
 class OtherPlayersNetworkManager extends System {
-  networkManager: NetworkManager;
+  io: ClientChannel;
+
+  gameNetworkManager: GameNetworkManager;
 
   gameSpace: Space;
 
   gameScene: Scene;
 
   constructor({
+    gameNetworkManager,
     space,
     scene,
-    networkManager,
+    io,
   }: {
+    gameNetworkManager: GameNetworkManager;
     space: Space;
     scene: Scene;
-    networkManager: NetworkManager;
+    io: ClientChannel;
   }) {
     super();
+    this.gameNetworkManager = gameNetworkManager;
     this.gameSpace = space;
     this.gameScene = scene;
-    this.networkManager = networkManager;
+    this.io = io;
   }
 
   onInit = (): void => {
-    this.networkManager.on(
-      OTHER_BOXES_UPDATE_EVENT,
-      (event: OtherBoxesUpdateEvent) => {
-        event.data.forEach((otherBox) => {
-          // get the box id
-          const { id } = otherBox;
+    this.io.on('frame', (d) => {
+      const data = d as {
+        players: {
+          [id: string]: { id: string; x: number; y: number; z: number };
+        };
+      };
 
-          // skip if the box is the current player
-          if (this.networkManager.clientId === id) {
-            return;
-          }
+      Object.values(data.players).map((box) => {
+        // get the box id
+        const { id } = box;
 
-          // create or retrieve the entity
-          let entity: Entity = this.gameSpace.entities.get(id);
-          if (!entity) {
-            logger.info(`creating missing player "${id}"`);
-            entity = this.gameSpace.create.entity({ id });
-            entity.addComponent(new PlayerMesh({ gameScene: this.gameScene }));
-            this.gameSpace.add(entity);
-          } else {
-            entity = this.gameSpace.entities.get(id);
-          }
+        // skip if the box is the current player
+        if (this.gameNetworkManager.playerId === id) {
+          return;
+        }
 
-          // set the entities position
-          const playerMesh = entity.get(PlayerMesh);
+        // create or retrieve the entity
+        let entity: Entity = this.gameSpace.entities.get(id);
+        if (!entity) {
+          entity = this.gameSpace.create.entity({ id });
+          entity.addComponent(new PlayerMesh({ gameScene: this.gameScene }));
+          this.gameSpace.add(entity);
+        } else {
+          entity = this.gameSpace.entities.get(id);
+        }
 
-          playerMesh.cube.position.set(
-            otherBox.position.x,
-            otherBox.position.y,
-            otherBox.position.z
-          );
-        });
-      }
-    );
+        // set the entities position
+        const playerMesh = entity.get(PlayerMesh);
+
+        playerMesh.cube.position.set(box.x, box.y, box.z);
+      });
+    });
   };
 }
 
@@ -284,55 +259,67 @@ class LightComponent extends Component {
 }
 
 class GameNetworkManager extends System {
+  playerId: string;
+
   gameSpace: Space;
 
   gameScene: Scene;
 
-  networkManager: NetworkManager;
+  io: ClientChannel | undefined;
 
   constructor({
     gameSpace,
     gameScene,
-    networkManager,
   }: {
     gameSpace: Space;
     gameScene: Scene;
-    networkManager: NetworkManager;
   }) {
     super();
     this.gameSpace = gameSpace;
     this.gameScene = gameScene;
-    this.networkManager = networkManager;
   }
 
   onInit = (): void => {
-    this.networkManager.on(PLAYER_INIT_EVENT, (event: PlayerInitEvent) => {
-      const entity = this.gameSpace.create.entity({
-        id: event.data.id,
-        components: [
-          new PlayerMesh({ gameScene: this.gameScene }),
-          new PlayerControls(),
-          new PlayerNetworkManager({
-            playerId: event.data.id,
-            networkManager: this.networkManager,
-          }),
-        ],
-      });
-
-      this.world.add.system(
-        new OtherPlayersNetworkManager({
-          space: this.gameSpace,
-          scene: this.gameScene,
-          networkManager: this.networkManager,
-        })
-      );
+    this.io = geckos({
+      port: 9208,
     });
 
-    this.networkManager.join(TESTING_ROOM_ID, SERVER_ENDPOINT);
-  };
+    this.io.onConnect((error) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
 
-  onUpdate = () => {
-    this.networkManager.tick();
+      this.io.on('join-response', (d) => {
+        const data = d as {
+          id: string;
+          position: { x: number; y: number; z: number };
+        };
+
+        this.gameSpace.create.entity({
+          id: data.id,
+          components: [
+            new PlayerMesh({ gameScene: this.gameScene }),
+            new PlayerControls(),
+            new PlayerNetworkManager({
+              playerId: data.id,
+              io: this.io,
+            }),
+          ],
+        });
+
+        this.world.add.system(
+          new OtherPlayersNetworkManager({
+            space: this.gameSpace,
+            scene: this.gameScene,
+            io: this.io,
+            gameNetworkManager: this,
+          })
+        );
+      });
+
+      this.io.emit('join-request');
+    });
   };
 }
 
@@ -341,25 +328,24 @@ const App = () => {
 
   useEffect(() => {
     const engine = new Engine({
-      domId: 'renderer-root',
       debug: true,
     });
-
-    logger.level = 'debug';
 
     const worldId = 'ExampleWorld';
 
     const worldProvider: WorldProvider = (worldContext) => {
       const world = new World({ id: worldId, engine: worldContext.engine });
 
-      const networkManager = new NetworkManager();
+      const renderer = world.create.renderer.webgl({
+        domElementId: 'renderer-root',
+      });
 
       const camera = world.create.camera();
       camera.position.set(0, 0, 500);
 
       const scene = world.create.scene();
 
-      world.create.view({ scene, camera });
+      renderer.create.view({ scene, camera });
 
       const space = world.create.space();
 
@@ -370,7 +356,6 @@ const App = () => {
         new GameNetworkManager({
           gameSpace: space,
           gameScene: scene,
-          networkManager,
         })
       );
 
