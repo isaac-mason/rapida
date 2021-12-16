@@ -82,13 +82,10 @@ export const HelloWorld = () => {
       debug: true,
     });
 
-    const worldId = 'SpinningCube';
-
     const worldProvider: WorldProvider = (
       worldContext: WorldContext
     ): World => {
       const world = new World({
-        id: worldId,
         engine: worldContext.engine,
       });
 

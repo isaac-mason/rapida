@@ -103,7 +103,7 @@ class CSSRenderer implements Renderer {
   /**
    * Resizes all css views
    */
-  onResize(): void {
+  _onResize(): void {
     this.views.forEach((v) => {
       v._onResize();
     });

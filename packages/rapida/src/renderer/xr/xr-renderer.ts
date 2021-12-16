@@ -1,10 +1,21 @@
-import { uuid } from '@rapidajs/rapida-common';
-import { WebGLRenderer, PerspectiveCamera } from 'three';
+import { Event, EventSystem, uuid } from '@rapidajs/rapida-common';
+import { WebGLRenderer, PerspectiveCamera, XRFrame } from 'three';
 import { ARButton } from 'three-stdlib/webxr/ARButton';
 import { VRButton } from 'three-stdlib/webxr/VRButton';
 import { Camera } from '../../camera';
 import { Scene } from '../../scene';
 import { Renderer } from '../renderer';
+
+/**
+ * An event for a new XRFrame
+ */
+interface FrameEvent extends Event {
+  topic: 'frame';
+  data: {
+    frame: XRFrame;
+    time: number;
+  };
+}
 
 /**
  * XRRenderer modes
@@ -79,6 +90,11 @@ class XRRenderer implements Renderer {
   camera: Camera;
 
   /**
+   * The latest xr frame
+   */
+  frame?: XRFrame;
+
+  /**
    * The mode the renderer is in
    */
   private mode: XRRendererMode;
@@ -92,6 +108,11 @@ class XRRenderer implements Renderer {
    * The resize observer for the renderer dom element
    */
   private resizeObserver: ResizeObserver;
+
+  /**
+   * Events system for frame events
+   */
+  private events = new EventSystem();
 
   constructor({
     appendButton,
@@ -108,7 +129,18 @@ class XRRenderer implements Renderer {
     this.scene = scene;
     this.camera = camera;
 
-    this.three.setAnimationLoop(() => {
+    this.three.setAnimationLoop((time: number, frame?: XRFrame) => {
+      if (frame) {
+        this.frame = frame;
+        this.events.emit({
+          topic: 'frame',
+          data: {
+            frame,
+            time,
+          },
+        } as FrameEvent);
+      }
+      this.events.tick();
       this.three.render(this.scene.threeScene, this.camera.threeCamera);
     });
 
@@ -142,8 +174,8 @@ class XRRenderer implements Renderer {
     }
 
     // Create the event listener for the renderer dom element resizing
-    window.addEventListener('resize', () => this.onResize(), false);
-    this.resizeObserver = new ResizeObserver(() => this.onResize());
+    window.addEventListener('resize', () => this._onResize(), false);
+    this.resizeObserver = new ResizeObserver(() => this._onResize());
     this.resizeObserver.observe(this.three.domElement);
   }
 
@@ -160,7 +192,7 @@ class XRRenderer implements Renderer {
   /**
    * Handles resizing of the XR renderer
    */
-  onResize(): void {
+  _onResize(): void {
     this.three.setSize(
       this.domElement.clientWidth,
       this.domElement.clientHeight
@@ -171,6 +203,16 @@ class XRRenderer implements Renderer {
     }
 
     this.camera.threeCamera.updateProjectionMatrix();
+  }
+
+  /**
+   * Registers an event handler for new XRFrame frames
+   * @param handler the handler for a new frame
+   */
+  onFrame(handler: (e: FrameEvent) => void): { unsubscribe: () => void } {
+    const id = this.events.on('frame', handler);
+
+    return { unsubscribe: () => this.events.removeHandler('frame', id) };
   }
 }
 

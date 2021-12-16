@@ -160,11 +160,8 @@ export const RandomWalkers = () => {
       debug: true,
     });
 
-    const worldId = 'ECS-Example';
-
     const worldProvider: WorldProvider = (worldContext): World => {
       const world = new World({
-        id: worldId,
         engine: worldContext.engine,
       });
 

@@ -331,10 +331,8 @@ const App = () => {
       debug: true,
     });
 
-    const worldId = 'ExampleWorld';
-
     const worldProvider: WorldProvider = (worldContext) => {
-      const world = new World({ id: worldId, engine: worldContext.engine });
+      const world = new World({ engine: worldContext.engine });
 
       const renderer = world.create.renderer.webgl({
         domElementId: 'renderer-root',
@@ -362,8 +360,7 @@ const App = () => {
       return world;
     };
 
-    engine.registerWorld(worldId, worldProvider);
-    engine.startWorld(worldId);
+    engine.run(worldProvider);
   }, [firstRender]);
 
   return <div id="renderer-root"></div>;

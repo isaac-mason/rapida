@@ -2,7 +2,7 @@ interface Renderer {
   id: string;
   init?: () => void;
   destroy?: () => void;
-  onResize?: () => void;
+  _onResize?: () => void;
   render?: () => void;
 }
 

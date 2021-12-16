@@ -152,11 +152,8 @@ export const FallingBoxes = ({
       debug: true,
     });
 
-    const worldId = 'FallingBoxes';
-
     const worldProvider: WorldProvider = (worldContext): World => {
       const world = new World({
-        id: worldId,
         engine: worldContext.engine,
       });
 

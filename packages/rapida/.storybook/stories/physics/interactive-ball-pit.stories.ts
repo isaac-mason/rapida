@@ -19,11 +19,8 @@ export const InteractiveBallPit = () => {
       debug: true,
     });
 
-    const worldId = 'FallingCubes';
-
     const worldProvider: WorldProvider = (worldContext): World => {
       const world = new World({
-        id: worldId,
         engine: worldContext.engine,
       });
 

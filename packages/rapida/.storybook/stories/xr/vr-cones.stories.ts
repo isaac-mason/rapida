@@ -1,11 +1,18 @@
 import { useEffect } from '@storybook/client-api';
-import { AmbientLight, CylinderGeometry, DirectionalLight, Mesh, MeshPhongMaterial, Vector3 } from 'three';
+import {
+  AmbientLight,
+  CylinderGeometry,
+  DirectionalLight,
+  Mesh,
+  MeshPhongMaterial,
+  Vector3,
+} from 'three';
 import {
   Engine,
   World,
   WorldContext,
   WorldProvider,
-  XRRendererMode
+  XRRendererMode,
 } from '../../../src';
 
 export default {
@@ -18,13 +25,10 @@ export const VRCones = () => {
       debug: true,
     });
 
-    const worldId = 'SpinningCube';
-
     const worldProvider: WorldProvider = (
       worldContext: WorldContext
     ): World => {
       const world = new World({
-        id: worldId,
         engine: worldContext.engine,
       });
 
@@ -55,7 +59,9 @@ export const VRCones = () => {
       // todo - display the controllers
       const controller = renderer.three.xr.getController(0);
 
-      const coneGeometry = new CylinderGeometry(0, 0.05, 0.2, 32).rotateX(Math.PI / 2)
+      const coneGeometry = new CylinderGeometry(0, 0.05, 0.2, 32).rotateX(
+        Math.PI / 2
+      );
 
       controller.addEventListener('selectstart', (e) => {
         const coneMaterial = new MeshPhongMaterial({

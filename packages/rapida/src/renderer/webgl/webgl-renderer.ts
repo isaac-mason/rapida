@@ -87,8 +87,8 @@ class WebGLRenderer implements Renderer {
     }
 
     // Create the event listener for the renderer dom element resizing
-    window.addEventListener('resize', () => this.onResize(), false);
-    this.resizeObserver = new ResizeObserver(() => this.onResize());
+    window.addEventListener('resize', () => this._onResize(), false);
+    this.resizeObserver = new ResizeObserver(() => this._onResize());
     this.resizeObserver.observe(this.three.domElement);
   }
 
@@ -125,7 +125,7 @@ class WebGLRenderer implements Renderer {
   /**
    * Handles resizing
    */
-  onResize(): void {
+  _onResize(): void {
     this.three.setSize(
       this.domElement.clientWidth,
       this.domElement.clientHeight

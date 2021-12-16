@@ -51,13 +51,10 @@ export const TwoViewsSideBySide = () => {
   useEffect(() => {
     const engine = new Engine();
 
-    const worldId = 'world';
-
     const worldProvider: WorldProvider = (
       worldContext: WorldContext
     ): World => {
       const world = new World({
-        id: worldId,
         engine: worldContext.engine,
       });
 
