@@ -1,7 +1,11 @@
 {
   "name": "@rapidajs/rapida",
   "version": "0.0.6",
-  "description": "",
+  "description": "A library that helps you create 3D experiences for the web",
+  "homepage": "https://gitlab.com/rapidajs/rapida/-/tree/main/packages/rapida",
+  "bugs": {
+    "url": "https://gitlab.com/rapidajs/rapida/issues"
+  },
   "main": "lib/index.js",
   "scripts": {
     "prebuild": "rm -rf ./lib",

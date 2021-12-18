@@ -9,16 +9,13 @@ class RapidaPhysics extends Physics {
    * The world the physics instance is in
    */
   private world: World;
-  
+
   /**
    * Constructor for a rapida physics instance
-   * @param world 
-   * @param params 
+   * @param world
+   * @param params
    */
-  constructor(
-    world: World,
-    params: PhysicsParams
-  ) {
+  constructor(world: World, params: PhysicsParams) {
     super(params);
     this.world = world;
   }
@@ -38,6 +35,4 @@ class RapidaPhysics extends Physics {
   }
 }
 
-export {
-  RapidaPhysics
-};
+export { RapidaPhysics };

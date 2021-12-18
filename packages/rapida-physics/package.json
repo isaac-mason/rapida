@@ -2,6 +2,10 @@
   "name": "@rapidajs/rapida-physics",
   "version": "0.0.6",
   "description": "web worker wrapped cannon-es",
+  "homepage": "https://gitlab.com/rapidajs/rapida/-/tree/main/packages/rapida",
+  "bugs": {
+    "url": "https://gitlab.com/rapidajs/rapida/issues"
+  },
   "license": "MIT",
   "author": "Isaac Mason",
   "keywords": [
@@ -87,9 +91,5 @@
   "repository": {
     "type": "git",
     "url": "git+ssh://git@gitlab.com/rapidajs/rapida.git"
-  },
-  "bugs": {
-    "url": "https://gitlab.com/rapidajs/rapida/issues"
-  },
-  "homepage": "https://gitlab.com/rapidajs/rapida#readme"
+  }
 }
