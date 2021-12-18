@@ -1,43 +1,43 @@
-# Interface: CompoundBodyProps
+# Interface: CompoundBodyParams
 
 ## Hierarchy
 
 - [`BodyParams`](../modules.md#bodyparams)
 
-  ↳ **`CompoundBodyProps`**
+  ↳ **`CompoundBodyParams`**
 
 ## Table of contents
 
 ### Properties
 
-- [allowSleep](CompoundBodyProps.md#allowsleep)
-- [angularDamping](CompoundBodyProps.md#angulardamping)
-- [angularFactor](CompoundBodyProps.md#angularfactor)
-- [angularVelocity](CompoundBodyProps.md#angularvelocity)
-- [args](CompoundBodyProps.md#args)
-- [collisionFilterGroup](CompoundBodyProps.md#collisionfiltergroup)
-- [collisionFilterMask](CompoundBodyProps.md#collisionfiltermask)
-- [collisionResponse](CompoundBodyProps.md#collisionresponse)
-- [fixedRotation](CompoundBodyProps.md#fixedrotation)
-- [isTrigger](CompoundBodyProps.md#istrigger)
-- [linearDamping](CompoundBodyProps.md#lineardamping)
-- [linearFactor](CompoundBodyProps.md#linearfactor)
-- [mass](CompoundBodyProps.md#mass)
-- [material](CompoundBodyProps.md#material)
-- [position](CompoundBodyProps.md#position)
-- [rotation](CompoundBodyProps.md#rotation)
-- [shapes](CompoundBodyProps.md#shapes)
-- [sleepSpeedLimit](CompoundBodyProps.md#sleepspeedlimit)
-- [sleepTimeLimit](CompoundBodyProps.md#sleeptimelimit)
-- [type](CompoundBodyProps.md#type)
-- [userData](CompoundBodyProps.md#userdata)
-- [velocity](CompoundBodyProps.md#velocity)
+- [allowSleep](CompoundBodyParams.md#allowsleep)
+- [angularDamping](CompoundBodyParams.md#angulardamping)
+- [angularFactor](CompoundBodyParams.md#angularfactor)
+- [angularVelocity](CompoundBodyParams.md#angularvelocity)
+- [args](CompoundBodyParams.md#args)
+- [collisionFilterGroup](CompoundBodyParams.md#collisionfiltergroup)
+- [collisionFilterMask](CompoundBodyParams.md#collisionfiltermask)
+- [collisionResponse](CompoundBodyParams.md#collisionresponse)
+- [fixedRotation](CompoundBodyParams.md#fixedrotation)
+- [isTrigger](CompoundBodyParams.md#istrigger)
+- [linearDamping](CompoundBodyParams.md#lineardamping)
+- [linearFactor](CompoundBodyParams.md#linearfactor)
+- [mass](CompoundBodyParams.md#mass)
+- [material](CompoundBodyParams.md#material)
+- [position](CompoundBodyParams.md#position)
+- [rotation](CompoundBodyParams.md#rotation)
+- [shapes](CompoundBodyParams.md#shapes)
+- [sleepSpeedLimit](CompoundBodyParams.md#sleepspeedlimit)
+- [sleepTimeLimit](CompoundBodyParams.md#sleeptimelimit)
+- [type](CompoundBodyParams.md#type)
+- [userData](CompoundBodyParams.md#userdata)
+- [velocity](CompoundBodyParams.md#velocity)
 
 ### Methods
 
-- [onCollide](CompoundBodyProps.md#oncollide)
-- [onCollideBegin](CompoundBodyProps.md#oncollidebegin)
-- [onCollideEnd](CompoundBodyProps.md#oncollideend)
+- [onCollide](CompoundBodyParams.md#oncollide)
+- [onCollideBegin](CompoundBodyParams.md#oncollidebegin)
+- [onCollideEnd](CompoundBodyParams.md#oncollideend)
 
 ## Properties
 
@@ -45,13 +45,15 @@
 
 • `Optional` **allowSleep**: `boolean`
 
+If true, the body will automatically fall to sleep.
+
 #### Inherited from
 
 BodyParams.allowSleep
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:16
+rapida-physics/lib/types.d.ts:19
 
 ___
 
@@ -59,13 +61,15 @@ ___
 
 • `Optional` **angularDamping**: `number`
 
+How much to damp the body angular velocity each step. It can go from 0 to 1.
+
 #### Inherited from
 
 BodyParams.angularDamping
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:17
+rapida-physics/lib/types.d.ts:23
 
 ___
 
@@ -99,7 +103,7 @@ BodyParams.args
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:343
+rapida-physics/lib/types.d.ts:380
 
 ___
 
@@ -107,13 +111,15 @@ ___
 
 • `Optional` **collisionFilterGroup**: `number`
 
+The collision group the body belongs to.
+
 #### Inherited from
 
 BodyParams.collisionFilterGroup
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:18
+rapida-physics/lib/types.d.ts:27
 
 ___
 
@@ -121,13 +127,15 @@ ___
 
 • `Optional` **collisionFilterMask**: `number`
 
+The collision group the body can collide with.
+
 #### Inherited from
 
 BodyParams.collisionFilterMask
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:19
+rapida-physics/lib/types.d.ts:31
 
 ___
 
@@ -135,13 +143,15 @@ ___
 
 • `Optional` **collisionResponse**: `number`
 
+Whether to produce contact forces when in contact with other bodies. Note that contacts will be generated, but they will be disabled - i.e. "collide" events will be raised, but forces will not be altered.
+
 #### Inherited from
 
 BodyParams.collisionResponse
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:20
+rapida-physics/lib/types.d.ts:35
 
 ___
 
@@ -149,13 +159,15 @@ ___
 
 • `Optional` **fixedRotation**: `boolean`
 
+Set to true if you don't want the body to rotate
+
 #### Inherited from
 
 BodyParams.fixedRotation
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:21
+rapida-physics/lib/types.d.ts:39
 
 ___
 
@@ -163,13 +175,16 @@ ___
 
 • `Optional` **isTrigger**: `boolean`
 
+When true the body behaves like a trigger. It does not collide
+with other bodies but collision events are still triggered.
+
 #### Inherited from
 
 BodyParams.isTrigger
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:22
+rapida-physics/lib/types.d.ts:44
 
 ___
 
@@ -177,13 +192,15 @@ ___
 
 • `Optional` **linearDamping**: `number`
 
+How much to damp the body velocity each step. It can go from 0 to 1.
+
 #### Inherited from
 
 BodyParams.linearDamping
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:23
+rapida-physics/lib/types.d.ts:48
 
 ___
 
@@ -201,13 +218,15 @@ ___
 
 • `Optional` **mass**: `number`
 
+The mass of the body
+
 #### Inherited from
 
 BodyParams.mass
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:24
+rapida-physics/lib/types.d.ts:52
 
 ___
 
@@ -215,13 +234,15 @@ ___
 
 • `Optional` **material**: `string` \| { `friction?`: `number` ; `restitution?`: `number`  }
 
+The material for the body
+
 #### Inherited from
 
 BodyParams.material
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:25
+rapida-physics/lib/types.d.ts:56
 
 ___
 
@@ -247,11 +268,11 @@ ___
 
 ### shapes
 
-• **shapes**: `Partial`<[`AtomicProps`](../modules.md#atomicprops)\> & `Partial`<[`VectorProps`](../modules.md#vectorprops)\> & { `args?`: `unknown` ; `type?`: [`BodyType`](../enums/BodyType.md) ; `onCollide?`: (`e`: [`CollideEvent`](../modules.md#collideevent)) => `void` ; `onCollideBegin?`: (`e`: [`CollideBeginEvent`](../modules.md#collidebeginevent)) => `void` ; `onCollideEnd?`: (`e`: [`CollideEndEvent`](../modules.md#collideendevent)) => `void`  } & { `type`: [`ShapeType`](../modules.md#shapetype)  }[]
+• **shapes**: `Partial`<[`AtomicParams`](../modules.md#atomicparams)\> & `Partial`<[`VectorParams`](../modules.md#vectorparams)\> & { `args?`: `unknown` ; `type?`: [`BodyType`](../enums/BodyType.md) ; `onCollide?`: (`e`: [`CollideEvent`](../modules.md#collideevent)) => `void` ; `onCollideBegin?`: (`e`: [`CollideBeginEvent`](../modules.md#collidebeginevent)) => `void` ; `onCollideEnd?`: (`e`: [`CollideEndEvent`](../modules.md#collideendevent)) => `void`  } & { `type`: [`ShapeType`](../modules.md#shapetype)  }[]
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:380
+rapida-physics/lib/types.d.ts:450
 
 ___
 
@@ -259,13 +280,15 @@ ___
 
 • `Optional` **sleepSpeedLimit**: `number`
 
+If the speed (the norm of the velocity) is smaller than this value, the body is considered sleepy.
+
 #### Inherited from
 
 BodyParams.sleepSpeedLimit
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:26
+rapida-physics/lib/types.d.ts:60
 
 ___
 
@@ -273,13 +296,15 @@ ___
 
 • `Optional` **sleepTimeLimit**: `number`
 
+If the body has been sleepy for this sleepTimeLimit seconds, it is considered sleeping.
+
 #### Inherited from
 
 BodyParams.sleepTimeLimit
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:27
+rapida-physics/lib/types.d.ts:64
 
 ___
 
@@ -293,7 +318,7 @@ BodyParams.type
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:344
+rapida-physics/lib/types.d.ts:381
 
 ___
 
@@ -307,7 +332,7 @@ BodyParams.userData
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:28
+rapida-physics/lib/types.d.ts:65
 
 ___
 
@@ -341,7 +366,7 @@ BodyParams.onCollide
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:345
+rapida-physics/lib/types.d.ts:382
 
 ___
 
@@ -365,7 +390,7 @@ BodyParams.onCollideBegin
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:346
+rapida-physics/lib/types.d.ts:383
 
 ___
 
@@ -389,4 +414,4 @@ BodyParams.onCollideEnd
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:347
+rapida-physics/lib/types.d.ts:384

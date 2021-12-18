@@ -16,7 +16,7 @@
 
 #### Defined in
 
-[rapida/src/ecs/query.ts:7](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/ecs/query.ts#L7)
+[rapida/src/ecs/query.ts:7](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/query.ts#L7)
 
 ___
 
@@ -26,7 +26,7 @@ ___
 
 #### Defined in
 
-[rapida/src/ecs/query.ts:9](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/ecs/query.ts#L9)
+[rapida/src/ecs/query.ts:9](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/query.ts#L9)
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 #### Defined in
 
-[rapida/src/ecs/query.ts:8](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/ecs/query.ts#L8)
+[rapida/src/ecs/query.ts:8](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/query.ts#L8)

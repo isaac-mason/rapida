@@ -26,7 +26,7 @@
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:92
+rapida-physics/lib/types.d.ts:129
 
 ## Methods
 
@@ -47,7 +47,7 @@ rapida-physics/lib/types.d.ts:92
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:89
+rapida-physics/lib/types.d.ts:126
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:90
+rapida-physics/lib/types.d.ts:127
 
 ___
 
@@ -89,4 +89,4 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:91
+rapida-physics/lib/types.d.ts:128

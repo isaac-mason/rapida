@@ -1,7 +1,7 @@
 {
   "name": "@rapidajs/rapida-physics",
   "version": "0.0.4",
-  "description": "workerised cannon-es",
+  "description": "web worker wrapped cannon-es",
   "license": "MIT",
   "author": "Isaac Mason",
   "keywords": [
@@ -69,6 +69,7 @@
   },
   "dependencies": {
     "@types/three": "^0.133.0",
+    "three": "^0.133.0",
     "cannon-es": "^0.18.0",
     "cannon-es-debugger": "^0.1.4"
   },

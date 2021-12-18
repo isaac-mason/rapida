@@ -28,7 +28,7 @@
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:398
+rapida-physics/lib/types.d.ts:468
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:395
+rapida-physics/lib/types.d.ts:465
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:397
+rapida-physics/lib/types.d.ts:467
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:386
+rapida-physics/lib/types.d.ts:456
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:385
+rapida-physics/lib/types.d.ts:455
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:394
+rapida-physics/lib/types.d.ts:464
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:396
+rapida-physics/lib/types.d.ts:466
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:399
+rapida-physics/lib/types.d.ts:469
 
 ___
 
@@ -120,4 +120,4 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:387
+rapida-physics/lib/types.d.ts:457

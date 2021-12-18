@@ -1,15 +1,15 @@
-# Interface: RaycastVehicleProps
+# Interface: RaycastVehicleParams
 
 ## Table of contents
 
 ### Properties
 
-- [chassisBody](RaycastVehicleProps.md#chassisbody)
-- [indexForwardAxis](RaycastVehicleProps.md#indexforwardaxis)
-- [indexRightAxis](RaycastVehicleProps.md#indexrightaxis)
-- [indexUpAxis](RaycastVehicleProps.md#indexupaxis)
-- [wheelInfos](RaycastVehicleProps.md#wheelinfos)
-- [wheels](RaycastVehicleProps.md#wheels)
+- [chassisBody](RaycastVehicleParams.md#chassisbody)
+- [indexForwardAxis](RaycastVehicleParams.md#indexforwardaxis)
+- [indexRightAxis](RaycastVehicleParams.md#indexrightaxis)
+- [indexUpAxis](RaycastVehicleParams.md#indexupaxis)
+- [wheelInfos](RaycastVehicleParams.md#wheelinfos)
+- [wheels](RaycastVehicleParams.md#wheels)
 
 ## Properties
 
@@ -19,7 +19,7 @@
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:439
+rapida-physics/lib/types.d.ts:509
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:442
+rapida-physics/lib/types.d.ts:512
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:443
+rapida-physics/lib/types.d.ts:513
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:444
+rapida-physics/lib/types.d.ts:514
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:441
+rapida-physics/lib/types.d.ts:511
 
 ___
 
@@ -69,4 +69,4 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:440
+rapida-physics/lib/types.d.ts:510

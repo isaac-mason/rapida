@@ -238,7 +238,7 @@ Worker.postMessage
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:233
+rapida-physics/lib/types.d.ts:270
 
 ___
 

@@ -1,13 +1,15 @@
-image: node:12
+image: node:14
 
 stages:
 - build
+- test
 - publish
 
 build:
   stage: build
   only:
-    - tags
+    - main
+    - merge_requests
   script:
     # build rapida-common
     - cd packages/rapida-common
@@ -28,23 +30,28 @@ build:
       - packages/rapida/lib/
     expire_in: 1 day
 
+test:
+  stage: test
+  only:
+    - main
+    - merge_requests
+  needs: 
+    - build
+  script:
+    - npm run prerelease
+
 publish:
   stage: publish
   only:
-    - tags
+    - main
   needs: 
     - build
   script:
     # publish rapida-physics
     - cd packages/rapida-physics
-    - echo @rapidajs:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
-    - echo "//gitlab.com/api/v4/projects/29283145/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
     - npm version $CI_COMMIT_TAG --allow-same-version
     - npm publish
     # publish rapida
-    - cd ../rapida
-    - echo @rapidajs:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
-    - echo "//gitlab.com/api/v4/projects/29283145/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
+    - cd ../rapida 
     - npm version $CI_COMMIT_TAG --allow-same-version
     - npm publish
-

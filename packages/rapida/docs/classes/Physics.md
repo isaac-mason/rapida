@@ -315,27 +315,27 @@ Retrieves physics factories
 | Name | Type |
 | :------ | :------ |
 | `body` | <B\>(`type`: [`BodyShapeType`](../modules.md#bodyshapetype), `params`: `B`, `argsFn`: `ArgFn`<`B`[``"args"``]\>, `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
-| `box` | (`params`: [`BoxProps`](../modules.md#boxprops), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
-| `compoundBody` | (`params`: [`CompoundBodyProps`](../interfaces/CompoundBodyProps.md), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `box` | (`params`: [`BoxCreationParams`](../modules.md#boxcreationparams), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `compoundBody` | (`params`: [`CompoundBodyParams`](../interfaces/CompoundBodyParams.md), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 | `coneTwistConstraint` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`ConeTwistConstraintOpts`](../interfaces/ConeTwistConstraintOpts.md)) => [`ConstraintApi`](../modules.md#constraintapi) |
 | `constraint` | <T\>(`type`: `T`, `bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns?`: `any`) => [`ConstraintORHingeApi`](../modules.md#constraintorhingeapi)<`T`\> |
-| `convexPolyhedron` | (`params`: [`ConvexPolyhedronProps`](../modules.md#convexpolyhedronprops), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
-| `cylinder` | (`params`: [`CylinderProps`](../modules.md#cylinderprops), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `convexPolyhedron` | (`params`: [`ConvexPolyhedronParams`](../modules.md#convexpolyhedronparams), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `cylinder` | (`params`: [`CylinderCreationParams`](../modules.md#cylindercreationparams), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 | `distanceConstraint` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`DistanceConstraintOpts`](../interfaces/DistanceConstraintOpts.md)) => [`ConstraintApi`](../modules.md#constraintapi) |
-| `heightfield` | (`params`: [`HeightfieldProps`](../modules.md#heightfieldprops), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `heightfield` | (`params`: [`HeightfieldParams`](../modules.md#heightfieldparams), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 | `hingeConstraint` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`HingeConstraintOpts`](../interfaces/HingeConstraintOpts.md)) => [`HingeConstraintApi`](../modules.md#hingeconstraintapi) |
 | `lockConstraint` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`ConstraintOptns`](../interfaces/ConstraintOptns.md)) => [`ConstraintApi`](../modules.md#constraintapi) |
-| `particle` | (`params`: [`ParticleProps`](../modules.md#particleprops), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
-| `plane` | (`params`: [`PlaneProps`](../modules.md#planeprops), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `particle` | (`params`: [`ParticleParams`](../modules.md#particleparams), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `plane` | (`params`: [`PlaneParams`](../modules.md#planeparams), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 | `pointToPointConstraint` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`PointToPointConstraintOpts`](../interfaces/PointToPointConstraintOpts.md)) => [`ConstraintApi`](../modules.md#constraintapi) |
 | `ray` | (`mode`: [`RayMode`](../modules.md#raymode), `options`: [`RayHookOptions`](../modules.md#rayhookoptions), `callback`: (`e`: [`RayhitEvent`](../modules.md#rayhitevent)) => `void`) => (`string` \| { `destroy`: () => `void`  })[] |
 | `raycastAll` | (`options`: [`RayHookOptions`](../modules.md#rayhookoptions), `callback`: (`e`: [`RayhitEvent`](../modules.md#rayhitevent)) => `void`) => `void` |
 | `raycastAny` | (`options`: [`RayHookOptions`](../modules.md#rayhookoptions), `callback`: (`e`: [`RayhitEvent`](../modules.md#rayhitevent)) => `void`) => `void` |
 | `raycastClosest` | (`options`: [`RayHookOptions`](../modules.md#rayhookoptions), `callback`: (`e`: [`RayhitEvent`](../modules.md#rayhitevent)) => `void`) => `void` |
-| `raycastVehicle` | (`params`: [`RaycastVehicleProps`](../interfaces/RaycastVehicleProps.md), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Object3D`<`Event`\>, [`RaycastVehiclePublicApi`](../interfaces/RaycastVehiclePublicApi.md)] |
-| `sphere` | (`params`: [`SphereProps`](../modules.md#sphereprops), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `raycastVehicle` | (`params`: [`RaycastVehicleParams`](../interfaces/RaycastVehicleParams.md), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Object3D`<`Event`\>, [`RaycastVehiclePublicApi`](../interfaces/RaycastVehiclePublicApi.md)] |
+| `sphere` | (`params`: [`SphereCreationParams`](../modules.md#spherecreationparams), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 | `spring` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`SpringOptns`](../interfaces/SpringOptns.md)) => [`SpringApi`](../modules.md#springapi) |
-| `trimesh` | (`params`: [`TrimeshProps`](../modules.md#trimeshprops), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `trimesh` | (`params`: [`TrimeshParams`](../modules.md#trimeshparams), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 
 #### Defined in
 

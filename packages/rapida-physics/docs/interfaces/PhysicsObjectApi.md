@@ -52,8 +52,8 @@
 
 | Name | Type |
 | :------ | :------ |
-| `set` | (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void` |
-| `subscribe` | (`callback`: (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void`) => () => `void` |
+| `set` | (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void` |
+| `subscribe` | (`callback`: (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void`) => () => `void` |
 
 #### Inherited from
 
@@ -69,8 +69,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `set` | (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void` |
-| `subscribe` | (`callback`: (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void`) => () => `void` |
+| `set` | (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void` |
+| `subscribe` | (`callback`: (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void`) => () => `void` |
 
 #### Inherited from
 
@@ -122,8 +122,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `set` | (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void` |
-| `subscribe` | (`callback`: (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void`) => () => `void` |
+| `set` | (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void` |
+| `subscribe` | (`callback`: (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void`) => () => `void` |
 
 #### Inherited from
 
@@ -139,8 +139,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `set` | (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void` |
-| `subscribe` | (`callback`: (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void`) => () => `void` |
+| `set` | (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void` |
+| `subscribe` | (`callback`: (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void`) => () => `void` |
 
 #### Inherited from
 
@@ -156,8 +156,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `set` | (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void` |
-| `subscribe` | (`callback`: (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void`) => () => `void` |
+| `set` | (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void` |
+| `subscribe` | (`callback`: (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void`) => () => `void` |
 
 #### Inherited from
 
@@ -173,8 +173,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `set` | (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void` |
-| `subscribe` | (`callback`: (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void`) => () => `void` |
+| `set` | (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void` |
+| `subscribe` | (`callback`: (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void`) => () => `void` |
 
 #### Inherited from
 
@@ -190,8 +190,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `set` | (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void` |
-| `subscribe` | (`callback`: (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void`) => () => `void` |
+| `set` | (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void` |
+| `subscribe` | (`callback`: (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void`) => () => `void` |
 
 #### Inherited from
 
@@ -207,8 +207,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `set` | (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void` |
-| `subscribe` | (`callback`: (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void`) => () => `void` |
+| `set` | (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void` |
+| `subscribe` | (`callback`: (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void`) => () => `void` |
 
 #### Inherited from
 
@@ -242,8 +242,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `set` | (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void` |
-| `subscribe` | (`callback`: (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void`) => () => `void` |
+| `set` | (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void` |
+| `subscribe` | (`callback`: (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void`) => () => `void` |
 
 #### Inherited from
 
@@ -259,8 +259,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `set` | (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void` |
-| `subscribe` | (`callback`: (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void`) => () => `void` |
+| `set` | (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void` |
+| `subscribe` | (`callback`: (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void`) => () => `void` |
 
 #### Inherited from
 
@@ -312,8 +312,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `set` | (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void` |
-| `subscribe` | (`callback`: (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void`) => () => `void` |
+| `set` | (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void` |
+| `subscribe` | (`callback`: (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void`) => () => `void` |
 
 #### Inherited from
 
@@ -329,8 +329,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `set` | (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void` |
-| `subscribe` | (`callback`: (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void`) => () => `void` |
+| `set` | (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void` |
+| `subscribe` | (`callback`: (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void`) => () => `void` |
 
 #### Inherited from
 
@@ -346,8 +346,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `set` | (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void` |
-| `subscribe` | (`callback`: (`value`: [`AtomicProps`](../modules.md#atomicprops)[`K`]) => `void`) => () => `void` |
+| `set` | (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void` |
+| `subscribe` | (`callback`: (`value`: [`AtomicParams`](../modules.md#atomicparams)[`K`]) => `void`) => () => `void` |
 
 #### Inherited from
 
@@ -394,7 +394,7 @@ WorkerApi.applyForce
 
 #### Defined in
 
-[src/types.ts:76](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L76)
+[src/types.ts:125](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/types.ts#L125)
 
 ___
 
@@ -419,7 +419,7 @@ WorkerApi.applyImpulse
 
 #### Defined in
 
-[src/types.ts:77](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L77)
+[src/types.ts:126](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/types.ts#L126)
 
 ___
 
@@ -444,7 +444,7 @@ WorkerApi.applyLocalForce
 
 #### Defined in
 
-[src/types.ts:78](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L78)
+[src/types.ts:127](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/types.ts#L127)
 
 ___
 
@@ -469,7 +469,7 @@ WorkerApi.applyLocalImpulse
 
 #### Defined in
 
-[src/types.ts:79](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L79)
+[src/types.ts:128](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/types.ts#L128)
 
 ___
 
@@ -493,7 +493,7 @@ WorkerApi.applyTorque
 
 #### Defined in
 
-[src/types.ts:80](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L80)
+[src/types.ts:129](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/types.ts#L129)
 
 ___
 
@@ -513,7 +513,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:87](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L87)
+[src/types.ts:136](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/types.ts#L136)
 
 ___
 
@@ -531,7 +531,7 @@ WorkerApi.destroy
 
 #### Defined in
 
-[src/types.ts:83](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L83)
+[src/types.ts:132](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/types.ts#L132)
 
 ___
 
@@ -549,7 +549,7 @@ WorkerApi.sleep
 
 #### Defined in
 
-[src/types.ts:82](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L82)
+[src/types.ts:131](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/types.ts#L131)
 
 ___
 
@@ -567,4 +567,4 @@ WorkerApi.wakeUp
 
 #### Defined in
 
-[src/types.ts:81](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/types.ts#L81)
+[src/types.ts:130](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/types.ts#L130)

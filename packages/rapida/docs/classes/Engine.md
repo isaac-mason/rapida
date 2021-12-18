@@ -17,16 +17,14 @@ Engine for rapida worlds
 - [previousPhysicsFrame](Engine.md#previousphysicsframe)
 - [stats](Engine.md#stats)
 - [world](Engine.md#world)
-- [worldProviders](Engine.md#worldproviders)
 
 ### Methods
 
 - [destroy](Engine.md#destroy)
 - [gameLoop](Engine.md#gameloop)
 - [physicsLoop](Engine.md#physicsloop)
-- [registerWorld](Engine.md#registerworld)
 - [renderLoop](Engine.md#renderloop)
-- [startWorld](Engine.md#startworld)
+- [run](Engine.md#run)
 
 ## Constructors
 
@@ -44,7 +42,7 @@ Constructor for an Engine
 
 #### Defined in
 
-[rapida/src/engine/index.ts:63](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L63)
+[rapida/src/engine/index.ts:58](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L58)
 
 ## Properties
 
@@ -56,7 +54,7 @@ Whether in debug mode
 
 #### Defined in
 
-[rapida/src/engine/index.ts:35](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L35)
+[rapida/src/engine/index.ts:30](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L30)
 
 ___
 
@@ -70,7 +68,7 @@ Set back to false after killing the loop
 
 #### Defined in
 
-[rapida/src/engine/index.ts:42](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L42)
+[rapida/src/engine/index.ts:37](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L37)
 
 ___
 
@@ -82,7 +80,7 @@ The logger for the engine
 
 #### Defined in
 
-[rapida/src/engine/index.ts:25](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L25)
+[rapida/src/engine/index.ts:25](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L25)
 
 ___
 
@@ -94,7 +92,7 @@ The time of the previous animation frame
 
 #### Defined in
 
-[rapida/src/engine/index.ts:47](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L47)
+[rapida/src/engine/index.ts:42](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L42)
 
 ___
 
@@ -106,7 +104,7 @@ The time of the previous physics frame
 
 #### Defined in
 
-[rapida/src/engine/index.ts:52](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L52)
+[rapida/src/engine/index.ts:47](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L47)
 
 ___
 
@@ -118,7 +116,7 @@ The stats.js instance
 
 #### Defined in
 
-[rapida/src/engine/index.ts:57](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L57)
+[rapida/src/engine/index.ts:52](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L52)
 
 ___
 
@@ -130,23 +128,7 @@ The current world in play
 
 #### Defined in
 
-[rapida/src/engine/index.ts:20](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L20)
-
-___
-
-### worldProviders
-
-• `Private` **worldProviders**: `Object` = `{}`
-
-The world providers
-
-#### Index signature
-
-▪ [id: `string`]: [`WorldProvider`](../modules.md#worldprovider)
-
-#### Defined in
-
-[rapida/src/engine/index.ts:30](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L30)
+[rapida/src/engine/index.ts:20](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L20)
 
 ## Methods
 
@@ -162,7 +144,7 @@ Destroys the engine
 
 #### Defined in
 
-[rapida/src/engine/index.ts:142](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L142)
+[rapida/src/engine/index.ts:119](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L119)
 
 ___
 
@@ -178,7 +160,7 @@ The game logic loop
 
 #### Defined in
 
-[rapida/src/engine/index.ts:169](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L169)
+[rapida/src/engine/index.ts:146](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L146)
 
 ___
 
@@ -194,30 +176,7 @@ The physics loop
 
 #### Defined in
 
-[rapida/src/engine/index.ts:190](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L190)
-
-___
-
-### registerWorld
-
-▸ **registerWorld**(`worldId`, `worldProvider`): `void`
-
-Registers a new world provider
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `worldId` | `string` | the world ID |
-| `worldProvider` | [`WorldProvider`](../modules.md#worldprovider) | a function that returns a new World for a given worldId |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[rapida/src/engine/index.ts:89](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L89)
+[rapida/src/engine/index.ts:167](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L167)
 
 ___
 
@@ -233,22 +192,22 @@ Runs the render loop for the engine
 
 #### Defined in
 
-[rapida/src/engine/index.ts:151](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L151)
+[rapida/src/engine/index.ts:128](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L128)
 
 ___
 
-### startWorld
+### run
 
-▸ **startWorld**(`worldId`): [`Engine`](Engine.md)
+▸ **run**(`worldProvider`): [`Engine`](Engine.md)
 
 Sets the world that is playing.
 If a world is already playing, the current world is stopped and the new world is started.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `worldId` | `string` | the new world to start |
+| Name | Type |
+| :------ | :------ |
+| `worldProvider` | [`WorldProvider`](../modules.md#worldprovider) |
 
 #### Returns
 
@@ -256,4 +215,4 @@ If a world is already playing, the current world is stopped and the new world is
 
 #### Defined in
 
-[rapida/src/engine/index.ts:98](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida/src/engine/index.ts#L98)
+[rapida/src/engine/index.ts:81](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L81)

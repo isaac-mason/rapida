@@ -38,7 +38,7 @@ Debugger for Physics that adds physics object representations to a three scene
 
 #### Defined in
 
-[src/physics-debugger.ts:72](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/physics-debugger.ts#L72)
+[src/physics-debugger.ts:72](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics-debugger.ts#L72)
 
 ## Properties
 
@@ -50,7 +50,7 @@ The color for debug three objects to be displayed as
 
 #### Defined in
 
-[src/physics-debugger.ts:55](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/physics-debugger.ts#L55)
+[src/physics-debugger.ts:55](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics-debugger.ts#L55)
 
 ___
 
@@ -62,7 +62,7 @@ Physics world debug information
 
 #### Defined in
 
-[src/physics-debugger.ts:70](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/physics-debugger.ts#L70)
+[src/physics-debugger.ts:70](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics-debugger.ts#L70)
 
 ___
 
@@ -74,7 +74,7 @@ The cannon debugger
 
 #### Defined in
 
-[src/physics-debugger.ts:65](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/physics-debugger.ts#L65)
+[src/physics-debugger.ts:65](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics-debugger.ts#L65)
 
 ___
 
@@ -86,7 +86,7 @@ The physics world for the debugger
 
 #### Defined in
 
-[src/physics-debugger.ts:45](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/physics-debugger.ts#L45)
+[src/physics-debugger.ts:45](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics-debugger.ts#L45)
 
 ___
 
@@ -98,7 +98,7 @@ The scale of the debugger
 
 #### Defined in
 
-[src/physics-debugger.ts:60](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/physics-debugger.ts#L60)
+[src/physics-debugger.ts:60](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics-debugger.ts#L60)
 
 ___
 
@@ -110,7 +110,7 @@ The scene that the debugger is adding and removing from
 
 #### Defined in
 
-[src/physics-debugger.ts:50](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/physics-debugger.ts#L50)
+[src/physics-debugger.ts:50](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics-debugger.ts#L50)
 
 ## Methods
 
@@ -134,7 +134,7 @@ Adds a body to the debugger
 
 #### Defined in
 
-[src/physics-debugger.ts:105](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/physics-debugger.ts#L105)
+[src/physics-debugger.ts:105](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics-debugger.ts#L105)
 
 ___
 
@@ -156,7 +156,7 @@ Removes a body from the debugger
 
 #### Defined in
 
-[src/physics-debugger.ts:115](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/physics-debugger.ts#L115)
+[src/physics-debugger.ts:115](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics-debugger.ts#L115)
 
 ___
 
@@ -172,4 +172,4 @@ Updates the debugger
 
 #### Defined in
 
-[src/physics-debugger.ts:89](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/physics-debugger.ts#L89)
+[src/physics-debugger.ts:89](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics-debugger.ts#L89)

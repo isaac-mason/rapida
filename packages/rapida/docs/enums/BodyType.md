@@ -16,7 +16,7 @@
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:338
+rapida-physics/lib/types.d.ts:375
 
 ___
 
@@ -26,7 +26,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:340
+rapida-physics/lib/types.d.ts:377
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:339
+rapida-physics/lib/types.d.ts:376

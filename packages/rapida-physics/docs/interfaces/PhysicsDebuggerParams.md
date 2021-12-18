@@ -18,7 +18,7 @@ Params for creating a PhysicsDebugger instance
 
 #### Defined in
 
-[src/physics-debugger.ts:30](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/physics-debugger.ts#L30)
+[src/physics-debugger.ts:30](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics-debugger.ts#L30)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[src/physics-debugger.ts:31](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/physics-debugger.ts#L31)
+[src/physics-debugger.ts:31](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics-debugger.ts#L31)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[src/physics-debugger.ts:29](https://gitlab.com/rapidajs/rapida/-/blob/a60706c/packages/rapida-physics/src/physics-debugger.ts#L29)
+[src/physics-debugger.ts:29](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics-debugger.ts#L29)
