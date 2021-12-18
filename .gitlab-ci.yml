@@ -38,7 +38,7 @@ test:
   needs: 
     - build
   script:
-    - npm run prerelease
+    - npm run release
 
 publish:
   stage: publish
