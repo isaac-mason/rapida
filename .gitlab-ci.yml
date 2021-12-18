@@ -9,11 +9,16 @@ workflow:
     - main
     - merge_requests
   script:
+    # build npm packages
     - yarn workspaces focus @rapidajs/rapida
     - (cd packages/rapida-common && yarn run build)
     - (cd packages/rapida-physics && yarn run build)
     - (cd packages/rapida && yarn run build)
     - npm run release
+    # build the website
+    # ...
+    
+    # publish npm packages if on the main branch
     - |- 
       if [[ $CI_COMMIT_BRANCH == "main" ]]; then
         yarn ci-changesets-publish
