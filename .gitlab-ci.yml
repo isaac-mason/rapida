@@ -4,8 +4,7 @@ stages:
 - build
 - publish
 
-# Build common packages
-build-common:
+build:
   stage: build
   only:
     - tags
@@ -18,78 +17,34 @@ build-common:
     - cd ../rapida-physics
     - npm install
     - npm run build
+    # build rapida
+    - cd ../rapida
+    - npm install
+    - npm run build
   artifacts:
     paths:
       - packages/rapida-common/lib/
       - packages/rapida-physics/lib/
-    expire_in: 1 day
-
-build-client:
-  stage: build
-  only:
-    - tags
-  needs:
-    - build-common
-  script:
-    - cd packages/rapida
-    - npm install
-    - npm run build
-  artifacts:
-    paths:
       - packages/rapida/lib/
     expire_in: 1 day
 
-build-server:
-  stage: build
-  only:
-    - tags
-  needs:
-    - build-common
-  script:
-    - cd packages/rapida-server
-    - npm install
-    - npm run build
-  artifacts:
-    paths:
-      - packages/rapida-server/lib/
-    expire_in: 1 day
-
-# Publish NPM packages
-publish-physics:
+publish:
   stage: publish
   only:
     - tags
   needs: 
-    - build-common
+    - build
   script:
+    # publish rapida-physics
     - cd packages/rapida-physics
     - echo @rapidajs:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
     - echo "//gitlab.com/api/v4/projects/29283145/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
     - npm version $CI_COMMIT_TAG --allow-same-version
     - npm publish
-
-publish-client:
-  stage: publish
-  only:
-    - tags
-  needs: 
-    - build-client
-  script:
-    - cd packages/rapida
+    # publish rapida
+    - cd ../rapida
     - echo @rapidajs:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
     - echo "//gitlab.com/api/v4/projects/29283145/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
     - npm version $CI_COMMIT_TAG --allow-same-version
     - npm publish
 
-publish-server:
-  stage: publish
-  only:
-    - tags
-  needs: 
-    - build-server
-  script:
-    - cd packages/rapida-server
-    - echo @rapidajs:registry=https://gitlab.com/api/v4/projects/29283145/packages/npm/ >> .npmrc
-    - echo "//gitlab.com/api/v4/projects/29283145/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
-    - npm version $CI_COMMIT_TAG --allow-same-version
-    - npm publish

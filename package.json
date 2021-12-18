@@ -1,6 +1,6 @@
 {
   "name": "rapida",
-  "version": "1.0.0",
+  "version": "0.0.4",
   "description": "Dev scripts for the rapida multi-package repo",
   "scripts": {
     "install": "concurrently \"cd ./packages/rapida-physics && npm i\" \"cd ./packages/rapida-common && npm i\" \"cd ./packages/rapida && npm i\"",
