@@ -20,7 +20,7 @@ module.exports = {
   core: {
     builder: 'webpack5',
   },
-  webpackFinal: async (config) => {
+  webpackFinal: async (config: any) => {
     return {
       ...config,
       plugins: [

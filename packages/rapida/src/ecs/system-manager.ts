@@ -48,11 +48,11 @@ class SystemManager {
 
     this.systems.set(system.id, system);
 
-    Object.entries(system.queryDescriptions).forEach(
+    Object.entries(system.queries).forEach(
       ([queryName, queryDescription]: [string, QueryDescription]) => {
         const query = this.world.queryManager.getQuery(queryDescription);
         this.addSystemToQuery(query, system);
-        system.queries[queryName] = query;
+        system.results[queryName] = query;
       }
     );
 
@@ -70,11 +70,11 @@ class SystemManager {
   removeSystem(system: System): SystemManager {
     this.systems.delete(system.id);
 
-    Object.entries(system.queryDescriptions).forEach(
+    Object.entries(system.queries).forEach(
       ([queryName, queryDescription]: [string, QueryDescription]) => {
         const query = this.world.queryManager.getQuery(queryDescription);
         this.removeSystemFromQuery(query, system);
-        delete system.queries[queryName];
+        delete system.results[queryName];
       }
     );
 

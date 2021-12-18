@@ -76,19 +76,14 @@ class EnergyComponent extends Component {
 }
 
 class RandomWalkSystem extends System {
-
-  constructor() {
-    super({
-      queries: {
-        walking: {
-          all: [FireflyObject3DComponent, EnergyComponent, WalkingComponent],
-        },
-      },
-    });
-  }
+  queries = {
+    walking: {
+      all: [FireflyObject3DComponent, EnergyComponent, WalkingComponent],
+    },
+  };
 
   onUpdate = (timeElapsed: number) => {
-    this.queries.walking.entities.forEach((entity: Entity) => {
+    this.results.walking.entities.forEach((entity: Entity) => {
       const object = entity.get(FireflyObject3DComponent);
       const walk = entity.get(WalkingComponent);
       const energy = entity.get(EnergyComponent);
@@ -124,15 +119,11 @@ class RestingSystem extends System {
   private static energyTimeThreshold = 200;
   private energyCounter = 0;
 
-  constructor() {
-    super({
-      queries: {
-        resting: {
-          all: [FireflyObject3DComponent, EnergyComponent],
-          not: [WalkingComponent],
-        },
-      },
-    });
+  queries = {
+    resting: {
+      all: [FireflyObject3DComponent, EnergyComponent],
+      not: [WalkingComponent],
+    },
   }
 
   onUpdate = (timeElapsed: number) => {
@@ -141,7 +132,7 @@ class RestingSystem extends System {
     if (this.energyCounter > RestingSystem.energyTimeThreshold) {
       this.energyCounter = 0;
 
-      this.queries.resting.entities.forEach((entity: Entity) => {
+      this.results.resting.entities.forEach((entity: Entity) => {
         const energy = entity.get(EnergyComponent);
         energy.energy += (Math.random() + 0.001) * 0.3;
 

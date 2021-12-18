@@ -9,11 +9,6 @@ import { Query, QueryDescription } from './query';
 
 type SystemQueries = { [queryName: string]: QueryDescription };
 
-type SystemParams = {
-  id?: string;
-  queries?: SystemQueries;
-};
-
 /**
  * System abstract class that is extended to create a system containing custom logic for a world.
  *
@@ -25,7 +20,7 @@ abstract class System {
   /**
    * The id for the system
    */
-  id: string;
+  id = uuid();
 
   /**
    * Whether the system is enabled and should update
@@ -52,28 +47,19 @@ abstract class System {
   }
 
   /**
-   * A map of query names to queries
-   */
-  queries: { [name: string]: Query } = {};
-
-  /**
    * A map of query names to query descriptions
    */
-  queryDescriptions: SystemQueries;
+  queries: SystemQueries = {};
+
+  /**
+   * A map of query names to queries
+   */
+  results: { [name: string]: Query } = {};
 
   /**
    * The event system for this system
    */
   private events = new EventSystem();
-
-  /**
-   * Constructor for a System
-   * @param params the parameters for the system
-   */
-  constructor(params?: SystemParams) {
-    this.id = params?.id || uuid();
-    this.queryDescriptions = params?.queries || {};
-  }
 
   /**
    * Initialises the system
@@ -142,4 +128,4 @@ abstract class System {
   onUpdate?: (timeElapsed: number) => void = undefined;
 }
 
-export { System, SystemParams };
+export { System };

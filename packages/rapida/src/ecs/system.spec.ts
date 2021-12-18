@@ -7,20 +7,16 @@ describe('System', () => {
     class TestComponentOne extends Component {}
     class TestComponentTwo extends Component {}
     class TestSystem extends System {
-      constructor() {
-        super({
-          queries: {
-            exampleQuery: {
-              all: [TestComponentOne, TestComponentTwo],
-            },
-          },
-        });
-      }
+      queries = {
+        exampleQuery: {
+          all: [TestComponentOne, TestComponentTwo],
+        },
+      };
     }
 
     const testSystem = new TestSystem();
 
-    expect(testSystem.queryDescriptions).toEqual({
+    expect(testSystem.queries).toEqual({
       exampleQuery: {
         all: [TestComponentOne, TestComponentTwo],
       },
