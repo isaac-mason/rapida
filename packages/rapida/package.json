@@ -1,6 +1,6 @@
 {
   "name": "@rapidajs/rapida",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -64,7 +64,7 @@
   "dependencies": {
     "@jest/globals": "^27.2.0",
     "@rapidajs/rapida-common": "0.0.4",
-    "@rapidajs/rapida-physics": "0.0.4",
+    "@rapidajs/rapida-physics": "0.0.6",
     "@types/stats.js": "^0.17.0",
     "@types/three": "^0.133.0",
     "jest-mock": "^27.1.1",

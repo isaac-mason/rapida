@@ -1,6 +1,6 @@
 {
   "name": "multiplayer-example",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "private": "true",
   "scripts": {
@@ -11,7 +11,7 @@
   "dependencies": {
     "@geckos.io/client": "^2.1.5",
     "@geckos.io/server": "^2.1.5",
-    "@rapidajs/rapida": "0.0.5",
+    "@rapidajs/rapida": "0.0.6",
     "@types/three": "^0.133.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

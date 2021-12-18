@@ -1,6 +1,6 @@
 {
   "name": "@rapidajs/rapida-physics",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "web worker wrapped cannon-es",
   "license": "MIT",
   "author": "Isaac Mason",
