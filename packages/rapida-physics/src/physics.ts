@@ -359,7 +359,7 @@ class Physics {
     } as InitEvent);
   }
 
-  destroy(): void {
+  terminate(): void {
     this.worker.terminate();
   }
 

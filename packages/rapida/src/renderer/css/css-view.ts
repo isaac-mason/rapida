@@ -217,7 +217,14 @@ class CSSView extends View {
   };
 
   /**
-   * Destroys the view
+   * Destroys the view and removes it from the renderer
+   */
+  destroy = (): void => {
+    this.renderer.removeView(this);
+  };
+
+  /**
+   * Destroys the views resources
    */
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   _destroy = (): void => {};
@@ -266,7 +273,7 @@ class CSSView extends View {
     }px`;
 
     // update the camera
-    this.camera.threeCamera.updateProjectionMatrix();
+    this.camera.three.updateProjectionMatrix();
   };
 }
 

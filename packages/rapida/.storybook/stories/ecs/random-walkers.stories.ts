@@ -181,7 +181,7 @@ export const RandomWalkers = () => {
         scene,
       });
 
-      new OrbitControls(camera.threeCamera, view.domElement);
+      new OrbitControls(camera.three, view.domElement);
 
       const space = world.create.space();
 

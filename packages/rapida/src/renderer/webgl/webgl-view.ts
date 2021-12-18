@@ -237,10 +237,7 @@ class WebGLView extends View {
     this.effectComposer = new EffectComposer(this.renderer.three);
 
     // create the render pass for the view
-    this.renderPass = new RenderPass(
-      this.scene.threeScene,
-      this.camera.threeCamera
-    );
+    this.renderPass = new RenderPass(this.scene.threeScene, this.camera.three);
 
     // add the render pass for the view
     this.effectComposer.addPass(this.renderPass);
@@ -289,6 +286,13 @@ class WebGLView extends View {
   }
 
   /**
+   * Destroys the view and removes it from the renderer
+   */
+  destroy(): void {
+    this.renderer.removeView(this);
+  }
+
+  /**
    * Destroys the view
    */
   _destroy(): void {
@@ -329,11 +333,11 @@ class WebGLView extends View {
     this.domElement.style.height = `${this.scissorSize.height}px`;
 
     // update the camera
-    if (this.camera.threeCamera instanceof PerspectiveCamera) {
-      this.camera.threeCamera.aspect =
+    if (this.camera.three instanceof PerspectiveCamera) {
+      this.camera.three.aspect =
         this.viewportSize.width / this.viewportSize.height;
     }
-    this.camera.threeCamera.updateProjectionMatrix();
+    this.camera.three.updateProjectionMatrix();
 
     // set the size of the effect composer
     this.effectComposer.setSize(

@@ -19,12 +19,40 @@ class Camera {
   /**
    * The three js camera
    */
-  threeCamera: three.PerspectiveCamera | three.OrthographicCamera;
+  three: three.PerspectiveCamera | three.OrthographicCamera;
 
   /**
    * The world the camera belongs to
    */
   world: World;
+
+  /**
+   * Getter for the cameras position
+   */
+  get position(): three.Vector3 {
+    return this.three.position;
+  }
+
+  /**
+   * Setter for the cameras position
+   */
+  set position(vector3: three.Vector3) {
+    this.three.position.copy(vector3);
+  }
+
+  /**
+   * Getter for the cameras rotation quaternion
+   */
+  get quaternion(): three.Quaternion {
+    return this.three.quaternion;
+  }
+
+  /**
+   * Setter for the cameras rotation quaternion
+   */
+  set quaternion(quaternion: three.Quaternion) {
+    this.three.quaternion.copy(quaternion);
+  }
 
   /**
    * Constructor for a camera
@@ -34,15 +62,14 @@ class Camera {
   constructor(world: World, params?: CameraParams) {
     this.world = world;
     this.id = params?.id || uuid();
-    this.threeCamera = params?.camera || new three.PerspectiveCamera();
+    this.three = params?.camera || new three.PerspectiveCamera();
   }
 
-  get position(): three.Vector3 {
-    return this.threeCamera.position;
-  }
-
-  set position(vector3: three.Vector3) {
-    this.threeCamera.position.copy(vector3);
+  /**
+   * Destroys the camera and removes it from the world
+   */
+  destroy(): void {
+    this.world.remove(this);
   }
 }
 

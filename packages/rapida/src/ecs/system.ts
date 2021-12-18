@@ -82,6 +82,13 @@ abstract class System {
   }
 
   /**
+   * Destroys the system and removes it from the world
+   */
+  destroy(): void {
+    this.world.remove(this);
+  }
+
+  /**
    * Destroy logic for the system
    */
   _destroy(): void {

@@ -2,6 +2,7 @@ import { Event, EventSystem, uuid } from '@rapidajs/rapida-common';
 import { WebGLRenderer, PerspectiveCamera, XRFrame } from 'three';
 import { ARButton } from 'three-stdlib/webxr/ARButton';
 import { VRButton } from 'three-stdlib/webxr/VRButton';
+import { RendererManager } from '../renderer-manager';
 import { Camera } from '../../camera';
 import { Scene } from '../../scene';
 import { Renderer } from '../renderer';
@@ -114,14 +115,23 @@ class XRRenderer implements Renderer {
    */
   private events = new EventSystem();
 
-  constructor({
-    appendButton,
-    domElementId,
-    renderer,
-    mode,
-    scene,
-    camera,
-  }: XRRendererParams) {
+  /**
+   * The renderer manager for the XR Renderer
+   */
+  private rendererManager: RendererManager;
+
+  constructor(
+    manager: RendererManager,
+    {
+      appendButton,
+      domElementId,
+      renderer,
+      mode,
+      scene,
+      camera,
+    }: XRRendererParams
+  ) {
+    this.rendererManager = manager;
     this.mode = mode;
     this.three = renderer || new WebGLRenderer();
     this.three.xr.enabled = true;
@@ -141,7 +151,7 @@ class XRRenderer implements Renderer {
         } as FrameEvent);
       }
       this.events.tick();
-      this.three.render(this.scene.threeScene, this.camera.threeCamera);
+      this.three.render(this.scene.threeScene, this.camera.three);
     });
 
     // Create the renderer dom element for views within the renderer
@@ -180,9 +190,16 @@ class XRRenderer implements Renderer {
   }
 
   /**
-   * Destroys the XR renderer
+   * Destroys the XR renderer and removes it from the renderer manager
    */
   destroy(): void {
+    this.rendererManager.removeRenderer(this);
+  }
+
+  /**
+   * Destroys the XR renderer
+   */
+  _destroy(): void {
     this.resizeObserver.disconnect();
     this.three.forceContextLoss();
     this.three.dispose();
@@ -198,11 +215,11 @@ class XRRenderer implements Renderer {
       this.domElement.clientHeight
     );
 
-    if (this.camera.threeCamera instanceof PerspectiveCamera) {
-      this.camera.threeCamera.aspect = window.innerWidth / window.innerHeight;
+    if (this.camera.three instanceof PerspectiveCamera) {
+      this.camera.three.aspect = window.innerWidth / window.innerHeight;
     }
 
-    this.camera.threeCamera.updateProjectionMatrix();
+    this.camera.three.updateProjectionMatrix();
   }
 
   /**

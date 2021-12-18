@@ -1,4 +1,4 @@
-import { Physics, PhysicsParams } from '@rapidajs/rapida-physics';
+import { PhysicsParams } from '@rapidajs/rapida-physics';
 import {
   Event,
   EventHandler,
@@ -23,6 +23,7 @@ import {
   CSSRendererParams,
 } from '../renderer';
 import { XRRenderer, XRRendererParams } from '../renderer/xr/xr-renderer';
+import { RapidaPhysics } from '../physics/physics';
 
 /**
  * Params for creating a world
@@ -71,7 +72,7 @@ class World {
   /**
    * Physics worlds within the world
    */
-  physics: Map<string, Physics> = new Map();
+  physics: Map<string, RapidaPhysics> = new Map();
 
   /**
    * Cameras for the world
@@ -161,7 +162,7 @@ class World {
    * Removes from the scene
    * @param value the value to remove
    */
-  remove(value: System | Space | Scene | Physics | Camera): void {
+  remove(value: System | Space | Scene | RapidaPhysics | Camera): void {
     if (value instanceof System) {
       this.systemManager.removeSystem(value);
     } else if (value instanceof Space) {
@@ -169,9 +170,9 @@ class World {
       value._destroy();
     } else if (value instanceof Scene) {
       this.scenes.delete(value.id);
-    } else if (value instanceof Physics) {
+    } else if (value instanceof RapidaPhysics) {
       this.physics.delete(value.id);
-      value.destroy();
+      value._destroy();
     } else if (value instanceof Camera) {
       this.cameras.delete(value.id);
     }
@@ -234,7 +235,7 @@ class World {
     this.rendererManager._destroy();
     this.systemManager._destroy();
     this.spaces.forEach((s) => s._destroy());
-    this.physics.forEach((p) => p.destroy());
+    this.physics.forEach((p) => p._destroy());
   }
 
   /**
@@ -278,7 +279,7 @@ class World {
      * @returns the new webgl renderer
      */
     webgl: (params: WebGLRendererParams): WebGLRenderer => {
-      const renderer = new WebGLRenderer(params);
+      const renderer = new WebGLRenderer(this.rendererManager, params);
       this.rendererManager.addRenderer(renderer);
 
       return renderer;
@@ -289,7 +290,7 @@ class World {
      * @returns the new css renderer
      */
     css: (params: CSSRendererParams): CSSRenderer => {
-      const renderer = new CSSRenderer(params);
+      const renderer = new CSSRenderer(this.rendererManager, params);
       this.rendererManager.addRenderer(renderer);
 
       return renderer;
@@ -300,7 +301,7 @@ class World {
      * @returns the new xr renderer
      */
     xr: (params: XRRendererParams): XRRenderer => {
-      const renderer = new XRRenderer(params);
+      const renderer = new XRRenderer(this.rendererManager, params);
       this.rendererManager.addRenderer(renderer);
 
       return renderer;
@@ -330,7 +331,7 @@ class World {
     space: (params?: SpaceParams) => Space;
     camera: (params?: CameraParams) => Camera;
     scene: (params?: SceneParams) => Scene;
-    physics: (params: PhysicsParams) => Physics;
+    physics: (params: PhysicsParams) => RapidaPhysics;
     renderer: {
       webgl: (params: WebGLRendererParams) => WebGLRenderer;
       css: (params: CSSRendererParams) => CSSRenderer;
@@ -369,7 +370,7 @@ class World {
      * @returns the new scene
      */
     scene: (params?: SceneParams): Scene => {
-      const scene = new Scene(params);
+      const scene = new Scene(this, params);
       this.scenes.set(scene.id, scene);
 
       return scene;
@@ -381,8 +382,8 @@ class World {
      */
     physics: (
       params: Exclude<PhysicsParams, 'delta'> & { maxUpdatesPerSec?: number }
-    ): Physics => {
-      const physics = new Physics({
+    ): RapidaPhysics => {
+      const physics = new RapidaPhysics(this, {
         ...params,
         delta: this._physicsDelta,
       });

@@ -1,5 +1,6 @@
 import { uuid } from '@rapidajs/rapida-common';
 import { WebGLRenderer as ThreeWebGLRenderer } from 'three';
+import { RendererManager } from '../renderer-manager';
 import { Renderer } from '../renderer';
 import { WebGLView, WebGLViewParams } from './webgl-view';
 
@@ -58,10 +59,16 @@ class WebGLRenderer implements Renderer {
   private initialised = false;
 
   /**
+   * The renderer manager for the webgl renderer
+   */
+  private rendererManager: RendererManager;
+
+  /**
    * Constructor for a WebGLRenderer
    * @param params the params for the new renderer
    */
-  constructor(params: WebGLRendererParams) {
+  constructor(rendererManager: RendererManager, params: WebGLRendererParams) {
+    this.rendererManager = rendererManager;
     this.three =
       params?.renderer || new ThreeWebGLRenderer({ antialias: true });
 
@@ -111,9 +118,16 @@ class WebGLRenderer implements Renderer {
   }
 
   /**
-   * Destroys the renderer and all views
+   * Destroys the webgl renderer and removes it from the renderer manager
    */
   destroy(): void {
+    this.rendererManager.removeRenderer(this);
+  }
+
+  /**
+   * Destroys the renderer and all views
+   */
+  _destroy(): void {
     this.views.forEach((v) => {
       v._destroy();
     });

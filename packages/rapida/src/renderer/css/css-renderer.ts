@@ -1,6 +1,7 @@
 import { uuid } from '@rapidajs/rapida-common';
 import { CSSView, CSSViewParams } from './css-view';
 import { Renderer } from '../renderer';
+import { RendererManager } from '../renderer-manager';
 
 /**
  * Factories for creating something in the renderer
@@ -23,7 +24,7 @@ class CSSRenderer implements Renderer {
   /**
    * A unique id for the css renderer
    */
-  id: string;
+  id = uuid();
 
   /**
    * Views for the webgl renderer
@@ -46,11 +47,16 @@ class CSSRenderer implements Renderer {
   private initialised = false;
 
   /**
+   * The renderer manager the css renderer belongs to
+   */
+  private rendererManager: RendererManager;
+
+  /**
    * Constructor for a CSSRenderer
    * @param params the params for the css renderer
    */
-  constructor(params: CSSRendererParams) {
-    this.id = uuid();
+  constructor(manager: RendererManager, params: CSSRendererParams) {
+    this.rendererManager = manager;
 
     this.rendererRootDomElement = document.getElementById(
       params.domElementId
@@ -71,9 +77,16 @@ class CSSRenderer implements Renderer {
   }
 
   /**
-   * Destroys all css views
+   * Destroys the css renderer and removes it from the renderer manager
    */
   destroy(): void {
+    this.rendererManager.removeRenderer(this);
+  }
+
+  /**
+   * Destroys all css views
+   */
+  _destroy(): void {
     this.views.forEach((v) => {
       v._destroy();
     });
@@ -114,7 +127,7 @@ class CSSRenderer implements Renderer {
    */
   render(): void {
     this.views.forEach((view: CSSView) => {
-      view.css3DRenderer.render(view.scene.threeScene, view.camera.threeCamera);
+      view.css3DRenderer.render(view.scene.threeScene, view.camera.three);
     });
   }
 
