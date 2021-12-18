@@ -1,11 +1,10 @@
 image: node:14
 
 stages:
-- build
-- publish
+- workflow
 
-build:
-  stage: build
+workflow:
+  stage: workflow
   only:
     - main
     - merge_requests
@@ -15,6 +14,10 @@ build:
     - (cd packages/rapida-physics && yarn run build)
     - (cd packages/rapida && yarn run build)
     - npm run release
+    - |- 
+      if [[ $CI_COMMIT_BRANCH == "main" ]]; then
+        yarn ci-changesets-publish
+      fi
   coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
   artifacts:
     reports:
@@ -30,12 +33,3 @@ build:
       - packages/rapida-physics/lib/
       - packages/rapida/lib/
     expire_in: 1 day
-
-publish:
-  stage: publish
-  only:
-    - main
-  needs: 
-    - build
-  script:
-    - yarn changeset publish --otp=$NPM_TOKEN

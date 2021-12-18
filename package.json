@@ -8,15 +8,16 @@
     "test": "yarn workspaces foreach run test",
     "docs": "yarn workspaces foreach  --no-private run docs",
     "release": "yarn run build && yarn run test && yarn run docs",
-    "change": "npx changeset",
-    "version": "npx changeset version",
+    "change": "yarn changeset",
+    "version": "yarn changeset version",
     "prestorybook:https": "yarn run storybook:prep-local-https",
     "storybook:build": "yarn workspaces foreach --no-private run build-storybook",
     "storybook": "concurrently \"cd ./packages/rapida && yarn run storybook\" \"cd ./packages/rapida-physics && yarn run storybook\"",
     "storybook:https": "concurrently \"cd ./packages/rapida && yarn run storybook:https\" \"cd ./packages/rapida-physics && yarn run storybook:https\"",
     "storybook:prep-local-https": "yarn run storybook:local-https-generate-ca && yarn run storybook:local-https-generate-crt",
     "storybook:local-https-generate-ca": "openssl req -x509 -nodes -new -sha512 -days 365 -newkey rsa:4096 -keyout dev/ca.key -out dev/ca.pem -subj \"/C=US/CN=MY-CA\"",
-    "storybook:local-https-generate-crt": "openssl x509 -outform pem -in dev/ca.pem -out dev/ca.crt"
+    "storybook:local-https-generate-crt": "openssl x509 -outform pem -in dev/ca.pem -out dev/ca.crt",
+    "ci-changesets-publish": "yarn changeset publish --otp=$NPM_TOKEN"
   },
   "workspaces": [
     "packages/*",
