@@ -38,7 +38,7 @@ To track development for `rapida`, see our board on GitLab - https://gitlab.com/
 The below commands can be used to help with development:
 
 ```bash
-# Install dependencies rapida and dependant packages in the workspace
+# Install dependencies rapida and dependent packages in the workspace
 > yarn workspaces focus @rapidajs/rapida
 
 # alternatively, install all packages in the workplace to build examples
@@ -55,7 +55,7 @@ The below commands can be used to help with development:
 # Create a new changeset
 > yarn run change
 
-# Create a new versioned release
+# Update versions of packages according to committed changesets
 > yarn run version
 ```
 
