@@ -20,24 +20,17 @@ workflow:
     - merge_requests
   script:
     # build npm packages
-    - yarn workspaces focus @rapidajs/rapida-website
-    # the above ^ will include @rapidajs/rapida-website build, @rapidajs/rapida, @rapidajs/rapida-physics and @rapidajs/rapida-common
+    - yarn workspaces focus @rapidajs/rapida
     - (cd packages/rapida-common && yarn run build)
     - (cd packages/rapida-physics && yarn run build)
     - (cd packages/rapida && yarn run build)
     - npm run release
-    # build @rapidajs/rapida-website
-    - (cd website && yarn run build) 
     - |- 
       if [[ $CI_COMMIT_BRANCH == "main" ]]; then
         # publish npm packages if on the main branch
         # FIXME: there isn't a clear way of installing the root workspaces dependencies without installing all package dependencies.
         #        As a workaround, @changesets/cli is being run via yarn dlx with the same version as in the root package.json
         yarn dlx @changesets/cli@^2.18.1 publish --otp=$NPM_TOKEN
-
-        # copy @rapidajs/rapida-website files in place for gitlab pages
-        mkdir public
-        cp website/out/* public/
       fi
   coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
   artifacts:
@@ -46,7 +39,6 @@ workflow:
         - packages/rapida/junit.xml
         - packages/rapida-common/junit.xml
     paths:
-      - public
       - node_modules/
       - packages/rapida-common/node_modules/
       - packages/rapida-physics/node_modules/
@@ -55,3 +47,30 @@ workflow:
       - packages/rapida-physics/lib/
       - packages/rapida/lib/
     expire_in: 1 day
+
+pages:
+  stage: workflow
+  needs:
+    - workflow
+  cache:
+    key: $CI_PROJECT_ID
+    policy: pull-push
+    paths:
+      - .yarn/cache
+  only:
+    - main
+  script:
+    - yarn workspaces focus @rapidajs/rapida-website
+    # the above ^ will include @rapidajs/rapida-website build, @rapidajs/rapida, @rapidajs/rapida-physics and @rapidajs/rapida-common
+    # build @rapidajs/rapida-website
+    - (cd website && yarn run build) 
+    - |- 
+      if [[ $CI_COMMIT_BRANCH == "main" ]]; then
+        # copy @rapidajs/rapida-website files in place for gitlab pages
+        mkdir public
+        cp -r website/out/* public/
+      fi
+  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
+  artifacts:
+    paths:
+      - public
