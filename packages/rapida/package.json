@@ -16,8 +16,8 @@
     "build-storybook": "build-storybook",
     "docs": "typedoc --hideBreadcrumbs --out docs src/index.ts && rm docs/README.md && mv docs/modules.md docs/README.md"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Isaac Mason",
+  "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
@@ -62,8 +62,8 @@
   },
   "dependencies": {
     "@jest/globals": "^27.2.0",
-    "@rapidajs/rapida-common": "file:../rapida-common",
-    "@rapidajs/rapida-physics": "file:../rapida-physics",
+    "@rapidajs/rapida-common": "0.0.4",
+    "@rapidajs/rapida-physics": "0.0.4",
     "@types/stats.js": "^0.17.0",
     "@types/three": "^0.133.0",
     "jest-mock": "^27.1.1",

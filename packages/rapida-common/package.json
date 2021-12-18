@@ -3,6 +3,7 @@
   "version": "0.0.4",
   "description": "",
   "main": "lib/index.js",
+  "private": true,
   "scripts": {
     "prebuild": "rm -rf ./lib",
     "build": "tsc",
@@ -10,8 +11,8 @@
     "test:watch": "jest --watch",
     "lint": "eslint . --ext .ts"
   },
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
+  "author": "Isaac Mason",
   "devDependencies": {
     "@types/jest": "^27.0.1",
     "@types/ramda": "^0.27.44",

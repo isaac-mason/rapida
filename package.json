@@ -4,7 +4,7 @@
   "description": "Dev scripts for the rapida multi-package repo",
   "scripts": {
     "install": "concurrently \"cd ./packages/rapida-physics && npm i\" \"cd ./packages/rapida-common && npm i\" \"cd ./packages/rapida && npm i\"",
-    "build": "(cd ./packages/rapida-common && npm run build) && (cd ./packages/rapida-physics && npm run build) && concurrently \"cd ./packages/rapida && npm run build\"",
+    "build": "(cd ./packages/rapida-common && npm run build) && (cd ./packages/rapida-physics && npm run build) && (cd ./packages/rapida && npm run build)",
     "test": "(cd ./packages/rapida && npm run test)",
     "docs": "concurrently \"cd ./packages/rapida-physics && npm run docs\" \"cd ./packages/rapida && npm run docs\"",
     "prerelease": "npm run install && npm run build && npm run test && npm run docs",
@@ -17,12 +17,17 @@
     "storybook:local-https-generate-ca": "openssl req -x509 -nodes -new -sha512 -days 365 -newkey rsa:4096 -keyout dev/ca.key -out dev/ca.pem -subj \"/C=US/CN=MY-CA\"",
     "storybook:local-https-generate-crt": "openssl x509 -outform pem -in dev/ca.pem -out dev/ca.crt"
   },
+  "workspaces": [
+    "packages/rapida-common",
+    "packages/rapida",
+    "packages/rapida-physics"
+  ],
   "repository": {
     "type": "git",
     "url": "git+ssh://git@gitlab.com/rapidajs/rapida.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Isaac Mason",
+  "license": "MIT",
   "bugs": {
     "url": "https://gitlab.com/rapidajs/rapida/issues"
   },

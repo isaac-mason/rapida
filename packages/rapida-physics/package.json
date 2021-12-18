@@ -2,6 +2,8 @@
   "name": "@rapidajs/rapida-physics",
   "version": "0.0.4",
   "description": "workerised cannon-es",
+  "license": "MIT",
+  "author": "Isaac Mason",
   "keywords": [
     "cannon",
     "physics"
