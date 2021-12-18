@@ -43,6 +43,13 @@ module.exports = {
     'no-param-reassign': 'off',
     'no-continue': 'off',
     'no-restricted-globals': 'off',
+    '@typescript-eslint/no-unused-vars': [
+      'warn',
+      {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+      },
+    ],
   },
   settings: {
     'import/resolver': {

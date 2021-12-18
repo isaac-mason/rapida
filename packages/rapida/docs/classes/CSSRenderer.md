@@ -27,10 +27,10 @@ CSSRenderer is a thin wrapper around the CSS3DRenderer three js class with suppo
 
 ### Methods
 
+- [\_onResize](CSSRenderer.md#_onresize)
 - [addView](CSSRenderer.md#addview)
 - [destroy](CSSRenderer.md#destroy)
 - [init](CSSRenderer.md#init)
-- [onResize](CSSRenderer.md#onresize)
 - [removeView](CSSRenderer.md#removeview)
 - [render](CSSRenderer.md#render)
 
@@ -50,7 +50,7 @@ Constructor for a CSSRenderer
 
 #### Defined in
 
-[rapida/src/renderer/css-renderer.ts:52](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/css-renderer.ts#L52)
+[packages/rapida/src/renderer/css/css-renderer.ts:52](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-renderer.ts#L52)
 
 ## Properties
 
@@ -62,7 +62,7 @@ Factories for creating objects within the renderer
 
 #### Defined in
 
-[rapida/src/renderer/css-renderer.ts:124](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/css-renderer.ts#L124)
+[packages/rapida/src/renderer/css/css-renderer.ts:124](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-renderer.ts#L124)
 
 ___
 
@@ -74,7 +74,7 @@ The DOM element for the renderer
 
 #### Defined in
 
-[rapida/src/renderer/css-renderer.ts:36](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/css-renderer.ts#L36)
+[packages/rapida/src/renderer/css/css-renderer.ts:36](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-renderer.ts#L36)
 
 ___
 
@@ -90,7 +90,7 @@ A unique id for the css renderer
 
 #### Defined in
 
-[rapida/src/renderer/css-renderer.ts:26](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/css-renderer.ts#L26)
+[packages/rapida/src/renderer/css/css-renderer.ts:26](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-renderer.ts#L26)
 
 ___
 
@@ -102,7 +102,7 @@ Whether the view manager is initialised
 
 #### Defined in
 
-[rapida/src/renderer/css-renderer.ts:46](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/css-renderer.ts#L46)
+[packages/rapida/src/renderer/css/css-renderer.ts:46](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-renderer.ts#L46)
 
 ___
 
@@ -114,7 +114,7 @@ The renderer root dom element
 
 #### Defined in
 
-[rapida/src/renderer/css-renderer.ts:41](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/css-renderer.ts#L41)
+[packages/rapida/src/renderer/css/css-renderer.ts:41](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-renderer.ts#L41)
 
 ___
 
@@ -126,7 +126,7 @@ Views for the webgl renderer
 
 #### Defined in
 
-[rapida/src/renderer/css-renderer.ts:31](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/css-renderer.ts#L31)
+[packages/rapida/src/renderer/css/css-renderer.ts:31](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-renderer.ts#L31)
 
 ## Accessors
 
@@ -142,9 +142,29 @@ Retrieves renderer factories
 
 #### Defined in
 
-[rapida/src/renderer/css-renderer.ts:136](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/css-renderer.ts#L136)
+[packages/rapida/src/renderer/css/css-renderer.ts:136](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-renderer.ts#L136)
 
 ## Methods
+
+### \_onResize
+
+▸ **_onResize**(): `void`
+
+Resizes all css views
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[Renderer](../interfaces/Renderer.md).[_onResize](../interfaces/Renderer.md#_onresize)
+
+#### Defined in
+
+[packages/rapida/src/renderer/css/css-renderer.ts:106](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-renderer.ts#L106)
+
+___
 
 ### addView
 
@@ -164,7 +184,7 @@ Adds a view to the renderer
 
 #### Defined in
 
-[rapida/src/renderer/css-renderer.ts:86](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/css-renderer.ts#L86)
+[packages/rapida/src/renderer/css/css-renderer.ts:86](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-renderer.ts#L86)
 
 ___
 
@@ -184,7 +204,7 @@ Destroys all css views
 
 #### Defined in
 
-[rapida/src/renderer/css-renderer.ts:76](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/css-renderer.ts#L76)
+[packages/rapida/src/renderer/css/css-renderer.ts:76](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-renderer.ts#L76)
 
 ___
 
@@ -204,27 +224,7 @@ Initialises all css views
 
 #### Defined in
 
-[rapida/src/renderer/css-renderer.ts:65](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/css-renderer.ts#L65)
-
-___
-
-### onResize
-
-▸ **onResize**(): `void`
-
-Resizes all css views
-
-#### Returns
-
-`void`
-
-#### Implementation of
-
-[Renderer](../interfaces/Renderer.md).[onResize](../interfaces/Renderer.md#onresize)
-
-#### Defined in
-
-[rapida/src/renderer/css-renderer.ts:106](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/css-renderer.ts#L106)
+[packages/rapida/src/renderer/css/css-renderer.ts:65](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-renderer.ts#L65)
 
 ___
 
@@ -246,7 +246,7 @@ Removes a view from the renderer
 
 #### Defined in
 
-[rapida/src/renderer/css-renderer.ts:98](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/css-renderer.ts#L98)
+[packages/rapida/src/renderer/css/css-renderer.ts:98](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-renderer.ts#L98)
 
 ___
 
@@ -266,4 +266,4 @@ Renders all of the views in the renderer
 
 #### Defined in
 
-[rapida/src/renderer/css-renderer.ts:115](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/css-renderer.ts#L115)
+[packages/rapida/src/renderer/css/css-renderer.ts:115](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-renderer.ts#L115)

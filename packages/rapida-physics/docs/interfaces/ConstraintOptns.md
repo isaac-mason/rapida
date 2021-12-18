@@ -28,7 +28,7 @@
 
 #### Defined in
 
-[src/types.ts:518](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L518)
+[packages/rapida-physics/src/types.ts:612](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L612)
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:517](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L517)
+[packages/rapida-physics/src/types.ts:611](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L611)
 
 ___
 
@@ -48,4 +48,4 @@ ___
 
 #### Defined in
 
-[src/types.ts:519](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L519)
+[packages/rapida-physics/src/types.ts:613](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L613)

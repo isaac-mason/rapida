@@ -14,7 +14,7 @@
 ### Interfaces
 
 - [CannonWorker](interfaces/CannonWorker.md)
-- [CompoundBodyProps](interfaces/CompoundBodyProps.md)
+- [CompoundBodyParams](interfaces/CompoundBodyParams.md)
 - [ConeTwistConstraintOpts](interfaces/ConeTwistConstraintOpts.md)
 - [ConstraintOptns](interfaces/ConstraintOptns.md)
 - [DistanceConstraintOpts](interfaces/DistanceConstraintOpts.md)
@@ -22,7 +22,7 @@
 - [PhysicsDebuggerParams](interfaces/PhysicsDebuggerParams.md)
 - [PhysicsObjectApi](interfaces/PhysicsObjectApi.md)
 - [PointToPointConstraintOpts](interfaces/PointToPointConstraintOpts.md)
-- [RaycastVehicleProps](interfaces/RaycastVehicleProps.md)
+- [RaycastVehicleParams](interfaces/RaycastVehicleParams.md)
 - [RaycastVehiclePublicApi](interfaces/RaycastVehiclePublicApi.md)
 - [SpringOptns](interfaces/SpringOptns.md)
 - [WheelInfoOptions](interfaces/WheelInfoOptions.md)
@@ -33,11 +33,12 @@
 - [Api](modules.md#api)
 - [AtomicApi](modules.md#atomicapi)
 - [AtomicName](modules.md#atomicname)
-- [AtomicProps](modules.md#atomicprops)
+- [AtomicParams](modules.md#atomicparams)
 - [BodyParams](modules.md#bodyparams)
-- [BodyPropsArgsRequired](modules.md#bodypropsargsrequired)
+- [BodyParamsArgsRequired](modules.md#bodyparamsargsrequired)
 - [BodyShapeType](modules.md#bodyshapetype)
-- [BoxProps](modules.md#boxprops)
+- [BoxCreationParams](modules.md#boxcreationparams)
+- [BoxParams](modules.md#boxparams)
 - [Broadphase](modules.md#broadphase)
 - [Buffers](modules.md#buffers)
 - [CollideBeginEvent](modules.md#collidebeginevent)
@@ -47,46 +48,48 @@
 - [ConstraintORHingeApi](modules.md#constraintorhingeapi)
 - [ConstraintTypes](modules.md#constrainttypes)
 - [ConvexPolyhedronArgs](modules.md#convexpolyhedronargs)
-- [ConvexPolyhedronProps](modules.md#convexpolyhedronprops)
+- [ConvexPolyhedronParams](modules.md#convexpolyhedronparams)
 - [CylinderArgs](modules.md#cylinderargs)
-- [CylinderProps](modules.md#cylinderprops)
+- [CylinderCreationParams](modules.md#cylindercreationparams)
+- [CylinderParams](modules.md#cylinderparams)
 - [DebugApi](modules.md#debugapi)
 - [DefaultContactMaterial](modules.md#defaultcontactmaterial)
 - [FrameMessage](modules.md#framemessage)
 - [HeightfieldArgs](modules.md#heightfieldargs)
-- [HeightfieldProps](modules.md#heightfieldprops)
+- [HeightfieldParams](modules.md#heightfieldparams)
 - [HingeConstraintApi](modules.md#hingeconstraintapi)
 - [IncomingWorkerMessage](modules.md#incomingworkermessage)
 - [LockConstraintOpts](modules.md#lockconstraintopts)
 - [Observation](modules.md#observation)
-- [ParticleProps](modules.md#particleprops)
+- [ParticleParams](modules.md#particleparams)
 - [PhysicsContext](modules.md#physicscontext)
 - [PhysicsDebugInfo](modules.md#physicsdebuginfo)
 - [PhysicsDebuggerColor](modules.md#physicsdebuggercolor)
 - [PhysicsParams](modules.md#physicsparams)
 - [PhysicsWorldConfig](modules.md#physicsworldconfig)
-- [PlaneProps](modules.md#planeprops)
+- [PlaneParams](modules.md#planeparams)
 - [PropValue](modules.md#propvalue)
 - [PublicVectorName](modules.md#publicvectorname)
 - [RayHookOptions](modules.md#rayhookoptions)
 - [RayMode](modules.md#raymode)
 - [RayhitEvent](modules.md#rayhitevent)
 - [Refs](modules.md#refs)
-- [SerializableBodyProps](modules.md#serializablebodyprops)
+- [SerializableBodyParams](modules.md#serializablebodyparams)
 - [SetOpName](modules.md#setopname)
 - [ShapeType](modules.md#shapetype)
-- [SphereProps](modules.md#sphereprops)
+- [SphereCreationParams](modules.md#spherecreationparams)
+- [SphereParams](modules.md#sphereparams)
 - [SpringApi](modules.md#springapi)
 - [Subscription](modules.md#subscription)
 - [SubscriptionName](modules.md#subscriptionname)
 - [SubscriptionTarget](modules.md#subscriptiontarget)
 - [Subscriptions](modules.md#subscriptions)
 - [TrimeshArgs](modules.md#trimeshargs)
-- [TrimeshProps](modules.md#trimeshprops)
+- [TrimeshParams](modules.md#trimeshparams)
 - [Triplet](modules.md#triplet)
 - [VectorApi](modules.md#vectorapi)
 - [VectorName](modules.md#vectorname)
-- [VectorProps](modules.md#vectorprops)
+- [VectorParams](modules.md#vectorparams)
 - [VectorTypes](modules.md#vectortypes)
 - [WorkerApi](modules.md#workerapi)
 - [WorkerCollideBeginEvent](modules.md#workercollidebeginevent)
@@ -111,7 +114,7 @@
 
 #### Defined in
 
-[src/types.ts:241](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L241)
+[packages/rapida-physics/src/types.ts:290](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L290)
 
 ___
 
@@ -121,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:41](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L41)
+[packages/rapida-physics/src/types.ts:41](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L41)
 
 ___
 
@@ -131,7 +134,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:59](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L59)
+[packages/rapida-physics/src/types.ts:108](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L108)
 
 ___
 
@@ -141,41 +144,41 @@ ___
 
 #### Defined in
 
-[src/types.ts:24](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L24)
+[packages/rapida-physics/src/types.ts:24](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L24)
 
 ___
 
-### AtomicProps
+### AtomicParams
 
-Ƭ **AtomicProps**: `Object`
+Ƭ **AtomicParams**: `Object`
 
 #### Type declaration
 
-| Name | Type |
-| :------ | :------ |
-| `allowSleep` | `boolean` |
-| `angularDamping` | `number` |
-| `collisionFilterGroup` | `number` |
-| `collisionFilterMask` | `number` |
-| `collisionResponse` | `number` |
-| `fixedRotation` | `boolean` |
-| `isTrigger` | `boolean` |
-| `linearDamping` | `number` |
-| `mass` | `number` |
-| `material` | `MaterialOptions` |
-| `sleepSpeedLimit` | `number` |
-| `sleepTimeLimit` | `number` |
-| `userData` | `any` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `allowSleep` | `boolean` | If true, the body will automatically fall to sleep. |
+| `angularDamping` | `number` | How much to damp the body angular velocity each step. It can go from 0 to 1. |
+| `collisionFilterGroup` | `number` | The collision group the body belongs to. |
+| `collisionFilterMask` | `number` | The collision group the body can collide with. |
+| `collisionResponse` | `number` | Whether to produce contact forces when in contact with other bodies. Note that contacts will be generated, but they will be disabled - i.e. "collide" events will be raised, but forces will not be altered. |
+| `fixedRotation` | `boolean` | Set to true if you don't want the body to rotate |
+| `isTrigger` | `boolean` | When true the body behaves like a trigger. It does not collide with other bodies but collision events are still triggered. |
+| `linearDamping` | `number` | How much to damp the body velocity each step. It can go from 0 to 1. |
+| `mass` | `number` | The mass of the body |
+| `material` | `MaterialOptions` | The material for the body |
+| `sleepSpeedLimit` | `number` | If the speed (the norm of the velocity) is smaller than this value, the body is considered sleepy. |
+| `sleepTimeLimit` | `number` | If the body has been sleepy for this sleepTimeLimit seconds, it is considered sleeping. |
+| `userData` | `any` | - |
 
 #### Defined in
 
-[src/types.ts:43](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L43)
+[packages/rapida-physics/src/types.ts:43](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L43)
 
 ___
 
 ### BodyParams
 
-Ƭ **BodyParams**<`T`\>: `Partial`<[`AtomicProps`](modules.md#atomicprops)\> & `Partial`<[`VectorProps`](modules.md#vectorprops)\> & { `args?`: `T` ; `type?`: [`BodyType`](enums/BodyType.md) ; `onCollide?`: (`e`: [`CollideEvent`](modules.md#collideevent)) => `void` ; `onCollideBegin?`: (`e`: [`CollideBeginEvent`](modules.md#collidebeginevent)) => `void` ; `onCollideEnd?`: (`e`: [`CollideEndEvent`](modules.md#collideendevent)) => `void`  }
+Ƭ **BodyParams**<`T`\>: `Partial`<[`AtomicParams`](modules.md#atomicparams)\> & `Partial`<[`VectorParams`](modules.md#vectorparams)\> & { `args?`: `T` ; `type?`: [`BodyType`](enums/BodyType.md) ; `onCollide?`: (`e`: [`CollideEvent`](modules.md#collideevent)) => `void` ; `onCollideBegin?`: (`e`: [`CollideBeginEvent`](modules.md#collidebeginevent)) => `void` ; `onCollideEnd?`: (`e`: [`CollideEndEvent`](modules.md#collideendevent)) => `void`  }
 
 #### Type parameters
 
@@ -185,13 +188,13 @@ ___
 
 #### Defined in
 
-[src/types.ts:466](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L466)
+[packages/rapida-physics/src/types.ts:515](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L515)
 
 ___
 
-### BodyPropsArgsRequired
+### BodyParamsArgsRequired
 
-Ƭ **BodyPropsArgsRequired**<`T`\>: [`BodyParams`](modules.md#bodyparams)<`T`\> & { `args`: `T`  }
+Ƭ **BodyParamsArgsRequired**<`T`\>: [`BodyParams`](modules.md#bodyparams)<`T`\> & { `args`: `T`  }
 
 #### Type parameters
 
@@ -201,7 +204,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:475](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L475)
+[packages/rapida-physics/src/types.ts:524](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L524)
 
 ___
 
@@ -211,17 +214,27 @@ ___
 
 #### Defined in
 
-[src/types.ts:488](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L488)
+[packages/rapida-physics/src/types.ts:537](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L537)
 
 ___
 
-### BoxProps
+### BoxCreationParams
 
-Ƭ **BoxProps**: [`BodyParams`](modules.md#bodyparams)<[`Triplet`](modules.md#triplet)\>
+Ƭ **BoxCreationParams**: [`BodyParams`](modules.md#bodyparams) & { `size`: [`Triplet`](modules.md#triplet)  }
 
 #### Defined in
 
-[src/types.ts:505](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L505)
+[packages/rapida-physics/src/types.ts:558](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L558)
+
+___
+
+### BoxParams
+
+Ƭ **BoxParams**: [`BodyParams`](modules.md#bodyparams)<[`Triplet`](modules.md#triplet)\>
+
+#### Defined in
+
+[packages/rapida-physics/src/types.ts:560](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L560)
 
 ___
 
@@ -231,7 +244,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:365](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L365)
+[packages/rapida-physics/src/types.ts:414](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L414)
 
 ___
 
@@ -248,7 +261,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:138](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L138)
+[packages/rapida-physics/src/types.ts:187](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L187)
 
 ___
 
@@ -266,7 +279,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:154](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L154)
+[packages/rapida-physics/src/types.ts:203](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L203)
 
 ___
 
@@ -284,7 +297,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:160](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L160)
+[packages/rapida-physics/src/types.ts:209](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L209)
 
 ___
 
@@ -294,7 +307,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:144](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L144)
+[packages/rapida-physics/src/types.ts:193](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L193)
 
 ___
 
@@ -304,7 +317,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:90](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L90)
+[packages/rapida-physics/src/types.ts:139](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L139)
 
 ___
 
@@ -320,7 +333,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:125](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L125)
+[packages/rapida-physics/src/types.ts:174](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L174)
 
 ___
 
@@ -330,7 +343,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:123](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L123)
+[packages/rapida-physics/src/types.ts:172](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L172)
 
 ___
 
@@ -346,17 +359,17 @@ ___
 
 #### Defined in
 
-[src/types.ts:496](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L496)
+[packages/rapida-physics/src/types.ts:548](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L548)
 
 ___
 
-### ConvexPolyhedronProps
+### ConvexPolyhedronParams
 
-Ƭ **ConvexPolyhedronProps**: [`BodyParams`](modules.md#bodyparams)<[`ConvexPolyhedronArgs`](modules.md#convexpolyhedronargs)\>
+Ƭ **ConvexPolyhedronParams**: [`BodyParams`](modules.md#bodyparams)<[`ConvexPolyhedronArgs`](modules.md#convexpolyhedronargs)\>
 
 #### Defined in
 
-[src/types.ts:511](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L511)
+[packages/rapida-physics/src/types.ts:605](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L605)
 
 ___
 
@@ -366,17 +379,27 @@ ___
 
 #### Defined in
 
-[src/types.ts:490](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L490)
+[packages/rapida-physics/src/types.ts:539](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L539)
 
 ___
 
-### CylinderProps
+### CylinderCreationParams
 
-Ƭ **CylinderProps**: [`BodyParams`](modules.md#bodyparams)<[`CylinderArgs`](modules.md#cylinderargs)\>
+Ƭ **CylinderCreationParams**: [`BodyParams`](modules.md#bodyparams) & { `height?`: `number` ; `numSegments?`: `number` ; `radiusBottom?`: `number` ; `radiusTop?`: `number`  }
 
 #### Defined in
 
-[src/types.ts:506](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L506)
+[packages/rapida-physics/src/types.ts:562](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L562)
+
+___
+
+### CylinderParams
+
+Ƭ **CylinderParams**: [`BodyParams`](modules.md#bodyparams)<[`CylinderArgs`](modules.md#cylinderargs)\>
+
+#### Defined in
+
+[packages/rapida-physics/src/types.ts:584](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L584)
 
 ___
 
@@ -393,7 +416,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:360](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L360)
+[packages/rapida-physics/src/types.ts:409](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L409)
 
 ___
 
@@ -414,7 +437,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:586](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L586)
+[packages/rapida-physics/src/types.ts:680](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L680)
 
 ___
 
@@ -435,7 +458,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:379](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L379)
+[packages/rapida-physics/src/types.ts:428](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L428)
 
 ___
 
@@ -445,17 +468,17 @@ ___
 
 #### Defined in
 
-[src/types.ts:492](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L492)
+[packages/rapida-physics/src/types.ts:543](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L543)
 
 ___
 
-### HeightfieldProps
+### HeightfieldParams
 
-Ƭ **HeightfieldProps**: [`BodyPropsArgsRequired`](modules.md#bodypropsargsrequired)<[`HeightfieldArgs`](modules.md#heightfieldargs)\>
+Ƭ **HeightfieldParams**: [`BodyParamsArgsRequired`](modules.md#bodyparamsargsrequired)<[`HeightfieldArgs`](modules.md#heightfieldargs)\>
 
 #### Defined in
 
-[src/types.ts:510](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L510)
+[packages/rapida-physics/src/types.ts:604](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L604)
 
 ___
 
@@ -465,7 +488,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:99](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L99)
+[packages/rapida-physics/src/types.ts:148](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L148)
 
 ___
 
@@ -475,7 +498,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:458](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L458)
+[packages/rapida-physics/src/types.ts:507](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L507)
 
 ___
 
@@ -485,7 +508,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:546](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L546)
+[packages/rapida-physics/src/types.ts:640](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L640)
 
 ___
 
@@ -495,17 +518,19 @@ ___
 
 #### Defined in
 
-[src/types.ts:367](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L367)
+[packages/rapida-physics/src/types.ts:416](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L416)
 
 ___
 
-### ParticleProps
+### ParticleParams
 
-Ƭ **ParticleProps**: [`BodyParams`](modules.md#bodyparams)
+Ƭ **ParticleParams**: [`BodyParams`](modules.md#bodyparams)
+
+Params for creating a particle
 
 #### Defined in
 
-[src/types.ts:507](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L507)
+[packages/rapida-physics/src/types.ts:589](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L589)
 
 ___
 
@@ -526,7 +551,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:351](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L351)
+[packages/rapida-physics/src/types.ts:400](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L400)
 
 ___
 
@@ -545,7 +570,7 @@ Debugging information available to a debugger
 
 #### Defined in
 
-[src/physics-debugger.ts:18](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics-debugger.ts#L18)
+[packages/rapida-physics/src/physics-debugger.ts:18](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics-debugger.ts#L18)
 
 ___
 
@@ -557,7 +582,7 @@ Color for the physics debugger to use
 
 #### Defined in
 
-[src/physics-debugger.ts:23](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics-debugger.ts#L23)
+[packages/rapida-physics/src/physics-debugger.ts:23](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics-debugger.ts#L23)
 
 ___
 
@@ -586,7 +611,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:595](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L595)
+[packages/rapida-physics/src/types.ts:689](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L689)
 
 ___
 
@@ -620,23 +645,23 @@ ___
 
 #### Defined in
 
-[src/types.ts:615](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L615)
+[packages/rapida-physics/src/types.ts:709](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L709)
 
 ___
 
-### PlaneProps
+### PlaneParams
 
-Ƭ **PlaneProps**: [`BodyParams`](modules.md#bodyparams)
+Ƭ **PlaneParams**: [`BodyParams`](modules.md#bodyparams)
 
 #### Defined in
 
-[src/types.ts:504](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L504)
+[packages/rapida-physics/src/types.ts:556](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L556)
 
 ___
 
 ### PropValue
 
-Ƭ **PropValue**<`T`\>: `T` extends [`AtomicName`](modules.md#atomicname) ? [`AtomicProps`](modules.md#atomicprops)[`T`] : `T` extends [`VectorName`](modules.md#vectorname) ? [`Triplet`](modules.md#triplet) : `T` extends ``"sliding"`` ? `boolean` : `never`
+Ƭ **PropValue**<`T`\>: `T` extends [`AtomicName`](modules.md#atomicname) ? [`AtomicParams`](modules.md#atomicparams)[`T`] : `T` extends [`VectorName`](modules.md#vectorname) ? [`Triplet`](modules.md#triplet) : `T` extends ``"sliding"`` ? `boolean` : `never`
 
 #### Type parameters
 
@@ -646,7 +671,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:184](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L184)
+[packages/rapida-physics/src/types.ts:233](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L233)
 
 ___
 
@@ -656,7 +681,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:39](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L39)
+[packages/rapida-physics/src/types.ts:39](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L39)
 
 ___
 
@@ -666,7 +691,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:239](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L239)
+[packages/rapida-physics/src/types.ts:288](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L288)
 
 ___
 
@@ -676,7 +701,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:237](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L237)
+[packages/rapida-physics/src/types.ts:286](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L286)
 
 ___
 
@@ -686,7 +711,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:166](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L166)
+[packages/rapida-physics/src/types.ts:215](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L215)
 
 ___
 
@@ -700,13 +725,13 @@ ___
 
 #### Defined in
 
-[src/types.ts:140](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L140)
+[packages/rapida-physics/src/types.ts:189](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L189)
 
 ___
 
-### SerializableBodyProps
+### SerializableBodyParams
 
-Ƭ **SerializableBodyProps**: `Object`
+Ƭ **SerializableBodyParams**: `Object`
 
 #### Type declaration
 
@@ -716,7 +741,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:302](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L302)
+[packages/rapida-physics/src/types.ts:351](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L351)
 
 ___
 
@@ -732,7 +757,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:192](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L192)
+[packages/rapida-physics/src/types.ts:241](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L241)
 
 ___
 
@@ -742,17 +767,29 @@ ___
 
 #### Defined in
 
-[src/types.ts:479](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L479)
+[packages/rapida-physics/src/types.ts:528](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L528)
 
 ___
 
-### SphereProps
+### SphereCreationParams
 
-Ƭ **SphereProps**: [`BodyParams`](modules.md#bodyparams)<`number`\>
+Ƭ **SphereCreationParams**: [`BodyParams`](modules.md#bodyparams) & { `radius`: `number`  }
+
+Params for creating a sphere
 
 #### Defined in
 
-[src/types.ts:508](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L508)
+[packages/rapida-physics/src/types.ts:594](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L594)
+
+___
+
+### SphereParams
+
+Ƭ **SphereParams**: [`BodyParams`](modules.md#bodyparams)<`number`\>
+
+#### Defined in
+
+[packages/rapida-physics/src/types.ts:601](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L601)
 
 ___
 
@@ -762,7 +799,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:112](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L112)
+[packages/rapida-physics/src/types.ts:161](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L161)
 
 ___
 
@@ -772,7 +809,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:179](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L179)
+[packages/rapida-physics/src/types.ts:228](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L228)
 
 ___
 
@@ -782,7 +819,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:37](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L37)
+[packages/rapida-physics/src/types.ts:37](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L37)
 
 ___
 
@@ -792,7 +829,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:314](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L314)
+[packages/rapida-physics/src/types.ts:363](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L363)
 
 ___
 
@@ -802,7 +839,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:180](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L180)
+[packages/rapida-physics/src/types.ts:229](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L229)
 
 ___
 
@@ -812,17 +849,17 @@ ___
 
 #### Defined in
 
-[src/types.ts:491](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L491)
+[packages/rapida-physics/src/types.ts:541](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L541)
 
 ___
 
-### TrimeshProps
+### TrimeshParams
 
-Ƭ **TrimeshProps**: [`BodyPropsArgsRequired`](modules.md#bodypropsargsrequired)<[`TrimeshArgs`](modules.md#trimeshargs)\>
+Ƭ **TrimeshParams**: [`BodyParamsArgsRequired`](modules.md#bodyparamsargsrequired)<[`TrimeshArgs`](modules.md#trimeshargs)\>
 
 #### Defined in
 
-[src/types.ts:509](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L509)
+[packages/rapida-physics/src/types.ts:603](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L603)
 
 ___
 
@@ -832,7 +869,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:5](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L5)
+[packages/rapida-physics/src/types.ts:5](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L5)
 
 ___
 
@@ -842,7 +879,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:66](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L66)
+[packages/rapida-physics/src/types.ts:115](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L115)
 
 ___
 
@@ -852,17 +889,17 @@ ___
 
 #### Defined in
 
-[src/types.ts:34](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L34)
+[packages/rapida-physics/src/types.ts:34](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L34)
 
 ___
 
-### VectorProps
+### VectorParams
 
-Ƭ **VectorProps**: `Record`<[`PublicVectorName`](modules.md#publicvectorname), [`Triplet`](modules.md#triplet)\>
+Ƭ **VectorParams**: `Record`<[`PublicVectorName`](modules.md#publicvectorname), [`Triplet`](modules.md#triplet)\>
 
 #### Defined in
 
-[src/types.ts:7](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L7)
+[packages/rapida-physics/src/types.ts:7](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L7)
 
 ___
 
@@ -872,7 +909,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:6](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L6)
+[packages/rapida-physics/src/types.ts:6](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L6)
 
 ___
 
@@ -882,7 +919,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:74](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L74)
+[packages/rapida-physics/src/types.ts:123](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L123)
 
 ___
 
@@ -901,7 +938,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:439](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L439)
+[packages/rapida-physics/src/types.ts:488](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L488)
 
 ___
 
@@ -920,7 +957,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:446](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L446)
+[packages/rapida-physics/src/types.ts:495](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L495)
 
 ___
 
@@ -954,7 +991,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:388](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L388)
+[packages/rapida-physics/src/types.ts:437](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L437)
 
 ___
 
@@ -964,7 +1001,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:453](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L453)
+[packages/rapida-physics/src/types.ts:502](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L502)
 
 ___
 
@@ -981,7 +1018,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:369](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L369)
+[packages/rapida-physics/src/types.ts:418](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L418)
 
 ___
 
@@ -1015,7 +1052,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:415](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L415)
+[packages/rapida-physics/src/types.ts:464](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L464)
 
 ___
 
@@ -1025,7 +1062,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:328](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L328)
+[packages/rapida-physics/src/types.ts:377](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L377)
 
 ## Variables
 
@@ -1035,7 +1072,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:9](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L9)
+[packages/rapida-physics/src/types.ts:9](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L9)
 
 ___
 
@@ -1045,7 +1082,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:36](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L36)
+[packages/rapida-physics/src/types.ts:36](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L36)
 
 ___
 
@@ -1055,4 +1092,4 @@ ___
 
 #### Defined in
 
-[src/types.ts:26](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/types.ts#L26)
+[packages/rapida-physics/src/types.ts:26](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L26)

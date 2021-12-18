@@ -17,7 +17,7 @@ Planes that a view rectangle param can be on
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:199](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L199)
+[packages/rapida/src/renderer/view.ts:199](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L199)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:200](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L200)
+[packages/rapida/src/renderer/view.ts:200](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L200)

@@ -1,7 +1,7 @@
 import { useEffect } from '@storybook/client-api';
 import * as three from 'three';
 import {
-  Runtime,
+  Engine,
   World,
   WorldContext,
   WorldProvider,
@@ -13,16 +13,13 @@ export default {
 
 export const OneView = () => {
   useEffect(() => {
-    const runtime = new Runtime();
-
-    const worldId = 'world';
+    const engine = new Engine();
 
     const worldProvider: WorldProvider = (
       worldContext: WorldContext
     ): World => {
       const world = new World({
-        id: worldId,
-        runtime: worldContext.runtime,
+        engine: worldContext.engine,
       });
 
       const renderer = world.create.renderer.webgl({
@@ -58,18 +55,16 @@ export const OneView = () => {
       return world;
     };
 
-    runtime.registerWorld(worldId, worldProvider);
+    engine.run(worldProvider);
 
-    runtime.startWorld(worldId);
-
-    return () => runtime.destroy();
+    return () => engine.destroy();
   });
 
   return `
   <style>
   #renderer-root-1 {
     width: 100%;
-    height: 20em;
+    height: 100%;
   }
   </style>
   <div id="renderer-root-1"></div>

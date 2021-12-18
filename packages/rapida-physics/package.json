@@ -1,7 +1,9 @@
 {
   "name": "@rapidajs/rapida-physics",
   "version": "0.0.4",
-  "description": "workerised cannon-es",
+  "description": "web worker wrapped cannon-es",
+  "license": "MIT",
+  "author": "Isaac Mason",
   "keywords": [
     "cannon",
     "physics"
@@ -9,7 +11,7 @@
   "entry": "src/index.ts",
   "main": "lib/next/index.js",
   "module": "lib/next/index.js",
-  "types": "lib/index.d.ts",
+  "types": "lib/next/index.d.ts",
   "scripts": {
     "build": "rollup -c",
     "eslint": "eslint .",
@@ -17,7 +19,8 @@
     "prebuild": "tsc",
     "prettier": "prettier --list-different .",
     "prettier-fix": "prettier --write .",
-    "storybook": "start-storybook -p 6007",
+    "storybook": "start-storybook -p 6008",
+    "storybook:https": "start-storybook -p 6008 --https --ssl-cert ../../dev/ca.crt --ssl-key ../../dev/ca.key",
     "build-storybook": "build-storybook",
     "docs": "typedoc --hideBreadcrumbs --out docs src/index.ts && rm docs/README.md && mv docs/modules.md docs/README.md"
   },
@@ -67,7 +70,8 @@
   "dependencies": {
     "@types/three": "^0.133.0",
     "cannon-es": "^0.18.0",
-    "cannon-es-debugger": "^0.1.4"
+    "cannon-es-debugger": "^0.1.4",
+    "three": "^0.133.0"
   },
   "peerDependencies": {
     "three": "^0.133.0"
@@ -75,5 +79,17 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix",
     "*.{js,jsx,ts,tsx,md}": "prettier --write"
-  }
+  },
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/rapidajs/rapida.git"
+  },
+  "bugs": {
+    "url": "https://gitlab.com/rapidajs/rapida/issues"
+  },
+  "homepage": "https://gitlab.com/rapidajs/rapida#readme"
 }

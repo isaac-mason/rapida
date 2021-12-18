@@ -9,6 +9,7 @@
 - [ViewInteractionEvent](enums/ViewInteractionEvent.md)
 - [ViewRectangleParamPlane](enums/ViewRectangleParamPlane.md)
 - [ViewRectangleParamType](enums/ViewRectangleParamType.md)
+- [XRRendererMode](enums/XRRendererMode.md)
 
 ### Classes
 
@@ -16,14 +17,13 @@
 - [CSSView](classes/CSSView.md)
 - [Camera](classes/Camera.md)
 - [Component](classes/Component.md)
+- [Engine](classes/Engine.md)
 - [Entity](classes/Entity.md)
-- [NetworkManager](classes/NetworkManager.md)
 - [Physics](classes/Physics.md)
 - [PhysicsDebugger](classes/PhysicsDebugger.md)
 - [Query](classes/Query.md)
 - [QueryManager](classes/QueryManager.md)
 - [RendererManager](classes/RendererManager.md)
-- [Runtime](classes/Runtime.md)
 - [Scene](classes/Scene.md)
 - [Space](classes/Space.md)
 - [System](classes/System.md)
@@ -32,11 +32,12 @@
 - [WebGLRenderer](classes/WebGLRenderer.md)
 - [WebGLView](classes/WebGLView.md)
 - [World](classes/World.md)
+- [XRRenderer](classes/XRRenderer.md)
 
 ### Interfaces
 
 - [CannonWorker](interfaces/CannonWorker.md)
-- [CompoundBodyProps](interfaces/CompoundBodyProps.md)
+- [CompoundBodyParams](interfaces/CompoundBodyParams.md)
 - [ConeTwistConstraintOpts](interfaces/ConeTwistConstraintOpts.md)
 - [ConstraintOptns](interfaces/ConstraintOptns.md)
 - [DistanceConstraintOpts](interfaces/DistanceConstraintOpts.md)
@@ -45,7 +46,7 @@
 - [PhysicsDebuggerParams](interfaces/PhysicsDebuggerParams.md)
 - [PhysicsObjectApi](interfaces/PhysicsObjectApi.md)
 - [PointToPointConstraintOpts](interfaces/PointToPointConstraintOpts.md)
-- [RaycastVehicleProps](interfaces/RaycastVehicleProps.md)
+- [RaycastVehicleParams](interfaces/RaycastVehicleParams.md)
 - [RaycastVehiclePublicApi](interfaces/RaycastVehiclePublicApi.md)
 - [Renderer](interfaces/Renderer.md)
 - [SpringOptns](interfaces/SpringOptns.md)
@@ -58,11 +59,12 @@
 - [Api](modules.md#api)
 - [AtomicApi](modules.md#atomicapi)
 - [AtomicName](modules.md#atomicname)
-- [AtomicProps](modules.md#atomicprops)
+- [AtomicParams](modules.md#atomicparams)
 - [BodyParams](modules.md#bodyparams)
-- [BodyPropsArgsRequired](modules.md#bodypropsargsrequired)
+- [BodyParamsArgsRequired](modules.md#bodyparamsargsrequired)
 - [BodyShapeType](modules.md#bodyshapetype)
-- [BoxProps](modules.md#boxprops)
+- [BoxCreationParams](modules.md#boxcreationparams)
+- [BoxParams](modules.md#boxparams)
 - [Broadphase](modules.md#broadphase)
 - [Buffers](modules.md#buffers)
 - [CSSRendererParams](modules.md#cssrendererparams)
@@ -76,27 +78,29 @@
 - [ConstraintORHingeApi](modules.md#constraintorhingeapi)
 - [ConstraintTypes](modules.md#constrainttypes)
 - [ConvexPolyhedronArgs](modules.md#convexpolyhedronargs)
-- [ConvexPolyhedronProps](modules.md#convexpolyhedronprops)
+- [ConvexPolyhedronParams](modules.md#convexpolyhedronparams)
 - [CylinderArgs](modules.md#cylinderargs)
-- [CylinderProps](modules.md#cylinderprops)
+- [CylinderCreationParams](modules.md#cylindercreationparams)
+- [CylinderParams](modules.md#cylinderparams)
 - [DebugApi](modules.md#debugapi)
 - [DefaultContactMaterial](modules.md#defaultcontactmaterial)
+- [EngineParams](modules.md#engineparams)
 - [EntityParams](modules.md#entityparams)
 - [EventHandler](modules.md#eventhandler)
 - [FrameMessage](modules.md#framemessage)
 - [HeightfieldArgs](modules.md#heightfieldargs)
-- [HeightfieldProps](modules.md#heightfieldprops)
+- [HeightfieldParams](modules.md#heightfieldparams)
 - [HingeConstraintApi](modules.md#hingeconstraintapi)
 - [IncomingWorkerMessage](modules.md#incomingworkermessage)
 - [LockConstraintOpts](modules.md#lockconstraintopts)
 - [Observation](modules.md#observation)
-- [ParticleProps](modules.md#particleprops)
+- [ParticleParams](modules.md#particleparams)
 - [PhysicsContext](modules.md#physicscontext)
 - [PhysicsDebugInfo](modules.md#physicsdebuginfo)
 - [PhysicsDebuggerColor](modules.md#physicsdebuggercolor)
 - [PhysicsParams](modules.md#physicsparams)
 - [PhysicsWorldConfig](modules.md#physicsworldconfig)
-- [PlaneProps](modules.md#planeprops)
+- [PlaneParams](modules.md#planeparams)
 - [PropValue](modules.md#propvalue)
 - [PublicVectorName](modules.md#publicvectorname)
 - [QueryDescription](modules.md#querydescription)
@@ -104,13 +108,13 @@
 - [RayMode](modules.md#raymode)
 - [RayhitEvent](modules.md#rayhitevent)
 - [Refs](modules.md#refs)
-- [RuntimeParams](modules.md#runtimeparams)
 - [SceneParams](modules.md#sceneparams)
-- [SerializableBodyProps](modules.md#serializablebodyprops)
+- [SerializableBodyParams](modules.md#serializablebodyparams)
 - [SetOpName](modules.md#setopname)
 - [ShapeType](modules.md#shapetype)
 - [SpaceParams](modules.md#spaceparams)
-- [SphereProps](modules.md#sphereprops)
+- [SphereCreationParams](modules.md#spherecreationparams)
+- [SphereParams](modules.md#sphereparams)
 - [SpringApi](modules.md#springapi)
 - [Subscription](modules.md#subscription)
 - [SubscriptionName](modules.md#subscriptionname)
@@ -118,11 +122,11 @@
 - [Subscriptions](modules.md#subscriptions)
 - [SystemParams](modules.md#systemparams)
 - [TrimeshArgs](modules.md#trimeshargs)
-- [TrimeshProps](modules.md#trimeshprops)
+- [TrimeshParams](modules.md#trimeshparams)
 - [Triplet](modules.md#triplet)
 - [VectorApi](modules.md#vectorapi)
 - [VectorName](modules.md#vectorname)
-- [VectorProps](modules.md#vectorprops)
+- [VectorParams](modules.md#vectorparams)
 - [VectorTypes](modules.md#vectortypes)
 - [ViewEventName](modules.md#vieweventname)
 - [ViewInteractionEventSubscription](modules.md#viewinteractioneventsubscription)
@@ -147,6 +151,7 @@
 - [WorldParams](modules.md#worldparams)
 - [WorldPropName](modules.md#worldpropname)
 - [WorldProvider](modules.md#worldprovider)
+- [XRRendererParams](modules.md#xrrendererparams)
 
 ### Variables
 
@@ -169,7 +174,7 @@
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:177
+packages/rapida-physics/lib/next/types.d.ts:214
 
 ___
 
@@ -179,7 +184,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:14
+packages/rapida-physics/lib/next/types.d.ts:14
 
 ___
 
@@ -189,7 +194,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:30
+packages/rapida-physics/lib/next/types.d.ts:67
 
 ___
 
@@ -199,41 +204,41 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:8
+packages/rapida-physics/lib/next/types.d.ts:8
 
 ___
 
-### AtomicProps
+### AtomicParams
 
-Ƭ **AtomicProps**: `Object`
+Ƭ **AtomicParams**: `Object`
 
 #### Type declaration
 
-| Name | Type |
-| :------ | :------ |
-| `allowSleep` | `boolean` |
-| `angularDamping` | `number` |
-| `collisionFilterGroup` | `number` |
-| `collisionFilterMask` | `number` |
-| `collisionResponse` | `number` |
-| `fixedRotation` | `boolean` |
-| `isTrigger` | `boolean` |
-| `linearDamping` | `number` |
-| `mass` | `number` |
-| `material` | `MaterialOptions` |
-| `sleepSpeedLimit` | `number` |
-| `sleepTimeLimit` | `number` |
-| `userData` | `any` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `allowSleep` | `boolean` | If true, the body will automatically fall to sleep. |
+| `angularDamping` | `number` | How much to damp the body angular velocity each step. It can go from 0 to 1. |
+| `collisionFilterGroup` | `number` | The collision group the body belongs to. |
+| `collisionFilterMask` | `number` | The collision group the body can collide with. |
+| `collisionResponse` | `number` | Whether to produce contact forces when in contact with other bodies. Note that contacts will be generated, but they will be disabled - i.e. "collide" events will be raised, but forces will not be altered. |
+| `fixedRotation` | `boolean` | Set to true if you don't want the body to rotate |
+| `isTrigger` | `boolean` | When true the body behaves like a trigger. It does not collide with other bodies but collision events are still triggered. |
+| `linearDamping` | `number` | How much to damp the body velocity each step. It can go from 0 to 1. |
+| `mass` | `number` | The mass of the body |
+| `material` | `MaterialOptions` | The material for the body |
+| `sleepSpeedLimit` | `number` | If the speed (the norm of the velocity) is smaller than this value, the body is considered sleepy. |
+| `sleepTimeLimit` | `number` | If the body has been sleepy for this sleepTimeLimit seconds, it is considered sleeping. |
+| `userData` | `any` | - |
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:15
+packages/rapida-physics/lib/next/types.d.ts:15
 
 ___
 
 ### BodyParams
 
-Ƭ **BodyParams**<`T`\>: `Partial`<[`AtomicProps`](modules.md#atomicprops)\> & `Partial`<[`VectorProps`](modules.md#vectorprops)\> & { `args?`: `T` ; `type?`: [`BodyType`](enums/BodyType.md) ; `onCollide?`: (`e`: [`CollideEvent`](modules.md#collideevent)) => `void` ; `onCollideBegin?`: (`e`: [`CollideBeginEvent`](modules.md#collidebeginevent)) => `void` ; `onCollideEnd?`: (`e`: [`CollideEndEvent`](modules.md#collideendevent)) => `void`  }
+Ƭ **BodyParams**<`T`\>: `Partial`<[`AtomicParams`](modules.md#atomicparams)\> & `Partial`<[`VectorParams`](modules.md#vectorparams)\> & { `args?`: `T` ; `type?`: [`BodyType`](enums/BodyType.md) ; `onCollide?`: (`e`: [`CollideEvent`](modules.md#collideevent)) => `void` ; `onCollideBegin?`: (`e`: [`CollideBeginEvent`](modules.md#collidebeginevent)) => `void` ; `onCollideEnd?`: (`e`: [`CollideEndEvent`](modules.md#collideendevent)) => `void`  }
 
 #### Type parameters
 
@@ -243,13 +248,13 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:342
+packages/rapida-physics/lib/next/types.d.ts:379
 
 ___
 
-### BodyPropsArgsRequired
+### BodyParamsArgsRequired
 
-Ƭ **BodyPropsArgsRequired**<`T`\>: [`BodyParams`](modules.md#bodyparams)<`T`\> & { `args`: `T`  }
+Ƭ **BodyParamsArgsRequired**<`T`\>: [`BodyParams`](modules.md#bodyparams)<`T`\> & { `args`: `T`  }
 
 #### Type parameters
 
@@ -259,7 +264,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:349
+packages/rapida-physics/lib/next/types.d.ts:386
 
 ___
 
@@ -269,17 +274,27 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:353
+packages/rapida-physics/lib/next/types.d.ts:390
 
 ___
 
-### BoxProps
+### BoxCreationParams
 
-Ƭ **BoxProps**: [`BodyParams`](modules.md#bodyparams)<[`Triplet`](modules.md#triplet)\>
+Ƭ **BoxCreationParams**: [`BodyParams`](modules.md#bodyparams) & { `size`: [`Triplet`](modules.md#triplet)  }
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:372
+packages/rapida-physics/lib/next/types.d.ts:409
+
+___
+
+### BoxParams
+
+Ƭ **BoxParams**: [`BodyParams`](modules.md#bodyparams)<[`Triplet`](modules.md#triplet)\>
+
+#### Defined in
+
+packages/rapida-physics/lib/next/types.d.ts:412
 
 ___
 
@@ -289,7 +304,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:249
+packages/rapida-physics/lib/next/types.d.ts:286
 
 ___
 
@@ -306,7 +321,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:96
+packages/rapida-physics/lib/next/types.d.ts:133
 
 ___
 
@@ -324,7 +339,7 @@ Parameters for creating a CSSRenderer
 
 #### Defined in
 
-[rapida/src/renderer/css-renderer.ts:15](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/css-renderer.ts#L15)
+[packages/rapida/src/renderer/css/css-renderer.ts:15](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-renderer.ts#L15)
 
 ___
 
@@ -346,7 +361,7 @@ Params for creating a css view
 
 #### Defined in
 
-[rapida/src/renderer/css-view.ts:11](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/css-view.ts#L11)
+[packages/rapida/src/renderer/css/css-view.ts:11](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L11)
 
 ___
 
@@ -363,7 +378,7 @@ ___
 
 #### Defined in
 
-[rapida/src/camera/camera.ts:5](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/camera/camera.ts#L5)
+[packages/rapida/src/camera/camera.ts:5](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/camera/camera.ts#L5)
 
 ___
 
@@ -381,7 +396,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:113
+packages/rapida-physics/lib/next/types.d.ts:150
 
 ___
 
@@ -399,7 +414,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:118
+packages/rapida-physics/lib/next/types.d.ts:155
 
 ___
 
@@ -409,7 +424,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:104
+packages/rapida-physics/lib/next/types.d.ts:141
 
 ___
 
@@ -425,7 +440,7 @@ ___
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:6](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/component.ts#L6)
+[packages/rapida/src/ecs/component.ts:6](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/component.ts#L6)
 
 ___
 
@@ -435,7 +450,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:56
+packages/rapida-physics/lib/next/types.d.ts:93
 
 ___
 
@@ -451,7 +466,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:87
+packages/rapida-physics/lib/next/types.d.ts:124
 
 ___
 
@@ -461,7 +476,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:86
+packages/rapida-physics/lib/next/types.d.ts:123
 
 ___
 
@@ -477,17 +492,17 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:364
+packages/rapida-physics/lib/next/types.d.ts:401
 
 ___
 
-### ConvexPolyhedronProps
+### ConvexPolyhedronParams
 
-Ƭ **ConvexPolyhedronProps**: [`BodyParams`](modules.md#bodyparams)<[`ConvexPolyhedronArgs`](modules.md#convexpolyhedronargs)\>
+Ƭ **ConvexPolyhedronParams**: [`BodyParams`](modules.md#bodyparams)<[`ConvexPolyhedronArgs`](modules.md#convexpolyhedronargs)\>
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:378
+packages/rapida-physics/lib/next/types.d.ts:448
 
 ___
 
@@ -497,17 +512,27 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:354
+packages/rapida-physics/lib/next/types.d.ts:391
 
 ___
 
-### CylinderProps
+### CylinderCreationParams
 
-Ƭ **CylinderProps**: [`BodyParams`](modules.md#bodyparams)<[`CylinderArgs`](modules.md#cylinderargs)\>
+Ƭ **CylinderCreationParams**: [`BodyParams`](modules.md#bodyparams) & { `height?`: `number` ; `numSegments?`: `number` ; `radiusBottom?`: `number` ; `radiusTop?`: `number`  }
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:373
+packages/rapida-physics/lib/next/types.d.ts:413
+
+___
+
+### CylinderParams
+
+Ƭ **CylinderParams**: [`BodyParams`](modules.md#bodyparams)<[`CylinderArgs`](modules.md#cylinderargs)\>
+
+#### Defined in
+
+packages/rapida-physics/lib/next/types.d.ts:431
 
 ___
 
@@ -524,7 +549,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:245
+packages/rapida-physics/lib/next/types.d.ts:282
 
 ___
 
@@ -545,7 +570,25 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:446
+packages/rapida-physics/lib/next/types.d.ts:516
+
+___
+
+### EngineParams
+
+Ƭ **EngineParams**: `Object`
+
+Parameters for creating a new rapida engine
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `debug?` | `boolean` |
+
+#### Defined in
+
+[packages/rapida/src/engine/index.ts:9](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/engine/index.ts#L9)
 
 ___
 
@@ -562,7 +605,7 @@ ___
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:10](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/entity.ts#L10)
+[packages/rapida/src/ecs/entity.ts:10](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/entity.ts#L10)
 
 ___
 
@@ -594,7 +637,7 @@ An event handler that takes an event or a type that extends the event type
 
 #### Defined in
 
-rapida-common/lib/events/event-handler.d.ts:5
+packages/rapida-common/lib/events/event-handler.d.ts:5
 
 ___
 
@@ -615,7 +658,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:262
+packages/rapida-physics/lib/next/types.d.ts:299
 
 ___
 
@@ -625,17 +668,17 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:356
+packages/rapida-physics/lib/next/types.d.ts:393
 
 ___
 
-### HeightfieldProps
+### HeightfieldParams
 
-Ƭ **HeightfieldProps**: [`BodyPropsArgsRequired`](modules.md#bodypropsargsrequired)<[`HeightfieldArgs`](modules.md#heightfieldargs)\>
+Ƭ **HeightfieldParams**: [`BodyParamsArgsRequired`](modules.md#bodyparamsargsrequired)<[`HeightfieldArgs`](modules.md#heightfieldargs)\>
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:377
+packages/rapida-physics/lib/next/types.d.ts:447
 
 ___
 
@@ -645,7 +688,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:64
+packages/rapida-physics/lib/next/types.d.ts:101
 
 ___
 
@@ -655,7 +698,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:336
+packages/rapida-physics/lib/next/types.d.ts:373
 
 ___
 
@@ -665,7 +708,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:410
+packages/rapida-physics/lib/next/types.d.ts:480
 
 ___
 
@@ -675,17 +718,19 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:250
+packages/rapida-physics/lib/next/types.d.ts:287
 
 ___
 
-### ParticleProps
+### ParticleParams
 
-Ƭ **ParticleProps**: [`BodyParams`](modules.md#bodyparams)
+Ƭ **ParticleParams**: [`BodyParams`](modules.md#bodyparams)
+
+Params for creating a particle
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:374
+packages/rapida-physics/lib/next/types.d.ts:435
 
 ___
 
@@ -706,7 +751,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:235
+packages/rapida-physics/lib/next/types.d.ts:272
 
 ___
 
@@ -725,7 +770,7 @@ Debugging information available to a debugger
 
 #### Defined in
 
-rapida-physics/lib/physics-debugger.d.ts:14
+packages/rapida-physics/lib/next/physics-debugger.d.ts:14
 
 ___
 
@@ -737,7 +782,7 @@ Color for the physics debugger to use
 
 #### Defined in
 
-rapida-physics/lib/physics-debugger.d.ts:23
+packages/rapida-physics/lib/next/physics-debugger.d.ts:23
 
 ___
 
@@ -766,7 +811,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:454
+packages/rapida-physics/lib/next/types.d.ts:524
 
 ___
 
@@ -800,23 +845,23 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:473
+packages/rapida-physics/lib/next/types.d.ts:543
 
 ___
 
-### PlaneProps
+### PlaneParams
 
-Ƭ **PlaneProps**: [`BodyParams`](modules.md#bodyparams)
+Ƭ **PlaneParams**: [`BodyParams`](modules.md#bodyparams)
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:371
+packages/rapida-physics/lib/next/types.d.ts:408
 
 ___
 
 ### PropValue
 
-Ƭ **PropValue**<`T`\>: `T` extends [`AtomicName`](modules.md#atomicname) ? [`AtomicProps`](modules.md#atomicprops)[`T`] : `T` extends [`VectorName`](modules.md#vectorname) ? [`Triplet`](modules.md#triplet) : `T` extends ``"sliding"`` ? `boolean` : `never`
+Ƭ **PropValue**<`T`\>: `T` extends [`AtomicName`](modules.md#atomicname) ? [`AtomicParams`](modules.md#atomicparams)[`T`] : `T` extends [`VectorName`](modules.md#vectorname) ? [`Triplet`](modules.md#triplet) : `T` extends ``"sliding"`` ? `boolean` : `never`
 
 #### Type parameters
 
@@ -826,7 +871,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:144
+packages/rapida-physics/lib/next/types.d.ts:181
 
 ___
 
@@ -836,7 +881,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:13
+packages/rapida-physics/lib/next/types.d.ts:13
 
 ___
 
@@ -854,7 +899,7 @@ ___
 
 #### Defined in
 
-[rapida/src/ecs/query.ts:12](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/query.ts#L12)
+[packages/rapida/src/ecs/query.ts:12](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/query.ts#L12)
 
 ___
 
@@ -864,7 +909,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:176
+packages/rapida-physics/lib/next/types.d.ts:213
 
 ___
 
@@ -874,7 +919,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:175
+packages/rapida-physics/lib/next/types.d.ts:212
 
 ___
 
@@ -884,7 +929,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:123
+packages/rapida-physics/lib/next/types.d.ts:160
 
 ___
 
@@ -898,27 +943,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:100
-
-___
-
-### RuntimeParams
-
-Ƭ **RuntimeParams**: `Object`
-
-Parameters for creating a new rapida runtime
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `debug?` | `boolean` |
-| `maxGameLoopUpdatesPerSecond?` | `number` |
-| `maxPhysicsUpdatesPerSecond?` | `number` |
-
-#### Defined in
-
-[rapida/src/runtime/index.ts:9](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/runtime/index.ts#L9)
+packages/rapida-physics/lib/next/types.d.ts:137
 
 ___
 
@@ -934,13 +959,13 @@ ___
 
 #### Defined in
 
-[rapida/src/scene/scene.ts:4](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/scene/scene.ts#L4)
+[packages/rapida/src/scene/scene.ts:4](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/scene/scene.ts#L4)
 
 ___
 
-### SerializableBodyProps
+### SerializableBodyParams
 
-Ƭ **SerializableBodyProps**: `Object`
+Ƭ **SerializableBodyParams**: `Object`
 
 #### Type declaration
 
@@ -950,7 +975,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:211
+packages/rapida-physics/lib/next/types.d.ts:248
 
 ___
 
@@ -966,7 +991,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:145
+packages/rapida-physics/lib/next/types.d.ts:182
 
 ___
 
@@ -976,7 +1001,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:352
+packages/rapida-physics/lib/next/types.d.ts:389
 
 ___
 
@@ -994,17 +1019,29 @@ Params for creating a new Space
 
 #### Defined in
 
-[rapida/src/ecs/space.ts:17](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/space.ts#L17)
+[packages/rapida/src/ecs/space.ts:17](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/space.ts#L17)
 
 ___
 
-### SphereProps
+### SphereCreationParams
 
-Ƭ **SphereProps**: [`BodyParams`](modules.md#bodyparams)<`number`\>
+Ƭ **SphereCreationParams**: [`BodyParams`](modules.md#bodyparams) & { `radius`: `number`  }
+
+Params for creating a sphere
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:375
+packages/rapida-physics/lib/next/types.d.ts:439
+
+___
+
+### SphereParams
+
+Ƭ **SphereParams**: [`BodyParams`](modules.md#bodyparams)<`number`\>
+
+#### Defined in
+
+packages/rapida-physics/lib/next/types.d.ts:445
 
 ___
 
@@ -1014,7 +1051,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:76
+packages/rapida-physics/lib/next/types.d.ts:113
 
 ___
 
@@ -1024,7 +1061,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:138
+packages/rapida-physics/lib/next/types.d.ts:175
 
 ___
 
@@ -1034,7 +1071,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:12
+packages/rapida-physics/lib/next/types.d.ts:12
 
 ___
 
@@ -1044,7 +1081,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:221
+packages/rapida-physics/lib/next/types.d.ts:258
 
 ___
 
@@ -1054,7 +1091,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:141
+packages/rapida-physics/lib/next/types.d.ts:178
 
 ___
 
@@ -1071,7 +1108,7 @@ ___
 
 #### Defined in
 
-[rapida/src/ecs/system.ts:12](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system.ts#L12)
+[packages/rapida/src/ecs/system.ts:12](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/system.ts#L12)
 
 ___
 
@@ -1081,17 +1118,17 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:355
+packages/rapida-physics/lib/next/types.d.ts:392
 
 ___
 
-### TrimeshProps
+### TrimeshParams
 
-Ƭ **TrimeshProps**: [`BodyPropsArgsRequired`](modules.md#bodypropsargsrequired)<[`TrimeshArgs`](modules.md#trimeshargs)\>
+Ƭ **TrimeshParams**: [`BodyParamsArgsRequired`](modules.md#bodyparamsargsrequired)<[`TrimeshArgs`](modules.md#trimeshargs)\>
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:376
+packages/rapida-physics/lib/next/types.d.ts:446
 
 ___
 
@@ -1101,7 +1138,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:4
+packages/rapida-physics/lib/next/types.d.ts:4
 
 ___
 
@@ -1111,7 +1148,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:36
+packages/rapida-physics/lib/next/types.d.ts:73
 
 ___
 
@@ -1121,17 +1158,17 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:10
+packages/rapida-physics/lib/next/types.d.ts:10
 
 ___
 
-### VectorProps
+### VectorParams
 
-Ƭ **VectorProps**: `Record`<[`PublicVectorName`](modules.md#publicvectorname), [`Triplet`](modules.md#triplet)\>
+Ƭ **VectorParams**: `Record`<[`PublicVectorName`](modules.md#publicvectorname), [`Triplet`](modules.md#triplet)\>
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:6
+packages/rapida-physics/lib/next/types.d.ts:6
 
 ___
 
@@ -1141,7 +1178,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:5
+packages/rapida-physics/lib/next/types.d.ts:5
 
 ___
 
@@ -1159,7 +1196,7 @@ Type for a view event name
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:163](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L163)
+[packages/rapida/src/renderer/view.ts:163](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L163)
 
 ___
 
@@ -1177,7 +1214,7 @@ A view interaction event subscription that contains a method for unsubscribing
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:63](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L63)
+[packages/rapida/src/renderer/view.ts:63](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L63)
 
 ___
 
@@ -1196,7 +1233,7 @@ A mouse event for a webgl view
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:85](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L85)
+[packages/rapida/src/renderer/view.ts:85](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L85)
 
 ___
 
@@ -1217,7 +1254,7 @@ A view rectangle given by decimal percentage values
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:228](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L228)
+[packages/rapida/src/renderer/view.ts:228](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L228)
 
 ___
 
@@ -1236,7 +1273,7 @@ A view rectangle parameter with a type and value
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:181](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L181)
+[packages/rapida/src/renderer/view.ts:181](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L181)
 
 ___
 
@@ -1252,7 +1289,7 @@ A ViewParam, which can either be a:
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:193](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L193)
+[packages/rapida/src/renderer/view.ts:193](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L193)
 
 ___
 
@@ -1275,7 +1312,7 @@ ViewRectangleParams provides parameters for a view rectangle
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:206](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L206)
+[packages/rapida/src/renderer/view.ts:206](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L206)
 
 ___
 
@@ -1296,7 +1333,7 @@ The size of a view in pixels
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:218](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L218)
+[packages/rapida/src/renderer/view.ts:218](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L218)
 
 ___
 
@@ -1306,7 +1343,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:90](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L90)
+[packages/rapida/src/renderer/view.ts:90](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L90)
 
 ___
 
@@ -1332,7 +1369,7 @@ A touch event for a webgl view
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:105](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L105)
+[packages/rapida/src/renderer/view.ts:105](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L105)
 
 ___
 
@@ -1351,7 +1388,7 @@ Params for creating a WebGLRenderer
 
 #### Defined in
 
-[rapida/src/renderer/webgl-renderer.ts:16](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-renderer.ts#L16)
+[packages/rapida/src/renderer/webgl/webgl-renderer.ts:16](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/webgl/webgl-renderer.ts#L16)
 
 ___
 
@@ -1376,7 +1413,7 @@ Params for creating a webgl view
 
 #### Defined in
 
-[rapida/src/renderer/webgl-view.ts:25](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/webgl-view.ts#L25)
+[packages/rapida/src/renderer/webgl/webgl-view.ts:25](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/webgl/webgl-view.ts#L25)
 
 ___
 
@@ -1386,7 +1423,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:43
+packages/rapida-physics/lib/next/types.d.ts:80
 
 ___
 
@@ -1405,7 +1442,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:321
+packages/rapida-physics/lib/next/types.d.ts:358
 
 ___
 
@@ -1424,7 +1461,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:328
+packages/rapida-physics/lib/next/types.d.ts:365
 
 ___
 
@@ -1458,7 +1495,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:270
+packages/rapida-physics/lib/next/types.d.ts:307
 
 ___
 
@@ -1468,7 +1505,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:335
+packages/rapida-physics/lib/next/types.d.ts:372
 
 ___
 
@@ -1485,7 +1522,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:253
+packages/rapida-physics/lib/next/types.d.ts:290
 
 ___
 
@@ -1519,7 +1556,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:296
+packages/rapida-physics/lib/next/types.d.ts:333
 
 ___
 
@@ -1531,11 +1568,11 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `runtime` | [`Runtime`](classes/Runtime.md) |
+| `engine` | [`Engine`](classes/Engine.md) |
 
 #### Defined in
 
-[rapida/src/world/world-provider.ts:4](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/world/world-provider.ts#L4)
+[packages/rapida/src/world/world-provider.ts:4](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/world/world-provider.ts#L4)
 
 ___
 
@@ -1549,12 +1586,14 @@ Params for creating a world
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
+| `engine` | [`Engine`](classes/Engine.md) | The engine instance the world is in |
 | `id?` | `string` | The unique id for the world |
-| `runtime` | [`Runtime`](classes/Runtime.md) | The runtime the world is in |
+| `maxGameLoopUpdatesPerSecond?` | `number` | The maximum game loop updates to run per second |
+| `maxPhysicsUpdatesPerSecond?` | `number` | The maximum physics loop updates to run per second |
 
 #### Defined in
 
-[rapida/src/world/world.ts:42](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/world/world.ts#L42)
+[packages/rapida/src/world/world.ts:30](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/world/world.ts#L30)
 
 ___
 
@@ -1564,7 +1603,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:229
+packages/rapida-physics/lib/next/types.d.ts:266
 
 ___
 
@@ -1588,7 +1627,30 @@ ___
 
 #### Defined in
 
-[rapida/src/world/world-provider.ts:8](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/world/world-provider.ts#L8)
+[packages/rapida/src/world/world-provider.ts:8](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/world/world-provider.ts#L8)
+
+___
+
+### XRRendererParams
+
+Ƭ **XRRendererParams**: `Object`
+
+Params for creating a new VRRenderer
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `appendButton?` | `boolean` | Whether a VR/AR button should be appended that will launch on click |
+| `camera` | [`Camera`](classes/Camera.md) | The camera to render with |
+| `domElementId` | `string` | The dom element id for the xr renderer |
+| `mode` | [`XRRendererMode`](enums/XRRendererMode.md) | The mode for the xr renderer, VR or AR |
+| `renderer?` | `WebGLRenderer` | The three WebGLRenderer to use |
+| `scene` | [`Scene`](classes/Scene.md) | The scene to render |
+
+#### Defined in
+
+[packages/rapida/src/renderer/xr/xr-renderer.ts:31](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/xr/xr-renderer.ts#L31)
 
 ## Variables
 
@@ -1598,7 +1660,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:27](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L27)
+[packages/rapida/src/renderer/view.ts:27](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L27)
 
 ___
 
@@ -1608,7 +1670,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:42](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L42)
+[packages/rapida/src/renderer/view.ts:42](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L42)
 
 ___
 
@@ -1618,7 +1680,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:53](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/view.ts#L53)
+[packages/rapida/src/renderer/view.ts:53](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L53)
 
 ___
 
@@ -1628,7 +1690,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:7
+packages/rapida-physics/lib/next/types.d.ts:7
 
 ___
 
@@ -1638,7 +1700,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:11
+packages/rapida-physics/lib/next/types.d.ts:11
 
 ___
 
@@ -1648,7 +1710,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:9
+packages/rapida-physics/lib/next/types.d.ts:9
 
 ## Functions
 
@@ -1662,4 +1724,4 @@ rapida-physics/lib/types.d.ts:9
 
 #### Defined in
 
-rapida-common/lib/util/uuid.d.ts:1
+packages/rapida-common/lib/util/uuid.d.ts:1

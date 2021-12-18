@@ -46,7 +46,7 @@ Constructor for the SystemManager
 
 #### Defined in
 
-[rapida/src/ecs/system-manager.ts:38](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system-manager.ts#L38)
+[packages/rapida/src/ecs/system-manager.ts:38](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/system-manager.ts#L38)
 
 ## Properties
 
@@ -58,7 +58,7 @@ Whether the system manager has been initialised
 
 #### Defined in
 
-[rapida/src/ecs/system-manager.ts:22](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system-manager.ts#L22)
+[packages/rapida/src/ecs/system-manager.ts:22](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/system-manager.ts#L22)
 
 ___
 
@@ -70,7 +70,7 @@ A map of query ids to systems using the query
 
 #### Defined in
 
-[rapida/src/ecs/system-manager.ts:32](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system-manager.ts#L32)
+[packages/rapida/src/ecs/system-manager.ts:32](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/system-manager.ts#L32)
 
 ___
 
@@ -82,7 +82,7 @@ Systems in the System Manager
 
 #### Defined in
 
-[rapida/src/ecs/system-manager.ts:17](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system-manager.ts#L17)
+[packages/rapida/src/ecs/system-manager.ts:17](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/system-manager.ts#L17)
 
 ___
 
@@ -94,7 +94,7 @@ The world the system manager belongs in
 
 #### Defined in
 
-[rapida/src/ecs/system-manager.ts:27](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system-manager.ts#L27)
+[packages/rapida/src/ecs/system-manager.ts:27](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/system-manager.ts#L27)
 
 ## Methods
 
@@ -110,7 +110,7 @@ Destroys all systems
 
 #### Defined in
 
-[rapida/src/ecs/system-manager.ts:111](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system-manager.ts#L111)
+[packages/rapida/src/ecs/system-manager.ts:111](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/system-manager.ts#L111)
 
 ___
 
@@ -126,7 +126,7 @@ Initialises the system manager
 
 #### Defined in
 
-[rapida/src/ecs/system-manager.ts:89](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system-manager.ts#L89)
+[packages/rapida/src/ecs/system-manager.ts:89](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/system-manager.ts#L89)
 
 ___
 
@@ -148,7 +148,7 @@ Updates systems in the system manager
 
 #### Defined in
 
-[rapida/src/ecs/system-manager.ts:100](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system-manager.ts#L100)
+[packages/rapida/src/ecs/system-manager.ts:100](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/system-manager.ts#L100)
 
 ___
 
@@ -170,7 +170,7 @@ Adds a system to the system manager
 
 #### Defined in
 
-[rapida/src/ecs/system-manager.ts:46](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system-manager.ts#L46)
+[packages/rapida/src/ecs/system-manager.ts:46](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/system-manager.ts#L46)
 
 ___
 
@@ -193,7 +193,7 @@ Adds a system to a query
 
 #### Defined in
 
-[rapida/src/ecs/system-manager.ts:120](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system-manager.ts#L120)
+[packages/rapida/src/ecs/system-manager.ts:120](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/system-manager.ts#L120)
 
 ___
 
@@ -215,7 +215,7 @@ Removes a system from the system manager
 
 #### Defined in
 
-[rapida/src/ecs/system-manager.ts:70](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system-manager.ts#L70)
+[packages/rapida/src/ecs/system-manager.ts:70](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/system-manager.ts#L70)
 
 ___
 
@@ -238,4 +238,4 @@ Removes a system from a query
 
 #### Defined in
 
-[rapida/src/ecs/system-manager.ts:136](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/ecs/system-manager.ts#L136)
+[packages/rapida/src/ecs/system-manager.ts:136](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/system-manager.ts#L136)

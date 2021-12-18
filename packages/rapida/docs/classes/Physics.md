@@ -58,7 +58,7 @@ Constructor for a Physics world
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:103
+packages/rapida-physics/lib/next/physics.d.ts:103
 
 ## Properties
 
@@ -68,7 +68,7 @@ rapida-physics/lib/physics.d.ts:103
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:135
+packages/rapida-physics/lib/next/physics.d.ts:135
 
 ___
 
@@ -80,7 +80,7 @@ The physics web worker
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:24
+packages/rapida-physics/lib/next/physics.d.ts:24
 
 ___
 
@@ -96,7 +96,7 @@ A map of body uuids to their ordered position
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:96
+packages/rapida-physics/lib/next/physics.d.ts:96
 
 ___
 
@@ -108,7 +108,7 @@ The buffers that are shared with the worker
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:84
+packages/rapida-physics/lib/next/physics.d.ts:84
 
 ___
 
@@ -120,7 +120,7 @@ The physics world parameters
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:16
+packages/rapida-physics/lib/next/physics.d.ts:16
 
 ___
 
@@ -132,7 +132,7 @@ A debugger for the physics world that if set, will be called on adding to and re
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:20
+packages/rapida-physics/lib/next/physics.d.ts:20
 
 ___
 
@@ -144,7 +144,7 @@ A map of body uuids to event handlers for cannon events
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:88
+packages/rapida-physics/lib/next/physics.d.ts:88
 
 ___
 
@@ -154,7 +154,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:137
+packages/rapida-physics/lib/next/physics.d.ts:137
 
 ___
 
@@ -164,7 +164,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:138
+packages/rapida-physics/lib/next/physics.d.ts:138
 
 ___
 
@@ -174,7 +174,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:139
+packages/rapida-physics/lib/next/physics.d.ts:139
 
 ___
 
@@ -184,7 +184,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:136
+packages/rapida-physics/lib/next/physics.d.ts:136
 
 ___
 
@@ -194,7 +194,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:140
+packages/rapida-physics/lib/next/physics.d.ts:140
 
 ___
 
@@ -206,7 +206,7 @@ A name for the physics world
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:12
+packages/rapida-physics/lib/next/physics.d.ts:12
 
 ___
 
@@ -218,7 +218,7 @@ A map of body uuids to their reference Object3D objects
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:80
+packages/rapida-physics/lib/next/physics.d.ts:80
 
 ___
 
@@ -230,7 +230,7 @@ Subscriptions to body properties
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:92
+packages/rapida-physics/lib/next/physics.d.ts:92
 
 ## Accessors
 
@@ -246,7 +246,7 @@ Sets the axis angle
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:32
+packages/rapida-physics/lib/next/physics.d.ts:32
 
 • `set` **axisIndex**(`value`): `void`
 
@@ -264,7 +264,7 @@ Sets the axis angle
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:36
+packages/rapida-physics/lib/next/physics.d.ts:36
 
 ___
 
@@ -280,7 +280,7 @@ Gets the broadphase for the world
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:40
+packages/rapida-physics/lib/next/physics.d.ts:40
 
 • `set` **broadphase**(`value`): `void`
 
@@ -298,7 +298,7 @@ Sets the broadphase for the world
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:44
+packages/rapida-physics/lib/next/physics.d.ts:44
 
 ___
 
@@ -315,31 +315,31 @@ Retrieves physics factories
 | Name | Type |
 | :------ | :------ |
 | `body` | <B\>(`type`: [`BodyShapeType`](../modules.md#bodyshapetype), `params`: `B`, `argsFn`: `ArgFn`<`B`[``"args"``]\>, `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
-| `box` | (`params`: [`BoxProps`](../modules.md#boxprops), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
-| `compoundBody` | (`params`: [`CompoundBodyProps`](../interfaces/CompoundBodyProps.md), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `box` | (`params`: [`BoxCreationParams`](../modules.md#boxcreationparams), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `compoundBody` | (`params`: [`CompoundBodyParams`](../interfaces/CompoundBodyParams.md), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 | `coneTwistConstraint` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`ConeTwistConstraintOpts`](../interfaces/ConeTwistConstraintOpts.md)) => [`ConstraintApi`](../modules.md#constraintapi) |
 | `constraint` | <T\>(`type`: `T`, `bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns?`: `any`) => [`ConstraintORHingeApi`](../modules.md#constraintorhingeapi)<`T`\> |
-| `convexPolyhedron` | (`params`: [`ConvexPolyhedronProps`](../modules.md#convexpolyhedronprops), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
-| `cylinder` | (`params`: [`CylinderProps`](../modules.md#cylinderprops), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `convexPolyhedron` | (`params`: [`ConvexPolyhedronParams`](../modules.md#convexpolyhedronparams), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `cylinder` | (`params`: [`CylinderCreationParams`](../modules.md#cylindercreationparams), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 | `distanceConstraint` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`DistanceConstraintOpts`](../interfaces/DistanceConstraintOpts.md)) => [`ConstraintApi`](../modules.md#constraintapi) |
-| `heightfield` | (`params`: [`HeightfieldProps`](../modules.md#heightfieldprops), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `heightfield` | (`params`: [`HeightfieldParams`](../modules.md#heightfieldparams), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 | `hingeConstraint` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`HingeConstraintOpts`](../interfaces/HingeConstraintOpts.md)) => [`HingeConstraintApi`](../modules.md#hingeconstraintapi) |
 | `lockConstraint` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`ConstraintOptns`](../interfaces/ConstraintOptns.md)) => [`ConstraintApi`](../modules.md#constraintapi) |
-| `particle` | (`params`: [`ParticleProps`](../modules.md#particleprops), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
-| `plane` | (`params`: [`PlaneProps`](../modules.md#planeprops), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `particle` | (`params`: [`ParticleParams`](../modules.md#particleparams), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `plane` | (`params`: [`PlaneParams`](../modules.md#planeparams), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 | `pointToPointConstraint` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`PointToPointConstraintOpts`](../interfaces/PointToPointConstraintOpts.md)) => [`ConstraintApi`](../modules.md#constraintapi) |
 | `ray` | (`mode`: [`RayMode`](../modules.md#raymode), `options`: [`RayHookOptions`](../modules.md#rayhookoptions), `callback`: (`e`: [`RayhitEvent`](../modules.md#rayhitevent)) => `void`) => (`string` \| { `destroy`: () => `void`  })[] |
 | `raycastAll` | (`options`: [`RayHookOptions`](../modules.md#rayhookoptions), `callback`: (`e`: [`RayhitEvent`](../modules.md#rayhitevent)) => `void`) => `void` |
 | `raycastAny` | (`options`: [`RayHookOptions`](../modules.md#rayhookoptions), `callback`: (`e`: [`RayhitEvent`](../modules.md#rayhitevent)) => `void`) => `void` |
 | `raycastClosest` | (`options`: [`RayHookOptions`](../modules.md#rayhookoptions), `callback`: (`e`: [`RayhitEvent`](../modules.md#rayhitevent)) => `void`) => `void` |
-| `raycastVehicle` | (`params`: [`RaycastVehicleProps`](../interfaces/RaycastVehicleProps.md), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Object3D`<`Event`\>, [`RaycastVehiclePublicApi`](../interfaces/RaycastVehiclePublicApi.md)] |
-| `sphere` | (`params`: [`SphereProps`](../modules.md#sphereprops), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `raycastVehicle` | (`params`: [`RaycastVehicleParams`](../interfaces/RaycastVehicleParams.md), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Object3D`<`Event`\>, [`RaycastVehiclePublicApi`](../interfaces/RaycastVehiclePublicApi.md)] |
+| `sphere` | (`params`: [`SphereCreationParams`](../modules.md#spherecreationparams), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 | `spring` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`SpringOptns`](../interfaces/SpringOptns.md)) => [`SpringApi`](../modules.md#springapi) |
-| `trimesh` | (`params`: [`TrimeshProps`](../modules.md#trimeshprops), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `trimesh` | (`params`: [`TrimeshParams`](../modules.md#trimeshparams), `ref?`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:109
+packages/rapida-physics/lib/next/physics.d.ts:109
 
 ___
 
@@ -355,7 +355,7 @@ Gets the default contact material for the world
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:72
+packages/rapida-physics/lib/next/physics.d.ts:72
 
 • `set` **defaultContactMaterial**(`value`): `void`
 
@@ -373,7 +373,7 @@ Sets the default contact material for the world
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:76
+packages/rapida-physics/lib/next/physics.d.ts:76
 
 ___
 
@@ -389,7 +389,7 @@ Gets the gravity for the world
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:48
+packages/rapida-physics/lib/next/physics.d.ts:48
 
 • `set` **gravity**(`value`): `void`
 
@@ -407,7 +407,7 @@ Sets the gravity for the world
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:52
+packages/rapida-physics/lib/next/physics.d.ts:52
 
 ___
 
@@ -423,7 +423,7 @@ Gets the iterations for the world
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:56
+packages/rapida-physics/lib/next/physics.d.ts:56
 
 • `set` **iterations**(`value`): `void`
 
@@ -441,7 +441,7 @@ Sets the iterations for the world
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:60
+packages/rapida-physics/lib/next/physics.d.ts:60
 
 ___
 
@@ -457,7 +457,7 @@ Gets the tolerance for the world
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:64
+packages/rapida-physics/lib/next/physics.d.ts:64
 
 • `set` **tolerance**(`value`): `void`
 
@@ -475,7 +475,7 @@ Sets the tolerance for the world
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:68
+packages/rapida-physics/lib/next/physics.d.ts:68
 
 ___
 
@@ -491,7 +491,7 @@ Getter for the physics web worker
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:28
+packages/rapida-physics/lib/next/physics.d.ts:28
 
 ## Methods
 
@@ -505,7 +505,7 @@ rapida-physics/lib/physics.d.ts:28
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:104
+packages/rapida-physics/lib/next/physics.d.ts:104
 
 ___
 
@@ -525,4 +525,4 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/physics.d.ts:105
+packages/rapida-physics/lib/next/physics.d.ts:105

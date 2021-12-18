@@ -35,7 +35,7 @@ Constructor for a camera
 
 #### Defined in
 
-[rapida/src/camera/camera.ts:34](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/camera/camera.ts#L34)
+[packages/rapida/src/camera/camera.ts:34](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/camera/camera.ts#L34)
 
 ## Properties
 
@@ -47,7 +47,7 @@ A unique id for the camera
 
 #### Defined in
 
-[rapida/src/camera/camera.ts:17](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/camera/camera.ts#L17)
+[packages/rapida/src/camera/camera.ts:17](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/camera/camera.ts#L17)
 
 ___
 
@@ -59,7 +59,7 @@ The three js camera
 
 #### Defined in
 
-[rapida/src/camera/camera.ts:22](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/camera/camera.ts#L22)
+[packages/rapida/src/camera/camera.ts:22](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/camera/camera.ts#L22)
 
 ___
 
@@ -71,7 +71,7 @@ The world the camera belongs to
 
 #### Defined in
 
-[rapida/src/camera/camera.ts:27](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/camera/camera.ts#L27)
+[packages/rapida/src/camera/camera.ts:27](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/camera/camera.ts#L27)
 
 ## Accessors
 
@@ -85,7 +85,7 @@ The world the camera belongs to
 
 #### Defined in
 
-[rapida/src/camera/camera.ts:40](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/camera/camera.ts#L40)
+[packages/rapida/src/camera/camera.ts:40](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/camera/camera.ts#L40)
 
 • `set` **position**(`vector3`): `void`
 
@@ -101,4 +101,4 @@ The world the camera belongs to
 
 #### Defined in
 
-[rapida/src/camera/camera.ts:44](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/camera/camera.ts#L44)
+[packages/rapida/src/camera/camera.ts:44](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/camera/camera.ts#L44)

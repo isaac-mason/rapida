@@ -1,6 +1,5 @@
 import { useEffect } from '@storybook/client-api';
-import { BoxBufferGeometry, Mesh, MeshStandardMaterial } from 'three';
-import { BodyType, PhysicsDebugger } from '../../../lib/next';
+import { BodyType } from '../../../lib/next';
 import { createBasicSetup } from '../utils/create-basic-setup';
 
 export default {
@@ -17,7 +16,7 @@ export const Gravity = ({ gravity }: { gravity: { x: number; y: number; z: numbe
     physics.create.box(
       {
         type: BodyType.DYNAMIC,
-        args: [20, 20, 20],
+        size: [20, 20, 20],
         mass: 1,
         position: [0, 75, 0],
         rotation: [0, 0, 0],

@@ -23,25 +23,28 @@ import { AddRaycastVehicleEvent } from './events/vehicle/add-raycast-vehicle';
 import type {
   AtomicName,
   BodyShapeType,
+  BoxCreationParams,
   Buffers,
   CannonWorker,
   CollideBeginEvent,
   CollideEndEvent,
   CollideEvent,
   ConstraintORHingeApi,
+  CylinderCreationParams,
   DefaultContactMaterial,
   IncomingWorkerMessage,
   PhysicsContext,
   PhysicsParams,
   PhysicsWorldConfig,
   PropValue,
-  RaycastVehicleProps,
+  RaycastVehicleParams,
   RaycastVehiclePublicApi,
   RayhitEvent,
   RayHookOptions,
   RayMode,
   Refs,
   SetOpName,
+  SphereCreationParams,
   SpringApi,
   SubscriptionName,
   SubscriptionTarget,
@@ -50,25 +53,25 @@ import type {
 import {
   Api,
   BodyParams,
-  BoxProps,
+  BoxParams,
   Broadphase,
-  CompoundBodyProps,
+  CompoundBodyParams,
   ConeTwistConstraintOpts,
   ConstraintTypes,
   ConvexPolyhedronArgs,
-  ConvexPolyhedronProps,
-  CylinderProps,
+  ConvexPolyhedronParams,
+  CylinderParams,
   DebugApi,
   DistanceConstraintOpts,
-  HeightfieldProps,
+  HeightfieldParams,
   HingeConstraintOpts,
   LockConstraintOpts,
-  ParticleProps,
-  PlaneProps,
+  ParticleParams,
+  PlaneParams,
   PointToPointConstraintOpts,
-  SphereProps,
+  SphereParams,
   SpringOptns,
-  TrimeshProps,
+  TrimeshParams,
   Triplet,
   WorkerApi,
   WorkerCollideBeginEvent,
@@ -106,7 +109,7 @@ function subscribe<T extends SubscriptionName>(
 }
 subscribe.incrementingId = 0;
 
-type ArgFn<T> = (args: T) => unknown[];
+type ArgFn<T> = (args: T) => unknown;
 
 const v = new Vector3();
 const s = new Vector3(1, 1, 1);
@@ -376,6 +379,7 @@ class Physics {
   /**
    * Retrieves physics factories
    */
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public get create() {
     return this._factories;
   }
@@ -577,30 +581,51 @@ class Physics {
 
       return [object, api()];
     },
-    plane: (params: PlaneProps, ref: Object3D | null = null) => {
-      return this._factories.body<PlaneProps>('Plane', params, () => [], ref);
+    plane: (params: PlaneParams, ref: Object3D | null = null) => {
+      return this._factories.body<PlaneParams>('Plane', params, () => [], ref);
     },
-    box: (params: BoxProps, ref: Object3D | null = null) => {
+    box: (params: BoxCreationParams, ref: Object3D | null = null) => {
       const defaultBoxArgs: Triplet = [1, 1, 1];
-      return this._factories.body<BoxProps>('Box', params, (args = defaultBoxArgs): Triplet => args, ref);
+      const { size, ...extra } = params;
+      return this._factories.body<BoxParams>(
+        'Box',
+        { ...extra, args: size },
+        (args = defaultBoxArgs): Triplet => args,
+        ref,
+      );
     },
-    cylinder: (params: CylinderProps, ref: Object3D | null = null) => {
-      return this._factories.body<CylinderProps>('Cylinder', params, (args = [] as []) => args, ref);
+    cylinder: (params: CylinderCreationParams, ref: Object3D | null = null) => {
+      const { radiusTop, radiusBottom, height, numSegments, ...extra } = params;
+      return this._factories.body<CylinderParams>(
+        'Cylinder',
+        { ...extra, args: [radiusTop, radiusBottom, height, numSegments] },
+        (args = []) => args,
+        ref,
+      );
     },
-    heightfield: (params: HeightfieldProps, ref: Object3D | null = null) => {
-      return this._factories.body<HeightfieldProps>('Heightfield', params, (args) => args, ref);
+    heightfield: (params: HeightfieldParams, ref: Object3D | null = null) => {
+      return this._factories.body<HeightfieldParams>('Heightfield', params, (args) => args, ref);
     },
-    particle: (params: ParticleProps, ref: Object3D | null = null) => {
-      return this._factories.body<ParticleProps>('Particle', params, () => [], ref);
+    particle: (params: ParticleParams, ref: Object3D | null = null) => {
+      return this._factories.body<ParticleParams>('Particle', params, () => [], ref);
     },
-    sphere: (params: SphereProps, ref: Object3D | null = null) => {
-      return this._factories.body<SphereProps>('Sphere', params, (radius = 1): [number] => [radius], ref);
+    sphere: (params: SphereCreationParams, ref: Object3D | null = null) => {
+      const { radius, ...extra } = params;
+      return this._factories.body<SphereParams>(
+        'Sphere',
+        {
+          ...extra,
+          args: radius,
+        },
+        (radius = 1): [number] => [radius],
+        ref,
+      );
     },
-    trimesh: (params: TrimeshProps, ref: Object3D | null = null) => {
-      return this._factories.body<TrimeshProps>('Trimesh', params, (args) => args, ref);
+    trimesh: (params: TrimeshParams, ref: Object3D | null = null) => {
+      return this._factories.body<TrimeshParams>('Trimesh', params, (args) => args, ref);
     },
-    convexPolyhedron: (params: ConvexPolyhedronProps, ref: Object3D | null = null) => {
-      return this._factories.body<ConvexPolyhedronProps>(
+    convexPolyhedron: (params: ConvexPolyhedronParams, ref: Object3D | null = null) => {
+      return this._factories.body<ConvexPolyhedronParams>(
         'ConvexPolyhedron',
         params,
         ([vertices, faces, normals, axes, boundingSphereRadius] = []): ConvexPolyhedronArgs<Triplet> => [
@@ -613,7 +638,7 @@ class Physics {
         ref,
       );
     },
-    compoundBody: (params: CompoundBodyProps, ref: Object3D | null = null) => {
+    compoundBody: (params: CompoundBodyParams, ref: Object3D | null = null) => {
       return this._factories.body('Compound', params, (args) => args as unknown[], ref);
     },
     ray: (mode: RayMode, options: RayHookOptions, callback: (e: RayhitEvent) => void) => {
@@ -641,7 +666,7 @@ class Physics {
       this._factories.ray('All', options, callback);
     },
     raycastVehicle: (
-      params: RaycastVehicleProps,
+      params: RaycastVehicleParams,
       ref: Object3D | null = null,
     ): [Object3D, RaycastVehiclePublicApi] => {
       const object = ref || new Object3D();

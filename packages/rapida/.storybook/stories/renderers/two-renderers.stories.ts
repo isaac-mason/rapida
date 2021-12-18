@@ -1,6 +1,6 @@
 import * as three from 'three';
 import {
-  Runtime,
+  Engine,
   World,
   WorldContext,
   WorldProvider,
@@ -13,14 +13,11 @@ export default {
 
 export const TwoRenderers = () => {
   useEffect(() => {
-    const runtime = new Runtime();
-
-    const worldId = 'world';
+    const engine = new Engine();
 
     const worldProvider: WorldProvider = (worldContext: WorldContext): World => {
       const world = new World({
-        id: worldId,
-        runtime: worldContext.runtime,
+        engine: worldContext.engine,
       });
 
       const rendererOne = world.create.renderer.webgl({ domElementId: 'renderer-root-1' });
@@ -60,19 +57,16 @@ export const TwoRenderers = () => {
       return world;
     };
 
-    runtime.registerWorld(worldId, worldProvider);
+    engine.run(worldProvider);
 
-    runtime.startWorld(worldId);
-
-    return () => runtime.destroy();
+    return () => engine.destroy();
   });
 
   return `
   <style>
   #renderer-root-1, #renderer-root-2 {
     width: 100%;
-    margin-bottom: 1rem;
-    height: 20em;
+    height: 50%;
   }
   </style>
   <div id="renderer-root-1"></div>

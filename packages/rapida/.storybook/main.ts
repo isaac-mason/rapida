@@ -44,7 +44,7 @@ module.exports = {
         alias: {
           ...config.resolve.alias,
           three: path.resolve(
-            path.join(__dirname, '../', 'node_modules', 'three')
+            path.join(__dirname, '../../../', 'node_modules', 'three')
           )
         },
       },

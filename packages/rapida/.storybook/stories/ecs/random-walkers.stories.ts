@@ -14,7 +14,7 @@ import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
 import {
   Component,
   Entity,
-  Runtime,
+  Engine,
   Scene,
   System,
   World,
@@ -66,6 +66,9 @@ class FireflyObject3DComponent extends Component {
 
 class WalkingComponent extends Component {
   target?: Vector3;
+  newTargetCountdown = WalkingComponent.initialNewTargetCountdown;
+
+  static initialNewTargetCountdown = 100;
 }
 
 class EnergyComponent extends Component {
@@ -73,9 +76,6 @@ class EnergyComponent extends Component {
 }
 
 class RandomWalkSystem extends System {
-  private newTarget = true;
-  private newTargetTime = 200;
-  private newTargetCounter = 0;
 
   constructor() {
     super({
@@ -88,13 +88,6 @@ class RandomWalkSystem extends System {
   }
 
   onUpdate = (timeElapsed: number) => {
-    this.newTargetCounter += timeElapsed;
-
-    if (this.newTargetCounter > this.newTargetTime) {
-      this.newTarget = true;
-      this.newTargetCounter = 0;
-    }
-
     this.queries.walking.entities.forEach((entity: Entity) => {
       const object = entity.get(FireflyObject3DComponent);
       const walk = entity.get(WalkingComponent);
@@ -102,7 +95,8 @@ class RandomWalkSystem extends System {
 
       const random = () => Math.random() * 10 - 5;
 
-      if (!walk.target || this.newTarget) {
+      walk.newTargetCountdown -= timeElapsed * (Math.random() + 0.001);
+      if (!walk.target || walk.newTargetCountdown <= 0) {
         energy.energy -= (Math.random() + 0.01) * 0.1;
 
         if (energy.energy <= 0) {
@@ -116,13 +110,13 @@ class RandomWalkSystem extends System {
           object.mesh.position.y + random(),
           object.mesh.position.z + random()
         );
+
+        walk.newTargetCountdown = WalkingComponent.initialNewTargetCountdown;
       }
 
       const t = 1.0 - Math.pow(0.001, timeElapsed);
       object.mesh.position.lerp(walk.target, 0.01 * t);
     });
-
-    this.newTarget = false;
   };
 }
 
@@ -162,16 +156,13 @@ class RestingSystem extends System {
 
 export const RandomWalkers = () => {
   useEffect(() => {
-    const runtime = new Runtime({
+    const engine = new Engine({
       debug: true,
     });
 
-    const worldId = 'ECS-Example';
-
     const worldProvider: WorldProvider = (worldContext): World => {
       const world = new World({
-        id: worldId,
-        runtime: worldContext.runtime,
+        engine: worldContext.engine,
       });
 
       const renderer = world.create.renderer.webgl({
@@ -220,17 +211,15 @@ export const RandomWalkers = () => {
         entity.addComponent(WalkingComponent);
       }
 
-      world.addSystem(new RandomWalkSystem());
-      world.addSystem(new RestingSystem());
+      world.add.system(new RandomWalkSystem());
+      world.add.system(new RestingSystem());
 
       return world;
     };
 
-    runtime.registerWorld(worldId, worldProvider);
+    engine.run(worldProvider);
 
-    runtime.startWorld(worldId);
-
-    return () => runtime.destroy();
+    return () => engine.destroy();
   });
 
   return `

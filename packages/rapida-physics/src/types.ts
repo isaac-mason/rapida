@@ -4,7 +4,7 @@ import { PhysicsEventTopic } from './events/physics-event-topic';
 
 export type Triplet = [x: number, y: number, z: number];
 export type VectorTypes = Vector3 | Triplet;
-export type VectorProps = Record<PublicVectorName, Triplet>;
+export type VectorParams = Record<PublicVectorName, Triplet>;
 
 export const atomicNames = [
   'allowSleep',
@@ -40,26 +40,75 @@ export type PublicVectorName = Exclude<VectorName, 'quaternion'> | 'rotation';
 
 export type Api = [Object3D, PhysicsObjectApi];
 
-export type AtomicProps = {
+export type AtomicParams = {
+  /**
+   * If true, the body will automatically fall to sleep.
+   */
   allowSleep: boolean;
+
+  /**
+   * How much to damp the body angular velocity each step. It can go from 0 to 1.
+   */
   angularDamping: number;
+
+  /**
+   * The collision group the body belongs to.
+   */
   collisionFilterGroup: number;
+
+  /**
+   * The collision group the body can collide with.
+   */
   collisionFilterMask: number;
+
+  /**
+   * Whether to produce contact forces when in contact with other bodies. Note that contacts will be generated, but they will be disabled - i.e. "collide" events will be raised, but forces will not be altered.
+   */
   collisionResponse: number;
+
+  /**
+   * Set to true if you don't want the body to rotate
+   */
   fixedRotation: boolean;
+
+  /**
+   * When true the body behaves like a trigger. It does not collide
+   * with other bodies but collision events are still triggered.
+   */
   isTrigger: boolean;
+
+  /**
+   * How much to damp the body velocity each step. It can go from 0 to 1.
+   */
   linearDamping: number;
+
+  /**
+   * The mass of the body
+   */
   mass: number;
+
+  /**
+   * The material for the body
+   */
   material: MaterialOptions;
+
+  /**
+   * If the speed (the norm of the velocity) is smaller than this value, the body is considered sleepy.
+   */
   sleepSpeedLimit: number;
+
+  /**
+   * If the body has been sleepy for this sleepTimeLimit seconds, it is considered sleeping.
+   */
   sleepTimeLimit: number;
+
   userData: any;
 };
 
 export type AtomicApi = {
   [K in AtomicName]: {
-    set: (value: AtomicProps[K]) => void;
-    subscribe: (callback: (value: AtomicProps[K]) => void) => () => void;
+    set: (value: AtomicParams[K]) => void;
+    subscribe: (callback: (value: AtomicParams[K]) => void) => () => void;
   };
 };
 
@@ -182,7 +231,7 @@ export type Subscriptions = Partial<{
 }>;
 
 export type PropValue<T extends SubscriptionName = SubscriptionName> = T extends AtomicName
-  ? AtomicProps[T]
+  ? AtomicParams[T]
   : T extends VectorName
   ? Triplet
   : T extends 'sliding'
@@ -299,11 +348,11 @@ type ApplyMessage =
   | ApplyLocalImpulseMessage
   | ApplyTorque;
 
-export type SerializableBodyProps = {
+export type SerializableBodyParams = {
   onCollide: boolean;
 };
 
-type AddBodiesMessage = WithUUIDs<'addBodies', SerializableBodyProps[]> & { type: BodyShapeType };
+type AddBodiesMessage = WithUUIDs<'addBodies', SerializableBodyParams[]> & { type: BodyShapeType };
 type RemoveBodiesMessage = WithUUIDs<'removeBodies'>;
 
 type BodiesMessage = AddBodiesMessage | RemoveBodiesMessage;
@@ -463,8 +512,8 @@ export enum BodyType {
   KINEMATIC = 'Kinematic',
 }
 
-export type BodyParams<T = unknown> = Partial<AtomicProps> &
-  Partial<VectorProps> & {
+export type BodyParams<T = unknown> = Partial<AtomicParams> &
+  Partial<VectorParams> & {
     args?: T;
     type?: BodyType;
     onCollide?: (e: CollideEvent) => void;
@@ -472,7 +521,7 @@ export type BodyParams<T = unknown> = Partial<AtomicProps> &
     onCollideEnd?: (e: CollideEndEvent) => void;
   };
 
-export type BodyPropsArgsRequired<T = unknown> = BodyParams<T> & {
+export type BodyParamsArgsRequired<T = unknown> = BodyParams<T> & {
   args: T;
 };
 
@@ -488,11 +537,14 @@ export type ShapeType =
 export type BodyShapeType = ShapeType | 'Compound';
 
 export type CylinderArgs = [radiusTop?: number, radiusBottom?: number, height?: number, numSegments?: number];
+
 export type TrimeshArgs = [vertices: ArrayLike<number>, indices: ArrayLike<number>];
+
 export type HeightfieldArgs = [
   data: number[][],
   options: { elementSize?: number; maxValue?: number; minValue?: number },
 ];
+
 export type ConvexPolyhedronArgs<V extends VectorTypes = VectorTypes> = [
   vertices?: V[],
   faces?: number[][],
@@ -501,15 +553,57 @@ export type ConvexPolyhedronArgs<V extends VectorTypes = VectorTypes> = [
   boundingSphereRadius?: number,
 ];
 
-export type PlaneProps = BodyParams;
-export type BoxProps = BodyParams<Triplet>;
-export type CylinderProps = BodyParams<CylinderArgs>;
-export type ParticleProps = BodyParams;
-export type SphereProps = BodyParams<number>;
-export type TrimeshProps = BodyPropsArgsRequired<TrimeshArgs>;
-export type HeightfieldProps = BodyPropsArgsRequired<HeightfieldArgs>;
-export type ConvexPolyhedronProps = BodyParams<ConvexPolyhedronArgs>;
-export interface CompoundBodyProps extends BodyParams {
+export type PlaneParams = BodyParams;
+
+export type BoxCreationParams = BodyParams & { size: Triplet };
+
+export type BoxParams = BodyParams<Triplet>;
+
+export type CylinderCreationParams = BodyParams & {
+  /**
+   * The radius of the top of the cylinder
+   */
+  radiusTop?: number;
+
+  /**
+   * The radius of the bottom of the cylinder
+   */
+  radiusBottom?: number;
+
+  /**
+   * The height of the cylinder
+   */
+  height?: number;
+
+  /**
+   * The number of segments for the cylinder
+   */
+  numSegments?: number;
+};
+
+export type CylinderParams = BodyParams<CylinderArgs>;
+
+/**
+ * Params for creating a particle
+ */
+export type ParticleParams = BodyParams;
+
+/**
+ * Params for creating a sphere
+ */
+export type SphereCreationParams = BodyParams & {
+  /**
+   * The radius of the sphere
+   */
+  radius: number;
+};
+
+export type SphereParams = BodyParams<number>;
+
+export type TrimeshParams = BodyParamsArgsRequired<TrimeshArgs>;
+export type HeightfieldParams = BodyParamsArgsRequired<HeightfieldArgs>;
+export type ConvexPolyhedronParams = BodyParams<ConvexPolyhedronArgs>;
+export interface CompoundBodyParams extends BodyParams {
   shapes: BodyParams & { type: ShapeType }[];
 }
 
@@ -574,7 +668,7 @@ export interface WheelInfoOptions {
   customSlidingRotationalSpeed?: number;
 }
 
-export interface RaycastVehicleProps {
+export interface RaycastVehicleParams {
   chassisBody: Object3D;
   wheels: Object3D[];
   wheelInfos: WheelInfoOptions[];

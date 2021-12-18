@@ -5,7 +5,7 @@ import {
   EventSystem,
   uuid,
 } from '@rapidajs/rapida-common';
-import { Runtime } from '../runtime';
+import { Engine } from '../engine';
 import { Scene, SceneParams } from '../scene';
 import {
   System,
@@ -22,19 +22,7 @@ import {
   CSSRenderer,
   CSSRendererParams,
 } from '../renderer';
-
-type RendererFactories = {
-  webgl: (params: WebGLRendererParams) => WebGLRenderer;
-  css: (params: CSSRendererParams) => CSSRenderer;
-};
-
-type WorldFactories = {
-  space: (params?: SpaceParams) => Space;
-  camera: (params?: CameraParams) => Camera;
-  scene: (params?: SceneParams) => Scene;
-  physics: (params: PhysicsParams) => Physics;
-  renderer: RendererFactories;
-};
+import { XRRenderer, XRRendererParams } from '../renderer/xr/xr-renderer';
 
 /**
  * Params for creating a world
@@ -46,9 +34,19 @@ type WorldParams = {
   id?: string;
 
   /**
-   * The runtime the world is in
+   * The engine instance the world is in
    */
-  runtime: Runtime;
+  engine: Engine;
+
+  /**
+   * The maximum game loop updates to run per second
+   */
+  maxGameLoopUpdatesPerSecond?: number;
+
+  /**
+   * The maximum physics loop updates to run per second
+   */
+  maxPhysicsUpdatesPerSecond?: number;
 };
 
 /**
@@ -101,9 +99,34 @@ class World {
   initialised = false;
 
   /**
-   * The runtime the world is in
+   * The engine instance the world is in
    */
-  runtime: Runtime;
+  engine: Engine;
+
+  /**
+   * The maximum game loop updates to run per second
+   */
+  _maxGameLoopUpdatesPerSecond: number;
+
+  /**
+   * The delay between game loop updates, based on _maxGameLoopUpdatesPerSecond
+   */
+  _gameLoopUpdateDelayMs: number;
+
+  /**
+   * The maximum physics loop updates to run per second
+   */
+  _maxPhysicsUpdatesPerSecond: number;
+
+  /**
+   * The delay between physics updates, based on _maxPhysicsUpdatesPerSecond
+   */
+  _physicsUpdateDelayMs: number;
+
+  /**
+   * The delta value for the physics worlds, based on _maxPhysicsUpdatesPerSecond
+   */
+  _physicsDelta?: number;
 
   /**
    * The event system for the world
@@ -114,21 +137,24 @@ class World {
    * Constructor for a World
    * @param id a unique id for the world
    */
-  constructor({ id, runtime }: WorldParams) {
+  constructor({
+    id,
+    engine,
+    maxGameLoopUpdatesPerSecond,
+    maxPhysicsUpdatesPerSecond,
+  }: WorldParams) {
     this.id = id || uuid();
-    this.runtime = runtime;
+    this.engine = engine;
+
+    this._maxGameLoopUpdatesPerSecond = maxGameLoopUpdatesPerSecond || 60;
+    this._maxPhysicsUpdatesPerSecond = maxPhysicsUpdatesPerSecond || 60;
+    this._gameLoopUpdateDelayMs = 1000 / this._maxGameLoopUpdatesPerSecond;
+    this._physicsUpdateDelayMs = 1000 / this._maxPhysicsUpdatesPerSecond;
+    this._physicsDelta = 1 / this._maxPhysicsUpdatesPerSecond;
+
     this.queryManager = new QueryManager(this);
     this.systemManager = new SystemManager(this);
     this.rendererManager = new RendererManager();
-  }
-
-  /**
-   * Adds a system to the World
-   * @param system the system to add to the world
-   */
-  addSystem(system: System): World {
-    this.systemManager.addSystem(system);
-    return this;
   }
 
   /**
@@ -245,7 +271,7 @@ class World {
   /**
    * Factories for creating renderers in the world
    */
-  private _rendererFactories: RendererFactories = {
+  private _rendererFactories = {
     /**
      * Creates a new webgl renderer
      * @param params params for the webgl renderer
@@ -268,12 +294,49 @@ class World {
 
       return renderer;
     },
+    /**
+     * Creates a new xr renderer
+     * @param params the params for the xr renderer
+     * @returns the new xr renderer
+     */
+    xr: (params: XRRendererParams): XRRenderer => {
+      const renderer = new XRRenderer(params);
+      this.rendererManager.addRenderer(renderer);
+
+      return renderer;
+    },
+  };
+
+  /**
+   * Methods for adding something to the world
+   */
+  private _add: {
+    system: (system: System) => World;
+  } = {
+    /**
+     * Adds a system to the World
+     * @param system the system to add to the world
+     */
+    system: (system: System) => {
+      this.systemManager.addSystem(system);
+      return this;
+    },
   };
 
   /**
    * Factories for creating something new in a world
    */
-  private _factories: WorldFactories = {
+  private _factories: {
+    space: (params?: SpaceParams) => Space;
+    camera: (params?: CameraParams) => Camera;
+    scene: (params?: SceneParams) => Scene;
+    physics: (params: PhysicsParams) => Physics;
+    renderer: {
+      webgl: (params: WebGLRendererParams) => WebGLRenderer;
+      css: (params: CSSRendererParams) => CSSRenderer;
+      xr: (params: XRRendererParams) => XRRenderer;
+    };
+  } = {
     /**
      * Creates a space in the world
      * @param params the params for the space
@@ -316,11 +379,14 @@ class World {
      * @param params the params for the new physics instance
      * @returns the new physics instance
      */
-    physics: (params: Exclude<PhysicsParams, 'delta'>): Physics => {
+    physics: (
+      params: Exclude<PhysicsParams, 'delta'> & { maxUpdatesPerSec?: number }
+    ): Physics => {
       const physics = new Physics({
         ...params,
-        delta: this.runtime.physicsDelta,
+        delta: this._physicsDelta,
       });
+
       this.physics.set(physics.id, physics);
 
       return physics;
@@ -334,8 +400,14 @@ class World {
   /**
    * Retrieves world factories
    */
-  public get create(): WorldFactories {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  public get create() {
     return this._factories;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  public get add() {
+    return this._add;
   }
 }
 

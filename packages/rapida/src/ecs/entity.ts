@@ -54,12 +54,6 @@ class Entity {
   space: Space;
 
   /**
-   * A map of component ids to update functions
-   */
-  private componentUpdatePool: Map<string, (timeElapsed: number) => void> =
-    new Map();
-
-  /**
    * The entities event system
    */
   private events = new EventSystem();
@@ -85,10 +79,7 @@ class Entity {
    * Updates the entity
    * @param timeElapsed the time since the last update in milliseconds
    */
-  _update(timeElapsed: number): void {
-    // Run all component updates
-    this.componentUpdatePool.forEach((update) => update(timeElapsed));
-
+  _update(_timeElapsed: number): void {
     // Process events in the buffer
     this.events.tick();
   }
@@ -134,7 +125,7 @@ class Entity {
     }
 
     if (component.onUpdate) {
-      this.componentUpdatePool.set(component.id, component.onUpdate);
+      this.space._componentUpdatePool.set(component.id, component.onUpdate);
     }
 
     this.space.world.queryManager.onEntityComponentAdded(this, component);
@@ -170,7 +161,7 @@ class Entity {
     this.componentNames.delete(component.constructor.name);
 
     if (component.onUpdate) {
-      this.componentUpdatePool.delete(component.id);
+      this.space._componentUpdatePool.delete(component.id);
     }
 
     if (component.onDestroy) {

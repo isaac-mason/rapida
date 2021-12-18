@@ -58,7 +58,7 @@ Constructor for a Physics world
 
 #### Defined in
 
-[src/physics.ts:285](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L285)
+[packages/rapida-physics/src/physics.ts:288](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L288)
 
 ## Properties
 
@@ -71,31 +71,31 @@ Constructor for a Physics world
 | Name | Type |
 | :------ | :------ |
 | `body` | <B\>(`type`: [`BodyShapeType`](../modules.md#bodyshapetype), `params`: `B`, `argsFn`: `ArgFn`<`B`[``"args"``]\>, `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
-| `box` | (`params`: [`BoxProps`](../modules.md#boxprops), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
-| `compoundBody` | (`params`: [`CompoundBodyProps`](../interfaces/CompoundBodyProps.md), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `box` | (`params`: [`BoxCreationParams`](../modules.md#boxcreationparams), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `compoundBody` | (`params`: [`CompoundBodyParams`](../interfaces/CompoundBodyParams.md), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 | `coneTwistConstraint` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`ConeTwistConstraintOpts`](../interfaces/ConeTwistConstraintOpts.md)) => [`ConstraintApi`](../modules.md#constraintapi) |
 | `constraint` | <T\>(`type`: `T`, `bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: `any`) => [`ConstraintORHingeApi`](../modules.md#constraintorhingeapi)<`T`\> |
-| `convexPolyhedron` | (`params`: [`ConvexPolyhedronProps`](../modules.md#convexpolyhedronprops), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
-| `cylinder` | (`params`: [`CylinderProps`](../modules.md#cylinderprops), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `convexPolyhedron` | (`params`: [`ConvexPolyhedronParams`](../modules.md#convexpolyhedronparams), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `cylinder` | (`params`: [`CylinderCreationParams`](../modules.md#cylindercreationparams), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 | `distanceConstraint` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`DistanceConstraintOpts`](../interfaces/DistanceConstraintOpts.md)) => [`ConstraintApi`](../modules.md#constraintapi) |
-| `heightfield` | (`params`: [`HeightfieldProps`](../modules.md#heightfieldprops), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `heightfield` | (`params`: [`HeightfieldParams`](../modules.md#heightfieldparams), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 | `hingeConstraint` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`HingeConstraintOpts`](../interfaces/HingeConstraintOpts.md)) => [`HingeConstraintApi`](../modules.md#hingeconstraintapi) |
 | `lockConstraint` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`ConstraintOptns`](../interfaces/ConstraintOptns.md)) => [`ConstraintApi`](../modules.md#constraintapi) |
-| `particle` | (`params`: [`ParticleProps`](../modules.md#particleprops), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
-| `plane` | (`params`: [`PlaneProps`](../modules.md#planeprops), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `particle` | (`params`: [`ParticleParams`](../modules.md#particleparams), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `plane` | (`params`: [`PlaneParams`](../modules.md#planeparams), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 | `pointToPointConstraint` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`PointToPointConstraintOpts`](../interfaces/PointToPointConstraintOpts.md)) => [`ConstraintApi`](../modules.md#constraintapi) |
 | `ray` | (`mode`: [`RayMode`](../modules.md#raymode), `options`: [`RayHookOptions`](../modules.md#rayhookoptions), `callback`: (`e`: [`RayhitEvent`](../modules.md#rayhitevent)) => `void`) => (`string` \| { `destroy`: () => `void`  })[] |
 | `raycastAll` | (`options`: [`RayHookOptions`](../modules.md#rayhookoptions), `callback`: (`e`: [`RayhitEvent`](../modules.md#rayhitevent)) => `void`) => `void` |
 | `raycastAny` | (`options`: [`RayHookOptions`](../modules.md#rayhookoptions), `callback`: (`e`: [`RayhitEvent`](../modules.md#rayhitevent)) => `void`) => `void` |
 | `raycastClosest` | (`options`: [`RayHookOptions`](../modules.md#rayhookoptions), `callback`: (`e`: [`RayhitEvent`](../modules.md#rayhitevent)) => `void`) => `void` |
-| `raycastVehicle` | (`params`: [`RaycastVehicleProps`](../interfaces/RaycastVehicleProps.md), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Object3D`<`Event`\>, [`RaycastVehiclePublicApi`](../interfaces/RaycastVehiclePublicApi.md)] |
-| `sphere` | (`params`: [`SphereProps`](../modules.md#sphereprops), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `raycastVehicle` | (`params`: [`RaycastVehicleParams`](../interfaces/RaycastVehicleParams.md), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Object3D`<`Event`\>, [`RaycastVehiclePublicApi`](../interfaces/RaycastVehiclePublicApi.md)] |
+| `sphere` | (`params`: [`SphereCreationParams`](../modules.md#spherecreationparams), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 | `spring` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`SpringOptns`](../interfaces/SpringOptns.md)) => [`SpringApi`](../modules.md#springapi) |
-| `trimesh` | (`params`: [`TrimeshProps`](../modules.md#trimeshprops), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `trimesh` | (`params`: [`TrimeshParams`](../modules.md#trimeshparams), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 
 #### Defined in
 
-[src/physics.ts:383](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L383)
+[packages/rapida-physics/src/physics.ts:387](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L387)
 
 ___
 
@@ -107,7 +107,7 @@ The physics web worker
 
 #### Defined in
 
-[src/physics.ts:154](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L154)
+[packages/rapida-physics/src/physics.ts:157](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L157)
 
 ___
 
@@ -123,7 +123,7 @@ A map of body uuids to their ordered position
 
 #### Defined in
 
-[src/physics.ts:279](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L279)
+[packages/rapida-physics/src/physics.ts:282](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L282)
 
 ___
 
@@ -135,7 +135,7 @@ The buffers that are shared with the worker
 
 #### Defined in
 
-[src/physics.ts:264](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L264)
+[packages/rapida-physics/src/physics.ts:267](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L267)
 
 ___
 
@@ -147,7 +147,7 @@ The physics world parameters
 
 #### Defined in
 
-[src/physics.ts:144](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L144)
+[packages/rapida-physics/src/physics.ts:147](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L147)
 
 ___
 
@@ -159,7 +159,7 @@ A debugger for the physics world that if set, will be called on adding to and re
 
 #### Defined in
 
-[src/physics.ts:149](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L149)
+[packages/rapida-physics/src/physics.ts:152](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L152)
 
 ___
 
@@ -171,7 +171,7 @@ A map of body uuids to event handlers for cannon events
 
 #### Defined in
 
-[src/physics.ts:269](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L269)
+[packages/rapida-physics/src/physics.ts:272](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L272)
 
 ___
 
@@ -183,7 +183,7 @@ A name for the physics world
 
 #### Defined in
 
-[src/physics.ts:139](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L139)
+[packages/rapida-physics/src/physics.ts:142](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L142)
 
 ___
 
@@ -195,7 +195,7 @@ A map of body uuids to their reference Object3D objects
 
 #### Defined in
 
-[src/physics.ts:259](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L259)
+[packages/rapida-physics/src/physics.ts:262](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L262)
 
 ___
 
@@ -207,7 +207,7 @@ Subscriptions to body properties
 
 #### Defined in
 
-[src/physics.ts:274](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L274)
+[packages/rapida-physics/src/physics.ts:277](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L277)
 
 ## Accessors
 
@@ -223,7 +223,7 @@ Sets the axis angle
 
 #### Defined in
 
-[src/physics.ts:166](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L166)
+[packages/rapida-physics/src/physics.ts:169](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L169)
 
 • `set` **axisIndex**(`value`): `void`
 
@@ -241,7 +241,7 @@ Sets the axis angle
 
 #### Defined in
 
-[src/physics.ts:173](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L173)
+[packages/rapida-physics/src/physics.ts:176](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L176)
 
 ___
 
@@ -257,7 +257,7 @@ Gets the broadphase for the world
 
 #### Defined in
 
-[src/physics.ts:181](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L181)
+[packages/rapida-physics/src/physics.ts:184](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L184)
 
 • `set` **broadphase**(`value`): `void`
 
@@ -275,7 +275,7 @@ Sets the broadphase for the world
 
 #### Defined in
 
-[src/physics.ts:188](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L188)
+[packages/rapida-physics/src/physics.ts:191](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L191)
 
 ___
 
@@ -292,31 +292,31 @@ Retrieves physics factories
 | Name | Type |
 | :------ | :------ |
 | `body` | <B\>(`type`: [`BodyShapeType`](../modules.md#bodyshapetype), `params`: `B`, `argsFn`: `ArgFn`<`B`[``"args"``]\>, `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
-| `box` | (`params`: [`BoxProps`](../modules.md#boxprops), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
-| `compoundBody` | (`params`: [`CompoundBodyProps`](../interfaces/CompoundBodyProps.md), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `box` | (`params`: [`BoxCreationParams`](../modules.md#boxcreationparams), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `compoundBody` | (`params`: [`CompoundBodyParams`](../interfaces/CompoundBodyParams.md), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 | `coneTwistConstraint` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`ConeTwistConstraintOpts`](../interfaces/ConeTwistConstraintOpts.md)) => [`ConstraintApi`](../modules.md#constraintapi) |
 | `constraint` | <T\>(`type`: `T`, `bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: `any`) => [`ConstraintORHingeApi`](../modules.md#constraintorhingeapi)<`T`\> |
-| `convexPolyhedron` | (`params`: [`ConvexPolyhedronProps`](../modules.md#convexpolyhedronprops), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
-| `cylinder` | (`params`: [`CylinderProps`](../modules.md#cylinderprops), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `convexPolyhedron` | (`params`: [`ConvexPolyhedronParams`](../modules.md#convexpolyhedronparams), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `cylinder` | (`params`: [`CylinderCreationParams`](../modules.md#cylindercreationparams), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 | `distanceConstraint` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`DistanceConstraintOpts`](../interfaces/DistanceConstraintOpts.md)) => [`ConstraintApi`](../modules.md#constraintapi) |
-| `heightfield` | (`params`: [`HeightfieldProps`](../modules.md#heightfieldprops), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `heightfield` | (`params`: [`HeightfieldParams`](../modules.md#heightfieldparams), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 | `hingeConstraint` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`HingeConstraintOpts`](../interfaces/HingeConstraintOpts.md)) => [`HingeConstraintApi`](../modules.md#hingeconstraintapi) |
 | `lockConstraint` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`ConstraintOptns`](../interfaces/ConstraintOptns.md)) => [`ConstraintApi`](../modules.md#constraintapi) |
-| `particle` | (`params`: [`ParticleProps`](../modules.md#particleprops), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
-| `plane` | (`params`: [`PlaneProps`](../modules.md#planeprops), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `particle` | (`params`: [`ParticleParams`](../modules.md#particleparams), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `plane` | (`params`: [`PlaneParams`](../modules.md#planeparams), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 | `pointToPointConstraint` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`PointToPointConstraintOpts`](../interfaces/PointToPointConstraintOpts.md)) => [`ConstraintApi`](../modules.md#constraintapi) |
 | `ray` | (`mode`: [`RayMode`](../modules.md#raymode), `options`: [`RayHookOptions`](../modules.md#rayhookoptions), `callback`: (`e`: [`RayhitEvent`](../modules.md#rayhitevent)) => `void`) => (`string` \| { `destroy`: () => `void`  })[] |
 | `raycastAll` | (`options`: [`RayHookOptions`](../modules.md#rayhookoptions), `callback`: (`e`: [`RayhitEvent`](../modules.md#rayhitevent)) => `void`) => `void` |
 | `raycastAny` | (`options`: [`RayHookOptions`](../modules.md#rayhookoptions), `callback`: (`e`: [`RayhitEvent`](../modules.md#rayhitevent)) => `void`) => `void` |
 | `raycastClosest` | (`options`: [`RayHookOptions`](../modules.md#rayhookoptions), `callback`: (`e`: [`RayhitEvent`](../modules.md#rayhitevent)) => `void`) => `void` |
-| `raycastVehicle` | (`params`: [`RaycastVehicleProps`](../interfaces/RaycastVehicleProps.md), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Object3D`<`Event`\>, [`RaycastVehiclePublicApi`](../interfaces/RaycastVehiclePublicApi.md)] |
-| `sphere` | (`params`: [`SphereProps`](../modules.md#sphereprops), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `raycastVehicle` | (`params`: [`RaycastVehicleParams`](../interfaces/RaycastVehicleParams.md), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Object3D`<`Event`\>, [`RaycastVehiclePublicApi`](../interfaces/RaycastVehiclePublicApi.md)] |
+| `sphere` | (`params`: [`SphereCreationParams`](../modules.md#spherecreationparams), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 | `spring` | (`bodyA`: `Object3D`<`Event`\>, `bodyB`: `Object3D`<`Event`\>, `optns`: [`SpringOptns`](../interfaces/SpringOptns.md)) => [`SpringApi`](../modules.md#springapi) |
-| `trimesh` | (`params`: [`TrimeshProps`](../modules.md#trimeshprops), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
+| `trimesh` | (`params`: [`TrimeshParams`](../modules.md#trimeshparams), `ref`: ``null`` \| `Object3D`<`Event`\>) => [`Api`](../modules.md#api) |
 
 #### Defined in
 
-[src/physics.ts:379](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L379)
+[packages/rapida-physics/src/physics.ts:383](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L383)
 
 ___
 
@@ -332,7 +332,7 @@ Gets the default contact material for the world
 
 #### Defined in
 
-[src/physics.ts:241](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L241)
+[packages/rapida-physics/src/physics.ts:244](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L244)
 
 • `set` **defaultContactMaterial**(`value`): `void`
 
@@ -350,7 +350,7 @@ Sets the default contact material for the world
 
 #### Defined in
 
-[src/physics.ts:248](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L248)
+[packages/rapida-physics/src/physics.ts:251](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L251)
 
 ___
 
@@ -366,7 +366,7 @@ Gets the gravity for the world
 
 #### Defined in
 
-[src/physics.ts:196](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L196)
+[packages/rapida-physics/src/physics.ts:199](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L199)
 
 • `set` **gravity**(`value`): `void`
 
@@ -384,7 +384,7 @@ Sets the gravity for the world
 
 #### Defined in
 
-[src/physics.ts:203](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L203)
+[packages/rapida-physics/src/physics.ts:206](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L206)
 
 ___
 
@@ -400,7 +400,7 @@ Gets the iterations for the world
 
 #### Defined in
 
-[src/physics.ts:211](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L211)
+[packages/rapida-physics/src/physics.ts:214](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L214)
 
 • `set` **iterations**(`value`): `void`
 
@@ -418,7 +418,7 @@ Sets the iterations for the world
 
 #### Defined in
 
-[src/physics.ts:218](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L218)
+[packages/rapida-physics/src/physics.ts:221](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L221)
 
 ___
 
@@ -434,7 +434,7 @@ Gets the tolerance for the world
 
 #### Defined in
 
-[src/physics.ts:226](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L226)
+[packages/rapida-physics/src/physics.ts:229](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L229)
 
 • `set` **tolerance**(`value`): `void`
 
@@ -452,7 +452,7 @@ Sets the tolerance for the world
 
 #### Defined in
 
-[src/physics.ts:233](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L233)
+[packages/rapida-physics/src/physics.ts:236](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L236)
 
 ___
 
@@ -468,7 +468,7 @@ Getter for the physics web worker
 
 #### Defined in
 
-[src/physics.ts:159](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L159)
+[packages/rapida-physics/src/physics.ts:162](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L162)
 
 ## Methods
 
@@ -482,7 +482,7 @@ Getter for the physics web worker
 
 #### Defined in
 
-[src/physics.ts:359](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L359)
+[packages/rapida-physics/src/physics.ts:362](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L362)
 
 ___
 
@@ -502,7 +502,7 @@ ___
 
 #### Defined in
 
-[src/physics.ts:839](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L839)
+[packages/rapida-physics/src/physics.ts:864](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L864)
 
 ___
 
@@ -522,7 +522,7 @@ ___
 
 #### Defined in
 
-[src/physics.ts:853](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L853)
+[packages/rapida-physics/src/physics.ts:878](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L878)
 
 ___
 
@@ -542,7 +542,7 @@ ___
 
 #### Defined in
 
-[src/physics.ts:868](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L868)
+[packages/rapida-physics/src/physics.ts:893](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L893)
 
 ___
 
@@ -562,7 +562,7 @@ ___
 
 #### Defined in
 
-[src/physics.ts:805](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L805)
+[packages/rapida-physics/src/physics.ts:830](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L830)
 
 ___
 
@@ -582,7 +582,7 @@ ___
 
 #### Defined in
 
-[src/physics.ts:883](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L883)
+[packages/rapida-physics/src/physics.ts:908](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L908)
 
 ___
 
@@ -602,4 +602,4 @@ ___
 
 #### Defined in
 
-[src/physics.ts:363](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida-physics/src/physics.ts#L363)
+[packages/rapida-physics/src/physics.ts:366](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L366)

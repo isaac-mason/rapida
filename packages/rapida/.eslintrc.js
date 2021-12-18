@@ -2,24 +2,35 @@ module.exports = {
   root: true,
   env: {
     browser: true,
-    es2021: true
+    es2021: true,
   },
-  extends: ["airbnb-base", "plugin:prettier/recommended", "plugin:import/typescript", "plugin:@typescript-eslint/eslint-recommended", "plugin:@typescript-eslint/recommended", "plugin:storybook/recommended"],
+  extends: [
+    'airbnb-base',
+    'plugin:prettier/recommended',
+    'plugin:import/typescript',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:storybook/recommended',
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
-      tsx: true
+      tsx: true,
     },
     ecmaVersion: 12,
-    sourceType: 'module'
+    sourceType: 'module',
   },
   plugins: ['@typescript-eslint'],
   rules: {
     'import/prefer-default-export': 'off',
     indent: 'off',
-    'import/extensions': ['error', 'ignorePackages', {
-      ts: 'never'
-    }],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        ts: 'never',
+      },
+    ],
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
     'no-shadow': 'off',
@@ -29,14 +40,17 @@ module.exports = {
     'import/no-cycle': 'off',
     'no-plusplus': 'off',
     'no-param-reassign': 'off',
-    '@typescript-eslint/no-unused-vars': ['warn', {
-      argsIgnorePattern: '^_',
-      varsIgnorePattern: '^_'
-    }]
+    '@typescript-eslint/no-unused-vars': [
+      'warn',
+      {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+      },
+    ],
   },
   settings: {
     'import/resolver': {
-      typescript: {}
-    }
-  }
+      typescript: {},
+    },
+  },
 };

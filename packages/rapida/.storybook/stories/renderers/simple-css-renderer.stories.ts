@@ -1,5 +1,5 @@
 import {
-  Runtime,
+  Engine,
   World,
   WorldContext,
   WorldProvider,
@@ -16,14 +16,11 @@ export default {
 
 export const SimpleCSSRenderer = () => {
   useEffect(() => {
-    const runtime = new Runtime();
-
-    const worldId = 'world';
+    const engine = new Engine();
 
     const worldProvider: WorldProvider = (worldContext: WorldContext): World => {
       const world = new World({
-        id: worldId,
-        runtime: worldContext.runtime,
+        engine: worldContext.engine,
       });
 
       // create renderers
@@ -85,18 +82,16 @@ export const SimpleCSSRenderer = () => {
       return world;
     };
 
-    runtime.registerWorld(worldId, worldProvider);
+    engine.run(worldProvider);
 
-    runtime.startWorld(worldId);
-
-    return () => runtime.destroy();
+    return () => engine.destroy();
   });
 
   return `
   <style>
   #renderer-root {
     width: 100%;
-    height: 30em;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;

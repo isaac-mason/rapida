@@ -1,4 +1,4 @@
-import { WebGLRenderer } from './webgl-renderer';
+import { WebGLRenderer } from './webgl/webgl-renderer';
 import { Renderer } from './renderer';
 
 /**
@@ -24,7 +24,7 @@ class RendererManager {
    * Initialises the renderer manager
    */
   _init(): void {
-    this.renderers.forEach((renderer) => renderer.init());
+    this.renderers.forEach((renderer) => renderer.init && renderer.init());
     this.initialised = true;
   }
 
@@ -41,14 +41,16 @@ class RendererManager {
    * Destroys the renderer manager
    */
   _destroy(): void {
-    this.renderers.forEach((renderer) => renderer.destroy());
+    this.renderers.forEach(
+      (renderer) => renderer.destroy && renderer.destroy()
+    );
   }
 
   /**
    * Calls the render method for all renderers
    */
   render(): void {
-    this.renderers.forEach((renderer) => renderer.render());
+    this.renderers.forEach((renderer) => renderer.render && renderer.render());
   }
 
   /**
@@ -62,7 +64,7 @@ class RendererManager {
       this.renderersWithUpdate.set(renderer.id, renderer);
     }
 
-    if (this.initialised) {
+    if (this.initialised && renderer.init) {
       renderer.init();
     }
   }

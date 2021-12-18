@@ -1,7 +1,7 @@
 import * as three from 'three';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
 import {
-  Runtime,
+  Engine,
   World,
   WorldContext,
   WorldProvider,
@@ -49,7 +49,7 @@ export const TwoViewsEmbedded = () => {
   }
 
   useEffect(() => {
-    const runtime = new Runtime();
+    const engine = new Engine();
 
     const worldId = 'world';
 
@@ -58,7 +58,7 @@ export const TwoViewsEmbedded = () => {
     ): World => {
       const world = new World({
         id: worldId,
-        runtime: worldContext.runtime,
+        engine: worldContext.engine,
       });
 
       const renderer = world.create.renderer.webgl({
@@ -88,14 +88,14 @@ export const TwoViewsEmbedded = () => {
         viewport: {
           right: 0,
           top: 0,
-          width: 0.2,
-          height: 0.2,
+          width: '200px',
+          height: '200px',
         },
         scissor: {
           right: 0,
           top: 0,
-          width: 0.2,
-          height: 0.2,
+          width: '200px',
+          height: '200px',
         },
       });
 
@@ -120,18 +120,16 @@ export const TwoViewsEmbedded = () => {
       return world;
     };
 
-    runtime.registerWorld(worldId, worldProvider);
+    engine.run(worldProvider);
 
-    runtime.startWorld(worldId);
-
-    return () => runtime.destroy();
+    return () => engine.destroy();
   });
 
   return `
   <style>
   #renderer-root {
     width: 100%;
-    height: 80vh;
+    height: 100%;
   }
   </style>
   <div id="renderer-root"></div>

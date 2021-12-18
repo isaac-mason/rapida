@@ -2,7 +2,7 @@ import * as three from 'three';
 import {
   Component,
   Scene,
-  Runtime,
+  Engine,
   World,
   WorldContext,
   WorldProvider,
@@ -78,18 +78,15 @@ export const HelloWorld = () => {
   }
 
   useEffect(() => {
-    const runtime = new Runtime({
+    const engine = new Engine({
       debug: true,
     });
-
-    const worldId = 'SpinningCube';
 
     const worldProvider: WorldProvider = (
       worldContext: WorldContext
     ): World => {
       const world = new World({
-        id: worldId,
-        runtime: worldContext.runtime,
+        engine: worldContext.engine,
       });
 
       const renderer = world.create.renderer.webgl({
@@ -119,11 +116,9 @@ export const HelloWorld = () => {
       return world;
     };
 
-    runtime.registerWorld(worldId, worldProvider);
+    engine.run(worldProvider);
 
-    runtime.startWorld(worldId);
-
-    return () => runtime.destroy();
+    return () => engine.destroy();
   });
 
   return `

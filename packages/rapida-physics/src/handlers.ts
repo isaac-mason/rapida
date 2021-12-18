@@ -38,7 +38,6 @@ import { handleRemoveSpring } from './events/spring/remove-spring';
 import { handleSetSpringDamping } from './events/spring/set-spring-damping';
 import { handleSetSpringRestLength } from './events/spring/set-spring-rest-length';
 import { handleSetSpringStiffness } from './events/spring/set-spring-stiffness';
-import { handleStep } from './events/step';
 import { handleSubscribe } from './events/subscribe';
 import { handleUnsubscribe } from './events/unsubscribe';
 import { handleAddRaycastVehicle } from './events/vehicle/add-raycast-vehicle';
@@ -60,7 +59,6 @@ export type PhysicsEventData = {
 
 const handlers: { [eventName: string]: (e: any, state: State) => void } = {};
 
-handlers[PhysicsEventTopic.STEP] = handleStep;
 handlers[PhysicsEventTopic.ADD_BODIES] = handleAddBodies;
 handlers[PhysicsEventTopic.REMOVE_BODIES] = handleRemoveBodies;
 handlers[PhysicsEventTopic.SUBSCRIBE] = handleSubscribe;

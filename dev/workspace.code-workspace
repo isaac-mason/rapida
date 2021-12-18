@@ -1,0 +1,37 @@
+{
+  "folders": [
+    {
+      "name": "repo",
+      "path": ".."
+    },
+    {
+      "path": "../packages/rapida"
+    },
+    {
+      "path": "../packages/rapida-physics"
+    },
+    {
+      "path": "../packages/rapida-common"
+    },
+    {
+      "path": "../examples/multiplayer-example"
+    }
+  ],
+  "settings": {
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "cSpell.words": [
+      "Initialisation",
+      "Initialise",
+      "initialised",
+      "Initialises",
+      "isaacmason",
+      "pino",
+      "rapida",
+      "Strapi"
+    ],
+    "javascript.preferences.importModuleSpecifier": "relative"
+  },
+  "extensions": {
+    "recommendations": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
+  }
+}

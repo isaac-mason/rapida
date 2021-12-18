@@ -4,6 +4,7 @@
 
 - [`CSSRenderer`](../classes/CSSRenderer.md)
 - [`WebGLRenderer`](../classes/WebGLRenderer.md)
+- [`XRRenderer`](../classes/XRRenderer.md)
 
 ## Table of contents
 
@@ -13,9 +14,9 @@
 
 ### Methods
 
+- [\_onResize](Renderer.md#_onresize)
 - [destroy](Renderer.md#destroy)
 - [init](Renderer.md#init)
-- [onResize](Renderer.md#onresize)
 - [render](Renderer.md#render)
 
 ## Properties
@@ -26,13 +27,13 @@
 
 #### Defined in
 
-[rapida/src/renderer/renderer.ts:2](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/renderer.ts#L2)
+[packages/rapida/src/renderer/renderer.ts:2](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/renderer.ts#L2)
 
 ## Methods
 
-### destroy
+### \_onResize
 
-▸ **destroy**(): `void`
+▸ `Optional` **_onResize**(): `void`
 
 #### Returns
 
@@ -40,13 +41,27 @@
 
 #### Defined in
 
-[rapida/src/renderer/renderer.ts:4](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/renderer.ts#L4)
+[packages/rapida/src/renderer/renderer.ts:5](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/renderer.ts#L5)
+
+___
+
+### destroy
+
+▸ `Optional` **destroy**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[packages/rapida/src/renderer/renderer.ts:4](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/renderer.ts#L4)
 
 ___
 
 ### init
 
-▸ **init**(): `void`
+▸ `Optional` **init**(): `void`
 
 #### Returns
 
@@ -54,27 +69,13 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/renderer.ts:3](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/renderer.ts#L3)
-
-___
-
-### onResize
-
-▸ **onResize**(): `void`
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[rapida/src/renderer/renderer.ts:5](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/renderer.ts#L5)
+[packages/rapida/src/renderer/renderer.ts:3](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/renderer.ts#L3)
 
 ___
 
 ### render
 
-▸ **render**(): `void`
+▸ `Optional` **render**(): `void`
 
 #### Returns
 
@@ -82,4 +83,4 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/renderer.ts:6](https://gitlab.com/rapidajs/rapida/-/blob/67ba736/packages/rapida/src/renderer/renderer.ts#L6)
+[packages/rapida/src/renderer/renderer.ts:6](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/renderer.ts#L6)
