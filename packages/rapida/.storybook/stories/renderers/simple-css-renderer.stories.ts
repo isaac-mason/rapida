@@ -31,7 +31,7 @@ export const SimpleCSSRenderer = () => {
       const scene = world.create.scene();
       const camera = world.create.camera();
       camera.position.set(0, 0, 500);
-      camera.threeCamera.lookAt(0, 0, 0);
+      camera.three.lookAt(0, 0, 0);
 
       // create views
       webglRenderer.create.view({
@@ -56,7 +56,7 @@ export const SimpleCSSRenderer = () => {
       });
 
       // create controls
-      new OrbitControls(camera.threeCamera, cssView.domElement);
+      new OrbitControls(camera.three, cssView.domElement);
 
       // create lights
       var ambientLight = new AmbientLight( 0xffffff, 1 );

@@ -70,11 +70,11 @@ class Cursor extends Component {
 
   updateCursorPosition(x: number, y: number): void {
     const vector = new Vector3(x, y, 0);
-    vector.unproject(this.camera.threeCamera);
+    vector.unproject(this.camera.three);
 
-    const dir = vector.sub(this.camera.threeCamera.position).normalize();
-    const distance = -this.camera.threeCamera.position.z / dir.z;
-    const pos = this.camera.threeCamera.position
+    const dir = vector.sub(this.camera.three.position).normalize();
+    const distance = -this.camera.three.position.z / dir.z;
+    const pos = this.camera.three.position
       .clone()
       .add(dir.multiplyScalar(distance));
 

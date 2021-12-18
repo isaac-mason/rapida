@@ -109,6 +109,7 @@ export const FallingBoxes = ({
   }
 
   class CubeSpawner extends System {
+    queries = {};
     space: Space;
     scene: Scene;
     physics: Physics;
@@ -176,14 +177,14 @@ export const FallingBoxes = ({
       const threeCamera = new PerspectiveCamera(50, 1, 1, 1000);
       const camera = world.create.camera({ id: 'camera', camera: threeCamera });
       camera.position.set(0, 10, 40);
-      camera.threeCamera.lookAt(0, 0, 0);
+      camera.three.lookAt(0, 0, 0);
 
       const view = renderer.create.view({
         camera,
         scene,
       });
 
-      new OrbitControls(camera.threeCamera, view.domElement);
+      new OrbitControls(camera.three, view.domElement);
 
       const directionalLight = new DirectionalLight(0xffffff, 0.75);
       directionalLight.position.set(100, 100, 100);

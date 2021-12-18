@@ -106,11 +106,11 @@ export const TwoViewsSideBySide = () => {
         },
       });
 
-      new OrbitControls(cameraOne.threeCamera, viewOne.domElement);
+      new OrbitControls(cameraOne.three, viewOne.domElement);
 
-      new OrbitControls(cameraTwo.threeCamera, viewTwo.domElement);
+      new OrbitControls(cameraTwo.three, viewTwo.domElement);
 
-      scene.add(new three.CameraHelper(cameraTwo.threeCamera));
+      scene.add(new three.CameraHelper(cameraTwo.three));
 
       const ambientLight = new three.AmbientLight(0xffffff, 0.5);
       scene.add(ambientLight);

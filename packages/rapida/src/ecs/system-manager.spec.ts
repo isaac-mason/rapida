@@ -17,7 +17,7 @@ describe('SystemManager', () => {
 
     onDestroy = () => basicSystemDestroy();
   }
-  const basicSystem = new BasicSystem({ queries: {} });
+  const basicSystem = new BasicSystem();
 
   beforeEach(() => {
     manager = new SystemManager(world);
