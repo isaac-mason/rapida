@@ -1,7 +1,8 @@
 {
   "name": "multiplayer-example",
-  "version": "1.0.1",
+  "version": "0.0.0",
   "description": "",
+  "private": true,
   "scripts": {
     "serve": "concurrently \"yarn run serve-client\" \"yarn run serve-server\"",
     "serve-client": "webpack-dev-server --open --mode development --config webpack.config.js",
