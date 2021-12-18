@@ -12,11 +12,11 @@
   align-items: center;
 }
 
-
 .title {
   margin: 0;
   line-height: 1.15;
   font-size: 4rem;
+  font-weight: 300;
 }
 
 .title,
@@ -27,7 +27,7 @@
 }
 
 .description {
-  margin: 2rem 0;
+  margin: 1.5em 0;
   font-size: 1.5rem;
 }
 
@@ -38,6 +38,28 @@
   .description {
     text-align: left;
   }
+}
+
+.codeBlock {
+  background-color: #333;
+  color: #fafafa;
+  border-radius: 5px;
+  padding: 2rem;
+  font-size: 1.1rem;
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+    Bitstream Vera Sans Mono, Courier New, monospace;
+  margin-bottom: 3em;
+}
+
+.copyInstallCommand {
+  cursor: pointer;
+  color: #fff;
+  text-decoration: none;
+}
+
+.copyInstallCommand:hover {
+  color: #fff;
+  text-decoration: underline;
 }
 
 .warning {
@@ -52,15 +74,8 @@
   margin-bottom: 3em;
 }
 
-.codeBlock {
-  background-color: #333;
-  color: #fafafa;
-  border-radius: 5px;
-  padding: 2rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
-  margin-bottom: 3em;
+.warning p:last-child {
+  margin-bottom: 0;
 }
 
 .code {

@@ -1,8 +1,18 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import { useEffect, useState } from 'react';
+import { Tooltip } from 'reactstrap';
+import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (copied) {
+      setTimeout(() => setCopied(false), 3000);
+    }
+  }, [copied]);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -17,30 +27,62 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>rapida</h1>
 
         <p className={styles.description}>
-          rapida makes creating interactive 3d content for the web easy
+          rapida helps you create interactive 3d content for the web
           &#x1f919;
         </p>
 
-        <p className={styles.warning}>
-          &#9888; &#9888; &#9888; <br />
-          This project is under active alpha development. Things <em>will change and
-          or break</em> regularly.
-          <br />
-          <br />
-          Docs & Storybooks with examples will be coming to this website soon.
-          <br />
-          <br />
-          We do not recommend using rapida in production
-          just yet, but watch this space!
-          <br /> &#9888; &#9888; &#9888;
-        </p>
-
         <code className={styles.codeBlock}>
-          &gt; npm install @rapidajs/rapida three@^0.133.0
-          <br />
-          <br />
-          &gt; yarn add @rapidajs/rapida three@^0.133.0
+          <div>
+            <a
+              href="#"
+              id={'copyInstallCommand'}
+              className={styles.copyInstallCommand}
+              onClick={(e) => {
+                window.navigator.clipboard.writeText(
+                  'yarn add @rapidajs/rapida three'
+                );
+                setCopied(true);
+              }}
+            >
+              &gt; yarn add @rapidajs/rapida three
+            </a>
+            <Tooltip
+              flip
+              target="copyInstallCommand"
+              placement="bottom"
+              isOpen={copied}
+            >
+              Copied to clipboard!
+            </Tooltip>
+          </div>
         </code>
+
+        <div className={styles.warning}>
+          <p>&#9888; &#9888; &#9888;</p>
+          <p>
+            <strong>This project is under active alpha development.</strong>
+          </p>
+
+          <p>
+            Things will{' '}
+            <em>
+              change and break <strong>regularly</strong>
+            </em>
+            . We are still experimenting, so you can expect usage to change with
+            each release right now.
+          </p>
+          <p>
+            Docs & Storybooks with examples will be coming to this website soon.
+          </p>
+          <p>
+            <strong>
+              We do not recommend using rapida in production just yet, but watch
+              this space!
+            </strong>
+          </p>
+          <p>&#9888; &#9888; &#9888;</p>
+        </div>
+
         <div className={styles.findUs}>
           <div className={styles.links}>
             <a

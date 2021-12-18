@@ -7,6 +7,7 @@ packages/**/junit.xml
 .npmrc
 .cache
 .yarn/*
+.yarn/install-state.gz
 .yarn/cache
 !.yarn/patches
 !.yarn/plugins
