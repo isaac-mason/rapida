@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "strict": true,
+    "baseUrl": ".",
+    "lib": ["webworker", "dom", "es2019"],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowJs": false,
+    "jsx": "react",
+  },
+  "include": ["client"],
+  "exclude": ["node_modules"]
+}

@@ -18,7 +18,7 @@ Params for creating a PhysicsDebugger instance
 
 #### Defined in
 
-rapida-physics/lib/physics-debugger.d.ts:29
+packages/rapida-physics/lib/next/physics-debugger.d.ts:29
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/physics-debugger.d.ts:30
+packages/rapida-physics/lib/next/physics-debugger.d.ts:30
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/physics-debugger.d.ts:28
+packages/rapida-physics/lib/next/physics-debugger.d.ts:28

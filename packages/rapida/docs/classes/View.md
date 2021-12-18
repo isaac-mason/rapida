@@ -49,7 +49,7 @@ The views camera
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:247](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L247)
+[packages/rapida/src/renderer/view.ts:247](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L247)
 
 ___
 
@@ -61,7 +61,7 @@ The dom element used by the views renderer
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:267](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L267)
+[packages/rapida/src/renderer/view.ts:267](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L267)
 
 ___
 
@@ -73,7 +73,7 @@ A unique identifier for the view
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:242](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L242)
+[packages/rapida/src/renderer/view.ts:242](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L242)
 
 ___
 
@@ -85,7 +85,7 @@ The views scene
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:252](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L252)
+[packages/rapida/src/renderer/view.ts:252](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L252)
 
 ___
 
@@ -97,7 +97,7 @@ The size of the view in pixels
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:272](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L272)
+[packages/rapida/src/renderer/view.ts:272](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L272)
 
 ___
 
@@ -109,7 +109,7 @@ The z index for the view. Determines what order the views are rendered in, there
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:257](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L257)
+[packages/rapida/src/renderer/view.ts:257](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L257)
 
 ## Accessors
 
@@ -125,7 +125,7 @@ The renderers dom element
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:262](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L262)
+[packages/rapida/src/renderer/view.ts:262](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L262)
 
 ## Methods
 
@@ -149,4 +149,4 @@ a view rectangle of decimal percentages
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:279](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L279)
+[packages/rapida/src/renderer/view.ts:279](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L279)

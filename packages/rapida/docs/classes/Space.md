@@ -52,7 +52,7 @@ Constructor for the Space
 
 #### Defined in
 
-[rapida/src/ecs/space.ts:64](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/space.ts#L64)
+[packages/rapida/src/ecs/space.ts:64](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/space.ts#L64)
 
 ## Properties
 
@@ -64,7 +64,7 @@ A map of component ids to update functions for all components in the space
 
 #### Defined in
 
-[rapida/src/ecs/space.ts:48](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/space.ts#L48)
+[packages/rapida/src/ecs/space.ts:48](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/space.ts#L48)
 
 ___
 
@@ -76,7 +76,7 @@ Factories for creating something new in a space
 
 #### Defined in
 
-[rapida/src/ecs/space.ts:185](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/space.ts#L185)
+[packages/rapida/src/ecs/space.ts:185](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/space.ts#L185)
 
 ___
 
@@ -88,7 +88,7 @@ Entities in the space
 
 #### Defined in
 
-[rapida/src/ecs/space.ts:43](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/space.ts#L43)
+[packages/rapida/src/ecs/space.ts:43](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/space.ts#L43)
 
 ___
 
@@ -100,7 +100,7 @@ The spaces event system
 
 #### Defined in
 
-[rapida/src/ecs/space.ts:58](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/space.ts#L58)
+[packages/rapida/src/ecs/space.ts:58](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/space.ts#L58)
 
 ___
 
@@ -112,7 +112,7 @@ A unique ID for the space
 
 #### Defined in
 
-[rapida/src/ecs/space.ts:33](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/space.ts#L33)
+[packages/rapida/src/ecs/space.ts:33](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/space.ts#L33)
 
 ___
 
@@ -124,7 +124,7 @@ Whether the space has been initialised
 
 #### Defined in
 
-[rapida/src/ecs/space.ts:53](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/space.ts#L53)
+[packages/rapida/src/ecs/space.ts:53](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/space.ts#L53)
 
 ___
 
@@ -136,7 +136,7 @@ The parent World the space is in
 
 #### Defined in
 
-[rapida/src/ecs/space.ts:38](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/space.ts#L38)
+[packages/rapida/src/ecs/space.ts:38](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/space.ts#L38)
 
 ## Accessors
 
@@ -152,7 +152,7 @@ Retrieves world factories
 
 #### Defined in
 
-[rapida/src/ecs/space.ts:196](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/space.ts#L196)
+[packages/rapida/src/ecs/space.ts:196](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/space.ts#L196)
 
 ## Methods
 
@@ -168,7 +168,7 @@ Destroy the space. Removes all entities from the space.
 
 #### Defined in
 
-[rapida/src/ecs/space.ts:114](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/space.ts#L114)
+[packages/rapida/src/ecs/space.ts:114](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/space.ts#L114)
 
 ___
 
@@ -184,7 +184,7 @@ Initialise the space
 
 #### Defined in
 
-[rapida/src/ecs/space.ts:72](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/space.ts#L72)
+[packages/rapida/src/ecs/space.ts:72](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/space.ts#L72)
 
 ___
 
@@ -206,7 +206,7 @@ Updates all entities within the space
 
 #### Defined in
 
-[rapida/src/ecs/space.ts:81](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/space.ts#L81)
+[packages/rapida/src/ecs/space.ts:81](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/space.ts#L81)
 
 ___
 
@@ -228,7 +228,7 @@ Adds an entity to the space
 
 #### Defined in
 
-[rapida/src/ecs/space.ts:122](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/space.ts#L122)
+[packages/rapida/src/ecs/space.ts:122](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/space.ts#L122)
 
 ___
 
@@ -256,7 +256,7 @@ Broadcasts an event for handling by the space
 
 #### Defined in
 
-[rapida/src/ecs/space.ts:178](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/space.ts#L178)
+[packages/rapida/src/ecs/space.ts:178](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/space.ts#L178)
 
 ___
 
@@ -287,7 +287,7 @@ the id of the new handler
 
 #### Defined in
 
-[rapida/src/ecs/space.ts:158](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/space.ts#L158)
+[packages/rapida/src/ecs/space.ts:158](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/space.ts#L158)
 
 ___
 
@@ -309,7 +309,7 @@ Removes an entity from the space
 
 #### Defined in
 
-[rapida/src/ecs/space.ts:138](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/space.ts#L138)
+[packages/rapida/src/ecs/space.ts:138](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/space.ts#L138)
 
 ___
 
@@ -332,4 +332,4 @@ Removes an event handler by handler id
 
 #### Defined in
 
-[rapida/src/ecs/space.ts:170](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/space.ts#L170)
+[packages/rapida/src/ecs/space.ts:170](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/space.ts#L170)

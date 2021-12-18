@@ -38,7 +38,7 @@ Debugger for Physics that adds physics object representations to a three scene
 
 #### Defined in
 
-rapida-physics/lib/physics-debugger.d.ts:60
+packages/rapida-physics/lib/next/physics-debugger.d.ts:60
 
 ## Properties
 
@@ -50,7 +50,7 @@ The color for debug three objects to be displayed as
 
 #### Defined in
 
-rapida-physics/lib/physics-debugger.d.ts:47
+packages/rapida-physics/lib/next/physics-debugger.d.ts:47
 
 ___
 
@@ -62,7 +62,7 @@ Physics world debug information
 
 #### Defined in
 
-rapida-physics/lib/physics-debugger.d.ts:59
+packages/rapida-physics/lib/next/physics-debugger.d.ts:59
 
 ___
 
@@ -74,7 +74,7 @@ The cannon debugger
 
 #### Defined in
 
-rapida-physics/lib/physics-debugger.d.ts:55
+packages/rapida-physics/lib/next/physics-debugger.d.ts:55
 
 ___
 
@@ -86,7 +86,7 @@ The physics world for the debugger
 
 #### Defined in
 
-rapida-physics/lib/physics-debugger.d.ts:39
+packages/rapida-physics/lib/next/physics-debugger.d.ts:39
 
 ___
 
@@ -98,7 +98,7 @@ The scale of the debugger
 
 #### Defined in
 
-rapida-physics/lib/physics-debugger.d.ts:51
+packages/rapida-physics/lib/next/physics-debugger.d.ts:51
 
 ___
 
@@ -110,7 +110,7 @@ The scene that the debugger is adding and removing from
 
 #### Defined in
 
-rapida-physics/lib/physics-debugger.d.ts:43
+packages/rapida-physics/lib/next/physics-debugger.d.ts:43
 
 ## Methods
 
@@ -134,7 +134,7 @@ Adds a body to the debugger
 
 #### Defined in
 
-rapida-physics/lib/physics-debugger.d.ts:71
+packages/rapida-physics/lib/next/physics-debugger.d.ts:71
 
 ___
 
@@ -156,7 +156,7 @@ Removes a body from the debugger
 
 #### Defined in
 
-rapida-physics/lib/physics-debugger.d.ts:76
+packages/rapida-physics/lib/next/physics-debugger.d.ts:76
 
 ___
 
@@ -172,4 +172,4 @@ Updates the debugger
 
 #### Defined in
 
-rapida-physics/lib/physics-debugger.d.ts:64
+packages/rapida-physics/lib/next/physics-debugger.d.ts:64

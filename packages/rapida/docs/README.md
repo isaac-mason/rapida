@@ -174,7 +174,7 @@
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:214
+packages/rapida-physics/lib/next/types.d.ts:214
 
 ___
 
@@ -184,7 +184,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:14
+packages/rapida-physics/lib/next/types.d.ts:14
 
 ___
 
@@ -194,7 +194,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:67
+packages/rapida-physics/lib/next/types.d.ts:67
 
 ___
 
@@ -204,7 +204,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:8
+packages/rapida-physics/lib/next/types.d.ts:8
 
 ___
 
@@ -232,7 +232,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:15
+packages/rapida-physics/lib/next/types.d.ts:15
 
 ___
 
@@ -248,7 +248,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:379
+packages/rapida-physics/lib/next/types.d.ts:379
 
 ___
 
@@ -264,7 +264,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:386
+packages/rapida-physics/lib/next/types.d.ts:386
 
 ___
 
@@ -274,7 +274,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:390
+packages/rapida-physics/lib/next/types.d.ts:390
 
 ___
 
@@ -284,7 +284,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:409
+packages/rapida-physics/lib/next/types.d.ts:409
 
 ___
 
@@ -294,7 +294,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:412
+packages/rapida-physics/lib/next/types.d.ts:412
 
 ___
 
@@ -304,7 +304,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:286
+packages/rapida-physics/lib/next/types.d.ts:286
 
 ___
 
@@ -321,7 +321,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:133
+packages/rapida-physics/lib/next/types.d.ts:133
 
 ___
 
@@ -339,7 +339,7 @@ Parameters for creating a CSSRenderer
 
 #### Defined in
 
-[rapida/src/renderer/css/css-renderer.ts:15](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-renderer.ts#L15)
+[packages/rapida/src/renderer/css/css-renderer.ts:15](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-renderer.ts#L15)
 
 ___
 
@@ -361,7 +361,7 @@ Params for creating a css view
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:11](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L11)
+[packages/rapida/src/renderer/css/css-view.ts:11](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L11)
 
 ___
 
@@ -378,7 +378,7 @@ ___
 
 #### Defined in
 
-[rapida/src/camera/camera.ts:5](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/camera/camera.ts#L5)
+[packages/rapida/src/camera/camera.ts:5](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/camera/camera.ts#L5)
 
 ___
 
@@ -396,7 +396,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:150
+packages/rapida-physics/lib/next/types.d.ts:150
 
 ___
 
@@ -414,7 +414,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:155
+packages/rapida-physics/lib/next/types.d.ts:155
 
 ___
 
@@ -424,7 +424,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:141
+packages/rapida-physics/lib/next/types.d.ts:141
 
 ___
 
@@ -440,7 +440,7 @@ ___
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:6](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/component.ts#L6)
+[packages/rapida/src/ecs/component.ts:6](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/component.ts#L6)
 
 ___
 
@@ -450,7 +450,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:93
+packages/rapida-physics/lib/next/types.d.ts:93
 
 ___
 
@@ -466,7 +466,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:124
+packages/rapida-physics/lib/next/types.d.ts:124
 
 ___
 
@@ -476,7 +476,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:123
+packages/rapida-physics/lib/next/types.d.ts:123
 
 ___
 
@@ -492,7 +492,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:401
+packages/rapida-physics/lib/next/types.d.ts:401
 
 ___
 
@@ -502,7 +502,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:448
+packages/rapida-physics/lib/next/types.d.ts:448
 
 ___
 
@@ -512,7 +512,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:391
+packages/rapida-physics/lib/next/types.d.ts:391
 
 ___
 
@@ -522,7 +522,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:413
+packages/rapida-physics/lib/next/types.d.ts:413
 
 ___
 
@@ -532,7 +532,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:431
+packages/rapida-physics/lib/next/types.d.ts:431
 
 ___
 
@@ -549,7 +549,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:282
+packages/rapida-physics/lib/next/types.d.ts:282
 
 ___
 
@@ -570,7 +570,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:516
+packages/rapida-physics/lib/next/types.d.ts:516
 
 ___
 
@@ -588,7 +588,7 @@ Parameters for creating a new rapida engine
 
 #### Defined in
 
-[rapida/src/engine/index.ts:9](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L9)
+[packages/rapida/src/engine/index.ts:9](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/engine/index.ts#L9)
 
 ___
 
@@ -605,7 +605,7 @@ ___
 
 #### Defined in
 
-[rapida/src/ecs/entity.ts:10](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/entity.ts#L10)
+[packages/rapida/src/ecs/entity.ts:10](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/entity.ts#L10)
 
 ___
 
@@ -637,7 +637,7 @@ An event handler that takes an event or a type that extends the event type
 
 #### Defined in
 
-rapida-common/lib/events/event-handler.d.ts:5
+packages/rapida-common/lib/events/event-handler.d.ts:5
 
 ___
 
@@ -658,7 +658,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:299
+packages/rapida-physics/lib/next/types.d.ts:299
 
 ___
 
@@ -668,7 +668,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:393
+packages/rapida-physics/lib/next/types.d.ts:393
 
 ___
 
@@ -678,7 +678,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:447
+packages/rapida-physics/lib/next/types.d.ts:447
 
 ___
 
@@ -688,7 +688,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:101
+packages/rapida-physics/lib/next/types.d.ts:101
 
 ___
 
@@ -698,7 +698,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:373
+packages/rapida-physics/lib/next/types.d.ts:373
 
 ___
 
@@ -708,7 +708,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:480
+packages/rapida-physics/lib/next/types.d.ts:480
 
 ___
 
@@ -718,7 +718,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:287
+packages/rapida-physics/lib/next/types.d.ts:287
 
 ___
 
@@ -730,7 +730,7 @@ Params for creating a particle
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:435
+packages/rapida-physics/lib/next/types.d.ts:435
 
 ___
 
@@ -751,7 +751,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:272
+packages/rapida-physics/lib/next/types.d.ts:272
 
 ___
 
@@ -770,7 +770,7 @@ Debugging information available to a debugger
 
 #### Defined in
 
-rapida-physics/lib/physics-debugger.d.ts:14
+packages/rapida-physics/lib/next/physics-debugger.d.ts:14
 
 ___
 
@@ -782,7 +782,7 @@ Color for the physics debugger to use
 
 #### Defined in
 
-rapida-physics/lib/physics-debugger.d.ts:23
+packages/rapida-physics/lib/next/physics-debugger.d.ts:23
 
 ___
 
@@ -811,7 +811,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:524
+packages/rapida-physics/lib/next/types.d.ts:524
 
 ___
 
@@ -845,7 +845,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:543
+packages/rapida-physics/lib/next/types.d.ts:543
 
 ___
 
@@ -855,7 +855,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:408
+packages/rapida-physics/lib/next/types.d.ts:408
 
 ___
 
@@ -871,7 +871,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:181
+packages/rapida-physics/lib/next/types.d.ts:181
 
 ___
 
@@ -881,7 +881,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:13
+packages/rapida-physics/lib/next/types.d.ts:13
 
 ___
 
@@ -899,7 +899,7 @@ ___
 
 #### Defined in
 
-[rapida/src/ecs/query.ts:12](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/query.ts#L12)
+[packages/rapida/src/ecs/query.ts:12](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/query.ts#L12)
 
 ___
 
@@ -909,7 +909,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:213
+packages/rapida-physics/lib/next/types.d.ts:213
 
 ___
 
@@ -919,7 +919,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:212
+packages/rapida-physics/lib/next/types.d.ts:212
 
 ___
 
@@ -929,7 +929,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:160
+packages/rapida-physics/lib/next/types.d.ts:160
 
 ___
 
@@ -943,7 +943,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:137
+packages/rapida-physics/lib/next/types.d.ts:137
 
 ___
 
@@ -959,7 +959,7 @@ ___
 
 #### Defined in
 
-[rapida/src/scene/scene.ts:4](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/scene/scene.ts#L4)
+[packages/rapida/src/scene/scene.ts:4](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/scene/scene.ts#L4)
 
 ___
 
@@ -975,7 +975,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:248
+packages/rapida-physics/lib/next/types.d.ts:248
 
 ___
 
@@ -991,7 +991,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:182
+packages/rapida-physics/lib/next/types.d.ts:182
 
 ___
 
@@ -1001,7 +1001,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:389
+packages/rapida-physics/lib/next/types.d.ts:389
 
 ___
 
@@ -1019,7 +1019,7 @@ Params for creating a new Space
 
 #### Defined in
 
-[rapida/src/ecs/space.ts:17](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/space.ts#L17)
+[packages/rapida/src/ecs/space.ts:17](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/space.ts#L17)
 
 ___
 
@@ -1031,7 +1031,7 @@ Params for creating a sphere
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:439
+packages/rapida-physics/lib/next/types.d.ts:439
 
 ___
 
@@ -1041,7 +1041,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:445
+packages/rapida-physics/lib/next/types.d.ts:445
 
 ___
 
@@ -1051,7 +1051,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:113
+packages/rapida-physics/lib/next/types.d.ts:113
 
 ___
 
@@ -1061,7 +1061,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:175
+packages/rapida-physics/lib/next/types.d.ts:175
 
 ___
 
@@ -1071,7 +1071,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:12
+packages/rapida-physics/lib/next/types.d.ts:12
 
 ___
 
@@ -1081,7 +1081,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:258
+packages/rapida-physics/lib/next/types.d.ts:258
 
 ___
 
@@ -1091,7 +1091,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:178
+packages/rapida-physics/lib/next/types.d.ts:178
 
 ___
 
@@ -1108,7 +1108,7 @@ ___
 
 #### Defined in
 
-[rapida/src/ecs/system.ts:12](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/system.ts#L12)
+[packages/rapida/src/ecs/system.ts:12](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/system.ts#L12)
 
 ___
 
@@ -1118,7 +1118,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:392
+packages/rapida-physics/lib/next/types.d.ts:392
 
 ___
 
@@ -1128,7 +1128,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:446
+packages/rapida-physics/lib/next/types.d.ts:446
 
 ___
 
@@ -1138,7 +1138,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:4
+packages/rapida-physics/lib/next/types.d.ts:4
 
 ___
 
@@ -1148,7 +1148,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:73
+packages/rapida-physics/lib/next/types.d.ts:73
 
 ___
 
@@ -1158,7 +1158,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:10
+packages/rapida-physics/lib/next/types.d.ts:10
 
 ___
 
@@ -1168,7 +1168,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:6
+packages/rapida-physics/lib/next/types.d.ts:6
 
 ___
 
@@ -1178,7 +1178,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:5
+packages/rapida-physics/lib/next/types.d.ts:5
 
 ___
 
@@ -1196,7 +1196,7 @@ Type for a view event name
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:163](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L163)
+[packages/rapida/src/renderer/view.ts:163](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L163)
 
 ___
 
@@ -1214,7 +1214,7 @@ A view interaction event subscription that contains a method for unsubscribing
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:63](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L63)
+[packages/rapida/src/renderer/view.ts:63](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L63)
 
 ___
 
@@ -1233,7 +1233,7 @@ A mouse event for a webgl view
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:85](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L85)
+[packages/rapida/src/renderer/view.ts:85](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L85)
 
 ___
 
@@ -1254,7 +1254,7 @@ A view rectangle given by decimal percentage values
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:228](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L228)
+[packages/rapida/src/renderer/view.ts:228](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L228)
 
 ___
 
@@ -1273,7 +1273,7 @@ A view rectangle parameter with a type and value
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:181](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L181)
+[packages/rapida/src/renderer/view.ts:181](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L181)
 
 ___
 
@@ -1289,7 +1289,7 @@ A ViewParam, which can either be a:
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:193](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L193)
+[packages/rapida/src/renderer/view.ts:193](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L193)
 
 ___
 
@@ -1312,7 +1312,7 @@ ViewRectangleParams provides parameters for a view rectangle
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:206](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L206)
+[packages/rapida/src/renderer/view.ts:206](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L206)
 
 ___
 
@@ -1333,7 +1333,7 @@ The size of a view in pixels
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:218](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L218)
+[packages/rapida/src/renderer/view.ts:218](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L218)
 
 ___
 
@@ -1343,7 +1343,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:90](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L90)
+[packages/rapida/src/renderer/view.ts:90](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L90)
 
 ___
 
@@ -1369,7 +1369,7 @@ A touch event for a webgl view
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:105](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L105)
+[packages/rapida/src/renderer/view.ts:105](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L105)
 
 ___
 
@@ -1388,7 +1388,7 @@ Params for creating a WebGLRenderer
 
 #### Defined in
 
-[rapida/src/renderer/webgl/webgl-renderer.ts:16](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/webgl/webgl-renderer.ts#L16)
+[packages/rapida/src/renderer/webgl/webgl-renderer.ts:16](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/webgl/webgl-renderer.ts#L16)
 
 ___
 
@@ -1413,7 +1413,7 @@ Params for creating a webgl view
 
 #### Defined in
 
-[rapida/src/renderer/webgl/webgl-view.ts:25](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/webgl/webgl-view.ts#L25)
+[packages/rapida/src/renderer/webgl/webgl-view.ts:25](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/webgl/webgl-view.ts#L25)
 
 ___
 
@@ -1423,7 +1423,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:80
+packages/rapida-physics/lib/next/types.d.ts:80
 
 ___
 
@@ -1442,7 +1442,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:358
+packages/rapida-physics/lib/next/types.d.ts:358
 
 ___
 
@@ -1461,7 +1461,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:365
+packages/rapida-physics/lib/next/types.d.ts:365
 
 ___
 
@@ -1495,7 +1495,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:307
+packages/rapida-physics/lib/next/types.d.ts:307
 
 ___
 
@@ -1505,7 +1505,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:372
+packages/rapida-physics/lib/next/types.d.ts:372
 
 ___
 
@@ -1522,7 +1522,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:290
+packages/rapida-physics/lib/next/types.d.ts:290
 
 ___
 
@@ -1556,7 +1556,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:333
+packages/rapida-physics/lib/next/types.d.ts:333
 
 ___
 
@@ -1572,7 +1572,7 @@ ___
 
 #### Defined in
 
-[rapida/src/world/world-provider.ts:4](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/world/world-provider.ts#L4)
+[packages/rapida/src/world/world-provider.ts:4](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/world/world-provider.ts#L4)
 
 ___
 
@@ -1593,7 +1593,7 @@ Params for creating a world
 
 #### Defined in
 
-[rapida/src/world/world.ts:30](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/world/world.ts#L30)
+[packages/rapida/src/world/world.ts:30](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/world/world.ts#L30)
 
 ___
 
@@ -1603,7 +1603,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:266
+packages/rapida-physics/lib/next/types.d.ts:266
 
 ___
 
@@ -1627,7 +1627,7 @@ ___
 
 #### Defined in
 
-[rapida/src/world/world-provider.ts:8](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/world/world-provider.ts#L8)
+[packages/rapida/src/world/world-provider.ts:8](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/world/world-provider.ts#L8)
 
 ___
 
@@ -1650,7 +1650,7 @@ Params for creating a new VRRenderer
 
 #### Defined in
 
-[rapida/src/renderer/xr/xr-renderer.ts:31](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/xr/xr-renderer.ts#L31)
+[packages/rapida/src/renderer/xr/xr-renderer.ts:31](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/xr/xr-renderer.ts#L31)
 
 ## Variables
 
@@ -1660,7 +1660,7 @@ Params for creating a new VRRenderer
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:27](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L27)
+[packages/rapida/src/renderer/view.ts:27](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L27)
 
 ___
 
@@ -1670,7 +1670,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:42](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L42)
+[packages/rapida/src/renderer/view.ts:42](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L42)
 
 ___
 
@@ -1680,7 +1680,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:53](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L53)
+[packages/rapida/src/renderer/view.ts:53](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L53)
 
 ___
 
@@ -1690,7 +1690,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:7
+packages/rapida-physics/lib/next/types.d.ts:7
 
 ___
 
@@ -1700,7 +1700,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:11
+packages/rapida-physics/lib/next/types.d.ts:11
 
 ___
 
@@ -1710,7 +1710,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:9
+packages/rapida-physics/lib/next/types.d.ts:9
 
 ## Functions
 
@@ -1724,4 +1724,4 @@ rapida-physics/lib/types.d.ts:9
 
 #### Defined in
 
-rapida-common/lib/util/uuid.d.ts:1
+packages/rapida-common/lib/util/uuid.d.ts:1

@@ -53,7 +53,7 @@ BodyParams.allowSleep
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:19
+packages/rapida-physics/lib/next/types.d.ts:19
 
 ___
 
@@ -69,7 +69,7 @@ BodyParams.angularDamping
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:23
+packages/rapida-physics/lib/next/types.d.ts:23
 
 ___
 
@@ -103,7 +103,7 @@ BodyParams.args
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:380
+packages/rapida-physics/lib/next/types.d.ts:380
 
 ___
 
@@ -119,7 +119,7 @@ BodyParams.collisionFilterGroup
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:27
+packages/rapida-physics/lib/next/types.d.ts:27
 
 ___
 
@@ -135,7 +135,7 @@ BodyParams.collisionFilterMask
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:31
+packages/rapida-physics/lib/next/types.d.ts:31
 
 ___
 
@@ -151,7 +151,7 @@ BodyParams.collisionResponse
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:35
+packages/rapida-physics/lib/next/types.d.ts:35
 
 ___
 
@@ -167,7 +167,7 @@ BodyParams.fixedRotation
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:39
+packages/rapida-physics/lib/next/types.d.ts:39
 
 ___
 
@@ -184,7 +184,7 @@ BodyParams.isTrigger
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:44
+packages/rapida-physics/lib/next/types.d.ts:44
 
 ___
 
@@ -200,7 +200,7 @@ BodyParams.linearDamping
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:48
+packages/rapida-physics/lib/next/types.d.ts:48
 
 ___
 
@@ -226,7 +226,7 @@ BodyParams.mass
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:52
+packages/rapida-physics/lib/next/types.d.ts:52
 
 ___
 
@@ -242,7 +242,7 @@ BodyParams.material
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:56
+packages/rapida-physics/lib/next/types.d.ts:56
 
 ___
 
@@ -272,7 +272,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:450
+packages/rapida-physics/lib/next/types.d.ts:450
 
 ___
 
@@ -288,7 +288,7 @@ BodyParams.sleepSpeedLimit
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:60
+packages/rapida-physics/lib/next/types.d.ts:60
 
 ___
 
@@ -304,7 +304,7 @@ BodyParams.sleepTimeLimit
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:64
+packages/rapida-physics/lib/next/types.d.ts:64
 
 ___
 
@@ -318,7 +318,7 @@ BodyParams.type
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:381
+packages/rapida-physics/lib/next/types.d.ts:381
 
 ___
 
@@ -332,7 +332,7 @@ BodyParams.userData
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:65
+packages/rapida-physics/lib/next/types.d.ts:65
 
 ___
 
@@ -366,7 +366,7 @@ BodyParams.onCollide
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:382
+packages/rapida-physics/lib/next/types.d.ts:382
 
 ___
 
@@ -390,7 +390,7 @@ BodyParams.onCollideBegin
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:383
+packages/rapida-physics/lib/next/types.d.ts:383
 
 ___
 
@@ -414,4 +414,4 @@ BodyParams.onCollideEnd
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:384
+packages/rapida-physics/lib/next/types.d.ts:384

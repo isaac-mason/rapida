@@ -58,7 +58,7 @@ Constructor for a Physics world
 
 #### Defined in
 
-[src/physics.ts:288](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L288)
+[packages/rapida-physics/src/physics.ts:288](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L288)
 
 ## Properties
 
@@ -95,7 +95,7 @@ Constructor for a Physics world
 
 #### Defined in
 
-[src/physics.ts:387](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L387)
+[packages/rapida-physics/src/physics.ts:387](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L387)
 
 ___
 
@@ -107,7 +107,7 @@ The physics web worker
 
 #### Defined in
 
-[src/physics.ts:157](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L157)
+[packages/rapida-physics/src/physics.ts:157](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L157)
 
 ___
 
@@ -123,7 +123,7 @@ A map of body uuids to their ordered position
 
 #### Defined in
 
-[src/physics.ts:282](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L282)
+[packages/rapida-physics/src/physics.ts:282](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L282)
 
 ___
 
@@ -135,7 +135,7 @@ The buffers that are shared with the worker
 
 #### Defined in
 
-[src/physics.ts:267](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L267)
+[packages/rapida-physics/src/physics.ts:267](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L267)
 
 ___
 
@@ -147,7 +147,7 @@ The physics world parameters
 
 #### Defined in
 
-[src/physics.ts:147](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L147)
+[packages/rapida-physics/src/physics.ts:147](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L147)
 
 ___
 
@@ -159,7 +159,7 @@ A debugger for the physics world that if set, will be called on adding to and re
 
 #### Defined in
 
-[src/physics.ts:152](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L152)
+[packages/rapida-physics/src/physics.ts:152](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L152)
 
 ___
 
@@ -171,7 +171,7 @@ A map of body uuids to event handlers for cannon events
 
 #### Defined in
 
-[src/physics.ts:272](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L272)
+[packages/rapida-physics/src/physics.ts:272](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L272)
 
 ___
 
@@ -183,7 +183,7 @@ A name for the physics world
 
 #### Defined in
 
-[src/physics.ts:142](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L142)
+[packages/rapida-physics/src/physics.ts:142](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L142)
 
 ___
 
@@ -195,7 +195,7 @@ A map of body uuids to their reference Object3D objects
 
 #### Defined in
 
-[src/physics.ts:262](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L262)
+[packages/rapida-physics/src/physics.ts:262](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L262)
 
 ___
 
@@ -207,7 +207,7 @@ Subscriptions to body properties
 
 #### Defined in
 
-[src/physics.ts:277](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L277)
+[packages/rapida-physics/src/physics.ts:277](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L277)
 
 ## Accessors
 
@@ -223,7 +223,7 @@ Sets the axis angle
 
 #### Defined in
 
-[src/physics.ts:169](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L169)
+[packages/rapida-physics/src/physics.ts:169](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L169)
 
 • `set` **axisIndex**(`value`): `void`
 
@@ -241,7 +241,7 @@ Sets the axis angle
 
 #### Defined in
 
-[src/physics.ts:176](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L176)
+[packages/rapida-physics/src/physics.ts:176](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L176)
 
 ___
 
@@ -257,7 +257,7 @@ Gets the broadphase for the world
 
 #### Defined in
 
-[src/physics.ts:184](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L184)
+[packages/rapida-physics/src/physics.ts:184](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L184)
 
 • `set` **broadphase**(`value`): `void`
 
@@ -275,7 +275,7 @@ Sets the broadphase for the world
 
 #### Defined in
 
-[src/physics.ts:191](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L191)
+[packages/rapida-physics/src/physics.ts:191](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L191)
 
 ___
 
@@ -316,7 +316,7 @@ Retrieves physics factories
 
 #### Defined in
 
-[src/physics.ts:383](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L383)
+[packages/rapida-physics/src/physics.ts:383](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L383)
 
 ___
 
@@ -332,7 +332,7 @@ Gets the default contact material for the world
 
 #### Defined in
 
-[src/physics.ts:244](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L244)
+[packages/rapida-physics/src/physics.ts:244](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L244)
 
 • `set` **defaultContactMaterial**(`value`): `void`
 
@@ -350,7 +350,7 @@ Sets the default contact material for the world
 
 #### Defined in
 
-[src/physics.ts:251](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L251)
+[packages/rapida-physics/src/physics.ts:251](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L251)
 
 ___
 
@@ -366,7 +366,7 @@ Gets the gravity for the world
 
 #### Defined in
 
-[src/physics.ts:199](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L199)
+[packages/rapida-physics/src/physics.ts:199](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L199)
 
 • `set` **gravity**(`value`): `void`
 
@@ -384,7 +384,7 @@ Sets the gravity for the world
 
 #### Defined in
 
-[src/physics.ts:206](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L206)
+[packages/rapida-physics/src/physics.ts:206](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L206)
 
 ___
 
@@ -400,7 +400,7 @@ Gets the iterations for the world
 
 #### Defined in
 
-[src/physics.ts:214](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L214)
+[packages/rapida-physics/src/physics.ts:214](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L214)
 
 • `set` **iterations**(`value`): `void`
 
@@ -418,7 +418,7 @@ Sets the iterations for the world
 
 #### Defined in
 
-[src/physics.ts:221](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L221)
+[packages/rapida-physics/src/physics.ts:221](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L221)
 
 ___
 
@@ -434,7 +434,7 @@ Gets the tolerance for the world
 
 #### Defined in
 
-[src/physics.ts:229](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L229)
+[packages/rapida-physics/src/physics.ts:229](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L229)
 
 • `set` **tolerance**(`value`): `void`
 
@@ -452,7 +452,7 @@ Sets the tolerance for the world
 
 #### Defined in
 
-[src/physics.ts:236](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L236)
+[packages/rapida-physics/src/physics.ts:236](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L236)
 
 ___
 
@@ -468,7 +468,7 @@ Getter for the physics web worker
 
 #### Defined in
 
-[src/physics.ts:162](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L162)
+[packages/rapida-physics/src/physics.ts:162](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L162)
 
 ## Methods
 
@@ -482,7 +482,7 @@ Getter for the physics web worker
 
 #### Defined in
 
-[src/physics.ts:362](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L362)
+[packages/rapida-physics/src/physics.ts:362](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L362)
 
 ___
 
@@ -502,7 +502,7 @@ ___
 
 #### Defined in
 
-[src/physics.ts:864](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L864)
+[packages/rapida-physics/src/physics.ts:864](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L864)
 
 ___
 
@@ -522,7 +522,7 @@ ___
 
 #### Defined in
 
-[src/physics.ts:878](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L878)
+[packages/rapida-physics/src/physics.ts:878](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L878)
 
 ___
 
@@ -542,7 +542,7 @@ ___
 
 #### Defined in
 
-[src/physics.ts:893](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L893)
+[packages/rapida-physics/src/physics.ts:893](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L893)
 
 ___
 
@@ -562,7 +562,7 @@ ___
 
 #### Defined in
 
-[src/physics.ts:830](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L830)
+[packages/rapida-physics/src/physics.ts:830](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L830)
 
 ___
 
@@ -582,7 +582,7 @@ ___
 
 #### Defined in
 
-[src/physics.ts:908](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L908)
+[packages/rapida-physics/src/physics.ts:908](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L908)
 
 ___
 
@@ -602,4 +602,4 @@ ___
 
 #### Defined in
 
-[src/physics.ts:366](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/physics.ts#L366)
+[packages/rapida-physics/src/physics.ts:366](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/physics.ts#L366)

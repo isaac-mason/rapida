@@ -17,7 +17,7 @@ An event that can be broadcast and consumed by entities and components
 
 #### Defined in
 
-rapida-common/lib/events/event.d.ts:6
+packages/rapida-common/lib/events/event.d.ts:6
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-rapida-common/lib/events/event.d.ts:5
+packages/rapida-common/lib/events/event.d.ts:5

@@ -394,7 +394,7 @@ WorkerApi.applyForce
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:81
+packages/rapida-physics/lib/next/types.d.ts:81
 
 ___
 
@@ -419,7 +419,7 @@ WorkerApi.applyImpulse
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:82
+packages/rapida-physics/lib/next/types.d.ts:82
 
 ___
 
@@ -444,7 +444,7 @@ WorkerApi.applyLocalForce
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:83
+packages/rapida-physics/lib/next/types.d.ts:83
 
 ___
 
@@ -469,7 +469,7 @@ WorkerApi.applyLocalImpulse
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:84
+packages/rapida-physics/lib/next/types.d.ts:84
 
 ___
 
@@ -493,7 +493,7 @@ WorkerApi.applyTorque
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:85
+packages/rapida-physics/lib/next/types.d.ts:85
 
 ___
 
@@ -513,7 +513,7 @@ ___
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:91
+packages/rapida-physics/lib/next/types.d.ts:91
 
 ___
 
@@ -531,7 +531,7 @@ WorkerApi.destroy
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:88
+packages/rapida-physics/lib/next/types.d.ts:88
 
 ___
 
@@ -549,7 +549,7 @@ WorkerApi.sleep
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:87
+packages/rapida-physics/lib/next/types.d.ts:87
 
 ___
 
@@ -567,4 +567,4 @@ WorkerApi.wakeUp
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:86
+packages/rapida-physics/lib/next/types.d.ts:86

@@ -17,7 +17,7 @@ XRRenderer modes
 
 #### Defined in
 
-[rapida/src/renderer/xr/xr-renderer.ts:25](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/xr/xr-renderer.ts#L25)
+[packages/rapida/src/renderer/xr/xr-renderer.ts:25](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/xr/xr-renderer.ts#L25)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/xr/xr-renderer.ts:24](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/xr/xr-renderer.ts#L24)
+[packages/rapida/src/renderer/xr/xr-renderer.ts:24](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/xr/xr-renderer.ts#L24)

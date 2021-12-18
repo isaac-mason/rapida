@@ -2,8 +2,15 @@ node_modules
 packages/**/lib
 packages/**/coverage
 packages/**/storybook-static
+packages/**/junit.xml
 .npmrc
 .cache
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
 examples/**/dist
 examples/**/.parcel-cache
 dev/ca.*

@@ -67,7 +67,7 @@ Each CSSView actually has its own three-stdlib CSS3DRenderer.
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:161](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L161)
+[packages/rapida/src/renderer/css/css-view.ts:161](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L161)
 
 ## Properties
 
@@ -79,7 +79,7 @@ The scissor for the css view rectangle
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:122](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L122)
+[packages/rapida/src/renderer/css/css-view.ts:122](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L122)
 
 ___
 
@@ -91,7 +91,7 @@ Parameters for the scissor that are used to recalculate the scissor on resize
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:97](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L97)
+[packages/rapida/src/renderer/css/css-view.ts:97](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L97)
 
 ___
 
@@ -103,7 +103,7 @@ The viewport for the css view rectangle
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:117](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L117)
+[packages/rapida/src/renderer/css/css-view.ts:117](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L117)
 
 ___
 
@@ -115,7 +115,7 @@ Parameters for the viewport that are used to recalculate the viewport on resize
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:77](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L77)
+[packages/rapida/src/renderer/css/css-view.ts:77](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L77)
 
 ___
 
@@ -131,7 +131,7 @@ The camera for the view
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:52](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L52)
+[packages/rapida/src/renderer/css/css-view.ts:52](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L52)
 
 ___
 
@@ -143,7 +143,7 @@ The css renderer for the view
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:149](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L149)
+[packages/rapida/src/renderer/css/css-view.ts:149](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L149)
 
 ___
 
@@ -159,7 +159,7 @@ The dom element for the view
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:134](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L134)
+[packages/rapida/src/renderer/css/css-view.ts:134](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L134)
 
 ___
 
@@ -175,7 +175,7 @@ The id for the view
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:47](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L47)
+[packages/rapida/src/renderer/css/css-view.ts:47](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L47)
 
 ___
 
@@ -187,7 +187,7 @@ The renderer the view is part of
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:159](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L159)
+[packages/rapida/src/renderer/css/css-view.ts:159](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L159)
 
 ___
 
@@ -199,7 +199,7 @@ The resize observer for the renderer dom element
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:154](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L154)
+[packages/rapida/src/renderer/css/css-view.ts:154](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L154)
 
 ___
 
@@ -215,7 +215,7 @@ The scene for the view
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:57](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L57)
+[packages/rapida/src/renderer/css/css-view.ts:57](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L57)
 
 ___
 
@@ -227,7 +227,7 @@ The dom element for the css view scissor
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:144](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L144)
+[packages/rapida/src/renderer/css/css-view.ts:144](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L144)
 
 ___
 
@@ -239,7 +239,7 @@ The current size of the scissor in pixels
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:72](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L72)
+[packages/rapida/src/renderer/css/css-view.ts:72](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L72)
 
 ___
 
@@ -251,7 +251,7 @@ The dom element for the css view viewport
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:139](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L139)
+[packages/rapida/src/renderer/css/css-view.ts:139](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L139)
 
 ___
 
@@ -267,7 +267,7 @@ The current size of the viewport in pixels
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:67](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L67)
+[packages/rapida/src/renderer/css/css-view.ts:67](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L67)
 
 ___
 
@@ -283,7 +283,7 @@ The zIndex for the view
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:62](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L62)
+[packages/rapida/src/renderer/css/css-view.ts:62](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L62)
 
 ## Accessors
 
@@ -303,7 +303,7 @@ View.rendererDomElement
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:127](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L127)
+[packages/rapida/src/renderer/css/css-view.ts:127](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L127)
 
 ___
 
@@ -319,7 +319,7 @@ Getter for the scissor params
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:102](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L102)
+[packages/rapida/src/renderer/css/css-view.ts:102](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L102)
 
 • `set` **scissor**(`v`): `void`
 
@@ -337,7 +337,7 @@ Setter for the scissor params. Resizes the view on setting.
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:109](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L109)
+[packages/rapida/src/renderer/css/css-view.ts:109](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L109)
 
 ___
 
@@ -353,7 +353,7 @@ Getter for the viewport params
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:82](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L82)
+[packages/rapida/src/renderer/css/css-view.ts:82](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L82)
 
 • `set` **viewport**(`v`): `void`
 
@@ -371,7 +371,7 @@ Setter for the viewport params. Resizes the view on setting.
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:89](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L89)
+[packages/rapida/src/renderer/css/css-view.ts:89](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L89)
 
 ## Methods
 
@@ -387,7 +387,7 @@ Destroys the view
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:223](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L223)
+[packages/rapida/src/renderer/css/css-view.ts:223](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L223)
 
 ___
 
@@ -403,7 +403,7 @@ Initialises the view
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:215](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L215)
+[packages/rapida/src/renderer/css/css-view.ts:215](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L215)
 
 ___
 
@@ -419,7 +419,7 @@ Handles resizing
 
 #### Defined in
 
-[rapida/src/renderer/css/css-view.ts:228](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/css/css-view.ts#L228)
+[packages/rapida/src/renderer/css/css-view.ts:228](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/css/css-view.ts#L228)
 
 ___
 
@@ -447,4 +447,4 @@ a view rectangle of decimal percentages
 
 #### Defined in
 
-[rapida/src/renderer/view.ts:279](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/view.ts#L279)
+[packages/rapida/src/renderer/view.ts:279](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/view.ts#L279)

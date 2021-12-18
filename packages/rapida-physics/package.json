@@ -11,7 +11,7 @@
   "entry": "src/index.ts",
   "main": "lib/next/index.js",
   "module": "lib/next/index.js",
-  "types": "lib/index.d.ts",
+  "types": "lib/next/index.d.ts",
   "scripts": {
     "build": "rollup -c",
     "eslint": "eslint .",
@@ -69,9 +69,9 @@
   },
   "dependencies": {
     "@types/three": "^0.133.0",
-    "three": "^0.133.0",
     "cannon-es": "^0.18.0",
-    "cannon-es-debugger": "^0.1.4"
+    "cannon-es-debugger": "^0.1.4",
+    "three": "^0.133.0"
   },
   "peerDependencies": {
     "three": "^0.133.0"
@@ -79,5 +79,17 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix",
     "*.{js,jsx,ts,tsx,md}": "prettier --write"
-  }
+  },
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/rapidajs/rapida.git"
+  },
+  "bugs": {
+    "url": "https://gitlab.com/rapidajs/rapida/issues"
+  },
+  "homepage": "https://gitlab.com/rapidajs/rapida#readme"
 }

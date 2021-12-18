@@ -34,7 +34,7 @@ Worker.onerror
 
 #### Defined in
 
-rapida/node_modules/typescript/lib/lib.dom.d.ts:1970
+node_modules/typescript/lib/lib.dom.d.ts:1922
 
 ___
 
@@ -48,7 +48,7 @@ Worker.onmessage
 
 #### Defined in
 
-rapida/node_modules/typescript/lib/lib.dom.d.ts:17432
+node_modules/typescript/lib/lib.dom.d.ts:16320
 
 ___
 
@@ -62,7 +62,7 @@ Worker.onmessageerror
 
 #### Defined in
 
-rapida/node_modules/typescript/lib/lib.dom.d.ts:17433
+node_modules/typescript/lib/lib.dom.d.ts:16321
 
 ## Methods
 
@@ -94,7 +94,7 @@ Worker.addEventListener
 
 #### Defined in
 
-rapida/node_modules/typescript/lib/lib.dom.d.ts:17443
+node_modules/typescript/lib/lib.dom.d.ts:16327
 
 ▸ **addEventListener**(`type`, `listener`, `options?`): `void`
 
@@ -116,7 +116,7 @@ Worker.addEventListener
 
 #### Defined in
 
-rapida/node_modules/typescript/lib/lib.dom.d.ts:17444
+node_modules/typescript/lib/lib.dom.d.ts:16328
 
 ▸ **addEventListener**<`K`\>(`type`, `listener`, `options?`): `void`
 
@@ -144,7 +144,7 @@ Worker.addEventListener
 
 #### Defined in
 
-rapida/node_modules/typescript/lib/lib.webworker.d.ts:5389
+node_modules/typescript/lib/lib.webworker.d.ts:5123
 
 ▸ **addEventListener**(`type`, `listener`, `options?`): `void`
 
@@ -166,7 +166,7 @@ Worker.addEventListener
 
 #### Defined in
 
-rapida/node_modules/typescript/lib/lib.webworker.d.ts:5390
+node_modules/typescript/lib/lib.webworker.d.ts:5124
 
 ___
 
@@ -192,7 +192,7 @@ Worker.dispatchEvent
 
 #### Defined in
 
-rapida/node_modules/typescript/lib/lib.dom.d.ts:5210
+node_modules/typescript/lib/lib.dom.d.ts:4983
 
 ▸ **dispatchEvent**(`event`): `boolean`
 
@@ -214,7 +214,7 @@ Worker.dispatchEvent
 
 #### Defined in
 
-rapida/node_modules/typescript/lib/lib.webworker.d.ts:1480
+node_modules/typescript/lib/lib.webworker.d.ts:1393
 
 ___
 
@@ -238,7 +238,7 @@ Worker.postMessage
 
 #### Defined in
 
-rapida-physics/lib/types.d.ts:270
+packages/rapida-physics/lib/next/types.d.ts:270
 
 ___
 
@@ -270,7 +270,7 @@ Worker.removeEventListener
 
 #### Defined in
 
-rapida/node_modules/typescript/lib/lib.dom.d.ts:17445
+node_modules/typescript/lib/lib.dom.d.ts:16329
 
 ▸ **removeEventListener**(`type`, `listener`, `options?`): `void`
 
@@ -292,7 +292,7 @@ Worker.removeEventListener
 
 #### Defined in
 
-rapida/node_modules/typescript/lib/lib.dom.d.ts:17446
+node_modules/typescript/lib/lib.dom.d.ts:16330
 
 ▸ **removeEventListener**<`K`\>(`type`, `listener`, `options?`): `void`
 
@@ -320,7 +320,7 @@ Worker.removeEventListener
 
 #### Defined in
 
-rapida/node_modules/typescript/lib/lib.webworker.d.ts:5391
+node_modules/typescript/lib/lib.webworker.d.ts:5125
 
 ▸ **removeEventListener**(`type`, `listener`, `options?`): `void`
 
@@ -342,7 +342,7 @@ Worker.removeEventListener
 
 #### Defined in
 
-rapida/node_modules/typescript/lib/lib.webworker.d.ts:5392
+node_modules/typescript/lib/lib.webworker.d.ts:5126
 
 ___
 
@@ -362,7 +362,7 @@ Worker.terminate
 
 #### Defined in
 
-rapida/node_modules/typescript/lib/lib.dom.d.ts:17442
+node_modules/typescript/lib/lib.dom.d.ts:16326
 
 ▸ **terminate**(): `void`
 
@@ -378,4 +378,4 @@ Worker.terminate
 
 #### Defined in
 
-rapida/node_modules/typescript/lib/lib.webworker.d.ts:5388
+node_modules/typescript/lib/lib.webworker.d.ts:5122

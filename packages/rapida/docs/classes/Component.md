@@ -40,7 +40,7 @@ Constructor for a Component
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:59](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/component.ts#L59)
+[packages/rapida/src/ecs/component.ts:59](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/component.ts#L59)
 
 ## Properties
 
@@ -52,7 +52,7 @@ The entity this component belongs to. Set on adding to an Entity.
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:24](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/component.ts#L24)
+[packages/rapida/src/ecs/component.ts:24](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/component.ts#L24)
 
 ___
 
@@ -64,7 +64,7 @@ This component instances unique id
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:19](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/component.ts#L19)
+[packages/rapida/src/ecs/component.ts:19](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/component.ts#L19)
 
 ___
 
@@ -76,7 +76,7 @@ Destruction logic
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:78](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/component.ts#L78)
+[packages/rapida/src/ecs/component.ts:78](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/component.ts#L78)
 
 ___
 
@@ -88,7 +88,7 @@ Initialisation logic. The entity will be available in this method.
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:66](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/component.ts#L66)
+[packages/rapida/src/ecs/component.ts:66](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/component.ts#L66)
 
 ___
 
@@ -103,7 +103,7 @@ If this method is not implemented in a component it will not be added to the upd
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:73](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/component.ts#L73)
+[packages/rapida/src/ecs/component.ts:73](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/component.ts#L73)
 
 ## Accessors
 
@@ -119,7 +119,7 @@ Gets the entity for the component. Available during init call.
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:29](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/component.ts#L29)
+[packages/rapida/src/ecs/component.ts:29](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/component.ts#L29)
 
 • `set` **entity**(`entity`): `void`
 
@@ -137,7 +137,7 @@ Sets what entity the component belongs to
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:37](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/component.ts#L37)
+[packages/rapida/src/ecs/component.ts:37](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/component.ts#L37)
 
 ___
 
@@ -153,7 +153,7 @@ The Space the components entity is in
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:44](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/component.ts#L44)
+[packages/rapida/src/ecs/component.ts:44](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/component.ts#L44)
 
 ___
 
@@ -169,4 +169,4 @@ The World the components entity is in
 
 #### Defined in
 
-[rapida/src/ecs/component.ts:51](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/ecs/component.ts#L51)
+[packages/rapida/src/ecs/component.ts:51](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/ecs/component.ts#L51)

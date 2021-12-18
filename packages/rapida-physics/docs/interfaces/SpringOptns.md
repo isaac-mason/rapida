@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[src/types.ts:645](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/types.ts#L645)
+[packages/rapida-physics/src/types.ts:645](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L645)
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:648](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/types.ts#L648)
+[packages/rapida-physics/src/types.ts:648](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L648)
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:649](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/types.ts#L649)
+[packages/rapida-physics/src/types.ts:649](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L649)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:643](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/types.ts#L643)
+[packages/rapida-physics/src/types.ts:643](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L643)
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:644](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/types.ts#L644)
+[packages/rapida-physics/src/types.ts:644](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L644)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:646](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/types.ts#L646)
+[packages/rapida-physics/src/types.ts:646](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L646)
 
 ___
 
@@ -80,4 +80,4 @@ ___
 
 #### Defined in
 
-[src/types.ts:647](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida-physics/src/types.ts#L647)
+[packages/rapida-physics/src/types.ts:647](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida-physics/src/types.ts#L647)

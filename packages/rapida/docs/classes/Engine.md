@@ -42,7 +42,7 @@ Constructor for an Engine
 
 #### Defined in
 
-[rapida/src/engine/index.ts:58](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L58)
+[packages/rapida/src/engine/index.ts:58](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/engine/index.ts#L58)
 
 ## Properties
 
@@ -54,7 +54,7 @@ Whether in debug mode
 
 #### Defined in
 
-[rapida/src/engine/index.ts:30](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L30)
+[packages/rapida/src/engine/index.ts:30](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/engine/index.ts#L30)
 
 ___
 
@@ -68,7 +68,7 @@ Set back to false after killing the loop
 
 #### Defined in
 
-[rapida/src/engine/index.ts:37](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L37)
+[packages/rapida/src/engine/index.ts:37](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/engine/index.ts#L37)
 
 ___
 
@@ -80,7 +80,7 @@ The logger for the engine
 
 #### Defined in
 
-[rapida/src/engine/index.ts:25](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L25)
+[packages/rapida/src/engine/index.ts:25](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/engine/index.ts#L25)
 
 ___
 
@@ -92,7 +92,7 @@ The time of the previous animation frame
 
 #### Defined in
 
-[rapida/src/engine/index.ts:42](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L42)
+[packages/rapida/src/engine/index.ts:42](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/engine/index.ts#L42)
 
 ___
 
@@ -104,7 +104,7 @@ The time of the previous physics frame
 
 #### Defined in
 
-[rapida/src/engine/index.ts:47](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L47)
+[packages/rapida/src/engine/index.ts:47](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/engine/index.ts#L47)
 
 ___
 
@@ -116,7 +116,7 @@ The stats.js instance
 
 #### Defined in
 
-[rapida/src/engine/index.ts:52](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L52)
+[packages/rapida/src/engine/index.ts:52](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/engine/index.ts#L52)
 
 ___
 
@@ -128,7 +128,7 @@ The current world in play
 
 #### Defined in
 
-[rapida/src/engine/index.ts:20](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L20)
+[packages/rapida/src/engine/index.ts:20](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/engine/index.ts#L20)
 
 ## Methods
 
@@ -144,7 +144,7 @@ Destroys the engine
 
 #### Defined in
 
-[rapida/src/engine/index.ts:119](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L119)
+[packages/rapida/src/engine/index.ts:119](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/engine/index.ts#L119)
 
 ___
 
@@ -160,7 +160,7 @@ The game logic loop
 
 #### Defined in
 
-[rapida/src/engine/index.ts:146](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L146)
+[packages/rapida/src/engine/index.ts:146](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/engine/index.ts#L146)
 
 ___
 
@@ -176,7 +176,7 @@ The physics loop
 
 #### Defined in
 
-[rapida/src/engine/index.ts:167](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L167)
+[packages/rapida/src/engine/index.ts:167](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/engine/index.ts#L167)
 
 ___
 
@@ -192,7 +192,7 @@ Runs the render loop for the engine
 
 #### Defined in
 
-[rapida/src/engine/index.ts:128](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L128)
+[packages/rapida/src/engine/index.ts:128](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/engine/index.ts#L128)
 
 ___
 
@@ -215,4 +215,4 @@ If a world is already playing, the current world is stopped and the new world is
 
 #### Defined in
 
-[rapida/src/engine/index.ts:81](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/engine/index.ts#L81)
+[packages/rapida/src/engine/index.ts:81](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/engine/index.ts#L81)

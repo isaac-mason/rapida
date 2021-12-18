@@ -13,6 +13,9 @@
     {
       "path": "../packages/rapida-common"
     },
+    {
+      "path": "../examples/multiplayer-example"
+    }
   ],
   "settings": {
     "typescript.preferences.importModuleSpecifier": "relative",

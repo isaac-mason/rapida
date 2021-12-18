@@ -27,7 +27,7 @@
 
 #### Defined in
 
-[rapida/src/renderer/renderer.ts:2](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/renderer.ts#L2)
+[packages/rapida/src/renderer/renderer.ts:2](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/renderer.ts#L2)
 
 ## Methods
 
@@ -41,7 +41,7 @@
 
 #### Defined in
 
-[rapida/src/renderer/renderer.ts:5](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/renderer.ts#L5)
+[packages/rapida/src/renderer/renderer.ts:5](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/renderer.ts#L5)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/renderer.ts:4](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/renderer.ts#L4)
+[packages/rapida/src/renderer/renderer.ts:4](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/renderer.ts#L4)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/renderer.ts:3](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/renderer.ts#L3)
+[packages/rapida/src/renderer/renderer.ts:3](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/renderer.ts#L3)
 
 ___
 
@@ -83,4 +83,4 @@ ___
 
 #### Defined in
 
-[rapida/src/renderer/renderer.ts:6](https://gitlab.com/rapidajs/rapida/-/blob/7269310/packages/rapida/src/renderer/renderer.ts#L6)
+[packages/rapida/src/renderer/renderer.ts:6](https://gitlab.com/rapidajs/rapida/-/blob/795fd7e/packages/rapida/src/renderer/renderer.ts#L6)
