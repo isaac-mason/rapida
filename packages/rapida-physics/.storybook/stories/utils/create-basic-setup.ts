@@ -73,7 +73,7 @@ loop: (() => void)[]
   }
 
   const destroy = () => {
-    physics.destroy();
+    physics.terminate();
     renderer.forceContextLoss();
     renderer.dispose();
   };

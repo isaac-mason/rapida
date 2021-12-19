@@ -3,7 +3,7 @@ import { handleInit } from './events/init';
 import { PhysicsEventTopic } from './events/physics-event-topic';
 import handlers from './handlers';
 import { State } from './state';
-import { AtomicName, FrameMessage, Observation } from './types';
+import type { AtomicName, FrameMessage, Observation } from './types';
 
 let initialised = false;
 let preInitEventQueue: any[] = [];

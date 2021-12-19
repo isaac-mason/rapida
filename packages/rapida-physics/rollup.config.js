@@ -8,7 +8,7 @@ const pkg = require('./package.json');
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
-const external = ['three']
+const external = ['three'];
 
 const config = [];
 
@@ -23,7 +23,7 @@ config.push({
   plugins: [
     resolve({ extensions }),
     commonjs(),
-    workerLoader({ inline: true, sourcemap: true }),
+    workerLoader({ inline: true, sourcemap: true, pattern: /web-worker:(.+)/ }),
     typescript({
       typescript: require('typescript'),
       cacheRoot: path.resolve(__dirname, '.rts2_cache'),

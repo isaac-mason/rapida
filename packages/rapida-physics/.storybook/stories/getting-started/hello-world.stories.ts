@@ -19,9 +19,9 @@ export default {
   title: 'Getting Started / Hello World',
   parameters: {
     docs: {
-      page: docs, 
-    }
-  }
+      page: docs,
+    },
+  },
 };
 
 export const HelloWorld = () => {
@@ -70,7 +70,7 @@ export const HelloWorld = () => {
     const [_, cubeApi] = physics.create.box(
       {
         type: BodyType.DYNAMIC,
-        args: [20, 20, 20],
+        size: [20, 20, 20],
         mass: 1,
         position: [0, 75, 0],
         rotation: [0, 0, 0],
@@ -80,17 +80,9 @@ export const HelloWorld = () => {
       mesh,
     );
 
-    cubeApi.velocity.set(
-      Math.round(Math.random() * 4) - 2,
-      50,
-      Math.round(Math.random() * 4) - 2
-    );
+    cubeApi.velocity.set(Math.round(Math.random() * 4) - 2, 50, Math.round(Math.random() * 4) - 2);
 
-    cubeApi.angularVelocity.set(
-      Math.random() * 5 - 2.5,
-      Math.random() * 5 - 2.5,
-      Math.random() * 5 - 2.5
-    );
+    cubeApi.angularVelocity.set(Math.random() * 5 - 2.5, Math.random() * 5 - 2.5, Math.random() * 5 - 2.5);
 
     physics.create.plane({
       type: BodyType.STATIC,
@@ -117,10 +109,10 @@ export const HelloWorld = () => {
     renderLoop();
 
     return () => {
-      physics.destroy();
+      physics.terminate();
       renderer.forceContextLoss();
       renderer.dispose();
-    }
+    };
   });
 
   return `
