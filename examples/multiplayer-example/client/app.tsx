@@ -18,7 +18,6 @@ import {
   AmbientLight,
   BoxGeometry,
   DirectionalLight,
-  Group,
   Mesh,
   MeshPhongMaterial,
   Vector3,
@@ -315,9 +314,10 @@ const App = () => {
     const worldProvider: WorldProvider = (worldContext) => {
       const world = new World({ engine: worldContext.engine });
 
-      const renderer = world.create.renderer.webgl({
-        domElementId: 'renderer-root',
-      });
+      const renderer = world.create.renderer.webgl();
+      document
+        .getElementById('renderer-root')!
+        .appendChild(renderer.domElement);
 
       const camera = world.create.camera();
       camera.position.set(0, 0, 500);

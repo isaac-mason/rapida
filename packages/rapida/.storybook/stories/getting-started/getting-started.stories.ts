@@ -89,9 +89,8 @@ export const HelloWorld = () => {
         engine: worldContext.engine,
       });
 
-      const renderer = world.create.renderer.webgl({
-        domElementId: 'renderer-root',
-      });
+      const renderer = world.create.renderer.webgl();
+      document.getElementById('renderer-root').appendChild(renderer.domElement);
 
       const scene = world.create.scene();
 

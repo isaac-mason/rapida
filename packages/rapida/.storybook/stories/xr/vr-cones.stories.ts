@@ -38,12 +38,12 @@ export const VRCones = () => {
       camera.position.set(0, 0, 500);
 
       const renderer = world.create.renderer.xr({
-        domElementId: 'renderer-root',
         mode: XRRendererMode.VR,
         camera,
         scene,
         appendButton: true,
       });
+      document.getElementById('renderer-root').appendChild(renderer.domElement);
 
       const directionalLight = new DirectionalLight(0xffffff, 1);
       directionalLight.position.set(300, 0, 300);

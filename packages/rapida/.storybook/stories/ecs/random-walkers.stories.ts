@@ -157,12 +157,13 @@ export const RandomWalkers = () => {
       });
 
       const renderer = world.create.renderer.webgl({
-        domElementId: 'renderer-root',
         renderer: new WebGLRenderer({
           precision: 'lowp',
           powerPreference: 'high-performance',
         }),
       });
+
+      document.getElementById('renderer-root').appendChild(renderer.domElement);
 
       const scene = world.create.scene();
       scene.threeScene.fog = new Fog('red', 40, 110);

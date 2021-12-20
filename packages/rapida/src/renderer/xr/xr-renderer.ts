@@ -31,11 +31,6 @@ export enum XRRendererMode {
  */
 export type XRRendererParams = {
   /**
-   * The dom element id for the xr renderer
-   */
-  domElementId: string;
-
-  /**
    * The mode for the xr renderer, VR or AR
    */
   mode: XRRendererMode;
@@ -63,6 +58,8 @@ export type XRRendererParams = {
 
 /**
  * Renderer for VR and AR content
+ *
+ * After construction, the domElement property, which contains a div dom element, should be added to the dom.
  */
 export class XRRenderer implements Renderer {
   /**
@@ -122,14 +119,7 @@ export class XRRenderer implements Renderer {
 
   constructor(
     manager: RendererManager,
-    {
-      appendButton,
-      domElementId,
-      renderer,
-      mode,
-      scene,
-      camera,
-    }: XRRendererParams
+    { appendButton, renderer, mode, scene, camera }: XRRendererParams
   ) {
     this.rendererManager = manager;
     this.mode = mode;
@@ -155,10 +145,12 @@ export class XRRenderer implements Renderer {
     });
 
     // Create the renderer dom element for views within the renderer
-    this.domElement = document.getElementById(domElementId) as HTMLElement;
+    this.domElement = document.createElement('div');
 
     // ensure root dom element has relative position
     this.domElement.style.position = 'relative';
+    this.domElement.style.width = '100%';
+    this.domElement.style.height = '100%';
 
     // Set up the three js renderer dom element
     this.three.domElement.style.position = 'absolute';

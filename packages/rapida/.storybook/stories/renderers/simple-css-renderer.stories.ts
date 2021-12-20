@@ -24,8 +24,11 @@ export const SimpleCSSRenderer = () => {
       });
 
       // create renderers
-      const webglRenderer = world.create.renderer.webgl({ domElementId: 'renderer-root' });
-      const cssRenderer = world.create.renderer.css({ domElementId: 'renderer-root' });
+      const webglRenderer = world.create.renderer.webgl();
+      document.getElementById('renderer-root').appendChild(webglRenderer.domElement);
+
+      const cssRenderer = world.create.renderer.css();
+      document.getElementById('renderer-root').appendChild(cssRenderer.domElement);
 
       // create camera and scene
       const scene = world.create.scene();

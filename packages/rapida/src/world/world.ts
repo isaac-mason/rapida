@@ -20,7 +20,6 @@ import {
   WebGLRenderer,
   WebGLRendererParams,
   CSSRenderer,
-  CSSRendererParams,
 } from '../renderer';
 import { XRRenderer, XRRendererParams } from '../renderer/xr/xr-renderer';
 import { RapidaPhysics } from '../physics';
@@ -278,7 +277,7 @@ export class World {
      * @param params params for the webgl renderer
      * @returns the new webgl renderer
      */
-    webgl: (params: WebGLRendererParams): WebGLRenderer => {
+    webgl: (params?: WebGLRendererParams): WebGLRenderer => {
       const renderer = new WebGLRenderer(this.rendererManager, params);
       this.rendererManager.addRenderer(renderer);
 
@@ -289,8 +288,8 @@ export class World {
      * @param params the params for the css renderer
      * @returns the new css renderer
      */
-    css: (params: CSSRendererParams): CSSRenderer => {
-      const renderer = new CSSRenderer(this.rendererManager, params);
+    css: (): CSSRenderer => {
+      const renderer = new CSSRenderer(this.rendererManager);
       this.rendererManager.addRenderer(renderer);
 
       return renderer;
@@ -333,8 +332,8 @@ export class World {
     scene: (params?: SceneParams) => Scene;
     physics: (params: PhysicsParams) => RapidaPhysics;
     renderer: {
-      webgl: (params: WebGLRendererParams) => WebGLRenderer;
-      css: (params: CSSRendererParams) => CSSRenderer;
+      webgl: (params?: WebGLRendererParams) => WebGLRenderer;
+      css: () => CSSRenderer;
       xr: (params: XRRendererParams) => XRRenderer;
     };
   } = {

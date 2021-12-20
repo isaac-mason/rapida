@@ -159,12 +159,12 @@ export const FallingBoxes = ({
       });
 
       const renderer = world.create.renderer.webgl({
-        domElementId: 'renderer-root',
         renderer: new WebGLRenderer({
           precision: 'lowp',
           powerPreference: 'high-performance',
         }),
       });
+      document.getElementById('renderer-root').appendChild(renderer.domElement);
 
       const physics = world.create.physics({
         allowSleep: true,

@@ -15,12 +15,16 @@ type WebGLRendererFactories = {
  * Params for creating a WebGLRenderer
  */
 export type WebGLRendererParams = {
-  domElementId: string;
+  /**
+   * The three renderer
+   */
   renderer?: ThreeWebGLRenderer;
 };
 
 /**
- * WebGLRenderer is a wrapper around the three js WebGLRenderer class that also supports view functionality
+ * WebGLRenderer is a wrapper around the three js WebGLRenderer class that also supports view functionality.
+ *
+ * After construction, the domElement property, which contains a div dom element, should be added to the dom.
  */
 export class WebGLRenderer implements Renderer {
   /**
@@ -67,15 +71,15 @@ export class WebGLRenderer implements Renderer {
    * Constructor for a WebGLRenderer
    * @param params the params for the new renderer
    */
-  constructor(rendererManager: RendererManager, params: WebGLRendererParams) {
+  constructor(rendererManager: RendererManager, params?: WebGLRendererParams) {
     this.rendererManager = rendererManager;
     this.three =
       params?.renderer || new ThreeWebGLRenderer({ antialias: true });
 
     // Create the renderer dom element for views within the renderer
-    this.domElement = document.getElementById(
-      params.domElementId
-    ) as HTMLElement;
+    this.domElement = document.createElement('div');
+    this.domElement.style.width = '100%';
+    this.domElement.style.height = '100%';
 
     // ensure root dom element has relative position
     this.domElement.style.position = 'relative';

@@ -22,9 +22,8 @@ export const OneView = () => {
         engine: worldContext.engine,
       });
 
-      const renderer = world.create.renderer.webgl({
-        domElementId: 'renderer-root-1',
-      });
+      const renderer = world.create.renderer.webgl();
+      document.getElementById('renderer-root').appendChild(renderer.domElement);
 
       const scene = world.create.scene({ id: 'mainScene' });
 
@@ -62,11 +61,11 @@ export const OneView = () => {
 
   return `
   <style>
-  #renderer-root-1 {
+  #renderer-root {
     width: 100%;
     height: 100%;
   }
   </style>
-  <div id="renderer-root-1"></div>
+  <div id="renderer-root"></div>
   `;
 };

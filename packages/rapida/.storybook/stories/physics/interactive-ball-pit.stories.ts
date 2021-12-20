@@ -25,12 +25,12 @@ export const InteractiveBallPit = () => {
       });
 
       const renderer = world.create.renderer.webgl({
-        domElementId: 'renderer-root',
         renderer: new WebGLRenderer({
           precision: 'lowp',
           powerPreference: 'high-performance',
         }),
       });
+      document.getElementById('renderer-root').appendChild(renderer.domElement);
 
       const physics = world.create.physics({
         gravity: [0, -10, 0],

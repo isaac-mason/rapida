@@ -20,8 +20,11 @@ export const TwoRenderers = () => {
         engine: worldContext.engine,
       });
 
-      const rendererOne = world.create.renderer.webgl({ domElementId: 'renderer-root-1' });
-      const rendererTwo = world.create.renderer.webgl({ domElementId: 'renderer-root-2' });
+      const rendererOne = world.create.renderer.webgl();
+      document.getElementById('renderer-root-1').appendChild(rendererOne.domElement);
+
+      const rendererTwo = world.create.renderer.webgl();
+      document.getElementById('renderer-root-2').appendChild(rendererTwo.domElement);
 
       const scene = world.create.scene({ id: 'mainScene' });
 

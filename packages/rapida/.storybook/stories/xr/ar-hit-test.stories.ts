@@ -48,12 +48,12 @@ export const ARHitTest = () => {
       camera.position.set(0, 0, 500);
 
       const renderer = world.create.renderer.xr({
-        domElementId: 'renderer-root',
         mode: XRRendererMode.AR,
         camera,
         scene,
-        renderer: new WebGLRenderer({ antialias: true, alpha: true }),
+        renderer: new WebGLRenderer({ antialias: true }),
       });
+      document.getElementById('renderer-root').appendChild(renderer.domElement);
 
       renderer.domElement.appendChild(
         ARButton.createButton(renderer.three, {
