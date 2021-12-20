@@ -14,7 +14,7 @@ type SpaceFactories = {
 /**
  * Params for creating a new Space
  */
-type SpaceParams = {
+export type SpaceParams = {
   /**
    * An id for the space, must be unique
    */
@@ -26,7 +26,7 @@ type SpaceParams = {
  *
  * A Space can be added to a world and then affected by the systems in a world.
  */
-class Space {
+export class Space {
   /**
    * A unique ID for the space
    */
@@ -204,5 +204,3 @@ class Space {
     return this._factories;
   }
 }
-
-export { Space, SpaceParams };

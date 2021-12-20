@@ -4,7 +4,7 @@ import { Query, QueryDescription } from './query';
 /**
  * QueryManager that manages Query class instances
  */
-class QueryManager {
+export class QueryManager {
   /**
    * A map of query dedupe strings to query instances
    */
@@ -148,5 +148,3 @@ class QueryManager {
     return entityQueries;
   }
 }
-
-export { QueryManager };

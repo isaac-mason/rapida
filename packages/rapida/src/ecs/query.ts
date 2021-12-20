@@ -3,13 +3,13 @@ import { Component } from './component';
 
 type ComponentConstructor = new (...args: never[]) => Component;
 
-enum QueryConditionType {
+export enum QueryConditionType {
   ALL = 'all',
   ONE = 'one',
   NOT = 'not',
 }
 
-type QueryDescription = {
+export type QueryDescription = {
   [QueryConditionType.ALL]?: ComponentConstructor[];
   [QueryConditionType.ONE]?: ComponentConstructor[];
   [QueryConditionType.NOT]?: ComponentConstructor[];
@@ -20,7 +20,7 @@ type QueryDescription = {
  *
  * Queries can contain a minimum of one and a maximum of three conditions, the `all`, `one`, and `not` QueryConditionType conditions.
  */
-class Query {
+export class Query {
   /**
    * The query dedupe string
    */
@@ -126,5 +126,3 @@ class Query {
       .join('-');
   }
 }
-
-export { Query, QueryDescription, QueryConditionType };

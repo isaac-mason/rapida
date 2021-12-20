@@ -14,7 +14,7 @@ type WebGLRendererFactories = {
 /**
  * Params for creating a WebGLRenderer
  */
-type WebGLRendererParams = {
+export type WebGLRendererParams = {
   domElementId: string;
   renderer?: ThreeWebGLRenderer;
 };
@@ -22,7 +22,7 @@ type WebGLRendererParams = {
 /**
  * WebGLRenderer is a wrapper around the three js WebGLRenderer class that also supports view functionality
  */
-class WebGLRenderer implements Renderer {
+export class WebGLRenderer implements Renderer {
   /**
    * The id for the renderer
    */
@@ -236,5 +236,3 @@ class WebGLRenderer implements Renderer {
     return this._factories;
   }
 }
-
-export { WebGLRenderer, WebGLRendererParams };

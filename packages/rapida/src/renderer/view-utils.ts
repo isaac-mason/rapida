@@ -11,7 +11,7 @@ import {
  * @param value the view param input
  * @returns the interpreted ViewRectangleParam
  */
-const convertViewParamInputToViewParam = (
+export const convertViewParamInputToViewParam = (
   value: ViewRectangleParamInput
 ): ViewRectangleParam => {
   // check if value can be passed through
@@ -74,7 +74,7 @@ const convertViewParamInputToViewParam = (
  *
  * @returns the decimal percentage value derived from the given view param and the renderer and viewport size
  */
-const decimalPercentageFromViewParam = (
+export const decimalPercentageFromViewParam = (
   value: ViewRectangleParam,
   plane: ViewRectangleParamPlane,
   ctx: {
@@ -166,7 +166,7 @@ const viewParamPlaneToViewRectPlane = (v: {
  * @param param the decimal percentage view params
  * @returns the view rectangle for the view params
  */
-const decimalViewParamsToViewRectangle = ({
+export const viewParamDecimalsToViewRectangle = ({
   bottom,
   top,
   height,
@@ -219,10 +219,4 @@ const decimalViewParamsToViewRectangle = ({
   viewRectangle.width = horizontal.length;
 
   return viewRectangle;
-};
-
-export {
-  convertViewParamInputToViewParam,
-  decimalPercentageFromViewParam,
-  decimalViewParamsToViewRectangle as viewParamDecimalsToViewRectangle,
 };

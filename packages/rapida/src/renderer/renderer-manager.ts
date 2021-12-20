@@ -4,7 +4,7 @@ import { Renderer } from './renderer';
 /**
  * RendererManager managers the render and update loop for renderers
  */
-class RendererManager {
+export class RendererManager {
   /**
    * The renderers in the renderer manager
    */
@@ -85,5 +85,3 @@ class RendererManager {
     }
   }
 }
-
-export { RendererManager };

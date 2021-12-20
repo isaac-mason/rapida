@@ -8,7 +8,7 @@ import { View, ViewRectangle, ViewRectangleParams, ViewSize } from '../view';
 /**
  * Params for creating a css view
  */
-type CSSViewParams = {
+export type CSSViewParams = {
   /**
    * The camera for the view
    */
@@ -40,7 +40,7 @@ type CSSViewParams = {
  *
  * Each CSSView actually has its own three-stdlib CSS3DRenderer.
  */
-class CSSView extends View {
+export class CSSView extends View {
   /**
    * The id for the view
    */
@@ -276,5 +276,3 @@ class CSSView extends View {
     this.camera.three.updateProjectionMatrix();
   };
 }
-
-export { CSSView, CSSViewParams };

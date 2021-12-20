@@ -4,7 +4,7 @@ import { World } from '../world';
 /**
  * RapidaPhysics is a small extension of the `@rapidajs/rapida-physics` Physics class, but with added methods for interacting with a World
  */
-class RapidaPhysics extends Physics {
+export class RapidaPhysics extends Physics {
   /**
    * The world the physics instance is in
    */
@@ -34,5 +34,3 @@ class RapidaPhysics extends Physics {
     this.terminate();
   }
 }
-
-export { RapidaPhysics };

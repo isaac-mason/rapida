@@ -2,14 +2,14 @@ import { uuid } from '@rapidajs/rapida-common';
 import * as three from 'three';
 import { World } from '../world';
 
-type SceneParams = {
+export type SceneParams = {
   id?: string;
 };
 
 /**
  * A thin wrapper around a three js scene
  */
-class Scene {
+export class Scene {
   /**
    * The unique ID for the scene
    */
@@ -71,5 +71,3 @@ class Scene {
     this.world.remove(this);
   }
 }
-
-export { Scene, SceneParams };

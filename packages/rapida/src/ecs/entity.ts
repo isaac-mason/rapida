@@ -7,7 +7,7 @@ import {
 import { Component } from './component';
 import { Space } from './space';
 
-type EntityParams = {
+export type EntityParams = {
   id?: string;
   components?: Component[];
 };
@@ -15,7 +15,7 @@ type EntityParams = {
 /**
  * Entity that contains components and calls component lifecycle methods
  */
-class Entity {
+export class Entity {
   /**
    * The unique ID of the entity
    */
@@ -256,5 +256,3 @@ class Entity {
     return this.events.emit(event);
   }
 }
-
-export { Entity, EntityParams };

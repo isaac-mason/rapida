@@ -10,7 +10,7 @@ import { System } from './system';
  * Maintains the usage of queries by systems and removes queries from the `QueryManager` if no systems are
  * using a query.
  */
-class SystemManager {
+export class SystemManager {
   /**
    * Systems in the System Manager
    */
@@ -149,5 +149,3 @@ class SystemManager {
     }
   }
 }
-
-export { SystemManager };

@@ -7,7 +7,7 @@ import {
 import { World } from '../world';
 import { Query, QueryDescription } from './query';
 
-type SystemQueries = { [queryName: string]: QueryDescription };
+export type SystemQueries = { [queryName: string]: QueryDescription };
 
 /**
  * System abstract class that is extended to create a system containing custom logic for a world.
@@ -16,7 +16,7 @@ type SystemQueries = { [queryName: string]: QueryDescription };
  * Systems have lifecycle hooks `onInit`, `onUpdate`, and `onDestroy` hook that are executed to provide logic to the world.
  * Systems also have their own events system `events` that can be used to run that isn't required to be run on every update.
  */
-abstract class System {
+export abstract class System {
   /**
    * The id for the system
    */
@@ -134,5 +134,3 @@ abstract class System {
    */
   onUpdate?: (timeElapsed: number) => void = undefined;
 }
-
-export { System };

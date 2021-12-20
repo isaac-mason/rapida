@@ -23,12 +23,12 @@ import {
   CSSRendererParams,
 } from '../renderer';
 import { XRRenderer, XRRendererParams } from '../renderer/xr/xr-renderer';
-import { RapidaPhysics } from '../physics/physics';
+import { RapidaPhysics } from '../physics';
 
 /**
  * Params for creating a world
  */
-type WorldParams = {
+export type WorldParams = {
   /**
    * The unique id for the world
    */
@@ -53,7 +53,7 @@ type WorldParams = {
 /**
  * A World that can contain systems, spaces containing entities, scenes, physics worlds, and renderers
  */
-class World {
+export class World {
   /**
    * A unique id for the world
    */
@@ -411,5 +411,3 @@ class World {
     return this._add;
   }
 }
-
-export { World, WorldParams };

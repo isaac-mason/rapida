@@ -3,7 +3,7 @@ import { World } from '../world';
 import { Entity } from './entity';
 import { Space } from './space';
 
-type ComponentParams = {
+export type ComponentParams = {
   id?: string;
 };
 
@@ -12,7 +12,7 @@ type ComponentParams = {
  *
  * This class should be extended to add fields for data, and to set the methods `onInit`, `onUpdate`, and `onDestroy`.
  */
-abstract class Component {
+export abstract class Component {
   /**
    * This component instances unique id
    */
@@ -77,5 +77,3 @@ abstract class Component {
    */
   onDestroy: (() => void) | undefined = undefined;
 }
-
-export { Component, ComponentParams };

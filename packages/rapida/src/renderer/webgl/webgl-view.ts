@@ -22,7 +22,7 @@ import { WebGLRenderer } from './webgl-renderer';
 /**
  * Params for creating a webgl view
  */
-type WebGLViewParams = {
+export type WebGLViewParams = {
   /**
    * A unique identifier for the view. Defaults to a uuid if unspecified
    */
@@ -67,7 +67,7 @@ type WebGLViewParams = {
 /**
  * A WebGLView that a WebGLRenderer should render
  */
-class WebGLView extends View {
+export class WebGLView extends View {
   /**
    * A unique identifier for the view
    */
@@ -493,5 +493,3 @@ class WebGLView extends View {
     this.domElementListeners.set(eventName, listener);
   }
 }
-
-export { WebGLView, WebGLViewParams };

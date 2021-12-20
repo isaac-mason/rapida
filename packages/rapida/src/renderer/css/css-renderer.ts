@@ -13,14 +13,14 @@ type CSSRendererFactories = {
 /**
  * Parameters for creating a CSSRenderer
  */
-type CSSRendererParams = {
+export type CSSRendererParams = {
   domElementId: string;
 };
 
 /**
  * CSSRenderer is a thin wrapper around the CSS3DRenderer three js class with support for multiple views
  */
-class CSSRenderer implements Renderer {
+export class CSSRenderer implements Renderer {
   /**
    * A unique id for the css renderer
    */
@@ -150,5 +150,3 @@ class CSSRenderer implements Renderer {
     return this._factories;
   }
 }
-
-export { CSSRenderer, CSSRendererParams };

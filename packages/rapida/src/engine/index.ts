@@ -1,28 +1,22 @@
 import { Logger } from 'pino';
 import Stats from 'stats.js';
-import logger from '../common/logger';
 import { World, WorldProvider } from '../world';
 
 /**
  * Parameters for creating a new rapida engine
  */
-type EngineParams = {
+export type EngineParams = {
   debug?: boolean;
 };
 
 /**
  * Engine for rapida worlds
  */
-class Engine {
+export class Engine {
   /**
    * The current world in play
    */
   world?: World;
-
-  /**
-   * The logger for the engine
-   */
-  log: Logger;
 
   /**
    * Whether in debug mode
@@ -67,10 +61,6 @@ class Engine {
       this.stats.dom.style.left = 'unset';
       this.stats.dom.style.right = '0';
     }
-
-    // store the logger
-    this.log = logger;
-    this.log.level = this.debug ? 'debug' : 'info';
   }
 
   /**
@@ -181,5 +171,3 @@ class Engine {
     }, this.world?._physicsUpdateDelayMs);
   }
 }
-
-export { Engine, EngineParams };

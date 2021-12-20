@@ -10,7 +10,7 @@ import { Renderer } from '../renderer';
 /**
  * An event for a new XRFrame
  */
-interface FrameEvent extends Event {
+export interface FrameEvent extends Event {
   topic: 'frame';
   data: {
     frame: XRFrame;
@@ -21,7 +21,7 @@ interface FrameEvent extends Event {
 /**
  * XRRenderer modes
  */
-enum XRRendererMode {
+export enum XRRendererMode {
   VR = 'VR',
   AR = 'AR',
 }
@@ -29,7 +29,7 @@ enum XRRendererMode {
 /**
  * Params for creating a new VRRenderer
  */
-type XRRendererParams = {
+export type XRRendererParams = {
   /**
    * The dom element id for the xr renderer
    */
@@ -64,7 +64,7 @@ type XRRendererParams = {
 /**
  * Renderer for VR and AR content
  */
-class XRRenderer implements Renderer {
+export class XRRenderer implements Renderer {
   /**
    * Unique id for the vr renderer
    */
@@ -232,5 +232,3 @@ class XRRenderer implements Renderer {
     return { unsubscribe: () => this.events.removeHandler('frame', id) };
   }
 }
-
-export { XRRenderer, XRRendererParams, XRRendererMode };

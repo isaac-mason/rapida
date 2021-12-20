@@ -24,7 +24,7 @@ export const Chain = () => {
     // chain handle
     const [handleRef, { velocity }] = physics.create.sphere({
       type: BodyType.DYNAMIC,
-      args: 1,
+      radius: 1,
       mass: 1,
       position: [0, 60, 0],
     });
