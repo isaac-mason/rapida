@@ -9,7 +9,7 @@ packages/**/junit.xml
 .cache
 .yarn/*
 .yarn/install-state.gz
-.yarn/cache
+**/.yarn/cache
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
