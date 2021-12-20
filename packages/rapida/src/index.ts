@@ -1,7 +1,6 @@
 export { uuid } from '@rapidajs/rapida-common';
 export type { Event, EventHandler } from '@rapidajs/rapida-common';
 export * from '@rapidajs/rapida-physics';
-export * from './physics';
 export * from './camera';
 export * from './ecs';
 export * from './engine';

@@ -3617,7 +3617,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@rapidajs/rapida@0.0.6, @rapidajs/rapida@^0.0.6, @rapidajs/rapida@workspace:packages/rapida":
+"@rapidajs/rapida@0.0.6, @rapidajs/rapida@workspace:packages/rapida":
   version: 0.0.0-use.local
   resolution: "@rapidajs/rapida@workspace:packages/rapida"
   dependencies:
@@ -21893,11 +21893,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"test-rapida@workspace:examples/parcel":
+"test-rapida@workspace:examples/typescript-parcel":
   version: 0.0.0-use.local
-  resolution: "test-rapida@workspace:examples/parcel"
+  resolution: "test-rapida@workspace:examples/typescript-parcel"
   dependencies:
-    "@rapidajs/rapida": ^0.0.6
+    "@rapidajs/rapida": 0.0.6
     parcel: ^2.0.1
     three: ^0.135.0
   languageName: unknown
