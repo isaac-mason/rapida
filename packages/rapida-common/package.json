@@ -2,7 +2,6 @@
   "name": "@rapidajs/rapida-common",
   "version": "0.0.4",
   "main": "lib/index.js",
-  "private": true,
   "scripts": {
     "prebuild": "rm -rf ./lib",
     "build": "tsc",
