@@ -10,6 +10,7 @@ packages/**/junit.xml
 .yarn/*
 .yarn/install-state.gz
 **/.yarn/cache
+**/.parcel-cache
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases

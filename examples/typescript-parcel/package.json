@@ -2,18 +2,19 @@
   "name": "test-rapida",
   "version": "1.0.0",
   "main": "index.js",
+  "private": true,
   "license": "MIT",
   "devDependencies": {
     "parcel": "^2.0.1"
   },
   "dependencies": {
-    "@rapidajs/rapida": "^0.0.6",
+    "@rapidajs/rapida": "0.0.6",
     "three": "^0.135.0"
   },
   "scripts": {
     "dev": "parcel serve src/index.html"
   },
   "alias": {
-    "three": "./node_modules/three"
+    "three": "../../node_modules/three"
   }
 }
