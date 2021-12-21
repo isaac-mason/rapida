@@ -20,6 +20,10 @@ export class QueryManager {
    */
   private _entityQueries: Map<string, Set<Query>> = new Map();
 
+  /**
+   * Constructor for a QueryManager
+   * @param world the world the QueryManager is in
+   */
   constructor(world: World) {
     this.world = world;
   }
