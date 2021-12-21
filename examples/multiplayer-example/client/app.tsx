@@ -53,7 +53,7 @@ class PlayerMesh extends Component {
 }
 
 class PlayerControls extends Component {
-  playerMesh?: PlayerMesh;
+  playerMesh!: PlayerMesh;
 
   up = false;
 
@@ -66,7 +66,7 @@ class PlayerControls extends Component {
   dirty = false;
 
   onInit = (): void => {
-    this.playerMesh = this.entity.get(PlayerMesh) as PlayerMesh;
+    this.playerMesh = this.entity.get(PlayerMesh);
 
     const W_KEY = 87;
     const S_KEY = 83;
@@ -109,7 +109,7 @@ class PlayerControls extends Component {
     const scalar = 0.1;
     let dirty = false;
 
-    const playerMesh = this.playerMesh as PlayerMesh;
+    const playerMesh = this.playerMesh!;
 
     const { position } = playerMesh.cube;
     if (this.up) {
@@ -139,9 +139,9 @@ class PlayerControls extends Component {
 class PlayerNetworkManager extends Component {
   playerId: string;
 
-  playerMesh?: PlayerMesh;
+  playerMesh!: PlayerMesh;
 
-  playerControls?: PlayerControls;
+  playerControls!: PlayerControls;
 
   io: ClientChannel;
 
@@ -152,94 +152,33 @@ class PlayerNetworkManager extends Component {
   }
 
   onInit = (): void => {
-    this.playerMesh = this.entity.get(PlayerMesh) as PlayerMesh;
-    this.playerControls = this.entity.get(PlayerControls) as PlayerControls;
+    this.playerMesh = this.entity.get(PlayerMesh);
+    this.playerControls = this.entity.get(PlayerControls);
 
     this.io.on('player-position-update', (d) => {
       const data = d as { x: number; y: number; z: number };
-      this.playerMesh?.cube.position.set(data.x, data.y, data.z);
+      this.playerMesh.cube.position.set(data.x, data.y, data.z);
     });
   };
 
   onUpdate = (_timeElapsed: number) => {
-    if (this.playerControls?.dirty) {
+    if (this.playerControls.dirty) {
       this.playerControls.dirty = false;
 
       this.io.emit('player-frame', {
         id: this.playerId,
-        x: this.playerMesh?.cube.position.x,
-        y: this.playerMesh?.cube.position.y,
-        z: this.playerMesh?.cube.position.z,
+        x: this.playerMesh.cube.position.x,
+        y: this.playerMesh.cube.position.y,
+        z: this.playerMesh.cube.position.z,
       });
     }
-  };
-}
-
-class OtherPlayersNetworkManager extends System {
-  io: ClientChannel;
-
-  gameNetworkManager: GameNetworkManager;
-
-  gameSpace: Space;
-
-  gameScene: Scene;
-
-  constructor({
-    gameNetworkManager,
-    space,
-    scene,
-    io,
-  }: {
-    gameNetworkManager: GameNetworkManager;
-    space: Space;
-    scene: Scene;
-    io: ClientChannel;
-  }) {
-    super();
-    this.gameNetworkManager = gameNetworkManager;
-    this.gameSpace = space;
-    this.gameScene = scene;
-    this.io = io;
-  }
-
-  onInit = (): void => {
-    this.io.on('frame', (d) => {
-      const data = d as {
-        players: {
-          [id: string]: { id: string; x: number; y: number; z: number };
-        };
-      };
-
-      Object.values(data.players).map((box) => {
-        // get the box id
-        const { id } = box;
-
-        // skip if the box is the current player
-        if (this.gameNetworkManager.playerId === id) {
-          return;
-        }
-
-        // create or retrieve the entity
-        let entity: Entity | undefined = this.gameSpace.entities.get(id);
-        if (entity === undefined) {
-          entity = this.gameSpace.create.entity({ id });
-          entity.addComponent(new PlayerMesh({ gameScene: this.gameScene }));
-          this.gameSpace.add(entity);
-        }
-
-        // set the entities position
-        const playerMesh = entity.get(PlayerMesh) as PlayerMesh;
-
-        playerMesh.cube.position.set(box.x, box.y, box.z);
-      });
-    });
   };
 }
 
 class GameNetworkManager extends System {
   playerId: string | undefined;
 
-  io: ClientChannel | undefined;
+  io!: ClientChannel;
 
   gameSpace: Space;
 
@@ -268,37 +207,61 @@ class GameNetworkManager extends System {
         return;
       }
 
-      this.io?.on('join-response', (d) => {
-        const data = d as {
+      this.io.on('join-response', (join: unknown) => {
+        const joinData = join as {
           id: string;
           position: { x: number; y: number; z: number };
         };
 
-        this.playerId = data.id;
+        this.playerId = joinData.id;
 
         this.gameSpace.create.entity({
-          id: data.id,
+          id: joinData.id,
           components: [
             new PlayerMesh({ gameScene: this.gameScene }),
             new PlayerControls(),
             new PlayerNetworkManager({
-              playerId: data.id,
+              playerId: joinData.id,
               io: this.io as ClientChannel,
             }),
           ],
         });
 
-        this.world.add.system(
-          new OtherPlayersNetworkManager({
-            space: this.gameSpace,
-            scene: this.gameScene,
-            io: this.io as ClientChannel,
-            gameNetworkManager: this,
-          })
-        );
+        // handle server frames
+        this.io.on('frame', (frame: unknown) => {
+          const frameData = frame as {
+            players: {
+              [id: string]: { id: string; x: number; y: number; z: number };
+            };
+          };
+          Object.values(frameData.players).map((box) => {
+            // get the box id
+            const { id } = box;
+
+            // skip if the box is the current player
+            if (this.playerId === id) {
+              return;
+            }
+
+            // create or retrieve the entity
+            let entity: Entity | undefined = this.gameSpace.entities.get(id);
+            if (entity === undefined) {
+              entity = this.gameSpace.create.entity({ id });
+              entity.addComponent(
+                new PlayerMesh({ gameScene: this.gameScene })
+              );
+              this.gameSpace.add(entity);
+            }
+
+            // set the entities position
+            const playerMesh = entity.get(PlayerMesh);
+
+            playerMesh.cube.position.set(box.x, box.y, box.z);
+          });
+        });
       });
 
-      this.io?.emit('join-request');
+      this.io.emit('join-request');
     });
   };
 }

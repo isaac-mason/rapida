@@ -40,4 +40,19 @@ describe('Component', () => {
 
     expect(getSceneResult).toBeTruthy();
   });
+
+  describe('getComponentNames', () => {
+    it('should passthrough a string component name', () => {
+      expect(Component.getComponentName('value')).toBe('value');
+    });
+
+    it('should return a component instances name', () => {
+      const instance = new TestComponent();
+      expect(Component.getComponentName(instance)).toBe('TestComponent');
+    });
+
+    it('should return a component constructors name', () => {
+      expect(Component.getComponentName(TestComponent)).toBe('TestComponent');
+    });
+  });
 });

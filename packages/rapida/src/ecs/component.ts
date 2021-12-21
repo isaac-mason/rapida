@@ -76,4 +76,26 @@ export abstract class Component {
    * Destruction logic
    */
   onDestroy: (() => void) | undefined = undefined;
+
+  /**
+   * Gets the component name
+   * @param value the component constructor, component instance, or component string name
+   * @returns the component name
+   */
+  static getComponentName<T extends Component | Component>(
+    value:
+      | {
+          new (...args: never[]): T;
+        }
+      | Component
+      | string
+  ): string {
+    if (typeof value === 'string') {
+      return value;
+    }
+    if (value instanceof Component) {
+      return value.constructor.name;
+    }
+    return value.name;
+  }
 }

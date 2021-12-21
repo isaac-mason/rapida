@@ -24,10 +24,10 @@ describe('Entity', () => {
   describe('get', () => {
     class TestComponentOne extends Component {}
 
-    it('should return null if the component is not in the entity', () => {
+    it('should throw an error if the component is not in the entity', () => {
       const entity = new Entity(mockSpace);
 
-      expect(entity.get(TestComponentOne)).toBeNull();
+      expect(() => entity.get(TestComponentOne)).toThrow();
     });
 
     it('should return the component instance if the component is in the entity', () => {
@@ -37,6 +37,25 @@ describe('Entity', () => {
       entity.addComponent(component);
 
       expect(entity.get(TestComponentOne)).toBe(component);
+    });
+  });
+
+  describe('find', () => {
+    class TestComponentOne extends Component {}
+
+    it('should return undefined if the component is not in the entity', () => {
+      const entity = new Entity(mockSpace);
+
+      expect(entity.find(TestComponentOne)).toBeUndefined();
+    });
+
+    it('should return the component instance if the component is in the entity', () => {
+      const entity = new Entity(mockSpace);
+      const component = new TestComponentOne();
+
+      entity.addComponent(component);
+
+      expect(entity.find(TestComponentOne)).toBe(component);
     });
   });
 

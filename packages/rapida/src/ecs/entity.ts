@@ -201,17 +201,44 @@ export class Entity {
   }
 
   /**
-   * Retrieves a component on an entity by type, returns null if the component is not in the entity
+   * Retrieves a component on an entity by type, throws an error if the component is not in the entity
    * @param value a constructor for the component type to retrieve
-   * @returns the component if it is found, or null
+   * @returns the component
    */
-  get<T extends Component | Component>(constr: {
-    new (...args: never[]): T;
-  }): T | null {
+  get<T extends Component | Component>(
+    value:
+      | {
+          new (...args: never[]): T;
+        }
+      | Component
+      | string
+  ): T {
+    const component: T | undefined = this.find(value);
+
+    if (component) {
+      return component;
+    }
+
+    throw new Error(`Component ${value}} not in entity ${this.id}`);
+  }
+
+  /**
+   * Retrieves a component on an entity by type, returns undefined if the component is not in the entity
+   * @param value a constructor for the component type to retrieve
+   * @returns the component if it is found, or undefined
+   */
+  find<T extends Component | Component>(
+    value:
+      | {
+          new (...args: never[]): T;
+        }
+      | Component
+      | string
+  ): T | undefined {
     let component: T | undefined;
 
     this.components.forEach((c) => {
-      if (c.constructor.name === constr.name) {
+      if (c.constructor.name === Component.getComponentName(value)) {
         component = c as T;
 
         // eslint-disable-next-line no-useless-return
@@ -223,7 +250,7 @@ export class Entity {
       return component;
     }
 
-    return null;
+    return undefined;
   }
 
   /**
