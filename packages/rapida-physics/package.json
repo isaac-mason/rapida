@@ -13,14 +13,20 @@
     "physics"
   ],
   "entry": "src/index.ts",
-  "main": "lib/next/index.js",
-  "module": "lib/next/index.js",
-  "types": "lib/next/index.d.ts",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "LICENSE",
+    "package.json",
+    "README.md",
+    "src"
+  ],
   "scripts": {
-    "build": "rollup -c",
+    "build": "tsc && rollup -c",
     "eslint": "eslint .",
     "eslint-fix": "eslint --fix .",
-    "prebuild": "tsc",
     "prettier": "prettier --list-different .",
     "prettier-fix": "prettier --write .",
     "storybook": "start-storybook -p 6008",

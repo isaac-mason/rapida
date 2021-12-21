@@ -1,6 +1,7 @@
 import { Quaternion, Vec3 } from 'cannon-es';
 import { handleInit } from './events/init';
 import { PhysicsEventTopic } from './events/physics-event-topic';
+import { StepEvent } from './events/step';
 import handlers from './handlers';
 import { State } from './state';
 import type { AtomicName, FrameMessage, Observation } from './types';
@@ -18,7 +19,7 @@ const ctx = self as unknown as Worker;
  * @param state the current world state
  */
 const handleStep = (e: StepEvent): void => {
-  const { timeElapsed, positions, quaternions } = e;
+  const { timeElapsed, positions, quaternions, origin } = e;
 
   state.world.step(state.config.delta, timeElapsed, state.config.maxSubSteps);
 
@@ -71,6 +72,7 @@ const handleStep = (e: StepEvent): void => {
     quaternions,
     observations,
     active: state.world.hasActiveBodies,
+    origin,
   };
 
   if (state.bodiesNeedSyncing) {
@@ -96,13 +98,6 @@ const handleEvent = (event: MessageEvent<any>) => {
   if (handlers[topic]) {
     handlers[topic](event.data, state);
   }
-};
-
-export type StepEvent = {
-  topic: PhysicsEventTopic.STEP;
-  timeElapsed: number;
-  positions: Float32Array;
-  quaternions: Float32Array;
 };
 
 ctx.onmessage = (event: MessageEvent<any>) => {

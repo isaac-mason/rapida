@@ -2,6 +2,11 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable import/extensions */
+
+// @ts-expect-error expected
+// eslint-disable-next-line import/no-unresolved
+import WebWorker from 'web-worker:./worker.ts';
+
 import {
   DynamicDrawUsage,
   Euler,
@@ -12,9 +17,6 @@ import {
   Quaternion,
   Vector3,
 } from 'three';
-// @ts-expect-error expected
-// eslint-disable-next-line import/no-unresolved
-import WebWorker from 'web-worker:./worker.ts';
 import { AddBodiesEvent } from './events/body/add-bodies';
 import { InitEvent } from './events/init';
 import { PhysicsEventTopic } from './events/physics-event-topic';
@@ -282,6 +284,16 @@ class Physics {
   bodies: { [uuid: string]: number } = {};
 
   /**
+   * Counter of how many steps have been made with callbacks
+   */
+  private stepWithCallbackCounter = 0;
+
+  /**
+   * A map of step origins to callback functions that will resolve step promises
+   */
+  private stepOriginsToCallbacks: { [origin: string]: () => void } = {};
+
+  /**
    * Constructor for a Physics world
    * @param params
    */
@@ -363,17 +375,44 @@ class Physics {
     this.worker.terminate();
   }
 
-  step(timeElapsed?: number): void {
-    if (this.buffers.positions.byteLength !== 0 && this.buffers.quaternions.byteLength !== 0) {
+  /**
+   * Steps the physics world
+   * @param timeElapsed the time elapsed
+   * @param waitToResolve whether the physics step should wait to receive the frame to resolve
+   * @returns a promise for the step, will wait to resolve until the next frame if `waitToResolve` is true
+   */
+  step(timeElapsed?: number, waitToResolve?: boolean): Promise<void> {
+    if (this.buffers.positions.byteLength === 0 || this.buffers.quaternions.byteLength === 0) {
+      return Promise.resolve();
+    }
+
+    let origin: number | undefined;
+
+    return new Promise((resolve) => {
+      if (waitToResolve) {
+        this.stepWithCallbackCounter += 1;
+        origin = this.stepWithCallbackCounter;
+
+        this.stepOriginsToCallbacks[origin] = () => {
+          delete this.stepOriginsToCallbacks[origin as number];
+          resolve();
+        };
+      }
+
       this.worker.postMessage(
         {
+          origin,
           topic: PhysicsEventTopic.STEP,
           timeElapsed: timeElapsed || this.config.delta,
           ...this.buffers,
         } as StepEvent,
         [this.buffers.positions.buffer, this.buffers.quaternions.buffer],
       );
-    }
+
+      if (!waitToResolve) {
+        resolve();
+      }
+    });
   }
 
   /**
@@ -858,6 +897,12 @@ class Physics {
           apply(this.bodies[ref.uuid], this.buffers, ref);
         }
       }
+    }
+
+    // call the step callback for the origin if it is present
+    const { origin } = e.data;
+    if (origin) {
+      this.stepOriginsToCallbacks[origin]();
     }
   }
 

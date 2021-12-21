@@ -415,16 +415,6 @@ export type Broadphase = 'Naive' | 'SAP';
 
 export type Observation = { [K in AtomicName]: [id: number, value: PropValue<K>, type: K] }[AtomicName];
 
-export type WorkerFrameMessage = {
-  topic: PhysicsEventTopic.FRAME;
-  data: Buffers & {
-    topic: PhysicsEventTopic.FRAME;
-    observations: Observation[];
-    active: boolean;
-    bodies?: string[];
-  };
-};
-
 export type FrameMessage = {
   topic: PhysicsEventTopic.FRAME;
   positions: Float32Array;
@@ -432,6 +422,12 @@ export type FrameMessage = {
   observations: Observation[];
   active: boolean;
   bodies?: string[];
+  origin?: number;
+};
+
+export type WorkerFrameMessage = {
+  topic: PhysicsEventTopic.FRAME;
+  data: FrameMessage;
 };
 
 export type WorkerCollideEvent = {

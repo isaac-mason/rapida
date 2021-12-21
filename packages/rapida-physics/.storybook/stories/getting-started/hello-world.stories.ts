@@ -1,5 +1,5 @@
 import { useEffect } from '@storybook/client-api';
-import { Physics, BodyType } from '../../../lib/next';
+import { Physics, BodyType } from '../../../lib';
 import {
   WebGLRenderer,
   Scene,

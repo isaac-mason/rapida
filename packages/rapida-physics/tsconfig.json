@@ -2,9 +2,9 @@
   "compilerOptions": {
     "sourceMap": true,
     "moduleResolution": "node",
-    "module": "esnext",
-    "target": "esnext",
-    "lib": ["esnext", "dom"],
+    "module": "commonjs",
+    "target": "es6",
+    "lib": ["es6", "dom"],
     "outDir": "lib",
     "strict": true,
     "allowJs": false,
@@ -14,9 +14,10 @@
     "isolatedModules": true,
     "noEmit": false,
     "declaration": true,
-    "emitDeclarationOnly": false,
+    "emitDeclarationOnly": true,
     "baseUrl": ".",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "incremental": true
   },
   "exclude": [
     "lib",
