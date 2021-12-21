@@ -18,4 +18,5 @@ module.exports = {
     ],
     '@babel/preset-typescript',
   ],
+  ignore: ['**/*.spec.ts'],
 };
