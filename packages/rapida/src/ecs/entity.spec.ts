@@ -18,7 +18,6 @@ describe('Entity', () => {
     const entity = new Entity(mockSpace);
     expect(entity.id).toBeTruthy();
     expect(entity.components.size).toBe(0);
-    expect(entity.componentNames.size).toBe(0);
   });
 
   describe('get', () => {

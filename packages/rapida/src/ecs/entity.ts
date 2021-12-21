@@ -22,20 +22,9 @@ export class Entity {
   id: string;
 
   /**
-   * The components for this entity
+   * Map of component ids to components
    */
   components: Map<string, Component> = new Map();
-
-  /**
-   * A set of the names in this entity
-   */
-  componentNames = new Set<string>();
-
-  /**
-   * Whether the entity should be updated
-   * TODO: implement handling
-   */
-  enabled = true;
 
   /**
    * Whether the entity is alive
@@ -52,6 +41,11 @@ export class Entity {
    * The space the entity is in
    */
   space: Space;
+
+  /**
+   * Map of component names to components
+   */
+  private _componentNamesToComponents: Map<string, Component> = new Map();
 
   /**
    * The entities event system
@@ -117,7 +111,10 @@ export class Entity {
     }
 
     this.components.set(component.id, component);
-    this.componentNames.add(component.constructor.name);
+    this._componentNamesToComponents.set(
+      Component.getComponentName(value),
+      component
+    );
     component.entity = this;
 
     if (this.initialised && component.onInit) {
@@ -158,7 +155,7 @@ export class Entity {
     }
 
     this.components.delete(component.id);
-    this.componentNames.delete(component.constructor.name);
+    this._componentNamesToComponents.delete(Component.getComponentName(value));
 
     if (component.onUpdate) {
       this.space._componentUpdatePool.delete(component.id);
@@ -186,7 +183,9 @@ export class Entity {
       | Component
       | string
   ): boolean {
-    return this.componentNames.has(Component.getComponentName(value));
+    return this._componentNamesToComponents.has(
+      Component.getComponentName(value)
+    );
   }
 
   /**
@@ -224,19 +223,11 @@ export class Entity {
       | Component
       | string
   ): T | undefined {
-    let component: T | undefined;
-
-    this.components.forEach((c) => {
-      if (c.constructor.name === Component.getComponentName(value)) {
-        component = c as T;
-
-        // eslint-disable-next-line no-useless-return
-        return;
-      }
-    });
+    const component: Component | undefined =
+      this._componentNamesToComponents.get(Component.getComponentName(value));
 
     if (component) {
-      return component;
+      return component as T;
     }
 
     return undefined;
