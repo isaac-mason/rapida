@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "build": "(cd ./packages/rapida-common && yarn run build) && (cd ./packages/rapida-physics && yarn run build) && (cd ./packages/rapida && yarn run build)",
-    "test": "yarn workspaces foreach run test",
+    "test": "(cd ./packages/rapida && yarn test) && (cd ./packages/rapida && yarn test)",
     "docs": "yarn workspaces foreach --no-private run docs",
     "release": "yarn run build && yarn run test",
     "change": "yarn changeset",
