@@ -186,18 +186,7 @@ export class Entity {
       | Component
       | string
   ): boolean {
-    // string name
-    if (typeof value === 'string') {
-      return this.componentNames.has(value);
-    }
-
-    // instance
-    if (value instanceof Component) {
-      return this.componentNames.has(value.constructor.name);
-    }
-
-    // constructor
-    return this.componentNames.has(value.name);
+    return this.componentNames.has(Component.getComponentName(value));
   }
 
   /**
