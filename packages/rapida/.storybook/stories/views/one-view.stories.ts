@@ -1,11 +1,6 @@
 import { useEffect } from '@storybook/client-api';
 import * as three from 'three';
-import {
-  Engine,
-  World,
-  WorldContext,
-  WorldProvider,
-} from '../../../src';
+import rapida, { World, WorldProvider } from '../../../src';
 
 export default {
   title: 'Views / One View',
@@ -13,13 +8,11 @@ export default {
 
 export const OneView = () => {
   useEffect(() => {
-    const engine = new Engine();
+    const R = rapida({ debug: true });
 
-    const worldProvider: WorldProvider = (
-      worldContext: WorldContext
-    ): World => {
+    const worldProvider: WorldProvider = ({ engine }): World => {
       const world = new World({
-        engine: worldContext.engine,
+        engine,
       });
 
       const renderer = world.create.renderer.webgl();
@@ -54,9 +47,9 @@ export const OneView = () => {
       return world;
     };
 
-    engine.run(worldProvider);
+    R.run(worldProvider);
 
-    return () => engine.destroy();
+    return () => R.destroy();
   });
 
   return `

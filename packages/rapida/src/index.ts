@@ -1,3 +1,5 @@
+import { Engine, EngineParams } from './engine';
+
 export { uuid } from '@rapidajs/rapida-common';
 export type { Event, EventHandler } from '@rapidajs/rapida-common';
 export * from '@rapidajs/rapida-physics';
@@ -7,3 +9,7 @@ export * from './engine';
 export * from './renderer';
 export * from './scene';
 export * from './world';
+
+export const rapida = (params?: EngineParams): Engine => new Engine(params);
+
+export default rapida;

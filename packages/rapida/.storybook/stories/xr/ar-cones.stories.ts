@@ -7,13 +7,7 @@ import {
   MeshPhongMaterial,
   Vector3,
 } from 'three';
-import {
-  Engine,
-  World,
-  WorldContext,
-  WorldProvider,
-  XRRendererMode,
-} from '../../../src';
+import rapida, { World, WorldProvider, XRRendererMode } from '../../../src';
 
 export default {
   title: 'XR / AR Cones',
@@ -21,15 +15,11 @@ export default {
 
 export const ARCones = () => {
   useEffect(() => {
-    const engine = new Engine({
-      debug: true,
-    });
+    const R = rapida({ debug: true });
 
-    const worldProvider: WorldProvider = (
-      worldContext: WorldContext
-    ): World => {
+    const worldProvider: WorldProvider = ({ engine }): World => {
       const world = new World({
-        engine: worldContext.engine,
+        engine,
       });
 
       const scene = world.create.scene();
@@ -77,9 +67,9 @@ export const ARCones = () => {
       return world;
     };
 
-    engine.run(worldProvider);
+    R.run(worldProvider);
 
-    return () => engine.destroy();
+    return () => R.destroy();
   });
 
   return `

@@ -1,5 +1,18 @@
-import { Component, Engine, Scene, World, Physics, BodyType } from "@rapidajs/rapida";
-import { AmbientLight, BoxGeometry, DirectionalLight, Mesh, MeshPhongMaterial, Vector3 } from "three";
+import rapida, {
+  Component,
+  Scene,
+  World,
+  Physics,
+  BodyType,
+} from "@rapidajs/rapida";
+import {
+  AmbientLight,
+  BoxGeometry,
+  DirectionalLight,
+  Mesh,
+  MeshPhongMaterial,
+  Vector3,
+} from "three";
 
 class SpinningCube extends Component {
   mesh: Mesh;
@@ -8,7 +21,7 @@ class SpinningCube extends Component {
 
   physics: Physics;
 
-  constructor(params: { scene: Scene, physics: Physics }) {
+  constructor(params: { scene: Scene; physics: Physics }) {
     super();
     this.scene = params.scene;
     this.physics = params.physics;
@@ -17,31 +30,33 @@ class SpinningCube extends Component {
     const material = new MeshPhongMaterial();
     this.mesh = new Mesh(geometry, material);
 
-    this.physics.create.box({
-      size: [10, 10, 10],
-      mass: 1,
-      type: BodyType.DYNAMIC,
-      rotation: [0, 0, 0],
-      fixedRotation: false,
-      allowSleep: false,
-      angularVelocity: [1, 1, 1],
-      velocity: [0, 20, 0],
-
-    }, this.mesh);
+    this.physics.create.box(
+      {
+        size: [10, 10, 10],
+        mass: 1,
+        type: BodyType.DYNAMIC,
+        rotation: [0, 0, 0],
+        fixedRotation: false,
+        allowSleep: false,
+        angularVelocity: [1, 1, 1],
+        velocity: [0, 20, 0],
+      },
+      this.mesh
+    );
   }
 
   onInit = () => {
     this.scene.add(this.mesh);
-  }
+  };
 }
 
-const engine = new Engine();
+const R = rapida();
 
-engine.run((ctx) => {
+R.run((ctx) => {
   const world = new World({ engine: ctx.engine });
 
   const renderer = world.create.renderer.webgl();
-  document.getElementById('rapida').appendChild(renderer.domElement);
+  document.getElementById("rapida").appendChild(renderer.domElement);
 
   const physics = world.create.physics({
     gravity: [0, -5, 0],
@@ -69,12 +84,12 @@ engine.run((ctx) => {
   });
 
   const directionalLight = new DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(300, 0, 300);
-    directionalLight.lookAt(new Vector3(0, 0, 0));
-    scene.add(directionalLight);
+  directionalLight.position.set(300, 0, 300);
+  directionalLight.lookAt(new Vector3(0, 0, 0));
+  scene.add(directionalLight);
 
-    const ambientLight = new AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
+  const ambientLight = new AmbientLight(0xffffff, 0.5);
+  scene.add(ambientLight);
 
   const space = world.create.space();
 

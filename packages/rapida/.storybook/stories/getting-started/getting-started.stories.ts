@@ -1,14 +1,7 @@
-import * as three from 'three';
-import {
-  Component,
-  Scene,
-  Engine,
-  World,
-  WorldContext,
-  WorldProvider,
-} from '../../../src';
 import { useEffect } from '@storybook/client-api';
+import * as three from 'three';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
+import rapida, { Component, Scene, World, WorldProvider } from '../../../src';
 
 export default {
   title: 'Getting Started / Hello World',
@@ -47,46 +40,12 @@ export const HelloWorld = () => {
     };
   }
 
-  class LightComponent extends Component {
-    lights: three.Group;
-    scene: Scene;
-
-    constructor(scene: Scene) {
-      super();
-      this.scene = scene;
-    }
-
-    onInit = (): void => {
-      this.lights = new three.Group();
-
-      const directionalLight = new three.DirectionalLight(0xffffff, 1);
-      directionalLight.position.set(300, 0, 300);
-      directionalLight.lookAt(new three.Vector3(0, 0, 0));
-      this.lights.add(directionalLight);
-
-      const ambientLight = new three.AmbientLight(0xffffff, 0.5);
-      ambientLight.position.set(0, -200, 400);
-      ambientLight.lookAt(new three.Vector3(0, 0, 0));
-      this.lights.add(ambientLight);
-
-      this.scene.add(this.lights);
-    };
-
-    onDestroy = (): void => {
-      this.scene.remove(this.lights);
-    };
-  }
-
   useEffect(() => {
-    const engine = new Engine({
-      debug: true,
-    });
+    const R = rapida({ debug: true });
 
-    const worldProvider: WorldProvider = (
-      worldContext: WorldContext
-    ): World => {
+    const worldProvider: WorldProvider = ({ engine }): World => {
       const world = new World({
-        engine: worldContext.engine,
+        engine,
       });
 
       const renderer = world.create.renderer.webgl();
@@ -104,10 +63,17 @@ export const HelloWorld = () => {
 
       new OrbitControls(camera.three, view.domElement);
 
-      const space = world.create.space();
+      const directionalLight = new three.DirectionalLight(0xffffff, 1);
+      directionalLight.position.set(300, 0, 300);
+      directionalLight.lookAt(new three.Vector3(0, 0, 0));
+      scene.add(directionalLight);
 
-      const light = space.create.entity();
-      light.addComponent(new LightComponent(scene));
+      const ambientLight = new three.AmbientLight(0xffffff, 0.5);
+      ambientLight.position.set(0, -200, 400);
+      ambientLight.lookAt(new three.Vector3(0, 0, 0));
+      scene.add(ambientLight);
+
+      const space = world.create.space();
 
       const cube = space.create.entity();
       cube.addComponent(new SpinningCubeComponent(scene));
@@ -115,9 +81,9 @@ export const HelloWorld = () => {
       return world;
     };
 
-    engine.run(worldProvider);
+    R.run(worldProvider);
 
-    return () => engine.destroy();
+    return () => R.destroy();
   });
 
   return `

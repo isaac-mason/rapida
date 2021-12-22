@@ -1,14 +1,7 @@
+import { useEffect } from '@storybook/client-api';
 import * as three from 'three';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
-import {
-  Engine,
-  World,
-  WorldContext,
-  WorldProvider,
-  Component,
-  Scene,
-} from '../../../src';
-import { useEffect } from '@storybook/client-api';
+import rapida, { Component, Scene, World, WorldProvider } from '../../../src';
 
 export default {
   title: 'Views / Two Views Embedded',
@@ -49,16 +42,11 @@ export const TwoViewsEmbedded = () => {
   }
 
   useEffect(() => {
-    const engine = new Engine();
+    const R = rapida({ debug: true });
 
-    const worldId = 'world';
-
-    const worldProvider: WorldProvider = (
-      worldContext: WorldContext
-    ): World => {
+    const worldProvider: WorldProvider = ({ engine }): World => {
       const world = new World({
-        id: worldId,
-        engine: worldContext.engine,
+        engine,
       });
 
       const renderer = world.create.renderer.webgl();
@@ -119,9 +107,9 @@ export const TwoViewsEmbedded = () => {
       return world;
     };
 
-    engine.run(worldProvider);
+    R.run(worldProvider);
 
-    return () => engine.destroy();
+    return () => R.destroy();
   });
 
   return `

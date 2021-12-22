@@ -1,11 +1,6 @@
+import { useEffect } from '@storybook/client-api';
 import * as three from 'three';
-import {
-  Engine,
-  World,
-  WorldContext,
-  WorldProvider,
-} from '../../../src';
-import { useEffect } from '@storybook/client-api'
+import rapida, { World, WorldProvider } from '../../../src';
 
 export default {
   title: 'Renderers / One Renderer',
@@ -13,11 +8,11 @@ export default {
 
 export const OneRenderer = () => {
   useEffect(() => {
-    const engine = new Engine();
+    const R = rapida();
 
-    const worldProvider: WorldProvider = (worldContext: WorldContext): World => {
+    const worldProvider: WorldProvider = ({ engine }): World => {
       const world = new World({
-        engine: worldContext.engine,
+        engine,
       });
 
       const renderer = world.create.renderer.webgl();
@@ -46,15 +41,15 @@ export const OneRenderer = () => {
       });
       const cube = new three.Mesh(geometry, material);
       cube.position.set(0, 0, 0);
-  
+
       scene.add(cube);
 
       return world;
     };
 
-    engine.run(worldProvider);
+    R.run(worldProvider);
 
-    return () => engine.destroy();
+    return () => R.destroy();
   });
 
   return `
@@ -66,4 +61,4 @@ export const OneRenderer = () => {
   </style>
   <div id="renderer-root"></div>
   `;
-}
+};

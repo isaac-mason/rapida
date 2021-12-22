@@ -14,9 +14,8 @@ import {
   WebGLRenderer,
 } from 'three';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
-import {
+import rapida, {
   Component,
-  Engine,
   Scene,
   Space,
   System,
@@ -36,11 +35,11 @@ export const FallingBoxes = ({
 }: {
   spawnInterval: number;
   timeAlive: number;
-  gravity: { x: number, y: number, z: number };
+  gravity: { x: number; y: number; z: number };
   box: {
-    size: { x: number, y: number, z: number };
+    size: { x: number; y: number; z: number };
     mass: number;
-  }
+  };
 }) => {
   const randomCubeColour = (): string => {
     const colours = ['#2F394D', '#EEE1B3', '#EA8C55', '#D68FD6', '#4C934C'];
@@ -149,13 +148,11 @@ export const FallingBoxes = ({
   }
 
   useEffect(() => {
-    const engine = new Engine({
-      debug: true,
-    });
+    const R = rapida();
 
-    const worldProvider: WorldProvider = (worldContext): World => {
+    const worldProvider: WorldProvider = ({ engine }): World => {
       const world = new World({
-        engine: worldContext.engine,
+        engine,
       });
 
       const renderer = world.create.renderer.webgl({
@@ -223,9 +220,9 @@ export const FallingBoxes = ({
       return world;
     };
 
-    engine.run(worldProvider);
+    R.run(worldProvider);
 
-    return () => engine.destroy();
+    return () => R.destroy();
   });
 
   return `
@@ -254,5 +251,5 @@ FallingBoxes.args = {
       z: 1,
     },
     mass: 1,
-  }
+  },
 };

@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable max-classes-per-file */
-import {
+import rapida, {
   Component,
   Entity,
-  Engine,
   Scene,
   Space,
   System,
@@ -270,12 +269,12 @@ const App = () => {
   const firstRender = useFirstRender();
 
   useEffect(() => {
-    const engine = new Engine({
-      debug: true,
-    });
+    const R = rapida({ debug: true });
 
-    const worldProvider: WorldProvider = (worldContext) => {
-      const world = new World({ engine: worldContext.engine });
+    const worldProvider: WorldProvider = ({ engine }): World => {
+      const world = new World({
+        engine,
+      });
 
       const renderer = world.create.renderer.webgl();
       document
@@ -311,7 +310,7 @@ const App = () => {
       return world;
     };
 
-    engine.run(worldProvider);
+    R.run(worldProvider);
   }, [firstRender]);
 
   return <div id="renderer-root"></div>;

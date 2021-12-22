@@ -8,17 +8,16 @@ import {
   PerspectiveCamera,
   SphereBufferGeometry,
   Vector3,
-  WebGLRenderer
+  WebGLRenderer,
 } from 'three';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
-import {
+import rapida, {
   Component,
   Entity,
-  Engine,
   Scene,
   System,
   World,
-  WorldProvider
+  WorldProvider,
 } from '../../../src';
 
 export default {
@@ -124,7 +123,7 @@ class RestingSystem extends System {
       all: [FireflyObject3DComponent, EnergyComponent],
       not: [WalkingComponent],
     },
-  }
+  };
 
   onUpdate = (timeElapsed: number) => {
     this.energyCounter += timeElapsed;
@@ -147,13 +146,11 @@ class RestingSystem extends System {
 
 export const RandomWalkers = () => {
   useEffect(() => {
-    const engine = new Engine({
-      debug: true,
-    });
+    const R = rapida({ debug: true });
 
-    const worldProvider: WorldProvider = (worldContext): World => {
+    const worldProvider: WorldProvider = ({ engine }): World => {
       const world = new World({
-        engine: worldContext.engine,
+        engine,
       });
 
       const renderer = world.create.renderer.webgl({
@@ -167,7 +164,7 @@ export const RandomWalkers = () => {
 
       const scene = world.create.scene();
       scene.threeScene.fog = new Fog('red', 40, 110);
-      
+
       scene.threeScene.background = new Color(DARK_BLUE);
 
       scene.add(new AmbientLight(0xffffff, 1.5));
@@ -209,9 +206,9 @@ export const RandomWalkers = () => {
       return world;
     };
 
-    engine.run(worldProvider);
+    R.run(worldProvider);
 
-    return () => engine.destroy();
+    return () => R.destroy();
   });
 
   return `
