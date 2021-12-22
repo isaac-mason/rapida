@@ -1,4 +1,3 @@
-import { Logger } from 'pino';
 import Stats from 'stats.js';
 import { World, WorldProvider } from '../world';
 
