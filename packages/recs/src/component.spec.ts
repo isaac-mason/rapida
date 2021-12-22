@@ -1,9 +1,10 @@
 import { describe, it, expect, jest } from '@jest/globals';
+import { Space } from './space';
 import { Component } from './component';
 import { Entity } from './entity';
 
-describe('Component', () => {
-  let space: any;
+describe('RECS Component', () => {
+  let space: Space;
 
   class TestComponent extends Component {
     onInit = jest.fn();
@@ -21,7 +22,7 @@ describe('Component', () => {
   it('should be able to get and set its entity and space', () => {
     const testComponent = new TestComponent();
 
-    space = {};
+    space = {} as Space;
 
     const entity: Entity = {
       id: '123',
@@ -36,9 +37,9 @@ describe('Component', () => {
     expect(getEntityResult).toBeTruthy();
     expect(getEntityResult.id).toBe('123');
 
-    const getSceneResult = testComponent.space;
+    const getSpaceResult = testComponent.space;
 
-    expect(getSceneResult).toBeTruthy();
+    expect(getSpaceResult).toBeTruthy();
   });
 
   describe('getComponentNames', () => {

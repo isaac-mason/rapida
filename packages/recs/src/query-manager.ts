@@ -1,5 +1,7 @@
-import { Component, Entity, World } from 'src';
+import { Component } from './component';
+import { Entity } from './entity';
 import { Query, QueryDescription } from './query';
+import { RECS } from './recs';
 
 /**
  * QueryManager that manages Query class instances
@@ -11,9 +13,9 @@ export class QueryManager {
   queries: Map<string, Query> = new Map();
 
   /**
-   * The world the query manager is in
+   * The RECS instance the query manager is in
    */
-  private world: World;
+  private recs: RECS;
 
   /**
    * A map of entity ids and a set of queries the entity is part of
@@ -22,10 +24,10 @@ export class QueryManager {
 
   /**
    * Constructor for a QueryManager
-   * @param world the world the QueryManager is in
+   * @param recs the RECS the QueryManager is in
    */
-  constructor(world: World) {
-    this.world = world;
+  constructor(recs: RECS) {
+    this.recs = recs;
   }
 
   /**
@@ -48,7 +50,7 @@ export class QueryManager {
     this.queries.set(dedupeString, query);
 
     // populate the query with existing entities
-    this.world.spaces.forEach((space) => {
+    this.recs.spaces.forEach((space) => {
       space.entities.forEach((entity) => {
         if (query.match(entity)) {
           query.addEntity(entity);
@@ -77,7 +79,7 @@ export class QueryManager {
   }
 
   /**
-   * Updates queries after a query has been removed from the world
+   * Updates queries after a query has been removed from the RECS
    * @param entity the query
    */
   onEntityRemoved(entity: Entity): void {

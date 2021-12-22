@@ -4,16 +4,21 @@ import {
   EventSystem,
   uuid,
 } from '@rapidajs/rapida-common';
-import { World } from '../world';
+import { RECS } from './recs';
 import { Query, QueryDescription } from './query';
 
+/**
+ * Object with keys as friendly query names and values as Query Descriptions
+ *
+ * Used for defining what queries a System should have
+ */
 export type SystemQueries = { [queryName: string]: QueryDescription };
 
 /**
- * System abstract class that is extended to create a system containing custom logic for a world.
+ * System abstract class that is extended to create a system containing custom logic for an RECS.
  *
  * The System is the 'S' in ECS. Systems can be created with multiple queries for entities by what components they contain.
- * Systems have lifecycle hooks `onInit`, `onUpdate`, and `onDestroy` hook that are executed to provide logic to the world.
+ * Systems have lifecycle hooks `onInit`, `onUpdate`, and `onDestroy` hook that are executed to provide logic to the RECS.
  * Systems also have their own events system `events` that can be used to run that isn't required to be run on every update.
  */
 export abstract class System {
@@ -28,31 +33,35 @@ export abstract class System {
   enabled = true;
 
   /**
-   * The world the system is in
+   * The recs the system is in
    */
-  private _world?: World;
+  private _recs?: RECS;
 
   /**
-   * Gets the world
+   * Gets the RECS for the system
    */
-  get world(): World {
-    return this._world as World;
+  get recs(): RECS {
+    return this._recs as RECS;
   }
 
   /**
-   * Sets the world
+   * Sets the RECS for the system
    */
-  set world(w: World) {
-    this._world = w;
+  set recs(recs: RECS) {
+    this._recs = recs;
   }
 
   /**
    * A map of query names to query descriptions
+   *
+   * This property should be overridden with desired System queries
    */
   queries: SystemQueries = {};
 
   /**
    * A map of query names to queries
+   *
+   * This object is populated by the SystemManager on adding the System to the SystemManager
    */
   results: { [name: string]: Query } = {};
 
@@ -65,7 +74,6 @@ export abstract class System {
    * Initialises the system
    */
   _init(): void {
-    // run on system init hook
     if (this.onInit) {
       this.onInit();
     }
@@ -82,17 +90,16 @@ export abstract class System {
   }
 
   /**
-   * Destroys the system and removes it from the world
+   * Destroys the system and removes it from the RECS
    */
   destroy(): void {
-    this.world.remove(this);
+    this.recs.remove(this);
   }
 
   /**
    * Destroy logic for the system
    */
   _destroy(): void {
-    // run on system destroy hook if present
     if (this.onDestroy) {
       this.onDestroy();
     }
@@ -124,7 +131,7 @@ export abstract class System {
   onInit?: () => void = undefined;
 
   /**
-   * Logic for destruction of the system. Called on removing a System from a Scene.
+   * Logic for destruction of the system. Called on removing a System from the RECS.
    */
   onDestroy?: () => void = undefined;
 

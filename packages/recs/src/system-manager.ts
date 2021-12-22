@@ -1,9 +1,9 @@
-import { World } from '../world';
 import { Query, QueryDescription } from './query';
+import { RECS } from './recs';
 import { System } from './system';
 
 /**
- * SystemManager that manages systems in a world and calls their lifecycle hooks.
+ * SystemManager that manages systems in a RECS and calls their lifecycle hooks.
  *
  * Handles adding and removing systems and providing them with queries via the `QueryManager`.
  *
@@ -22,9 +22,9 @@ export class SystemManager {
   initialised = false;
 
   /**
-   * The world the system manager belongs in
+   * The RECS the system manager belongs in
    */
-  private world: World;
+  private recs: RECS;
 
   /**
    * A map of query ids to systems using the query
@@ -33,10 +33,10 @@ export class SystemManager {
 
   /**
    * Constructor for the SystemManager
-   * @param world the world for the SystemManager
+   * @param recs the RECS instance for the SystemManager
    */
-  constructor(world: World) {
-    this.world = world;
+  constructor(recs: RECS) {
+    this.recs = recs;
   }
 
   /**
@@ -44,13 +44,13 @@ export class SystemManager {
    * @param system the system to add
    */
   addSystem(system: System): SystemManager {
-    system.world = this.world;
+    system.recs = this.recs;
 
     this.systems.set(system.id, system);
 
     Object.entries(system.queries).forEach(
       ([queryName, queryDescription]: [string, QueryDescription]) => {
-        const query = this.world.queryManager.getQuery(queryDescription);
+        const query = this.recs.queryManager.getQuery(queryDescription);
         this.addSystemToQuery(query, system);
         system.results[queryName] = query;
       }
@@ -72,7 +72,7 @@ export class SystemManager {
 
     Object.entries(system.queries).forEach(
       ([queryName, queryDescription]: [string, QueryDescription]) => {
-        const query = this.world.queryManager.getQuery(queryDescription);
+        const query = this.recs.queryManager.getQuery(queryDescription);
         this.removeSystemFromQuery(query, system);
         delete system.results[queryName];
       }
@@ -145,7 +145,7 @@ export class SystemManager {
 
     // remove the query if it is not in use by any systems
     if (systems.size === 0) {
-      this.world.queryManager.removeQuery(query);
+      this.recs.queryManager.removeQuery(query);
     }
   }
 }

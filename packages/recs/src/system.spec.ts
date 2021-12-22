@@ -1,8 +1,9 @@
 /* eslint-disable max-classes-per-file */
 import { describe, expect, it } from '@jest/globals';
-import { Component, System } from '.';
+import { Component } from './component';
+import { System } from './system';
 
-describe('System', () => {
+describe('RECS System', () => {
   it('can be constructed', () => {
     class TestComponentOne extends Component {}
     class TestComponentTwo extends Component {}

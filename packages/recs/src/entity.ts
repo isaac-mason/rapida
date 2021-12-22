@@ -52,6 +52,11 @@ export class Entity {
    */
   private events = new EventSystem();
 
+  /**
+   * Constructor for a new RECS Entity
+   * @param space the space the entity is in
+   * @param params params for creating the entity
+   */
   constructor(space: Space, params?: EntityParams) {
     this.space = space;
     this.id = params?.id || uuid();
@@ -125,7 +130,7 @@ export class Entity {
       this.space._componentUpdatePool.set(component.id, component.onUpdate);
     }
 
-    this.space.world.queryManager.onEntityComponentAdded(this, component);
+    this.space.recs.queryManager.onEntityComponentAdded(this, component);
 
     return this;
   }
@@ -165,7 +170,7 @@ export class Entity {
       component.onDestroy();
     }
 
-    this.space.world.queryManager.onEntityComponentRemoved(this, component);
+    this.space.recs.queryManager.onEntityComponentRemoved(this, component);
 
     return this;
   }

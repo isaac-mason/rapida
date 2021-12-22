@@ -1,9 +1,10 @@
 import { beforeEach, describe, it, jest, expect } from '@jest/globals';
-import { System, SystemManager } from '.';
-import { World } from '../world';
+import { System } from './system';
+import { SystemManager } from './system-manager';
+import { RECS } from './recs';
 
-describe('SystemManager', () => {
-  const world = {} as unknown as World;
+describe('RECS SystemManager', () => {
+  const recs = {} as unknown as RECS;
   let manager: SystemManager;
 
   const basicSystemInit = jest.fn();
@@ -20,7 +21,7 @@ describe('SystemManager', () => {
   const basicSystem = new BasicSystem();
 
   beforeEach(() => {
-    manager = new SystemManager(world);
+    manager = new SystemManager(recs);
     jest.resetAllMocks();
   });
 

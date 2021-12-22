@@ -2,7 +2,7 @@
 import { describe, it, expect, jest } from '@jest/globals';
 import { fail } from 'assert';
 import { Component, Entity, Query, Space } from '.';
-import { QueryConditionType, QueryDescription } from './query';
+import { QueryDescription } from './query';
 
 jest.mock('./entity');
 
@@ -18,7 +18,7 @@ class TestComponentFive extends Component {}
 
 class TestComponentSix extends Component {}
 
-describe('Query', () => {
+describe('RECS Query', () => {
   const mockSpace = {} as unknown as Space;
 
   it('should throw an error when constructing if there are no query conditions', () => {

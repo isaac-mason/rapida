@@ -4,8 +4,8 @@
   "description": "rapida workspace",
   "private": true,
   "scripts": {
-    "build": "(cd ./packages/rapida-common && yarn run build) && (cd ./packages/rapida-physics && yarn run build) && (cd ./packages/rapida && yarn run build)",
-    "test": "(cd ./packages/rapida-common && yarn test) && (cd ./packages/rapida && yarn test)",
+    "build": "(cd ./packages/rapida-common && yarn run build) && (cd ./packages/rapida-physics && yarn run build) && (cd ./packages/recs && yarn run build) && (cd ./packages/rapida && yarn run build)",
+    "test": "(cd ./packages/rapida-common && yarn test) && (cd ./packages/rapida && yarn test) && (cd ./packages/recs && yarn test)",
     "docs": "yarn workspaces foreach --no-private run docs",
     "release": "yarn run build && yarn run test",
     "change": "yarn changeset",

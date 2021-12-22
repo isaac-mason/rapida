@@ -1,14 +1,23 @@
 import { Entity } from 'src';
 import { Component } from './component';
 
+/**
+ * Type for a component constructor
+ */
 type ComponentConstructor = new (...args: never[]) => Component;
 
+/**
+ * Enum for query condition types
+ */
 export enum QueryConditionType {
   ALL = 'all',
   ONE = 'one',
   NOT = 'not',
 }
 
+/**
+ * Type for query conditions
+ */
 export type QueryDescription = {
   [QueryConditionType.ALL]?: ComponentConstructor[];
   [QueryConditionType.ONE]?: ComponentConstructor[];
@@ -41,6 +50,10 @@ export class Query {
    */
   queryDescription: QueryDescription;
 
+  /**
+   * Constructor for a new query instance
+   * @param queryDescription the query description
+   */
   constructor(queryDescription: QueryDescription) {
     if (
       !queryDescription.all &&
