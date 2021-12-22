@@ -1,5 +1,5 @@
-import { Entity } from 'src';
 import { Component } from './component';
+import { Entity } from './entity';
 
 /**
  * Type for a component constructor
