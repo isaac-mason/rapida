@@ -5,12 +5,12 @@ import { Component } from './component';
 import { QueryDescription } from './query';
 import { QueryManager } from './query-manager';
 import { Space } from './space';
-import { World } from '..';
+import { RECS } from './recs';
 
-describe('QueryManager', () => {
+describe('RECS QueryManager', () => {
   const mockSpace = {
     id: '123',
-    world: {
+    recs: {
       queryManager: {
         onEntityComponentAdded: jest.fn(),
         onEntityComponentRemoved: jest.fn(),
@@ -21,9 +21,9 @@ describe('QueryManager', () => {
 
   const spacesMap = new Map();
   spacesMap.set(mockSpace.id, mockSpace);
-  const mockWorld = {
+  const mockRECS = {
     spaces: spacesMap,
-  } as unknown as World;
+  } as unknown as RECS;
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -33,7 +33,7 @@ describe('QueryManager', () => {
     class TestComponent extends Component {}
 
     it('should create a query if it has not been created', () => {
-      const manager = new QueryManager(mockWorld);
+      const manager = new QueryManager(mockRECS);
 
       const description: QueryDescription = {
         all: [TestComponent],
@@ -45,7 +45,7 @@ describe('QueryManager', () => {
     });
 
     it('should create a query if it has already been created', () => {
-      const manager = new QueryManager(mockWorld);
+      const manager = new QueryManager(mockRECS);
 
       const description: QueryDescription = {
         all: [TestComponent],
@@ -66,7 +66,7 @@ describe('QueryManager', () => {
     class TestComponent extends Component {}
 
     it('should remove a query by a given query description', () => {
-      const manager = new QueryManager(mockWorld);
+      const manager = new QueryManager(mockRECS);
 
       const description: QueryDescription = {
         all: [TestComponent],
@@ -109,7 +109,7 @@ describe('QueryManager', () => {
       const componentTwo = new TestComponentTwo();
       entityTwo.addComponent(componentTwo);
 
-      const manager = new QueryManager(mockWorld);
+      const manager = new QueryManager(mockRECS);
       let query = manager.getQuery(description);
 
       expect(manager.queries.size).toBe(1);
@@ -141,7 +141,7 @@ describe('QueryManager', () => {
       const entityTwoComponentTwo = new TestComponentTwo();
       entityTwo.addComponent(entityTwoComponentTwo);
 
-      const manager = new QueryManager(mockWorld);
+      const manager = new QueryManager(mockRECS);
       let query = manager.getQuery(description);
 
       expect(manager.queries.size).toBe(1);
@@ -184,7 +184,7 @@ describe('QueryManager', () => {
       const entityTwoComponentTwo = new TestComponentTwo();
       entityTwo.addComponent(entityTwoComponentTwo);
 
-      const manager = new QueryManager(mockWorld);
+      const manager = new QueryManager(mockRECS);
       let query = manager.getQuery(description);
 
       expect(manager.queries.size).toBe(1);

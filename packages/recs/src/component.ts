@@ -1,5 +1,4 @@
 import { uuid } from '@rapidajs/rapida-common';
-import { World } from '../world';
 import { Entity } from './entity';
 import { Space } from './space';
 
@@ -43,13 +42,6 @@ export abstract class Component {
    */
   get space(): Space {
     return this.entity.space;
-  }
-
-  /**
-   * The World the components entity is in
-   */
-  get world(): World {
-    return this.entity.space.world;
   }
 
   /**

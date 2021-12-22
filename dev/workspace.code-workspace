@@ -8,6 +8,9 @@
       "path": "../packages/rapida"
     },
     {
+      "path": "../packages/recs"
+    },
+    {
       "path": "../packages/rapida-physics"
     },
     {
@@ -29,7 +32,6 @@
       "initialised",
       "Initialises",
       "isaacmason",
-      "pino",
       "rapida",
       "Strapi"
     ],

@@ -4,9 +4,9 @@ import { Space } from '.';
 import { Component } from './component';
 import { Entity } from './entity';
 
-describe('Entity', () => {
+describe('RECS Entity', () => {
   const mockSpace = {
-    world: {
+    recs: {
       queryManager: {
         onEntityComponentAdded: jest.fn(),
         onEntityComponentRemoved: jest.fn(),

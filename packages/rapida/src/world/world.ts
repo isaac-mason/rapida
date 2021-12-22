@@ -1,19 +1,8 @@
 import { Physics, PhysicsParams } from '@rapidajs/rapida-physics';
-import {
-  Event,
-  EventHandler,
-  EventSystem,
-  uuid,
-} from '@rapidajs/rapida-common';
+import { uuid } from '@rapidajs/rapida-common';
+import recs, { RECS, Space, SpaceParams, System } from '@rapidajs/recs';
 import { Engine } from '../engine';
 import { Scene, SceneParams } from '../scene';
-import {
-  System,
-  Space,
-  SpaceParams,
-  SystemManager,
-  QueryManager,
-} from '../ecs';
 import { Camera, CameraParams } from '../camera';
 import {
   RendererManager,
@@ -58,11 +47,6 @@ export class World {
   id: string;
 
   /**
-   * Spaces in the world
-   */
-  spaces: Map<string, Space> = new Map();
-
-  /**
    * Scenes in the world
    */
   scenes: Map<string, Scene> = new Map();
@@ -78,14 +62,9 @@ export class World {
   cameras: Map<string, Camera> = new Map();
 
   /**
-   * The system manager for the world
+   * The RECS instance for the world
    */
-  systemManager: SystemManager;
-
-  /**
-   * The query manager for the world
-   */
-  queryManager: QueryManager;
+  recs: RECS = recs();
 
   /**
    * The renderer manager for the world
@@ -128,13 +107,8 @@ export class World {
   _physicsDelta?: number;
 
   /**
-   * The event system for the world
-   */
-  private events = new EventSystem();
-
-  /**
    * Constructor for a World
-   * @param id a unique id for the world
+   * @param param0 params for creating the world
    */
   constructor({
     id,
@@ -151,8 +125,6 @@ export class World {
     this._physicsUpdateDelayMs = 1000 / this._maxPhysicsUpdatesPerSecond;
     this._physicsDelta = 1 / this._maxPhysicsUpdatesPerSecond;
 
-    this.queryManager = new QueryManager(this);
-    this.systemManager = new SystemManager(this);
     this.rendererManager = new RendererManager();
   }
 
@@ -162,10 +134,9 @@ export class World {
    */
   remove(value: System | Space | Scene | Physics | Camera): void {
     if (value instanceof System) {
-      this.systemManager.removeSystem(value);
+      this.recs.remove(value);
     } else if (value instanceof Space) {
-      this.spaces.delete(value.id);
-      value._destroy();
+      this.recs.remove(value);
     } else if (value instanceof Scene) {
       this.scenes.delete(value.id);
     } else if (value instanceof Physics) {
@@ -183,13 +154,8 @@ export class World {
     // Initialise the renderer manager
     this.rendererManager._init();
 
-    // Initialise systems
-    this.systemManager._init();
-
-    // Initialise spaces
-    this.spaces.forEach((s) => {
-      s._init();
-    });
+    // Initialise the ecs
+    this.recs.init();
 
     // Set the world to be initialised
     this.initialised = true;
@@ -210,11 +176,8 @@ export class World {
     // update the renderer manager
     this.rendererManager._update();
 
-    // update systems
-    this.systemManager._update(timeElapsed);
-
-    // update spaces
-    this.spaces.forEach((s) => s._update(timeElapsed));
+    // update spaces and systems in the ecs
+    this.recs.update(timeElapsed);
   }
 
   /**
@@ -231,40 +194,8 @@ export class World {
    */
   destroy(): void {
     this.rendererManager._destroy();
-    this.systemManager._destroy();
-    this.spaces.forEach((s) => s._destroy());
+    this.recs.destroy();
     this.physics.forEach((p) => p.terminate());
-  }
-
-  /**
-   * Adds a handler for scene events
-   * @param eventName the event name
-   * @param handlerName the name of the handler
-   * @param handler the handler function
-   * @returns the id of the new handler
-   */
-  on<E extends Event | Event>(
-    eventName: string,
-    handler: EventHandler<E>
-  ): string {
-    return this.events.on(eventName, handler);
-  }
-
-  /**
-   * Removes an event handler by handler id
-   * @param eventName the name of the event
-   * @param handlerId the id of the event handler
-   */
-  removeHandler(eventName: string, handlerId: string): void {
-    return this.events.removeHandler(eventName, handlerId);
-  }
-
-  /**
-   * Broadcasts an event for handling by the scene
-   * @param event the event to broadcast
-   */
-  emit<E extends Event | Event>(event: E): void {
-    return this.events.emit(event);
   }
 
   /**
@@ -317,7 +248,7 @@ export class World {
      * @param system the system to add to the world
      */
     system: (system: System) => {
-      this.systemManager.addSystem(system);
+      this.recs.add.system(system);
       return this;
     },
   };
@@ -342,14 +273,7 @@ export class World {
      * @returns the new space
      */
     space: (params?: SpaceParams): Space => {
-      const space = new Space(this, params);
-      this.spaces.set(space.id, space);
-
-      if (this.initialised) {
-        space._init();
-      }
-
-      return space;
+      return this.recs.create.space(params);
     },
     /**
      * Creates a camera in the world

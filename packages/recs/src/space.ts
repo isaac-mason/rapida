@@ -5,7 +5,7 @@ import {
   uuid,
 } from '@rapidajs/rapida-common';
 import { Entity, EntityParams } from './entity';
-import { World } from '../world';
+import { RECS } from './recs';
 
 type SpaceFactories = {
   entity: (params?: EntityParams) => Entity;
@@ -24,7 +24,7 @@ export type SpaceParams = {
 /**
  * Space that contains entities and manages entities and their lifecycle.
  *
- * A Space can be added to a world and then affected by the systems in a world.
+ * Spaces can be added to a RECS instance and then affected by the systems in the RECS.
  */
 export class Space {
   /**
@@ -33,9 +33,9 @@ export class Space {
   id: string;
 
   /**
-   * The parent World the space is in
+   * The RECS instance the space is in
    */
-  world: World;
+  recs: RECS;
 
   /**
    * Entities in the space
@@ -61,8 +61,8 @@ export class Space {
    * Constructor for the Space
    * @param params the parameters for the space
    */
-  constructor(world: World, params?: SpaceParams) {
-    this.world = world;
+  constructor(recs: RECS, params?: SpaceParams) {
+    this.recs = recs;
     this.id = params?.id || uuid();
   }
 
@@ -109,10 +109,10 @@ export class Space {
   }
 
   /**
-   * Destroys the space and removes it from the world
+   * Destroys the space and removes it from the RECS
    */
   destroy(): void {
-    this.world.remove(this);
+    this.recs.remove(this);
   }
 
   /**
@@ -130,7 +130,7 @@ export class Space {
     // add the entity
     this.entities.set(value.id, value);
 
-    // initialise if the world has already been initialised
+    // initialise if the RECS has already been initialised
     if (this.initialised) {
       value._init();
     }
@@ -150,7 +150,7 @@ export class Space {
     value.destroy();
 
     // emit the entity destroy event to the space
-    this.world.queryManager.onEntityRemoved(value);
+    this.recs.queryManager.onEntityRemoved(value);
 
     return this;
   }
@@ -198,7 +198,7 @@ export class Space {
   };
 
   /**
-   * Retrieves world factories
+   * Retrieves space factories
    */
   public get create(): SpaceFactories {
     return this._factories;
