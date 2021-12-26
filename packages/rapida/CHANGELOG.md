@@ -1,5 +1,14 @@
 # @rapidajs/rapida
 
+## 0.0.8
+
+### Patch Changes
+
+- 2fa043a: Revert back to using 'args' syntax for physics object creation in '@rapidajs/rapida-physics
+- Updated dependencies [a50c7ec]
+- Updated dependencies [2fa043a]
+  - @rapidajs/rapida-physics@0.0.8
+
 ## 0.0.7
 
 ### Patch Changes

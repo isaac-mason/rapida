@@ -57,7 +57,7 @@ class Spheres extends Component {
     const [_, sphereApi] = this.physics.create.sphere(
       {
         type: BodyType.DYNAMIC,
-        radius: 1,
+        args: 1,
         position: [4 - Math.random() * 8, this.view.viewportSize.height, 0],
         rotation: [0, 0, 0],
         fixedRotation: false,

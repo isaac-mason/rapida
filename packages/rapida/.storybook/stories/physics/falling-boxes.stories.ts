@@ -79,7 +79,7 @@ export const FallingBoxes = ({
       const [_, cubeApi] = this.physics.create.box(
         {
           type: BodyType.DYNAMIC,
-          size: [box.size.x, box.size.y, box.size.z],
+          args: [box.size.x, box.size.y, box.size.z],
           position: [0, 0, 0],
           rotation: [0, 0, 0],
           fixedRotation: false,

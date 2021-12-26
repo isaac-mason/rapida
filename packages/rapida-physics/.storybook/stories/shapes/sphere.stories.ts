@@ -16,7 +16,7 @@ export const Sphere = () => {
     physics.create.sphere(
       {
         type: BodyType.DYNAMIC,
-        radius: 20,
+        args: 20,
         mass: 1,
         position: [0, 75, 0],
         rotation: [0, 0, 0],

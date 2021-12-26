@@ -1,5 +1,12 @@
 # @rapidajs/rapida-physics
 
+## 0.0.8
+
+### Patch Changes
+
+- a50c7ec: Export `@rapidajs/rapida-physics` `paramsToBody` method to enable body params to be used with cannon-es directly
+- 2fa043a: Revert back to using 'args' syntax for physics object creation in '@rapidajs/rapida-physics
+
 ## 0.0.7
 
 ### Patch Changes

@@ -551,48 +551,11 @@ export type ConvexPolyhedronArgs<V extends VectorTypes = VectorTypes> = [
 
 export type PlaneParams = BodyParams;
 
-export type BoxCreationParams = BodyParams & { size: Triplet };
-
 export type BoxParams = BodyParams<Triplet>;
-
-export type CylinderCreationParams = BodyParams & {
-  /**
-   * The radius of the top of the cylinder
-   */
-  radiusTop?: number;
-
-  /**
-   * The radius of the bottom of the cylinder
-   */
-  radiusBottom?: number;
-
-  /**
-   * The height of the cylinder
-   */
-  height?: number;
-
-  /**
-   * The number of segments for the cylinder
-   */
-  numSegments?: number;
-};
 
 export type CylinderParams = BodyParams<CylinderArgs>;
 
-/**
- * Params for creating a particle
- */
 export type ParticleParams = BodyParams;
-
-/**
- * Params for creating a sphere
- */
-export type SphereCreationParams = BodyParams & {
-  /**
-   * The radius of the sphere
-   */
-  radius: number;
-};
 
 export type SphereParams = BodyParams<number>;
 

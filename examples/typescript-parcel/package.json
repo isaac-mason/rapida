@@ -8,7 +8,7 @@
     "parcel": "^2.0.1"
   },
   "dependencies": {
-    "@rapidajs/rapida": "0.0.7",
+    "@rapidajs/rapida": "0.0.8",
     "three": "^0.135.0"
   },
   "scripts": {

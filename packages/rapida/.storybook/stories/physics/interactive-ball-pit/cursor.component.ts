@@ -44,7 +44,7 @@ class Cursor extends Component {
     const [_, sphereApi] = this.physics.create.sphere(
       {
         type: BodyType.STATIC,
-        radius,
+        args: radius,
         position: [0, 0, 0],
         rotation: [0, 0, 0],
         fixedRotation: false,

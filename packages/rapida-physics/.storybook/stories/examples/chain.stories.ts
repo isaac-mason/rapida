@@ -24,7 +24,7 @@ export const Chain = () => {
     // chain handle
     const [handleRef, { velocity }] = physics.create.sphere({
       type: BodyType.DYNAMIC,
-      radius: 1,
+      args: 1,
       mass: 1,
       position: [0, 60, 0],
     });
@@ -43,7 +43,7 @@ export const Chain = () => {
       const [ref] = physics.create.box({
         mass: 1,
         linearDamping: 0.8,
-        size: chainSize,
+        args: chainSize,
         type: BodyType.DYNAMIC,
         position: [0, parent.position.y - (chainSize[1] + 1), 0],
       })
@@ -63,7 +63,7 @@ export const Chain = () => {
     // ground
     physics.create.box({
       type: BodyType.STATIC,
-      size: [100, 1, 100],
+      args: [100, 1, 100],
       position: [0, -10, 0],
       rotation: [0, 0, 0],
     });

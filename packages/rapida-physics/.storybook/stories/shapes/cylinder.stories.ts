@@ -25,10 +25,7 @@ export const Cylinder = ({
 
     physics.create.cylinder({
       type: BodyType.DYNAMIC,
-      radiusTop,
-      radiusBottom,
-      height,
-      numSegments,
+      args: [radiusTop, radiusBottom, height, numSegments],
       mass: 1,
       position: [0, 75, 0],
       rotation: [0, 0, 0],

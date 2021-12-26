@@ -31,7 +31,7 @@ class SpinningCube extends Component {
 
     this.physics.create.box(
       {
-        size: [10, 10, 10],
+        args: [10, 10, 10],
         mass: 1,
         type: BodyType.DYNAMIC,
         rotation: [0, 0, 0],
