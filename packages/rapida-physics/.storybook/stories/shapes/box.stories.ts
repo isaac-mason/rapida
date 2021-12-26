@@ -16,7 +16,7 @@ export const Box = () => {
     physics.create.box(
       {
         type: BodyType.DYNAMIC,
-        size: [20, 20, 20],
+        args: [20, 20, 20],
         mass: 1,
         position: [0, 75, 0],
         rotation: [0, 0, 0],

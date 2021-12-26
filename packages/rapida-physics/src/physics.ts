@@ -25,14 +25,12 @@ import { AddRaycastVehicleEvent } from './events/vehicle/add-raycast-vehicle';
 import type {
   AtomicName,
   BodyShapeType,
-  BoxCreationParams,
   Buffers,
   CannonWorker,
   CollideBeginEvent,
   CollideEndEvent,
   CollideEvent,
   ConstraintORHingeApi,
-  CylinderCreationParams,
   DefaultContactMaterial,
   IncomingWorkerMessage,
   PhysicsContext,
@@ -46,7 +44,6 @@ import type {
   RayMode,
   Refs,
   SetOpName,
-  SphereCreationParams,
   SpringApi,
   SubscriptionName,
   SubscriptionTarget,
@@ -83,6 +80,7 @@ import {
   WorkerRayhitEvent,
 } from './types';
 import { capitalize, getUUID, isString, makeTriplet, prepare, setupCollision } from './utils';
+import { Cylinder } from 'shapes/Cylinder';
 
 function noop() {
   /* no action taken */
@@ -455,9 +453,7 @@ class Physics {
               object.instanceMatrix.needsUpdate = true;
               this.refs[id] = object;
 
-              if (this.debugger) {
-                this.debugger.add(id, params, type);
-              }
+              this.debugger?.add(id, params, type);
 
               setupCollision(this.events, params, id);
 
@@ -469,9 +465,7 @@ class Physics {
 
               setupCollision(this.events, params, id);
 
-              if (this.debugger) {
-                this.debugger.add(id, params, type);
-              }
+              this.debugger?.add(id, params, type);
 
               return { ...params, args: argsFn(params.args) };
             });
@@ -599,9 +593,7 @@ class Physics {
               uuid.forEach((id) => {
                 delete this.refs[id];
 
-                if (this.debugger) {
-                  this.debugger.remove(id);
-                }
+                this.debugger?.remove(id);
 
                 delete this.events[id];
               });
@@ -623,21 +615,19 @@ class Physics {
     plane: (params: PlaneParams, ref: Object3D | null = null) => {
       return this._factories.body<PlaneParams>('Plane', params, () => [], ref);
     },
-    box: (params: BoxCreationParams, ref: Object3D | null = null) => {
+    box: (params: BoxParams, ref: Object3D | null = null) => {
       const defaultBoxArgs: Triplet = [1, 1, 1];
-      const { size, ...extra } = params;
       return this._factories.body<BoxParams>(
         'Box',
-        { ...extra, args: size },
+        params,
         (args = defaultBoxArgs): Triplet => args,
         ref,
       );
     },
-    cylinder: (params: CylinderCreationParams, ref: Object3D | null = null) => {
-      const { radiusTop, radiusBottom, height, numSegments, ...extra } = params;
+    cylinder: (params: CylinderParams, ref: Object3D | null = null) => {
       return this._factories.body<CylinderParams>(
         'Cylinder',
-        { ...extra, args: [radiusTop, radiusBottom, height, numSegments] },
+        params,
         (args = []) => args,
         ref,
       );
@@ -648,14 +638,10 @@ class Physics {
     particle: (params: ParticleParams, ref: Object3D | null = null) => {
       return this._factories.body<ParticleParams>('Particle', params, () => [], ref);
     },
-    sphere: (params: SphereCreationParams, ref: Object3D | null = null) => {
-      const { radius, ...extra } = params;
+    sphere: (params: SphereParams, ref: Object3D | null = null) => {
       return this._factories.body<SphereParams>(
         'Sphere',
-        {
-          ...extra,
-          args: radius,
-        },
+        params,
         (radius = 1): [number] => [radius],
         ref,
       );
