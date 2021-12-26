@@ -7,43 +7,43 @@ export default {
   title: 'Getting Started / Hello World',
 };
 
-export const HelloWorld = () => {
-  class SpinningCubeComponent extends Component {
-    cube: three.Mesh;
-    scene: Scene;
+class SpinningCubeComponent extends Component {
+  cube!: three.Mesh;
+  scene!: Scene;
 
-    constructor(scene: Scene) {
-      super();
-      this.scene = scene;
-    }
+  construct = (params: { scene: Scene }) => {
+    this.scene = params.scene;
 
-    onInit = (): void => {
-      const geometry = new three.BoxGeometry(50, 50, 50);
-      const material = new three.MeshPhongMaterial({
-        color: 'blue',
-        specular: 0x111111,
-        shininess: 30,
-      });
-      this.cube = new three.Mesh(geometry, material);
-      this.cube.position.set(0, 0, 0);
+    const geometry = new three.BoxGeometry(50, 50, 50);
+    const material = new three.MeshPhongMaterial({
+      color: 'blue',
+      specular: 0x111111,
+      shininess: 30,
+    });
 
-      this.scene.add(this.cube);
-    };
-
-    onUpdate = (timeElapsed: number): void => {
-      this.cube.rotation.x += timeElapsed * 0.0001;
-      this.cube.rotation.y += timeElapsed * 0.0001;
-    };
-
-    onDestroy = (): void => {
-      this.scene.remove(this.cube);
-    };
+    this.cube = new three.Mesh(geometry, material);
+    this.cube.position.set(0, 0, 0);
   }
 
-  useEffect(() => {
-    const R = rapida({ debug: true });
+  onInit = (): void => {
+    this.scene.add(this.cube);
+  };
 
-    const worldProvider: WorldProvider = ({ engine }): World => {
+  onUpdate = (timeElapsed: number): void => {
+    this.cube.rotation.x += timeElapsed * 0.0001;
+    this.cube.rotation.y += timeElapsed * 0.0001;
+  };
+
+  onDestroy = (): void => {
+    this.scene.remove(this.cube);
+  };
+}
+
+export const HelloWorld = () => {
+  useEffect(() => {
+    const R = rapida();
+
+    R.run(({ engine }): World => {
       const world = new World({
         engine,
       });
@@ -76,12 +76,10 @@ export const HelloWorld = () => {
       const space = world.create.space();
 
       const cube = space.create.entity();
-      cube.addComponent(new SpinningCubeComponent(scene));
+      cube.addComponent(SpinningCubeComponent, { scene });
 
       return world;
-    };
-
-    R.run(worldProvider);
+    });
 
     return () => R.destroy();
   });

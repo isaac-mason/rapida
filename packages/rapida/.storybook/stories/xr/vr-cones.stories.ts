@@ -17,7 +17,7 @@ export const VRCones = () => {
   useEffect(() => {
     const R = rapida({ debug: true });
 
-    const worldProvider: WorldProvider = ({ engine }): World => {
+    R.run(({ engine }): World => {
       const world = new World({
         engine,
       });
@@ -67,9 +67,7 @@ export const VRCones = () => {
       scene.add(controller);
 
       return world;
-    };
-
-    R.run(worldProvider);
+    });
 
     return () => R.destroy();
   });

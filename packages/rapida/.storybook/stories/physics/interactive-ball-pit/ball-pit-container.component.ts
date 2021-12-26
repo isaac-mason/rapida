@@ -6,11 +6,12 @@ import {
 import { Component } from '../../../../src';
 
 class BallPitContainer extends Component {
-  physics: Physics;
-  planeApis: PhysicsObjectApi[];
+  physics!: Physics;
 
-  constructor({ physics }: { physics: Physics }) {
-    super();
+  planeApis!: PhysicsObjectApi[];
+
+  construct = ({ physics }: { physics: Physics }) => {
+    this.planeApis = undefined;
     this.physics = physics;
   }
 

@@ -15,42 +15,43 @@ import { Component, Scene, View } from '../../../../src';
 const ORANGE = '#ff7b00';
 
 class Spheres extends Component {
-  physics: Physics;
-  scene: Scene;
-  view: View;
-  
-  mesh: InstancedMesh;
-  sphereApi: PhysicsObjectApi;
+  physics!: Physics;
 
-  constructor({
-    view,
-    scene,
-    physics,
-  }: {
+  scene!: Scene;
+
+  view!: View;
+  
+  mesh!: InstancedMesh;
+
+  sphereApi!: PhysicsObjectApi;
+
+  static count = 200;
+
+  construct = (params: {
     view: View;
     scene: Scene;
     physics: Physics;
-  }) {
-    super();
-    this.view = view;
-    this.scene = scene;
-    this.physics = physics;
-  }
+  }) => {
+    this.sphereApi = undefined;
 
-  onInit = (): void => {
-    const count = 200;
+    this.view = params.view;
+    this.scene = params.scene;
+    this.physics = params.physics;
 
     const geometry = new SphereBufferGeometry(1, 32, 32);
     const material = new MeshLambertMaterial({
       color: ORANGE,
     });
 
-    this.mesh = new InstancedMesh(geometry, material, count);
+    this.mesh = new InstancedMesh(geometry, material, Spheres.count);
     this.mesh.instanceMatrix.setUsage(DynamicDrawUsage);
     this.mesh.position.set(0, 0, 0);
     this.mesh.matrixAutoUpdate = false;
     (this.mesh as Object3D).castShadow = true;
     (this.mesh as Object3D).receiveShadow = true;
+  }
+
+  onInit = (): void => {
     this.scene.add(this.mesh);
 
     const [_, sphereApi] = this.physics.create.sphere(
@@ -68,7 +69,7 @@ class Spheres extends Component {
 
     this.sphereApi = sphereApi;
 
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < Spheres.count; i++) {
       sphereApi.at(i).position.set(2 - Math.random() * 4, 0, 0);
     }
   };

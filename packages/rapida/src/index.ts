@@ -1,7 +1,6 @@
 import { Engine, EngineParams } from './engine';
 
-export { uuid } from '@rapidajs/rapida-common';
-export type { Event, EventHandler } from '@rapidajs/rapida-common';
+export * from '@rapidajs/rapida-common';
 export * from '@rapidajs/rapida-physics';
 export * from '@rapidajs/recs';
 export * from './camera';

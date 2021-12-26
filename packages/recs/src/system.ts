@@ -66,63 +66,10 @@ export abstract class System {
   results: { [name: string]: Query } = {};
 
   /**
-   * The event system for this system
-   */
-  private events = new EventSystem();
-
-  /**
-   * Initialises the system
-   */
-  _init(): void {
-    if (this.onInit) {
-      this.onInit();
-    }
-  }
-
-  /**
-   * Updates the system
-   */
-  _update(timeElapsed: number): void {
-    if (this.onUpdate) {
-      this.onUpdate(timeElapsed);
-    }
-    this.events.tick();
-  }
-
-  /**
    * Destroys the system and removes it from the RECS
    */
   destroy(): void {
     this.recs.remove(this);
-  }
-
-  /**
-   * Destroy logic for the system
-   */
-  _destroy(): void {
-    if (this.onDestroy) {
-      this.onDestroy();
-    }
-  }
-
-  /**
-   * Adds an event handler for the system
-   * @param eventName the event name
-   * @param handler the event handler
-   */
-  on<E extends Event | Event>(
-    eventName: string,
-    handler: EventHandler<E>
-  ): void {
-    this.events.on(eventName, handler);
-  }
-
-  /**
-   * Emits an event to the system
-   * @param event the event to emit
-   */
-  emit<E extends Event | Event>(event: E): void {
-    return this.events.emit(event);
   }
 
   /**
@@ -140,4 +87,31 @@ export abstract class System {
    * @param timeElapsed the time since the last update
    */
   onUpdate?: (timeElapsed: number) => void = undefined;
+
+  /**
+   * Initialises the system
+   */
+  _init(): void {
+    if (this.onInit) {
+      this.onInit();
+    }
+  }
+
+  /**
+   * Updates the system
+   */
+  _update(timeElapsed: number): void {
+    if (this.onUpdate) {
+      this.onUpdate(timeElapsed);
+    }
+  }
+
+  /**
+   * Destroy logic for the system
+   */
+  _destroy(): void {
+    if (this.onDestroy) {
+      this.onDestroy();
+    }
+  }
 }

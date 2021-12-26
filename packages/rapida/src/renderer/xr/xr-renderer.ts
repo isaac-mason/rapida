@@ -1,4 +1,9 @@
-import { Event, EventSystem, uuid } from '@rapidajs/rapida-common';
+import {
+  Event,
+  EventSubscription,
+  EventSystem,
+  uuid,
+} from '@rapidajs/rapida-common';
 import { WebGLRenderer, PerspectiveCamera, XRFrame } from 'three';
 import { ARButton } from 'three-stdlib/webxr/ARButton';
 import { VRButton } from 'three-stdlib/webxr/VRButton';
@@ -218,9 +223,7 @@ export class XRRenderer implements Renderer {
    * Registers an event handler for new XRFrame frames
    * @param handler the handler for a new frame
    */
-  onFrame(handler: (e: FrameEvent) => void): { unsubscribe: () => void } {
-    const id = this.events.on('frame', handler);
-
-    return { unsubscribe: () => this.events.removeHandler('frame', id) };
+  onFrame(handler: (e: FrameEvent) => void): EventSubscription {
+    return this.events.on('frame', handler);
   }
 }

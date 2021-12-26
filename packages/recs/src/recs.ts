@@ -3,6 +3,8 @@ import { System } from './system';
 import { Space, SpaceParams } from './space';
 import { SystemManager } from './system-manager';
 import { QueryManager } from './query-manager';
+import { EntityPool } from './entity-pool';
+import { ComponentPool } from './component-pool';
 
 /**
  * RECS Entity Component System that contains systems and spaces
@@ -19,6 +21,16 @@ export class RECS {
   spaces: Map<string, Space> = new Map();
 
   /**
+   * The Entity Pool for the RECS instance
+   */
+  entityPool: EntityPool = new EntityPool();
+
+  /**
+   * The Component Pool for the RECS instance
+   */
+  componentPool: ComponentPool = new ComponentPool();
+
+  /**
    * The system manager for the RECS instance
    */
   systemManager: SystemManager;
@@ -32,6 +44,21 @@ export class RECS {
    * Whether the RECS instance has been initialised
    */
   initialised = false;
+
+  /**
+   * A map of ids to update functions for all entities and components in the space
+   */
+  _componentUpdatePool: Map<string, (timeElapsed: number) => void> = new Map();
+
+  /**
+   * A map of ids to update functions for all entities and components in the space
+   */
+  _entityUpdatePool: Map<string, (timeElapsed: number) => void> = new Map();
+
+  /**
+   * A map of ids to update functions for all systems in the RECS instance
+   */
+  _systemsUpdatePool: Map<string, (timeElapsed: number) => void> = new Map();
 
   /**
    * Constructor for a RECS instance
@@ -75,8 +102,20 @@ export class RECS {
    * @param timeElapsed the time elapsed in milliseconds
    */
   update(timeElapsed: number): void {
-    // update spaces
+    // update components - runs update methods for all components that have them
+    this._componentUpdatePool.forEach((update) => update(timeElapsed));
+
+    // update entities - steps entity event system
+    this._entityUpdatePool.forEach((update) => update(timeElapsed));
+
+    // update spaces - steps space event system
     this.spaces.forEach((s) => s._update(timeElapsed));
+
+    // update entities in spaces - checks if entities are alive and releases them if they are dead
+    this.spaces.forEach((s) => s._updateEntities(timeElapsed));
+
+    // update queries
+    this.queryManager.update();
 
     // update systems
     this.systemManager._update(timeElapsed);

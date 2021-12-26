@@ -18,7 +18,7 @@ class TestComponentFive extends Component {}
 
 class TestComponentSix extends Component {}
 
-describe('RECS Query', () => {
+describe('Query', () => {
   const mockSpace = {} as unknown as Space;
 
   it('should throw an error when constructing if there are no query conditions', () => {
@@ -28,7 +28,8 @@ describe('RECS Query', () => {
   });
 
   it('can have entities added and removed from the query', () => {
-    const entity = new Entity(mockSpace);
+    const entity = new Entity();
+    entity.space = mockSpace;
 
     const queryDescription: QueryDescription = {
       all: [TestComponentOne, TestComponentTwo],
@@ -36,17 +37,28 @@ describe('RECS Query', () => {
 
     const query = new Query(queryDescription);
 
-    query.addEntity(entity);
+    query._addEntity(entity);
 
-    expect(query.entities.has(entity)).toBeTruthy();
+    expect(query.added.has(entity)).toBeTruthy();
+    expect(query.all.has(entity)).toBeTruthy();
 
-    query.removeEntity(entity);
+    query._preUpdate();
+    query._removeEntity(entity);
 
-    expect(query.entities.has(entity)).toBeFalsy();
+    expect(query.added.has(entity)).toBeFalsy();
+    expect(query.removed.has(entity)).toBeTruthy();
+    expect(query.all.has(entity)).toBeFalsy();
+
+    query._preUpdate();
+
+    expect(query.all.size).toBe(0);
+    expect(query.added.size).toBe(0);
+    expect(query.removed.size).toBe(0);
   });
 
   it('should store all components referenced in the query', () => {
-    const entity = new Entity(mockSpace);
+    const entity = new Entity();
+    entity.space = mockSpace;
 
     const queryDescription: QueryDescription = {
       all: [TestComponentOne, TestComponentTwo],
@@ -54,7 +66,7 @@ describe('RECS Query', () => {
 
     const query = new Query(queryDescription);
 
-    query.addEntity(entity);
+    query._addEntity(entity);
 
     expect(query.componentNames).toHaveLength(2);
     expect(query.componentNames).toContain(TestComponentOne.name);
@@ -73,7 +85,7 @@ describe('RECS Query', () => {
         },
       } as unknown as Entity;
 
-      expect(query.match(entity)).toBeTruthy();
+      expect(query._match(entity)).toBeTruthy();
     });
 
     it('should return false if an entity does not match a query with the ONE condition', () => {
@@ -87,7 +99,7 @@ describe('RECS Query', () => {
         },
       } as unknown as Entity;
 
-      expect(query.match(entity)).toBeFalsy();
+      expect(query._match(entity)).toBeFalsy();
     });
 
     it('should return true if an entity matches a query with the NOT condition', () => {
@@ -105,7 +117,7 @@ describe('RECS Query', () => {
         },
       } as unknown as Entity;
 
-      expect(query.match(entity)).toBeTruthy();
+      expect(query._match(entity)).toBeTruthy();
     });
 
     it('should return false if an entity does not match a query with the NOT condition', () => {
@@ -123,7 +135,7 @@ describe('RECS Query', () => {
         },
       } as unknown as Entity;
 
-      expect(query.match(entity)).toBeFalsy();
+      expect(query._match(entity)).toBeFalsy();
     });
 
     it('should return true if an entity matches a query with the ALL condition', () => {
@@ -145,7 +157,7 @@ describe('RECS Query', () => {
         },
       } as unknown as Entity;
 
-      expect(query.match(entity)).toBeTruthy();
+      expect(query._match(entity)).toBeTruthy();
     });
 
     it('should return false if an entity does not match a query with the ALL condition', () => {
@@ -181,8 +193,8 @@ describe('RECS Query', () => {
         },
       } as unknown as Entity;
 
-      expect(query.match(entityOne)).toBeFalsy();
-      expect(query.match(entityTwo)).toBeFalsy();
+      expect(query._match(entityOne)).toBeFalsy();
+      expect(query._match(entityTwo)).toBeFalsy();
     });
 
     it('should return true if an entity matches a query with multiple conditions', () => {
@@ -218,7 +230,7 @@ describe('RECS Query', () => {
         },
       } as unknown as Entity;
 
-      expect(query.match(entity)).toBeTruthy();
+      expect(query._match(entity)).toBeTruthy();
     });
   });
 

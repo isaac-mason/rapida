@@ -1,6 +1,6 @@
 import { useEffect } from '@storybook/client-api';
 import * as three from 'three';
-import rapida, { World, WorldProvider } from '../../../src';
+import rapida, { World } from '../../../src';
 
 export default {
   title: 'Renderers / One Renderer',
@@ -10,7 +10,7 @@ export const OneRenderer = () => {
   useEffect(() => {
     const R = rapida();
 
-    const worldProvider: WorldProvider = ({ engine }): World => {
+    R.run(({ engine }): World => {
       const world = new World({
         engine,
       });
@@ -18,9 +18,9 @@ export const OneRenderer = () => {
       const renderer = world.create.renderer.webgl();
       document.getElementById('renderer-root').appendChild(renderer.domElement);
 
-      const scene = world.create.scene({ id: 'mainScene' });
+      const scene = world.create.scene();
 
-      const camera = world.create.camera({ id: 'mainCamera' });
+      const camera = world.create.camera();
       camera.position.set(0, 0, 500);
 
       renderer.create.view({
@@ -45,9 +45,7 @@ export const OneRenderer = () => {
       scene.add(cube);
 
       return world;
-    };
-
-    R.run(worldProvider);
+    });
 
     return () => R.destroy();
   });

@@ -2,25 +2,23 @@ import { uuid } from '@rapidajs/rapida-common';
 import { Entity } from './entity';
 import { Space } from './space';
 
-export type ComponentParams = {
-  id?: string;
-};
-
 /**
  * Component that has data and behavior through lifecycle hooks, and can be added to an entity.
  *
- * This class should be extended to add fields for data, and to set the methods `onInit`, `onUpdate`, and `onDestroy`.
+ * This class should be extended to add fields for data, and to set the methods `construct`, `onInit`, `onUpdate`, and `onDestroy`.
+ *
+ * A constructor should not be added to classes extending `Component`. See the documentation for the `construct` method for initializing properties.
  */
 export abstract class Component {
   /**
    * This component instances unique id
    */
-  id: string;
+  id: string = uuid();
 
   /**
    * The entity this component belongs to. Set on adding to an Entity.
    */
-  private _entity?: Entity;
+  private _entity: Entity | null = null;
 
   /**
    * Gets the entity for the component. Available during init call.
@@ -33,7 +31,7 @@ export abstract class Component {
    * Sets what entity the component belongs to
    * @param entity the entity
    */
-  set entity(entity: Entity) {
+  set entity(entity: Entity | null) {
     this._entity = entity;
   }
 
@@ -45,15 +43,39 @@ export abstract class Component {
   }
 
   /**
-   * Constructor for a Component
-   * @param name a unique name for the component
+   * Method for "re-constructing" a component object instance.
+   *
+   * If a component has properties, this method should be implemented to set initial values for all of them.
+   * If a component has no properties and instead just acts as a tag component, then this method does not need to be implemented.
+   *
+   * Non-static component properties should not have values defined in the constructor, but should be initialised in this `construct` method.
+   * The reason for this is component object instances will be reused, so in order to prevent unexpected behavior, they should be initialised in the `construct` method,
+   * which will be executed as part of component reuse to return it to the starting state.
+   *
+   * The recommended way to handle this in TypeScript is to use the not-null operator for added properties, acting as a 'late-init' syntax for properties.
+   * This is safe as the `construct` method will always be run before `onUpdate` and `onDestroy`, and the component will not be accessible by system queries until `construct` has run.
+   * For example:
+   *
+   * ```
+   * class MyComponent extends Component {
+   *   exampleProperty!: number;
+   *
+   *   construct = (): void => {
+   *     this.exampleProperty = 1; // here we initialise the value of exampleProperty
+   *   }
+   *
+   *   onUpdate = (): void => {
+   *     // because we used the not-null operator `!:` the type of `this.exampleProperty` here will be `number`, as opposed to `number | undefined`
+   *     this.exampleProperty += 1;
+   *   }
+   * }
+   * ```
    */
-  constructor(params?: ComponentParams) {
-    this.id = params?.id || uuid();
-  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-function, class-methods-use-this
+  construct: (..._args: any[]) => void = () => {};
 
   /**
-   * Initialisation logic. The entity will be available in this method.
+   * Initialisation logic
    */
   onInit: (() => void) | undefined = undefined;
 

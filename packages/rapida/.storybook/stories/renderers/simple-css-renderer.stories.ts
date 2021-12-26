@@ -1,8 +1,8 @@
 import { useEffect } from '@storybook/client-api';
-import { AmbientLight, BoxGeometry, Mesh, MeshPhongMaterial } from 'three';
+import { AmbientLight, BoxGeometry, DirectionalLight, Mesh, MeshPhongMaterial } from 'three';
 import { OrbitControls } from 'three-stdlib';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
-import rapida, { World, WorldProvider } from '../../../src';
+import rapida, { World } from '../../../src';
 
 export default {
   title: 'Renderers / Simple CSS Renderer',
@@ -12,7 +12,7 @@ export const SimpleCSSRenderer = () => {
   useEffect(() => {
     const R = rapida();
 
-    const worldProvider: WorldProvider = ({ engine }): World => {
+    R.run(({ engine }): World => {
       const world = new World({
         engine,
       });
@@ -31,7 +31,7 @@ export const SimpleCSSRenderer = () => {
       // create camera and scene
       const scene = world.create.scene();
       const camera = world.create.camera();
-      camera.position.set(0, 0, 500);
+      camera.position.set(-400, 250, 500);
       camera.three.lookAt(0, 0, 0);
 
       // create views
@@ -62,6 +62,10 @@ export const SimpleCSSRenderer = () => {
       // create lights
       var ambientLight = new AmbientLight(0xffffff, 1);
       scene.add(ambientLight);
+      const directionalLight = new DirectionalLight(0xffffff, 1);
+      directionalLight.position.set(300, 0, 300);
+      directionalLight.lookAt(0, 0, 0);
+      scene.add(directionalLight);
 
       // create a cube
       const geometry = new BoxGeometry(50, 50, 50);
@@ -75,15 +79,13 @@ export const SimpleCSSRenderer = () => {
 
       // create text
       const element = document.createElement('div');
-      element.innerHTML = "<p style='color: white;'>I'm a paragraph tag!</p>";
+      element.innerHTML = "<p style='color: white;'>Drag me around!</p>";
       const domObject = new CSS3DObject(element);
       domObject.position.z = 50;
       scene.add(domObject);
 
       return world;
-    };
-
-    R.run(worldProvider);
+    });
 
     return () => R.destroy();
   });
@@ -93,9 +95,6 @@ export const SimpleCSSRenderer = () => {
   #renderer-root {
     width: 100%;
     height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
   }
   </style>
   <div id="renderer-root"></div>
