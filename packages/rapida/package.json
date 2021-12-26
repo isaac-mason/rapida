@@ -1,6 +1,6 @@
 {
   "name": "@rapidajs/rapida",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A library that helps you create 3D experiences for the web",
   "homepage": "https://gitlab.com/rapidajs/rapida/-/tree/main/packages/rapida",
   "bugs": {
@@ -65,9 +65,9 @@
   },
   "dependencies": {
     "@jest/globals": "^27.2.0",
-    "@rapidajs/rapida-common": "0.0.4",
-    "@rapidajs/rapida-physics": "0.0.6",
-    "@rapidajs/recs": "0.0.1",
+    "@rapidajs/rapida-common": "0.0.7",
+    "@rapidajs/rapida-physics": "0.0.7",
+    "@rapidajs/recs": "0.0.7",
     "@types/stats.js": "^0.17.0",
     "@types/three": "^0.133.0",
     "jest-mock": "^27.1.1",
