@@ -3,31 +3,32 @@ import { Mesh, MeshBasicMaterial, Raycaster, SphereBufferGeometry, Vector3 } fro
 import { Camera, Component, Scene, WebGLView } from '../../../../src';
 
 class Cursor extends Component {
-  physics: Physics;
-  camera: Camera;
-  view: WebGLView;
-  scene: Scene;
+  physics!: Physics;
 
-  mesh: Mesh;
-  raycaster = new Raycaster();
-  sphereApi: PhysicsObjectApi;
+  camera!: Camera;
 
-  constructor({
-    physics,
-    camera,
-    view,
-    scene,
-  }: {
+  view!: WebGLView;
+
+  scene!: Scene;
+
+  mesh!: Mesh;
+
+  raycaster!: Raycaster;
+
+  sphereApi!: PhysicsObjectApi;
+
+  construct = (params: {
     physics: Physics;
     camera: Camera;
     view: WebGLView;
     scene: Scene;
-  }) {
-    super();
-    this.physics = physics;
-    this.camera = camera;
-    this.view = view;
-    this.scene = scene;
+  }) => {
+    this.physics = params.physics;
+    this.camera = params.camera;
+    this.view = params.view;
+    this.scene = params.scene;
+    this.raycaster = new Raycaster();
+    this.sphereApi = undefined;
   }
 
   onInit = (): void => {
@@ -70,11 +71,11 @@ class Cursor extends Component {
 
   updateCursorPosition(x: number, y: number): void {
     const vector = new Vector3(x, y, 0);
-    vector.unproject(this.camera.threeCamera);
+    vector.unproject(this.camera.three);
 
-    const dir = vector.sub(this.camera.threeCamera.position).normalize();
-    const distance = -this.camera.threeCamera.position.z / dir.z;
-    const pos = this.camera.threeCamera.position
+    const dir = vector.sub(this.camera.three.position).normalize();
+    const distance = -this.camera.three.position.z / dir.z;
+    const pos = this.camera.three.position
       .clone()
       .add(dir.multiplyScalar(distance));
 

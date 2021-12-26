@@ -1,69 +1,55 @@
+import { useEffect } from '@storybook/client-api';
 import * as three from 'three';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
-import {
-  Engine,
-  World,
-  WorldContext,
-  WorldProvider,
-  Component,
-  Scene,
-} from '../../../src';
-import { useEffect } from '@storybook/client-api';
+import rapida, { Component, Scene, World, WorldProvider } from '../../../src';
 
 export default {
   title: 'Views / Two Views Embedded',
 };
 
-export const TwoViewsEmbedded = () => {
-  class SpinningCube extends Component {
-    scene: Scene;
+class SpinningCube extends Component {
+  scene: Scene;
 
-    cube: three.Mesh;
+  cube: three.Mesh;
 
-    constructor({ scene }: { scene: Scene }) {
-      super();
-      this.scene = scene;
+  construct = ({ scene }: { scene: Scene }) => {
+    this.scene = scene;
 
-      const geometry = new three.BoxGeometry(50, 50, 50);
-      const material = new three.MeshPhongMaterial({
-        color: 'blue',
-        specular: 0x111111,
-        shininess: 30,
-      });
-      this.cube = new three.Mesh(geometry, material);
-      this.cube.position.set(0, 0, 0);
-    }
-
-    onInit = () => {
-      this.scene.add(this.cube);
-    };
-
-    onUpdate = () => {
-      this.cube.rotation.x += 0.005;
-      this.cube.rotation.y += 0.005;
-    };
-
-    onDestroy = () => {
-      this.scene.remove(this.cube);
-    };
+    const geometry = new three.BoxGeometry(50, 50, 50);
+    const material = new three.MeshPhongMaterial({
+      color: 'blue',
+      specular: 0x111111,
+      shininess: 30,
+    });
+    this.cube = new three.Mesh(geometry, material);
+    this.cube.position.set(0, 0, 0);
   }
 
+  onInit = () => {
+    this.scene.add(this.cube);
+  };
+
+  onUpdate = () => {
+    this.cube.rotation.x += 0.005;
+    this.cube.rotation.y += 0.005;
+  };
+
+  onDestroy = () => {
+    this.scene.remove(this.cube);
+  };
+}
+
+export const TwoViewsEmbedded = () => {
   useEffect(() => {
-    const engine = new Engine();
+    const R = rapida({ debug: true });
 
-    const worldId = 'world';
-
-    const worldProvider: WorldProvider = (
-      worldContext: WorldContext
-    ): World => {
+    const worldProvider: WorldProvider = ({ engine }): World => {
       const world = new World({
-        id: worldId,
-        engine: worldContext.engine,
+        engine,
       });
 
-      const renderer = world.create.renderer.webgl({
-        domElementId: 'renderer-root',
-      });
+      const renderer = world.create.renderer.webgl();
+      document.getElementById('renderer-root').appendChild(renderer.domElement);
 
       const scene = world.create.scene();
 
@@ -99,11 +85,11 @@ export const TwoViewsEmbedded = () => {
         },
       });
 
-      new OrbitControls(cameraOne.threeCamera, viewOne.domElement);
+      new OrbitControls(cameraOne.three, viewOne.domElement);
 
-      new OrbitControls(cameraTwo.threeCamera, viewTwo.domElement);
+      new OrbitControls(cameraTwo.three, viewTwo.domElement);
 
-      scene.add(new three.CameraHelper(cameraTwo.threeCamera));
+      scene.add(new three.CameraHelper(cameraTwo.three));
 
       const ambientLight = new three.AmbientLight(0xffffff, 0.5);
       scene.add(ambientLight);
@@ -115,14 +101,14 @@ export const TwoViewsEmbedded = () => {
 
       const space = world.create.space();
 
-      space.create.entity().addComponent(new SpinningCube({ scene }));
+      space.create.entity().addComponent(SpinningCube, { scene });
 
       return world;
     };
 
-    engine.run(worldProvider);
+    R.run(worldProvider);
 
-    return () => engine.destroy();
+    return () => R.destroy();
   });
 
   return `

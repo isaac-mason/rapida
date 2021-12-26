@@ -1,5 +1,6 @@
 node_modules
 packages/**/lib
+packages/**/docs
 packages/**/coverage
 packages/**/storybook-static
 storybook-static
@@ -8,7 +9,8 @@ packages/**/junit.xml
 .cache
 .yarn/*
 .yarn/install-state.gz
-.yarn/cache
+**/.yarn/cache
+**/.parcel-cache
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases

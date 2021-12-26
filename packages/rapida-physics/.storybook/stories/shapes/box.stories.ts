@@ -1,5 +1,5 @@
 import { useEffect } from '@storybook/client-api';
-import { BodyType } from '../../../lib/next';
+import { BodyType } from '../../../lib';
 import { createBasicSetup } from '../utils/create-basic-setup';
 
 export default {

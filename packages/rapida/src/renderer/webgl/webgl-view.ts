@@ -22,7 +22,7 @@ import { WebGLRenderer } from './webgl-renderer';
 /**
  * Params for creating a webgl view
  */
-type WebGLViewParams = {
+export type WebGLViewParams = {
   /**
    * A unique identifier for the view. Defaults to a uuid if unspecified
    */
@@ -67,7 +67,7 @@ type WebGLViewParams = {
 /**
  * A WebGLView that a WebGLRenderer should render
  */
-class WebGLView extends View {
+export class WebGLView extends View {
   /**
    * A unique identifier for the view
    */
@@ -237,10 +237,7 @@ class WebGLView extends View {
     this.effectComposer = new EffectComposer(this.renderer.three);
 
     // create the render pass for the view
-    this.renderPass = new RenderPass(
-      this.scene.threeScene,
-      this.camera.threeCamera
-    );
+    this.renderPass = new RenderPass(this.scene.threeScene, this.camera.three);
 
     // add the render pass for the view
     this.effectComposer.addPass(this.renderPass);
@@ -289,6 +286,13 @@ class WebGLView extends View {
   }
 
   /**
+   * Destroys the view and removes it from the renderer
+   */
+  destroy(): void {
+    this.renderer.removeView(this);
+  }
+
+  /**
    * Destroys the view
    */
   _destroy(): void {
@@ -329,11 +333,11 @@ class WebGLView extends View {
     this.domElement.style.height = `${this.scissorSize.height}px`;
 
     // update the camera
-    if (this.camera.threeCamera instanceof PerspectiveCamera) {
-      this.camera.threeCamera.aspect =
+    if (this.camera.three instanceof PerspectiveCamera) {
+      this.camera.three.aspect =
         this.viewportSize.width / this.viewportSize.height;
     }
-    this.camera.threeCamera.updateProjectionMatrix();
+    this.camera.three.updateProjectionMatrix();
 
     // set the size of the effect composer
     this.effectComposer.setSize(
@@ -356,13 +360,13 @@ class WebGLView extends View {
       throw new Error(`${eventName} is not a supported view event`);
     }
 
-    const handlerId = this.events.on(eventName, eventHandler);
-    this._addHandler(eventName, handlerId);
+    const subscription = this.events.on(eventName, eventHandler);
+    this.addHandler(eventName, subscription.id);
 
     return {
       unsubscribe: () => {
-        this.events.removeHandler(eventName, handlerId);
-        this._removeHandler(eventName, handlerId);
+        subscription.unsubscribe();
+        this._removeHandler(eventName, subscription.id);
       },
     };
   }
@@ -415,7 +419,7 @@ class WebGLView extends View {
    * @param eventName the name of the view event
    * @param handlerId the id of the handler
    */
-  private _addHandler<T extends typeof ALL_VIEW_EVENT_NAMES[number]>(
+  private addHandler<T extends typeof ALL_VIEW_EVENT_NAMES[number]>(
     eventName: T,
     handlerId: string
   ): void {
@@ -489,5 +493,3 @@ class WebGLView extends View {
     this.domElementListeners.set(eventName, listener);
   }
 }
-
-export { WebGLView, WebGLViewParams };

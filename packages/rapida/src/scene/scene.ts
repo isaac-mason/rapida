@@ -1,14 +1,15 @@
 import { uuid } from '@rapidajs/rapida-common';
 import * as three from 'three';
+import { World } from '../world';
 
-type SceneParams = {
+export type SceneParams = {
   id?: string;
 };
 
 /**
  * A thin wrapper around a three js scene
  */
-class Scene {
+export class Scene {
   /**
    * The unique ID for the scene
    */
@@ -20,11 +21,17 @@ class Scene {
   threeScene = new three.Scene();
 
   /**
+   * The world the scene is in
+   */
+  private world: World;
+
+  /**
    * Constructor for the scene
    * @param id the unique id for the scene
    * @param params the parameters for the scene
    */
-  constructor(params?: SceneParams) {
+  constructor(world: World, params?: SceneParams) {
+    this.world = world;
     this.id = params?.id || uuid();
   }
 
@@ -56,6 +63,11 @@ class Scene {
 
     return this;
   }
-}
 
-export { Scene, SceneParams };
+  /**
+   * Destroys the scene and removes it from the world
+   */
+  destroy(): void {
+    this.world.remove(this);
+  }
+}

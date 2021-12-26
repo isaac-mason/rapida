@@ -1,10 +1,8 @@
 import { World } from './world';
 import { Engine } from '../engine';
 
-type WorldContext = {
+export type WorldContext = {
   engine: Engine;
 };
 
-type WorldProvider = (worldContext: WorldContext) => World;
-
-export { WorldProvider, WorldContext };
+export type WorldProvider = (worldContext: WorldContext) => World;

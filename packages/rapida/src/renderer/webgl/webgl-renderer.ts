@@ -1,5 +1,6 @@
 import { uuid } from '@rapidajs/rapida-common';
 import { WebGLRenderer as ThreeWebGLRenderer } from 'three';
+import { RendererManager } from '../renderer-manager';
 import { Renderer } from '../renderer';
 import { WebGLView, WebGLViewParams } from './webgl-view';
 
@@ -13,15 +14,19 @@ type WebGLRendererFactories = {
 /**
  * Params for creating a WebGLRenderer
  */
-type WebGLRendererParams = {
-  domElementId: string;
+export type WebGLRendererParams = {
+  /**
+   * The three renderer
+   */
   renderer?: ThreeWebGLRenderer;
 };
 
 /**
- * WebGLRenderer is a wrapper around the three js WebGLRenderer class that also supports view functionality
+ * WebGLRenderer is a wrapper around the three js WebGLRenderer class that also supports view functionality.
+ *
+ * After construction, the domElement property, which contains a div dom element, should be added to the dom.
  */
-class WebGLRenderer implements Renderer {
+export class WebGLRenderer implements Renderer {
   /**
    * The id for the renderer
    */
@@ -58,17 +63,23 @@ class WebGLRenderer implements Renderer {
   private initialised = false;
 
   /**
+   * The renderer manager for the webgl renderer
+   */
+  private rendererManager: RendererManager;
+
+  /**
    * Constructor for a WebGLRenderer
    * @param params the params for the new renderer
    */
-  constructor(params: WebGLRendererParams) {
+  constructor(rendererManager: RendererManager, params?: WebGLRendererParams) {
+    this.rendererManager = rendererManager;
     this.three =
       params?.renderer || new ThreeWebGLRenderer({ antialias: true });
 
     // Create the renderer dom element for views within the renderer
-    this.domElement = document.getElementById(
-      params.domElementId
-    ) as HTMLElement;
+    this.domElement = document.createElement('div');
+    this.domElement.style.width = '100%';
+    this.domElement.style.height = '100%';
 
     // ensure root dom element has relative position
     this.domElement.style.position = 'relative';
@@ -111,9 +122,16 @@ class WebGLRenderer implements Renderer {
   }
 
   /**
-   * Destroys the renderer and all views
+   * Destroys the webgl renderer and removes it from the renderer manager
    */
   destroy(): void {
+    this.rendererManager.removeRenderer(this);
+  }
+
+  /**
+   * Destroys the renderer and all views
+   */
+  _destroy(): void {
     this.views.forEach((v) => {
       v._destroy();
     });
@@ -222,5 +240,3 @@ class WebGLRenderer implements Renderer {
     return this._factories;
   }
 }
-
-export { WebGLRenderer, WebGLRendererParams };

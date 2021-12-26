@@ -7,9 +7,9 @@
 **rapida is under active alpha development and is not yet battle-tested and stable. We don't recommend using rapida in production just yet, but watch this space!**
 
 - [x] Build out your 3D scenes with [three.js](https://threejs.org/)
-- [x] Add physics to your world with `rapida-physics`, which runs [cannon-es](https://github.com/pmndrs/cannon-es) in a web worker
-- [x] Add complex logic to your world with the rapida Entity Component System
-- [x] Simple API for handling multiple renderers and multiple views within renderers
+- [x] Add physics to your world with `@rapidajs/rapida-physics`, which runs [cannon-es](https://github.com/pmndrs/cannon-es) in a web worker
+- [x] Add complex logic to your world with the Entity Component System `@rapidajs/recs`
+- [x] Simple API for handling multiple renderers and multiple views
 
 ```bash
 > npm install @rapidajs/rapida three@^0.133.0
@@ -38,7 +38,7 @@ To track development for `rapida`, see our board on GitLab - https://gitlab.com/
 The below commands can be used to help with development:
 
 ```bash
-# Install dependencies rapida and dependant packages in the workspace
+# Install dependencies rapida and dependent packages in the workspace
 > yarn workspaces focus @rapidajs/rapida
 
 # alternatively, install all packages in the workplace to build examples
@@ -55,7 +55,7 @@ The below commands can be used to help with development:
 # Create a new changeset
 > yarn run change
 
-# Create a new versioned release
+# Update versions of packages according to committed changesets
 > yarn run version
 ```
 

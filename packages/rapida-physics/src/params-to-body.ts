@@ -12,7 +12,7 @@ import {
   Trimesh,
   Vec3,
 } from 'cannon-es';
-import { BodyParams, BodyShapeType, CompoundBodyParams } from './types';
+import type { BodyParams, BodyShapeType, CompoundBodyParams } from './types';
 
 const makeVec3 = ([x, y, z]: [number, number, number]) => new Vec3(x, y, z);
 

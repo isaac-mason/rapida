@@ -1,11 +1,6 @@
+import { useEffect } from '@storybook/client-api';
 import * as three from 'three';
-import {
-  Engine,
-  World,
-  WorldContext,
-  WorldProvider,
-} from '../../../src';
-import { useEffect } from '@storybook/client-api'
+import rapida, { World } from '../../../src';
 
 export default {
   title: 'Renderers / Two Renderers',
@@ -13,15 +8,22 @@ export default {
 
 export const TwoRenderers = () => {
   useEffect(() => {
-    const engine = new Engine();
+    const R = rapida();
 
-    const worldProvider: WorldProvider = (worldContext: WorldContext): World => {
+    R.run(({ engine }): World => {
       const world = new World({
-        engine: worldContext.engine,
+        engine,
       });
 
-      const rendererOne = world.create.renderer.webgl({ domElementId: 'renderer-root-1' });
-      const rendererTwo = world.create.renderer.webgl({ domElementId: 'renderer-root-2' });
+      const rendererOne = world.create.renderer.webgl();
+      document
+        .getElementById('renderer-root-1')
+        .appendChild(rendererOne.domElement);
+
+      const rendererTwo = world.create.renderer.webgl();
+      document
+        .getElementById('renderer-root-2')
+        .appendChild(rendererTwo.domElement);
 
       const scene = world.create.scene({ id: 'mainScene' });
 
@@ -51,15 +53,13 @@ export const TwoRenderers = () => {
       });
       const cube = new three.Mesh(geometry, material);
       cube.position.set(0, 0, 0);
-  
+
       scene.add(cube);
 
       return world;
-    };
+    });
 
-    engine.run(worldProvider);
-
-    return () => engine.destroy();
+    return () => R.destroy();
   });
 
   return `
@@ -72,4 +72,4 @@ export const TwoRenderers = () => {
   <div id="renderer-root-1"></div>
   <div id="renderer-root-2"></div>
   `;
-}
+};

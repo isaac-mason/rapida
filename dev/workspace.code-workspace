@@ -8,12 +8,16 @@
       "path": "../packages/rapida"
     },
     {
+      "path": "../packages/recs"
+    },
+    {
       "path": "../packages/rapida-physics"
     },
     {
       "path": "../packages/rapida-common"
     },
     {
+      "name": "examples/multiplayer-example",
       "path": "../examples/multiplayer-example"
     },
     {
@@ -28,7 +32,6 @@
       "initialised",
       "Initialises",
       "isaacmason",
-      "pino",
       "rapida",
       "Strapi"
     ],

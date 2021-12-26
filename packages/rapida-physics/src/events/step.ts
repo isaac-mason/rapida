@@ -5,4 +5,5 @@ export type StepEvent = {
   timeElapsed: number;
   positions: Float32Array;
   quaternions: Float32Array;
+  origin?: number;
 };

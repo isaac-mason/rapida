@@ -1,33 +1,21 @@
 import { Physics, PhysicsParams } from '@rapidajs/rapida-physics';
-import {
-  Event,
-  EventHandler,
-  EventSystem,
-  uuid,
-} from '@rapidajs/rapida-common';
+import { uuid } from '@rapidajs/rapida-common';
+import recs, { RECS, Space, SpaceParams, System } from '@rapidajs/recs';
 import { Engine } from '../engine';
 import { Scene, SceneParams } from '../scene';
-import {
-  System,
-  Space,
-  SpaceParams,
-  SystemManager,
-  QueryManager,
-} from '../ecs';
 import { Camera, CameraParams } from '../camera';
 import {
   RendererManager,
   WebGLRenderer,
   WebGLRendererParams,
   CSSRenderer,
-  CSSRendererParams,
 } from '../renderer';
 import { XRRenderer, XRRendererParams } from '../renderer/xr/xr-renderer';
 
 /**
  * Params for creating a world
  */
-type WorldParams = {
+export type WorldParams = {
   /**
    * The unique id for the world
    */
@@ -52,16 +40,11 @@ type WorldParams = {
 /**
  * A World that can contain systems, spaces containing entities, scenes, physics worlds, and renderers
  */
-class World {
+export class World {
   /**
    * A unique id for the world
    */
   id: string;
-
-  /**
-   * Spaces in the world
-   */
-  spaces: Map<string, Space> = new Map();
 
   /**
    * Scenes in the world
@@ -79,14 +62,9 @@ class World {
   cameras: Map<string, Camera> = new Map();
 
   /**
-   * The system manager for the world
+   * The RECS instance for the world
    */
-  systemManager: SystemManager;
-
-  /**
-   * The query manager for the world
-   */
-  queryManager: QueryManager;
+  recs: RECS = recs();
 
   /**
    * The renderer manager for the world
@@ -129,13 +107,8 @@ class World {
   _physicsDelta?: number;
 
   /**
-   * The event system for the world
-   */
-  private events = new EventSystem();
-
-  /**
    * Constructor for a World
-   * @param id a unique id for the world
+   * @param param0 params for creating the world
    */
   constructor({
     id,
@@ -152,8 +125,6 @@ class World {
     this._physicsUpdateDelayMs = 1000 / this._maxPhysicsUpdatesPerSecond;
     this._physicsDelta = 1 / this._maxPhysicsUpdatesPerSecond;
 
-    this.queryManager = new QueryManager(this);
-    this.systemManager = new SystemManager(this);
     this.rendererManager = new RendererManager();
   }
 
@@ -163,15 +134,14 @@ class World {
    */
   remove(value: System | Space | Scene | Physics | Camera): void {
     if (value instanceof System) {
-      this.systemManager.removeSystem(value);
+      this.recs.remove(value);
     } else if (value instanceof Space) {
-      this.spaces.delete(value.id);
-      value._destroy();
+      this.recs.remove(value);
     } else if (value instanceof Scene) {
       this.scenes.delete(value.id);
     } else if (value instanceof Physics) {
       this.physics.delete(value.id);
-      value.destroy();
+      value.terminate();
     } else if (value instanceof Camera) {
       this.cameras.delete(value.id);
     }
@@ -184,13 +154,8 @@ class World {
     // Initialise the renderer manager
     this.rendererManager._init();
 
-    // Initialise systems
-    this.systemManager._init();
-
-    // Initialise spaces
-    this.spaces.forEach((s) => {
-      s._init();
-    });
+    // Initialise the ecs
+    this.recs.init();
 
     // Set the world to be initialised
     this.initialised = true;
@@ -211,11 +176,8 @@ class World {
     // update the renderer manager
     this.rendererManager._update();
 
-    // update systems
-    this.systemManager._update(timeElapsed);
-
-    // update spaces
-    this.spaces.forEach((s) => s._update(timeElapsed));
+    // update spaces and systems in the ecs
+    this.recs.update(timeElapsed);
   }
 
   /**
@@ -232,40 +194,8 @@ class World {
    */
   destroy(): void {
     this.rendererManager._destroy();
-    this.systemManager._destroy();
-    this.spaces.forEach((s) => s._destroy());
-    this.physics.forEach((p) => p.destroy());
-  }
-
-  /**
-   * Adds a handler for scene events
-   * @param eventName the event name
-   * @param handlerName the name of the handler
-   * @param handler the handler function
-   * @returns the id of the new handler
-   */
-  on<E extends Event | Event>(
-    eventName: string,
-    handler: EventHandler<E>
-  ): string {
-    return this.events.on(eventName, handler);
-  }
-
-  /**
-   * Removes an event handler by handler id
-   * @param eventName the name of the event
-   * @param handlerId the id of the event handler
-   */
-  removeHandler(eventName: string, handlerId: string): void {
-    return this.events.removeHandler(eventName, handlerId);
-  }
-
-  /**
-   * Broadcasts an event for handling by the scene
-   * @param event the event to broadcast
-   */
-  emit<E extends Event | Event>(event: E): void {
-    return this.events.emit(event);
+    this.recs.destroy();
+    this.physics.forEach((p) => p.terminate());
   }
 
   /**
@@ -277,8 +207,8 @@ class World {
      * @param params params for the webgl renderer
      * @returns the new webgl renderer
      */
-    webgl: (params: WebGLRendererParams): WebGLRenderer => {
-      const renderer = new WebGLRenderer(params);
+    webgl: (params?: WebGLRendererParams): WebGLRenderer => {
+      const renderer = new WebGLRenderer(this.rendererManager, params);
       this.rendererManager.addRenderer(renderer);
 
       return renderer;
@@ -288,8 +218,8 @@ class World {
      * @param params the params for the css renderer
      * @returns the new css renderer
      */
-    css: (params: CSSRendererParams): CSSRenderer => {
-      const renderer = new CSSRenderer(params);
+    css: (): CSSRenderer => {
+      const renderer = new CSSRenderer(this.rendererManager);
       this.rendererManager.addRenderer(renderer);
 
       return renderer;
@@ -300,7 +230,7 @@ class World {
      * @returns the new xr renderer
      */
     xr: (params: XRRendererParams): XRRenderer => {
-      const renderer = new XRRenderer(params);
+      const renderer = new XRRenderer(this.rendererManager, params);
       this.rendererManager.addRenderer(renderer);
 
       return renderer;
@@ -318,7 +248,7 @@ class World {
      * @param system the system to add to the world
      */
     system: (system: System) => {
-      this.systemManager.addSystem(system);
+      this.recs.add.system(system);
       return this;
     },
   };
@@ -332,8 +262,8 @@ class World {
     scene: (params?: SceneParams) => Scene;
     physics: (params: PhysicsParams) => Physics;
     renderer: {
-      webgl: (params: WebGLRendererParams) => WebGLRenderer;
-      css: (params: CSSRendererParams) => CSSRenderer;
+      webgl: (params?: WebGLRendererParams) => WebGLRenderer;
+      css: () => CSSRenderer;
       xr: (params: XRRendererParams) => XRRenderer;
     };
   } = {
@@ -343,14 +273,7 @@ class World {
      * @returns the new space
      */
     space: (params?: SpaceParams): Space => {
-      const space = new Space(this, params);
-      this.spaces.set(space.id, space);
-
-      if (this.initialised) {
-        space._init();
-      }
-
-      return space;
+      return this.recs.create.space(params);
     },
     /**
      * Creates a camera in the world
@@ -369,7 +292,7 @@ class World {
      * @returns the new scene
      */
     scene: (params?: SceneParams): Scene => {
-      const scene = new Scene(params);
+      const scene = new Scene(this, params);
       this.scenes.set(scene.id, scene);
 
       return scene;
@@ -410,5 +333,3 @@ class World {
     return this._add;
   }
 }
-
-export { World, WorldParams };

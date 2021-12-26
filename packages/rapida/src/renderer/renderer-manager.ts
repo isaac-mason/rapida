@@ -4,7 +4,7 @@ import { Renderer } from './renderer';
 /**
  * RendererManager managers the render and update loop for renderers
  */
-class RendererManager {
+export class RendererManager {
   /**
    * The renderers in the renderer manager
    */
@@ -42,7 +42,7 @@ class RendererManager {
    */
   _destroy(): void {
     this.renderers.forEach(
-      (renderer) => renderer.destroy && renderer.destroy()
+      (renderer) => renderer._destroy && renderer._destroy()
     );
   }
 
@@ -79,7 +79,9 @@ class RendererManager {
     if (renderer instanceof WebGLRenderer) {
       this.renderersWithUpdate.delete(renderer.id);
     }
+
+    if (renderer._destroy) {
+      renderer._destroy();
+    }
   }
 }
-
-export { RendererManager };

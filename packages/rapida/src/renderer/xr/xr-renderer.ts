@@ -1,7 +1,13 @@
-import { Event, EventSystem, uuid } from '@rapidajs/rapida-common';
+import {
+  Event,
+  EventSubscription,
+  EventSystem,
+  uuid,
+} from '@rapidajs/rapida-common';
 import { WebGLRenderer, PerspectiveCamera, XRFrame } from 'three';
 import { ARButton } from 'three-stdlib/webxr/ARButton';
 import { VRButton } from 'three-stdlib/webxr/VRButton';
+import { RendererManager } from '../renderer-manager';
 import { Camera } from '../../camera';
 import { Scene } from '../../scene';
 import { Renderer } from '../renderer';
@@ -9,7 +15,7 @@ import { Renderer } from '../renderer';
 /**
  * An event for a new XRFrame
  */
-interface FrameEvent extends Event {
+export interface FrameEvent extends Event {
   topic: 'frame';
   data: {
     frame: XRFrame;
@@ -20,7 +26,7 @@ interface FrameEvent extends Event {
 /**
  * XRRenderer modes
  */
-enum XRRendererMode {
+export enum XRRendererMode {
   VR = 'VR',
   AR = 'AR',
 }
@@ -28,12 +34,7 @@ enum XRRendererMode {
 /**
  * Params for creating a new VRRenderer
  */
-type XRRendererParams = {
-  /**
-   * The dom element id for the xr renderer
-   */
-  domElementId: string;
-
+export type XRRendererParams = {
   /**
    * The mode for the xr renderer, VR or AR
    */
@@ -62,8 +63,10 @@ type XRRendererParams = {
 
 /**
  * Renderer for VR and AR content
+ *
+ * After construction, the domElement property, which contains a div dom element, should be added to the dom.
  */
-class XRRenderer implements Renderer {
+export class XRRenderer implements Renderer {
   /**
    * Unique id for the vr renderer
    */
@@ -114,14 +117,16 @@ class XRRenderer implements Renderer {
    */
   private events = new EventSystem();
 
-  constructor({
-    appendButton,
-    domElementId,
-    renderer,
-    mode,
-    scene,
-    camera,
-  }: XRRendererParams) {
+  /**
+   * The renderer manager for the XR Renderer
+   */
+  private rendererManager: RendererManager;
+
+  constructor(
+    manager: RendererManager,
+    { appendButton, renderer, mode, scene, camera }: XRRendererParams
+  ) {
+    this.rendererManager = manager;
     this.mode = mode;
     this.three = renderer || new WebGLRenderer();
     this.three.xr.enabled = true;
@@ -141,14 +146,16 @@ class XRRenderer implements Renderer {
         } as FrameEvent);
       }
       this.events.tick();
-      this.three.render(this.scene.threeScene, this.camera.threeCamera);
+      this.three.render(this.scene.threeScene, this.camera.three);
     });
 
     // Create the renderer dom element for views within the renderer
-    this.domElement = document.getElementById(domElementId) as HTMLElement;
+    this.domElement = document.createElement('div');
 
     // ensure root dom element has relative position
     this.domElement.style.position = 'relative';
+    this.domElement.style.width = '100%';
+    this.domElement.style.height = '100%';
 
     // Set up the three js renderer dom element
     this.three.domElement.style.position = 'absolute';
@@ -180,9 +187,16 @@ class XRRenderer implements Renderer {
   }
 
   /**
-   * Destroys the XR renderer
+   * Destroys the XR renderer and removes it from the renderer manager
    */
   destroy(): void {
+    this.rendererManager.removeRenderer(this);
+  }
+
+  /**
+   * Destroys the XR renderer
+   */
+  _destroy(): void {
     this.resizeObserver.disconnect();
     this.three.forceContextLoss();
     this.three.dispose();
@@ -198,22 +212,18 @@ class XRRenderer implements Renderer {
       this.domElement.clientHeight
     );
 
-    if (this.camera.threeCamera instanceof PerspectiveCamera) {
-      this.camera.threeCamera.aspect = window.innerWidth / window.innerHeight;
+    if (this.camera.three instanceof PerspectiveCamera) {
+      this.camera.three.aspect = window.innerWidth / window.innerHeight;
     }
 
-    this.camera.threeCamera.updateProjectionMatrix();
+    this.camera.three.updateProjectionMatrix();
   }
 
   /**
    * Registers an event handler for new XRFrame frames
    * @param handler the handler for a new frame
    */
-  onFrame(handler: (e: FrameEvent) => void): { unsubscribe: () => void } {
-    const id = this.events.on('frame', handler);
-
-    return { unsubscribe: () => this.events.removeHandler('frame', id) };
+  onFrame(handler: (e: FrameEvent) => void): EventSubscription {
+    return this.events.on('frame', handler);
   }
 }
-
-export { XRRenderer, XRRendererParams, XRRendererMode };

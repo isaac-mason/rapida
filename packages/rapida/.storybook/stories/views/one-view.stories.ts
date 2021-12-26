@@ -1,11 +1,6 @@
 import { useEffect } from '@storybook/client-api';
 import * as three from 'three';
-import {
-  Engine,
-  World,
-  WorldContext,
-  WorldProvider,
-} from '../../../src';
+import rapida, { World, WorldProvider } from '../../../src';
 
 export default {
   title: 'Views / One View',
@@ -13,18 +8,15 @@ export default {
 
 export const OneView = () => {
   useEffect(() => {
-    const engine = new Engine();
+    const R = rapida({ debug: true });
 
-    const worldProvider: WorldProvider = (
-      worldContext: WorldContext
-    ): World => {
+    R.run(({ engine }): World => {
       const world = new World({
-        engine: worldContext.engine,
+        engine,
       });
 
-      const renderer = world.create.renderer.webgl({
-        domElementId: 'renderer-root-1',
-      });
+      const renderer = world.create.renderer.webgl();
+      document.getElementById('renderer-root').appendChild(renderer.domElement);
 
       const scene = world.create.scene({ id: 'mainScene' });
 
@@ -53,20 +45,18 @@ export const OneView = () => {
       scene.add(cube);
 
       return world;
-    };
+    });
 
-    engine.run(worldProvider);
-
-    return () => engine.destroy();
+    return () => R.destroy();
   });
 
   return `
   <style>
-  #renderer-root-1 {
+  #renderer-root {
     width: 100%;
     height: 100%;
   }
   </style>
-  <div id="renderer-root-1"></div>
+  <div id="renderer-root"></div>
   `;
 };

@@ -1,6 +1,6 @@
 import { WebGLRenderer, PerspectiveCamera, Scene, AmbientLight, DirectionalLight, Vector3 } from 'three';
 
-import { Physics, PhysicsDebugger } from '../../../lib/next';
+import { Physics, PhysicsDebugger } from '../../../lib';
 
 export const createBasicSetup = (): {
   renderer: WebGLRenderer;
@@ -73,7 +73,7 @@ loop: (() => void)[]
   }
 
   const destroy = () => {
-    physics.destroy();
+    physics.terminate();
     renderer.forceContextLoss();
     renderer.dispose();
   };

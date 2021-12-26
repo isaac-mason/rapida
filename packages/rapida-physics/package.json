@@ -1,7 +1,11 @@
 {
   "name": "@rapidajs/rapida-physics",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "web worker wrapped cannon-es",
+  "homepage": "https://gitlab.com/rapidajs/rapida/-/tree/main/packages/rapida",
+  "bugs": {
+    "url": "https://gitlab.com/rapidajs/rapida/issues"
+  },
   "license": "MIT",
   "author": "Isaac Mason",
   "keywords": [
@@ -9,14 +13,20 @@
     "physics"
   ],
   "entry": "src/index.ts",
-  "main": "lib/next/index.js",
-  "module": "lib/next/index.js",
-  "types": "lib/next/index.d.ts",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "LICENSE",
+    "package.json",
+    "README.md",
+    "src"
+  ],
   "scripts": {
-    "build": "rollup -c",
+    "build": "tsc && rollup -c",
     "eslint": "eslint .",
     "eslint-fix": "eslint --fix .",
-    "prebuild": "tsc",
     "prettier": "prettier --list-different .",
     "prettier-fix": "prettier --write .",
     "storybook": "start-storybook -p 6008",
@@ -87,9 +97,5 @@
   "repository": {
     "type": "git",
     "url": "git+ssh://git@gitlab.com/rapidajs/rapida.git"
-  },
-  "bugs": {
-    "url": "https://gitlab.com/rapidajs/rapida/issues"
-  },
-  "homepage": "https://gitlab.com/rapidajs/rapida#readme"
+  }
 }

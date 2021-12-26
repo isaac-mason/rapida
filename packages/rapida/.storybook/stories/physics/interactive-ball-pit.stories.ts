@@ -1,13 +1,20 @@
 import { useEffect } from '@storybook/client-api';
-import { Color, PerspectiveCamera, WebGLRenderer } from 'three';
-import { Engine, World, WorldProvider } from '../../../src';
-import { BallPitContainer } from './interactive-ball-pit/ball-pit-container.component';
-import { Cursor } from './interactive-ball-pit/cursor.component';
-import { Lights } from './interactive-ball-pit/lights.component';
-import { Spheres } from './interactive-ball-pit/spheres.component';
-
+import {
+  AmbientLight,
+  Color,
+  DirectionalLight,
+  Fog,
+  Group,
+  PerspectiveCamera,
+  Vector3,
+  WebGLRenderer,
+} from 'three';
+import rapida, { World, WorldProvider } from '../../../src';
 // @ts-expect-error webpack image import
 import cursorImage from '../../resources/cursor.png';
+import { BallPitContainer } from './interactive-ball-pit/ball-pit-container.component';
+import { Cursor } from './interactive-ball-pit/cursor.component';
+import { Spheres } from './interactive-ball-pit/spheres.component';
 
 export default {
   title: 'Physics / Interactive Ball Pit',
@@ -15,22 +22,20 @@ export default {
 
 export const InteractiveBallPit = () => {
   useEffect(() => {
-    const engine = new Engine({
-      debug: true,
-    });
+    const R = rapida();
 
-    const worldProvider: WorldProvider = (worldContext): World => {
+    R.run(({ engine }): World => {
       const world = new World({
-        engine: worldContext.engine,
+        engine,
       });
 
       const renderer = world.create.renderer.webgl({
-        domElementId: 'renderer-root',
         renderer: new WebGLRenderer({
           precision: 'lowp',
           powerPreference: 'high-performance',
         }),
       });
+      document.getElementById('renderer-root').appendChild(renderer.domElement);
 
       const physics = world.create.physics({
         gravity: [0, -10, 0],
@@ -52,23 +57,48 @@ export const InteractiveBallPit = () => {
         scene,
       });
 
+      const directionalLightOne = new DirectionalLight(0xffffff, 2);
+      directionalLightOne.position.set(50, 50, 25);
+      directionalLightOne.castShadow = true;
+      directionalLightOne.shadow.mapSize.width = 64;
+      directionalLightOne.shadow.camera.left = -10;
+      directionalLightOne.shadow.camera.right = 10;
+      directionalLightOne.shadow.camera.top = 10;
+      directionalLightOne.shadow.camera.bottom = -10;
+      directionalLightOne.shadow.mapSize.width = 64;
+      directionalLightOne.lookAt(new Vector3(0, 0, 0));
+      directionalLightOne.lookAt(0, 0, 0);
+      scene.add(directionalLightOne);
+
+      const directionalLightTwo = new DirectionalLight(0xffffff, 0.5);
+      directionalLightTwo.position.set(5, -10, 25);
+      directionalLightTwo.castShadow = true;
+      directionalLightTwo.shadow.mapSize.width = 64;
+      directionalLightTwo.shadow.camera.left = -10;
+      directionalLightTwo.shadow.camera.right = 10;
+      directionalLightTwo.shadow.camera.top = 10;
+      directionalLightTwo.shadow.camera.bottom = -10;
+      directionalLightTwo.shadow.mapSize.width = 64;
+      directionalLightTwo.lookAt(0, 0, 0);
+      scene.add(directionalLightTwo);
+
+      const ambientLight = new AmbientLight(0xffffff, 2);
+      scene.add(ambientLight);
+
+      scene.threeScene.fog = new Fog('red', 0, 80);
+
       const space = world.create.space();
 
-      space.create.entity({ components: [new Lights({ scene })] });
-      space.create.entity({ components: [new BallPitContainer({ physics })] });
-      space.create.entity({
-        components: [new Spheres({ physics, scene, view })],
-      });
-      space.create.entity({
-        components: [new Cursor({ physics, camera, view, scene })],
-      });
+      space.create.entity().addComponent(BallPitContainer, { physics });
+      space.create.entity().addComponent(Spheres, { physics, scene, view });
+      space.create
+        .entity()
+        .addComponent(Cursor, { physics, camera, view, scene });
 
       return world;
-    };
+    });
 
-    engine.run(worldProvider);
-
-    return () => engine.destroy();
+    return () => R.destroy();
   });
 
   return `

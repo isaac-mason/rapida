@@ -9,7 +9,7 @@ import {
 /**
  * Enum for all supported view interaction events
  */
-enum ViewInteractionEvent {
+export enum ViewInteractionEvent {
   CLICK = 'click',
   MOUSE_MOVE = 'mousemove',
   MOUSE_DOWN = 'mousedown',
@@ -24,7 +24,7 @@ enum ViewInteractionEvent {
   TOUCH_CANCEL = 'touchcancel',
 }
 
-const VIEW_ALL_EVENT_NAMES: string[] = [
+export const VIEW_ALL_EVENT_NAMES: string[] = [
   ViewInteractionEvent.CLICK,
   ViewInteractionEvent.MOUSE_MOVE,
   ViewInteractionEvent.MOUSE_DOWN,
@@ -39,7 +39,7 @@ const VIEW_ALL_EVENT_NAMES: string[] = [
   ViewInteractionEvent.TOUCH_CANCEL,
 ];
 
-const VIEW_MOUSE_EVENTS: string[] = [
+export const VIEW_MOUSE_EVENTS: string[] = [
   ViewInteractionEvent.CLICK,
   ViewInteractionEvent.MOUSE_DOWN,
   ViewInteractionEvent.MOUSE_UP,
@@ -50,7 +50,7 @@ const VIEW_MOUSE_EVENTS: string[] = [
   ViewInteractionEvent.MOUSE_LEAVE,
 ];
 
-const VIEW_TOUCH_EVENTS: string[] = [
+export const VIEW_TOUCH_EVENTS: string[] = [
   ViewInteractionEvent.TOUCH_START,
   ViewInteractionEvent.TOUCH_END,
   ViewInteractionEvent.TOUCH_MOVE,
@@ -60,7 +60,7 @@ const VIEW_TOUCH_EVENTS: string[] = [
 /**
  * A view interaction event subscription that contains a method for unsubscribing
  */
-type ViewInteractionEventSubscription = {
+export type ViewInteractionEventSubscription = {
   unsubscribe: () => void;
 };
 
@@ -82,12 +82,12 @@ type ExtendedMouseEvent = MouseEvent & {
 /**
  * A mouse event for a webgl view
  */
-type ViewMouseEvent = {
+export type ViewMouseEvent = {
   topic: typeof VIEW_MOUSE_EVENTS[number];
   data: ExtendedMouseEvent;
 };
 
-type ViewTouch = Touch & {
+export type ViewTouch = Touch & {
   /**
    * The relative X coordinate of the touch in local (DOM content) coordinates.
    */
@@ -102,7 +102,7 @@ type ViewTouch = Touch & {
 /**
  * A touch event for a webgl view
  */
-type ViewTouchEvent = {
+export type ViewTouchEvent = {
   topic: typeof VIEW_MOUSE_EVENTS[number];
   data: {
     /**
@@ -142,7 +142,7 @@ type ViewTouchEvent = {
   };
 };
 
-interface ViewInteractionEventMap {
+export interface ViewInteractionEventMap {
   click: ViewMouseEvent;
   mousedown: ViewMouseEvent;
   mouseup: ViewMouseEvent;
@@ -160,14 +160,13 @@ interface ViewInteractionEventMap {
 /**
  * Type for a view event name
  */
-type ViewEventName<T extends string> = T extends keyof ViewInteractionEventMap
-  ? ViewInteractionEventMap[T]
-  : Event;
+export type ViewEventName<T extends string> =
+  T extends keyof ViewInteractionEventMap ? ViewInteractionEventMap[T] : Event;
 
 /**
  * Enum of supported types for a view rectangle param
  */
-enum ViewRectangleParamType {
+export enum ViewRectangleParamType {
   DECIMAL_PERCENTAGE = 'DECIMAL_PERCENTAGE',
   PIXELS = 'PIXELS',
   PERCENTAGE = 'PERCENTAGE',
@@ -178,7 +177,7 @@ enum ViewRectangleParamType {
 /**
  * A view rectangle parameter with a type and value
  */
-type ViewRectangleParam = {
+export type ViewRectangleParam = {
   value: number;
   type: ViewRectangleParamType;
 };
@@ -190,12 +189,12 @@ type ViewRectangleParam = {
  * - percentage of the dom container given by a string '<n>%'
  * - percentage of the screen size given by '<n>vw' or '<n>vh'
  */
-type ViewRectangleParamInput = (string | number) | ViewRectangleParam;
+export type ViewRectangleParamInput = (string | number) | ViewRectangleParam;
 
 /**
  * Planes that a view rectangle param can be on
  */
-enum ViewRectangleParamPlane {
+export enum ViewRectangleParamPlane {
   HORIZONTAL = 'HORIZONTAL',
   VERTICAL = 'VERTICAL',
 }
@@ -203,7 +202,7 @@ enum ViewRectangleParamPlane {
 /**
  * ViewRectangleParams provides parameters for a view rectangle
  */
-type ViewRectangleParams = {
+export type ViewRectangleParams = {
   top?: ViewRectangleParamInput;
   bottom?: ViewRectangleParamInput;
   left?: ViewRectangleParamInput;
@@ -215,7 +214,7 @@ type ViewRectangleParams = {
 /**
  * The size of a view in pixels
  */
-type ViewSize = {
+export type ViewSize = {
   left: number;
   bottom: number;
   width: number;
@@ -225,7 +224,7 @@ type ViewSize = {
 /**
  * A view rectangle given by decimal percentage values
  */
-type ViewRectangle = {
+export type ViewRectangle = {
   left: number;
   bottom: number;
   width: number;
@@ -235,7 +234,7 @@ type ViewRectangle = {
 /**
  * Common interface for a rapida view
  */
-abstract class View {
+export abstract class View {
   /**
    * A unique identifier for the view
    */
@@ -328,24 +327,3 @@ abstract class View {
     return viewParamDecimalsToViewRectangle(decimalViewParams);
   }
 }
-
-export {
-  View,
-  ViewSize,
-  ViewRectangle,
-  ViewRectangleParams,
-  ViewRectangleParamType,
-  ViewRectangleParam,
-  ViewRectangleParamInput,
-  ViewRectangleParamPlane,
-  ViewInteractionEvent,
-  ViewInteractionEventSubscription,
-  ViewMouseEvent,
-  ViewTouch,
-  ViewTouchEvent,
-  VIEW_ALL_EVENT_NAMES,
-  VIEW_MOUSE_EVENTS,
-  VIEW_TOUCH_EVENTS,
-  ViewInteractionEventMap,
-  ViewEventName,
-};

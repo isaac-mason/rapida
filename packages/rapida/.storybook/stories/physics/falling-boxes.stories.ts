@@ -14,9 +14,8 @@ import {
   WebGLRenderer,
 } from 'three';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
-import {
+import rapida, {
   Component,
-  Engine,
   Scene,
   Space,
   System,
@@ -36,11 +35,11 @@ export const FallingBoxes = ({
 }: {
   spawnInterval: number;
   timeAlive: number;
-  gravity: { x: number, y: number, z: number };
+  gravity: { x: number; y: number; z: number };
   box: {
-    size: { x: number, y: number, z: number };
+    size: { x: number; y: number; z: number };
     mass: number;
-  }
+  };
 }) => {
   const randomCubeColour = (): string => {
     const colours = ['#2F394D', '#EEE1B3', '#EA8C55', '#D68FD6', '#4C934C'];
@@ -50,19 +49,19 @@ export const FallingBoxes = ({
   const LIGHT_BLUE = '#89CFF0';
 
   class FallingCubeComponent extends Component {
-    scene: Scene;
-    physics: Physics;
+    scene!: Scene;
 
-    mesh: Mesh;
-    cubeApi: PhysicsObjectApi;
+    physics!: Physics;
 
-    constructor({ scene, physics }: { scene: Scene; physics: Physics }) {
-      super();
+    mesh!: Mesh;
+
+    cubeApi!: PhysicsObjectApi;
+
+    construct = ({ scene, physics }: { scene: Scene; physics: Physics }) => {
+      this.cubeApi = undefined;
       this.scene = scene;
       this.physics = physics;
-    }
 
-    onInit = (): void => {
       const geometry = new BoxGeometry(box.size.x, box.size.y, box.size.z);
       const material = new MeshPhongMaterial({
         color: randomCubeColour(),
@@ -72,6 +71,9 @@ export const FallingBoxes = ({
       this.mesh = new Mesh(geometry, material);
       this.mesh.position.set(0, 0, 0);
       this.mesh.matrixAutoUpdate = false;
+    }
+
+    onInit = (): void => {
       this.scene.add(this.mesh);
 
       const [_, cubeApi] = this.physics.create.box(
@@ -109,6 +111,7 @@ export const FallingBoxes = ({
   }
 
   class CubeSpawner extends System {
+    queries = {};
     space: Space;
     scene: Scene;
     physics: Physics;
@@ -133,7 +136,7 @@ export const FallingBoxes = ({
     createFallingCube() {
       const cube = this.space.create.entity();
       cube.addComponent(
-        new FallingCubeComponent({ scene: this.scene, physics: this.physics })
+        FallingCubeComponent, { scene: this.scene, physics: this.physics }
       );
     }
 
@@ -148,22 +151,20 @@ export const FallingBoxes = ({
   }
 
   useEffect(() => {
-    const engine = new Engine({
-      debug: true,
-    });
+    const R = rapida();
 
-    const worldProvider: WorldProvider = (worldContext): World => {
+    R.run(({ engine }): World => {
       const world = new World({
-        engine: worldContext.engine,
+        engine,
       });
 
       const renderer = world.create.renderer.webgl({
-        domElementId: 'renderer-root',
         renderer: new WebGLRenderer({
           precision: 'lowp',
           powerPreference: 'high-performance',
         }),
       });
+      document.getElementById('renderer-root').appendChild(renderer.domElement);
 
       const physics = world.create.physics({
         allowSleep: true,
@@ -176,14 +177,14 @@ export const FallingBoxes = ({
       const threeCamera = new PerspectiveCamera(50, 1, 1, 1000);
       const camera = world.create.camera({ id: 'camera', camera: threeCamera });
       camera.position.set(0, 10, 40);
-      camera.threeCamera.lookAt(0, 0, 0);
+      camera.three.lookAt(0, 0, 0);
 
       const view = renderer.create.view({
         camera,
         scene,
       });
 
-      new OrbitControls(camera.threeCamera, view.domElement);
+      new OrbitControls(camera.three, view.domElement);
 
       const directionalLight = new DirectionalLight(0xffffff, 0.75);
       directionalLight.position.set(100, 100, 100);
@@ -220,11 +221,9 @@ export const FallingBoxes = ({
       world.add.system(cubeEmitter);
 
       return world;
-    };
+    });
 
-    engine.run(worldProvider);
-
-    return () => engine.destroy();
+    return () => R.destroy();
   });
 
   return `
@@ -253,5 +252,5 @@ FallingBoxes.args = {
       z: 1,
     },
     mass: 1,
-  }
+  },
 };

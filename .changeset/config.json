@@ -2,9 +2,9 @@
   "$schema": "https://unpkg.com/@changesets/config@1.6.3/schema.json",
   "changelog": "@changesets/cli/changelog",
   "commit": false,
-  "linked": [["@rapidajs/rapida", "@rapidajs/rapida-common", "@rapidajs/rapida-physics"]],
+  "linked": [["@rapidajs/rapida", "@rapidajs/recs", "@rapidajs/rapida-common", "@rapidajs/rapida-physics"]],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "minor",
-  "ignore": ["multiplayer-example"]
+  "ignore": ["multiplayer-example", "typescript-parcel", "@rapidajs/rapida-website"]
 }

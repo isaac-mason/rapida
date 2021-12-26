@@ -10,11 +10,6 @@ cache:
 
 workflow:
   stage: workflow
-  cache:
-    key: $CI_PROJECT_ID
-    policy: pull-push
-    paths:
-      - .yarn/cache
   only:
     - main
     - merge_requests
@@ -22,9 +17,10 @@ workflow:
     # build npm packages
     - yarn workspaces focus @rapidajs/rapida
     - (cd packages/rapida-common && yarn run build)
+    - (cd packages/recs && yarn run build)
     - (cd packages/rapida-physics && yarn run build)
     - (cd packages/rapida && yarn run build)
-    - npm run release
+    - yarn run release
     - |- 
       if [[ $CI_COMMIT_BRANCH == "main" ]]; then
         # publish npm packages if on the main branch
@@ -33,18 +29,21 @@ workflow:
         yarn dlx @changesets/cli@^2.18.1 publish --otp=$NPM_TOKEN
       fi
   coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
+  cache:
+    key: $CI_PROJECT_ID
+    policy: pull-push
+    paths:
+      - .yarn/cache
   artifacts:
-    reports:
-      junit:
-        - packages/rapida/junit.xml
-        - packages/rapida-common/junit.xml
     paths:
       - node_modules/
       - packages/rapida-common/node_modules/
       - packages/rapida-physics/node_modules/
+      - packages/recs/node_modules/
       - packages/rapida/node_modules/
       - packages/rapida-common/lib/
       - packages/rapida-physics/lib/
+      - packages/recs/lib/
       - packages/rapida/lib/
     expire_in: 1 day
 
@@ -52,25 +51,27 @@ pages:
   stage: workflow
   needs:
     - workflow
-  cache:
-    key: $CI_PROJECT_ID
-    policy: pull-push
-    paths:
-      - .yarn/cache
   only:
     - main
+  environment:
+    name: Production
+    url: "https://rapidajs.dev/"
   script:
     - yarn workspaces focus @rapidajs/rapida-website
     # the above ^ will include @rapidajs/rapida-website build, @rapidajs/rapida, @rapidajs/rapida-physics and @rapidajs/rapida-common
     # build @rapidajs/rapida-website
-    - (cd website && yarn run build) 
+    - (cd website && NODE_ENV=development yarn run build) 
     - |- 
       if [[ $CI_COMMIT_BRANCH == "main" ]]; then
         # copy @rapidajs/rapida-website files in place for gitlab pages
         mkdir public
         cp -r website/out/* public/
       fi
-  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
+  cache:
+    key: $CI_PROJECT_ID
+    policy: pull-push
+    paths:
+      - .yarn/cache
   artifacts:
     paths:
       - public

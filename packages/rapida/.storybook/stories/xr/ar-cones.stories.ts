@@ -7,13 +7,7 @@ import {
   MeshPhongMaterial,
   Vector3,
 } from 'three';
-import {
-  Engine,
-  World,
-  WorldContext,
-  WorldProvider,
-  XRRendererMode,
-} from '../../../src';
+import rapida, { World, WorldProvider, XRRendererMode } from '../../../src';
 
 export default {
   title: 'XR / AR Cones',
@@ -21,15 +15,11 @@ export default {
 
 export const ARCones = () => {
   useEffect(() => {
-    const engine = new Engine({
-      debug: true,
-    });
+    const R = rapida({ debug: true });
 
-    const worldProvider: WorldProvider = (
-      worldContext: WorldContext
-    ): World => {
+    R.run(({ engine }): World => {
       const world = new World({
-        engine: worldContext.engine,
+        engine,
       });
 
       const scene = world.create.scene();
@@ -38,12 +28,12 @@ export const ARCones = () => {
       camera.position.set(0, 0, 500);
 
       const renderer = world.create.renderer.xr({
-        domElementId: 'renderer-root',
         mode: XRRendererMode.AR,
         camera,
         scene,
         appendButton: true,
       });
+      document.getElementById('renderer-root').appendChild(renderer.domElement);
 
       const directionalLight = new DirectionalLight(0xffffff, 1);
       directionalLight.position.set(300, 0, 300);
@@ -75,11 +65,9 @@ export const ARCones = () => {
       scene.add(controller);
 
       return world;
-    };
+    });
 
-    engine.run(worldProvider);
-
-    return () => engine.destroy();
+    return () => R.destroy();
   });
 
   return `

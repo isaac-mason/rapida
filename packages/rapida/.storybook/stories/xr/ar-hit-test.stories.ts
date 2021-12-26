@@ -12,11 +12,9 @@ import {
   WebGLRenderer,
 } from 'three';
 import { ARButton } from 'three-stdlib/webxr/ARButton';
-import {
+import rapida, {
   Component,
-  Engine,
   World,
-  WorldContext,
   WorldProvider,
   XRRendererMode,
 } from '../../../src';
@@ -27,15 +25,11 @@ export default {
 
 export const ARHitTest = () => {
   useEffect(() => {
-    const engine = new Engine({
-      debug: true,
-    });
+    const R = rapida({ debug: true });
 
-    const worldProvider: WorldProvider = (
-      worldContext: WorldContext
-    ): World => {
+    R.run(({ engine }): World => {
       const world = new World({
-        engine: worldContext.engine,
+        engine,
       });
 
       const space = world.create.space();
@@ -48,12 +42,12 @@ export const ARHitTest = () => {
       camera.position.set(0, 0, 500);
 
       const renderer = world.create.renderer.xr({
-        domElementId: 'renderer-root',
         mode: XRRendererMode.AR,
         camera,
         scene,
-        renderer: new WebGLRenderer({ antialias: true, alpha: true }),
+        renderer: new WebGLRenderer({ antialias: true }),
       });
+      document.getElementById('renderer-root').appendChild(renderer.domElement);
 
       renderer.domElement.appendChild(
         ARButton.createButton(renderer.three, {
@@ -152,11 +146,9 @@ export const ARHitTest = () => {
       space.create.entity().addComponent(HitTestIndicator);
 
       return world;
-    };
+    });
 
-    engine.run(worldProvider);
-
-    return () => engine.destroy();
+    return () => R.destroy();
   });
 
   return `

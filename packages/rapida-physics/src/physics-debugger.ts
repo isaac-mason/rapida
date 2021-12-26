@@ -2,8 +2,8 @@ import { Body, Quaternion as CQuaternion, Vec3 } from 'cannon-es';
 import cannonDebugger from 'cannon-es-debugger';
 import { Color, Quaternion, Scene, Vector3 } from 'three';
 import paramsToBody from './params-to-body';
-import { Physics } from './physics';
-import { BodyParams, BodyShapeType } from './types';
+import type { Physics } from './physics';
+import type { BodyParams, BodyShapeType } from './types';
 
 /**
  * The API for a debugger implementation
@@ -119,4 +119,6 @@ class PhysicsDebugger {
   }
 }
 
-export { PhysicsDebugger, PhysicsDebuggerParams, PhysicsDebuggerColor, PhysicsDebugInfo };
+export { PhysicsDebugger };
+
+export type { PhysicsDebuggerParams, PhysicsDebuggerColor, PhysicsDebugInfo };

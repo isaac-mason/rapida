@@ -1,6 +1,7 @@
 import { uuid } from '@rapidajs/rapida-common';
 import { CSSView, CSSViewParams } from './css-view';
 import { Renderer } from '../renderer';
+import { RendererManager } from '../renderer-manager';
 
 /**
  * Factories for creating something in the renderer
@@ -10,20 +11,15 @@ type CSSRendererFactories = {
 };
 
 /**
- * Parameters for creating a CSSRenderer
- */
-type CSSRendererParams = {
-  domElementId: string;
-};
-
-/**
  * CSSRenderer is a thin wrapper around the CSS3DRenderer three js class with support for multiple views
+ *
+ * After construction, the domElement property, which contains a div dom element, should be added to the dom.
  */
-class CSSRenderer implements Renderer {
+export class CSSRenderer implements Renderer {
   /**
    * A unique id for the css renderer
    */
-  id: string;
+  id = uuid();
 
   /**
    * Views for the webgl renderer
@@ -36,27 +32,28 @@ class CSSRenderer implements Renderer {
   domElement: HTMLElement;
 
   /**
-   * The renderer root dom element
-   */
-  private rendererRootDomElement: HTMLElement;
-
-  /**
    * Whether the view manager is initialised
    */
   private initialised = false;
 
   /**
+   * The renderer manager the css renderer belongs to
+   */
+  private rendererManager: RendererManager;
+
+  /**
    * Constructor for a CSSRenderer
    * @param params the params for the css renderer
    */
-  constructor(params: CSSRendererParams) {
-    this.id = uuid();
+  constructor(manager: RendererManager) {
+    this.rendererManager = manager;
 
-    this.rendererRootDomElement = document.getElementById(
-      params.domElementId
-    ) as HTMLElement;
-
-    this.domElement = this.rendererRootDomElement;
+    this.domElement = document.createElement('div');
+    this.domElement.style.position = 'absolute';
+    this.domElement.style.top = '0';
+    this.domElement.style.left = '0';
+    this.domElement.style.width = '100%';
+    this.domElement.style.height = '100%';
   }
 
   /**
@@ -71,9 +68,16 @@ class CSSRenderer implements Renderer {
   }
 
   /**
-   * Destroys all css views
+   * Destroys the css renderer and removes it from the renderer manager
    */
   destroy(): void {
+    this.rendererManager.removeRenderer(this);
+  }
+
+  /**
+   * Destroys all css views
+   */
+  _destroy(): void {
     this.views.forEach((v) => {
       v._destroy();
     });
@@ -114,7 +118,7 @@ class CSSRenderer implements Renderer {
    */
   render(): void {
     this.views.forEach((view: CSSView) => {
-      view.css3DRenderer.render(view.scene.threeScene, view.camera.threeCamera);
+      view.css3DRenderer.render(view.scene.threeScene, view.camera.three);
     });
   }
 
@@ -137,5 +141,3 @@ class CSSRenderer implements Renderer {
     return this._factories;
   }
 }
-
-export { CSSRenderer, CSSRendererParams };
