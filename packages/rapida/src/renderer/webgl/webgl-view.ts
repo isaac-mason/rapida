@@ -360,13 +360,13 @@ export class WebGLView extends View {
       throw new Error(`${eventName} is not a supported view event`);
     }
 
-    const handlerId = this.events.on(eventName, eventHandler);
-    this._addHandler(eventName, handlerId);
+    const subscription = this.events.on(eventName, eventHandler);
+    this.addHandler(eventName, subscription.id);
 
     return {
       unsubscribe: () => {
-        this.events.removeHandler(eventName, handlerId);
-        this._removeHandler(eventName, handlerId);
+        subscription.unsubscribe();
+        this._removeHandler(eventName, subscription.id);
       },
     };
   }
@@ -419,7 +419,7 @@ export class WebGLView extends View {
    * @param eventName the name of the view event
    * @param handlerId the id of the handler
    */
-  private _addHandler<T extends typeof ALL_VIEW_EVENT_NAMES[number]>(
+  private addHandler<T extends typeof ALL_VIEW_EVENT_NAMES[number]>(
     eventName: T,
     handlerId: string
   ): void {

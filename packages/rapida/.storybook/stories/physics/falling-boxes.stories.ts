@@ -49,19 +49,19 @@ export const FallingBoxes = ({
   const LIGHT_BLUE = '#89CFF0';
 
   class FallingCubeComponent extends Component {
-    scene: Scene;
-    physics: Physics;
+    scene!: Scene;
 
-    mesh: Mesh;
-    cubeApi: PhysicsObjectApi;
+    physics!: Physics;
 
-    constructor({ scene, physics }: { scene: Scene; physics: Physics }) {
-      super();
+    mesh!: Mesh;
+
+    cubeApi!: PhysicsObjectApi;
+
+    construct = ({ scene, physics }: { scene: Scene; physics: Physics }) => {
+      this.cubeApi = undefined;
       this.scene = scene;
       this.physics = physics;
-    }
 
-    onInit = (): void => {
       const geometry = new BoxGeometry(box.size.x, box.size.y, box.size.z);
       const material = new MeshPhongMaterial({
         color: randomCubeColour(),
@@ -71,6 +71,9 @@ export const FallingBoxes = ({
       this.mesh = new Mesh(geometry, material);
       this.mesh.position.set(0, 0, 0);
       this.mesh.matrixAutoUpdate = false;
+    }
+
+    onInit = (): void => {
       this.scene.add(this.mesh);
 
       const [_, cubeApi] = this.physics.create.box(
@@ -133,7 +136,7 @@ export const FallingBoxes = ({
     createFallingCube() {
       const cube = this.space.create.entity();
       cube.addComponent(
-        new FallingCubeComponent({ scene: this.scene, physics: this.physics })
+        FallingCubeComponent, { scene: this.scene, physics: this.physics }
       );
     }
 
@@ -150,7 +153,7 @@ export const FallingBoxes = ({
   useEffect(() => {
     const R = rapida();
 
-    const worldProvider: WorldProvider = ({ engine }): World => {
+    R.run(({ engine }): World => {
       const world = new World({
         engine,
       });
@@ -218,9 +221,7 @@ export const FallingBoxes = ({
       world.add.system(cubeEmitter);
 
       return world;
-    };
-
-    R.run(worldProvider);
+    });
 
     return () => R.destroy();
   });

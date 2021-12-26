@@ -29,11 +29,11 @@ const ORANGE = '#ff7b00';
 const LIGHT_BLUE = '#89CFF0';
 
 class FireflyObject3DComponent extends Component {
-  scene: Scene;
-  mesh: Mesh;
+  scene!: Scene;
+  
+  mesh!: Mesh;
 
-  constructor({ scene }: { scene: Scene }) {
-    super();
+  construct = ({ scene }: { scene: Scene }) => {
     this.scene = scene;
 
     const geometry = new SphereBufferGeometry(0.2, 32, 32);
@@ -65,13 +65,23 @@ class FireflyObject3DComponent extends Component {
 
 class WalkingComponent extends Component {
   target?: Vector3;
-  newTargetCountdown = WalkingComponent.initialNewTargetCountdown;
+
+  newTargetCountdown!: number;
+  
+  construct = () => {
+    this.target = undefined;
+    this.newTargetCountdown = WalkingComponent.initialNewTargetCountdown;
+  }
 
   static initialNewTargetCountdown = 100;
 }
 
 class EnergyComponent extends Component {
-  energy = 1;
+  energy!: number;
+
+  construct = () => {
+    this.energy = 1;
+  }
 }
 
 class RandomWalkSystem extends System {
@@ -82,7 +92,7 @@ class RandomWalkSystem extends System {
   };
 
   onUpdate = (timeElapsed: number) => {
-    this.results.walking.entities.forEach((entity: Entity) => {
+    this.results.walking.all.forEach((entity: Entity) => {
       const object = entity.get(FireflyObject3DComponent);
       const walk = entity.get(WalkingComponent);
       const energy = entity.get(EnergyComponent);
@@ -131,7 +141,7 @@ class RestingSystem extends System {
     if (this.energyCounter > RestingSystem.energyTimeThreshold) {
       this.energyCounter = 0;
 
-      this.results.resting.entities.forEach((entity: Entity) => {
+      this.results.resting.all.forEach((entity: Entity) => {
         const energy = entity.get(EnergyComponent);
         energy.energy += (Math.random() + 0.001) * 0.3;
 
@@ -189,13 +199,13 @@ export const RandomWalkers = () => {
       for (let i = 0; i < fireflies; i++) {
         const entity = space.create.entity();
 
-        const object = new FireflyObject3DComponent({ scene });
-        object.mesh.position.set(
+        const fireflyObjectComponent = entity.addComponent(FireflyObject3DComponent, { scene });
+        fireflyObjectComponent.mesh.position.set(
           randomFireflyPos(),
           randomFireflyPos(),
           randomFireflyPos()
         );
-        entity.addComponent(object);
+
         entity.addComponent(EnergyComponent);
         entity.addComponent(WalkingComponent);
       }

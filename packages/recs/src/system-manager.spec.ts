@@ -3,7 +3,7 @@ import { System } from './system';
 import { SystemManager } from './system-manager';
 import { RECS } from './recs';
 
-describe('RECS SystemManager', () => {
+describe('SystemManager', () => {
   const recs = {} as unknown as RECS;
   let manager: SystemManager;
 

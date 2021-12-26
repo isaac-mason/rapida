@@ -1,6 +1,6 @@
 import { useEffect } from '@storybook/client-api';
 import * as three from 'three';
-import rapida, { World, WorldProvider } from '../../../src';
+import rapida, { World } from '../../../src';
 
 export default {
   title: 'Renderers / Two Renderers',
@@ -8,9 +8,9 @@ export default {
 
 export const TwoRenderers = () => {
   useEffect(() => {
-    const R = rapida({ debug: true });
+    const R = rapida();
 
-    const worldProvider: WorldProvider = ({ engine }): World => {
+    R.run(({ engine }): World => {
       const world = new World({
         engine,
       });
@@ -57,9 +57,7 @@ export const TwoRenderers = () => {
       scene.add(cube);
 
       return world;
-    };
-
-    R.run(worldProvider);
+    });
 
     return () => R.destroy();
   });

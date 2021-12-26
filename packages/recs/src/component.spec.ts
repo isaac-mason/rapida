@@ -3,7 +3,7 @@ import { Space } from './space';
 import { Component } from './component';
 import { Entity } from './entity';
 
-describe('RECS Component', () => {
+describe('Component', () => {
   let space: Space;
 
   class TestComponent extends Component {

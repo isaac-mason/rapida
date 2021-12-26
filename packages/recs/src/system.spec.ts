@@ -3,7 +3,7 @@ import { describe, expect, it } from '@jest/globals';
 import { Component } from './component';
 import { System } from './system';
 
-describe('RECS System', () => {
+describe('System', () => {
   it('can be constructed', () => {
     class TestComponentOne extends Component {}
     class TestComponentTwo extends Component {}

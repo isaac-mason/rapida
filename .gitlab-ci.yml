@@ -10,22 +10,17 @@ cache:
 
 workflow:
   stage: workflow
-  cache:
-    key: $CI_PROJECT_ID
-    policy: pull-push
-    paths:
-      - .yarn/cache
   only:
     - main
     - merge_requests
   script:
-  # build npm packages
+    # build npm packages
     - yarn workspaces focus @rapidajs/rapida
     - (cd packages/rapida-common && yarn run build)
     - (cd packages/recs && yarn run build)
     - (cd packages/rapida-physics && yarn run build)
     - (cd packages/rapida && yarn run build)
-    - npm run release
+    - yarn run release
     - |- 
       if [[ $CI_COMMIT_BRANCH == "main" ]]; then
         # publish npm packages if on the main branch
@@ -34,6 +29,11 @@ workflow:
         yarn dlx @changesets/cli@^2.18.1 publish --otp=$NPM_TOKEN
       fi
   coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
+  cache:
+    key: $CI_PROJECT_ID
+    policy: pull-push
+    paths:
+      - .yarn/cache
   artifacts:
     paths:
       - node_modules/
@@ -51,25 +51,27 @@ pages:
   stage: workflow
   needs:
     - workflow
-  cache:
-    key: $CI_PROJECT_ID
-    policy: pull-push
-    paths:
-      - .yarn/cache
   only:
     - main
+  environment:
+    name: Production
+    url: "https://rapidajs.dev/"
   script:
     - yarn workspaces focus @rapidajs/rapida-website
     # the above ^ will include @rapidajs/rapida-website build, @rapidajs/rapida, @rapidajs/rapida-physics and @rapidajs/rapida-common
     # build @rapidajs/rapida-website
-    - (cd website && yarn run build) 
+    - (cd website && NODE_ENV=development yarn run build) 
     - |- 
       if [[ $CI_COMMIT_BRANCH == "main" ]]; then
         # copy @rapidajs/rapida-website files in place for gitlab pages
         mkdir public
         cp -r website/out/* public/
       fi
-  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
+  cache:
+    key: $CI_PROJECT_ID
+    policy: pull-push
+    paths:
+      - .yarn/cache
   artifacts:
     paths:
       - public

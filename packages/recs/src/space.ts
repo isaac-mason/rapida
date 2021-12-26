@@ -1,14 +1,15 @@
 import {
   Event,
   EventHandler,
+  EventSubscription,
   EventSystem,
   uuid,
 } from '@rapidajs/rapida-common';
-import { Entity, EntityParams } from './entity';
+import { Entity } from './entity';
 import { RECS } from './recs';
 
 type SpaceFactories = {
-  entity: (params?: EntityParams) => Entity;
+  entity: () => Entity;
 };
 
 /**
@@ -43,11 +44,6 @@ export class Space {
   entities: Map<string, Entity> = new Map();
 
   /**
-   * A map of component ids to update functions for all components in the space
-   */
-  _componentUpdatePool: Map<string, (timeElapsed: number) => void> = new Map();
-
-  /**
    * Whether the space has been initialised
    */
   initialised = false;
@@ -71,26 +67,27 @@ export class Space {
    */
   _init(): void {
     this.entities.forEach((e) => e._init());
+
     this.initialised = true;
+  }
+
+  /**
+   * Updates the space by stepping the spaces event system
+   * @param timeElapsed the time since the last update in milliseconds
+   */
+  _update(_timeElapsed: number): void {
+    this.events.tick();
   }
 
   /**
    * Updates all entities within the space
    * @param timeElapsed the time since the last update in milliseconds
    */
-  _update(timeElapsed: number): void {
-    // Run all component updates
-    this._componentUpdatePool.forEach((update) => update(timeElapsed));
-
-    // update entities
+  _updateEntities(_timeElapsed: number): void {
     const dead: Entity[] = [];
     const alive: Entity[] = [];
 
     this.entities.forEach((e) => {
-      // update the entity
-      e._update(timeElapsed);
-
-      // check if the entity is still alive
       if (e.alive) {
         alive.push(e);
       } else {
@@ -98,14 +95,9 @@ export class Space {
       }
     });
 
-    // remove dead entities
     dead.forEach((d) => {
-      this.entities.delete(d.id);
-      d.destroy();
+      this.remove(d);
     });
-
-    // step the event system
-    this.events.tick();
   }
 
   /**
@@ -126,13 +118,11 @@ export class Space {
    * Adds an entity to the space
    * @param value the entity to add
    */
-  add(value: Entity): Space {
-    // add the entity
-    this.entities.set(value.id, value);
+  add(entity: Entity): Space {
+    this.entities.set(entity.id, entity);
 
-    // initialise if the RECS has already been initialised
     if (this.initialised) {
-      value._init();
+      entity._init();
     }
 
     return this;
@@ -143,14 +133,23 @@ export class Space {
    * @param value the entity to remove
    */
   remove(value: Entity): Space {
-    // remove the entity from the space
+    // remove the entity from the entities map
     this.entities.delete(value.id);
+
+    // remove entity update from the RECS update pool
+    this.recs._entityUpdatePool.delete(this.id);
+
+    // emit the entity destroy event to the space
+    this.recs.queryManager.onEntityRemoved(value);
 
     // destroy the entity
     value.destroy();
 
-    // emit the entity destroy event to the space
-    this.recs.queryManager.onEntityRemoved(value);
+    // reset the entity for object reuse
+    value._reset();
+
+    // release the entity back into the entity pool
+    this.recs.entityPool.release(value);
 
     return this;
   }
@@ -165,17 +164,8 @@ export class Space {
   on<E extends Event | Event>(
     eventName: string,
     handler: EventHandler<E>
-  ): string {
+  ): EventSubscription {
     return this.events.on(eventName, handler);
-  }
-
-  /**
-   * Removes an event handler by handler id
-   * @param eventName the name of the event
-   * @param handlerId the id of the event handler
-   */
-  removeHandler(eventName: string, handlerId: string): void {
-    return this.events.removeHandler(eventName, handlerId);
   }
 
   /**
@@ -190,8 +180,9 @@ export class Space {
    * Factories for creating something new in a space
    */
   private _factories: SpaceFactories = {
-    entity: (params?: EntityParams): Entity => {
-      const entity = new Entity(this, params);
+    entity: (): Entity => {
+      const entity = this.recs.entityPool.request();
+      entity.space = this;
       this.add(entity);
       return entity;
     },

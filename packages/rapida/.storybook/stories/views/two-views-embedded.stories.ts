@@ -7,40 +7,39 @@ export default {
   title: 'Views / Two Views Embedded',
 };
 
-export const TwoViewsEmbedded = () => {
-  class SpinningCube extends Component {
-    scene: Scene;
+class SpinningCube extends Component {
+  scene: Scene;
 
-    cube: three.Mesh;
+  cube: three.Mesh;
 
-    constructor({ scene }: { scene: Scene }) {
-      super();
-      this.scene = scene;
+  construct = ({ scene }: { scene: Scene }) => {
+    this.scene = scene;
 
-      const geometry = new three.BoxGeometry(50, 50, 50);
-      const material = new three.MeshPhongMaterial({
-        color: 'blue',
-        specular: 0x111111,
-        shininess: 30,
-      });
-      this.cube = new three.Mesh(geometry, material);
-      this.cube.position.set(0, 0, 0);
-    }
-
-    onInit = () => {
-      this.scene.add(this.cube);
-    };
-
-    onUpdate = () => {
-      this.cube.rotation.x += 0.005;
-      this.cube.rotation.y += 0.005;
-    };
-
-    onDestroy = () => {
-      this.scene.remove(this.cube);
-    };
+    const geometry = new three.BoxGeometry(50, 50, 50);
+    const material = new three.MeshPhongMaterial({
+      color: 'blue',
+      specular: 0x111111,
+      shininess: 30,
+    });
+    this.cube = new three.Mesh(geometry, material);
+    this.cube.position.set(0, 0, 0);
   }
 
+  onInit = () => {
+    this.scene.add(this.cube);
+  };
+
+  onUpdate = () => {
+    this.cube.rotation.x += 0.005;
+    this.cube.rotation.y += 0.005;
+  };
+
+  onDestroy = () => {
+    this.scene.remove(this.cube);
+  };
+}
+
+export const TwoViewsEmbedded = () => {
   useEffect(() => {
     const R = rapida({ debug: true });
 
@@ -102,7 +101,7 @@ export const TwoViewsEmbedded = () => {
 
       const space = world.create.space();
 
-      space.create.entity().addComponent(new SpinningCube({ scene }));
+      space.create.entity().addComponent(SpinningCube, { scene });
 
       return world;
     };

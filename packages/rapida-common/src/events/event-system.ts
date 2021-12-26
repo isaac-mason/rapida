@@ -1,11 +1,29 @@
-import { Event } from './event';
-import { EventHandler } from './event-handler';
 import { uuid } from '../util/uuid';
+
+/**
+ * An event that can be broadcast and consumed by entities and components
+ */
+export interface Event {
+  topic: string;
+}
+
+/**
+ * An event subscription
+ */
+export type EventSubscription = {
+  id: string;
+  unsubscribe: () => void;
+};
+
+/**
+ * An event handler that takes an event or a type that extends the event type
+ */
+export type EventHandler<E extends Event | Event> = (event: E) => void;
 
 /**
  * A simple event handling system
  */
-class EventSystem {
+export class EventSystem {
   /**
    * The event handlers
    */
@@ -37,13 +55,17 @@ class EventSystem {
   on<E extends Event | Event>(
     eventName: string,
     handler: EventHandler<E>
-  ): string {
+  ): EventSubscription {
     const id = uuid();
     if (this.handlers[eventName] === undefined) {
       this.handlers[eventName] = {};
     }
     this.handlers[eventName][id] = handler as EventHandler<Event>;
-    return id;
+
+    return {
+      id,
+      unsubscribe: () => this.removeHandler(eventName, id),
+    };
   }
 
   /**
@@ -67,6 +89,14 @@ class EventSystem {
   }
 
   /**
+   * Resets the event system
+   */
+  reset(): void {
+    this.handlers = {};
+    this.buffer = [];
+  }
+
+  /**
    * Processes an event with the given handler
    * @param event the event to process
    */
@@ -79,5 +109,3 @@ class EventSystem {
     }
   }
 }
-
-export { EventSystem };

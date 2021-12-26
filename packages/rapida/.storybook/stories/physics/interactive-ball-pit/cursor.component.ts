@@ -3,31 +3,32 @@ import { Mesh, MeshBasicMaterial, Raycaster, SphereBufferGeometry, Vector3 } fro
 import { Camera, Component, Scene, WebGLView } from '../../../../src';
 
 class Cursor extends Component {
-  physics: Physics;
-  camera: Camera;
-  view: WebGLView;
-  scene: Scene;
+  physics!: Physics;
 
-  mesh: Mesh;
-  raycaster = new Raycaster();
-  sphereApi: PhysicsObjectApi;
+  camera!: Camera;
 
-  constructor({
-    physics,
-    camera,
-    view,
-    scene,
-  }: {
+  view!: WebGLView;
+
+  scene!: Scene;
+
+  mesh!: Mesh;
+
+  raycaster!: Raycaster;
+
+  sphereApi!: PhysicsObjectApi;
+
+  construct = (params: {
     physics: Physics;
     camera: Camera;
     view: WebGLView;
     scene: Scene;
-  }) {
-    super();
-    this.physics = physics;
-    this.camera = camera;
-    this.view = view;
-    this.scene = scene;
+  }) => {
+    this.physics = params.physics;
+    this.camera = params.camera;
+    this.view = params.view;
+    this.scene = params.scene;
+    this.raycaster = new Raycaster();
+    this.sphereApi = undefined;
   }
 
   onInit = (): void => {

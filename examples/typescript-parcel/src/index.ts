@@ -1,9 +1,9 @@
 import rapida, {
+  BodyType,
   Component,
+  Physics,
   Scene,
   World,
-  Physics,
-  BodyType,
 } from "@rapidajs/rapida";
 import {
   AmbientLight,
@@ -21,8 +21,7 @@ class SpinningCube extends Component {
 
   physics: Physics;
 
-  constructor(params: { scene: Scene; physics: Physics }) {
-    super();
+  construct = (params: { scene: Scene; physics: Physics }) => {
     this.scene = params.scene;
     this.physics = params.physics;
 
@@ -43,16 +42,14 @@ class SpinningCube extends Component {
       },
       this.mesh
     );
-  }
+  };
 
   onInit = () => {
     this.scene.add(this.mesh);
   };
 }
 
-const R = rapida();
-
-R.run((ctx) => {
+rapida().run((ctx) => {
   const world = new World({ engine: ctx.engine });
 
   const renderer = world.create.renderer.webgl();
@@ -93,7 +90,7 @@ R.run((ctx) => {
 
   const space = world.create.space();
 
-  space.create.entity().addComponent(new SpinningCube({ scene, physics }));
+  space.create.entity().addComponent(SpinningCube, { scene, physics });
 
   return world;
 });

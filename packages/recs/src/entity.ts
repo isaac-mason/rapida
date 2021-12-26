@@ -1,16 +1,12 @@
 import {
   Event,
   EventHandler,
+  EventSubscription,
   EventSystem,
   uuid,
 } from '@rapidajs/rapida-common';
 import { Component } from './component';
 import { Space } from './space';
-
-export type EntityParams = {
-  id?: string;
-  components?: Component[];
-};
 
 /**
  * Entity that contains components and calls component lifecycle methods
@@ -19,7 +15,7 @@ export class Entity {
   /**
    * The unique ID of the entity
    */
-  id: string;
+  id = uuid();
 
   /**
    * Map of component ids to components
@@ -40,7 +36,12 @@ export class Entity {
   /**
    * The space the entity is in
    */
-  space: Space;
+  space!: Space;
+
+  /**
+   * The event system for the entity
+   */
+  private events = new EventSystem();
 
   /**
    * Map of component names to components
@@ -48,45 +49,10 @@ export class Entity {
   private _componentNamesToComponents: Map<string, Component> = new Map();
 
   /**
-   * The entities event system
-   */
-  private events = new EventSystem();
-
-  /**
-   * Constructor for a new RECS Entity
-   * @param space the space the entity is in
-   * @param params params for creating the entity
-   */
-  constructor(space: Space, params?: EntityParams) {
-    this.space = space;
-    this.id = params?.id || uuid();
-    if (params?.components) {
-      params?.components.forEach((c) => this.addComponent(c));
-    }
-  }
-
-  /**
-   * Initialise the entity
-   */
-  _init(): Entity {
-    this.components.forEach((c) => c.onInit && c.onInit());
-    this.initialised = true;
-    return this;
-  }
-
-  /**
-   * Updates the entity
-   * @param timeElapsed the time since the last update in milliseconds
-   */
-  _update(_timeElapsed: number): void {
-    // Process events in the buffer
-    this.events.tick();
-  }
-
-  /**
    * Destroy the entities components and set the entity as dead
    */
   destroy(): void {
+    // destroy components
     this.components.forEach((c) => c.onDestroy && c.onDestroy());
     this.alive = false;
   }
@@ -95,48 +61,39 @@ export class Entity {
    * Adds a component to the entity
    * @param c the component to add
    */
-  addComponent(
-    value:
-      | Component
-      | {
-          new (...args: never[]): Component;
-        }
-  ): Entity {
-    let component: Component;
+  addComponent<T extends Component>(
+    constr: { new (...args: never[]): T },
+    ...args: Parameters<T['construct']>
+  ): T {
+    // request a component from the component pool
+    const component = this.space.recs.componentPool.request(constr);
 
-    if (value instanceof Component) {
-      component = value;
-    } else {
-      if (value.length !== 0) {
-        throw new Error('Cannot construct the component as it has arguments');
-      }
-
-      // eslint-disable-next-line new-cap
-      component = new value();
-    }
-
-    this.components.set(component.id, component);
-    this._componentNamesToComponents.set(
-      Component.getComponentName(value),
-      component
-    );
+    // set the components entity
     component.entity = this;
 
-    if (this.initialised && component.onInit) {
-      component.onInit();
+    // construct the component instance with args if they are present
+    if (args.length > 0) {
+      component.construct(...args);
+    } else {
+      component.construct();
     }
 
-    if (component.onUpdate) {
-      this.space._componentUpdatePool.set(component.id, component.onUpdate);
+    // add the component to the entity components maps
+    this.components.set(component.id, component);
+    this._componentNamesToComponents.set(
+      Component.getComponentName(constr),
+      component
+    );
+
+    if (this.initialised) {
+      this.initialiseComponent(component);
     }
 
-    this.space.recs.queryManager.onEntityComponentAdded(this, component);
-
-    return this;
+    return component;
   }
 
   /**
-   * Removes a component from the entity and destroys it.
+   * Removes a component from the entity and destroys it
    * The value can either be a Component constructor, or the component instance itself
    * @param value the component to remove and destroy
    */
@@ -149,28 +106,42 @@ export class Entity {
   ): Entity {
     let component: Component;
 
+    // retrieve the component from the entity
     if (value instanceof Component) {
+      if (!this.components.has(value.id)) {
+        throw new Error('Component does not exist in Entity');
+      }
       component = value;
     } else {
-      const c = this.get(value);
-      if (c == null) {
+      const c = this.find(value);
+      if (!c) {
         throw new Error('Component does not exist in Entity');
       }
       component = c;
     }
 
-    this.components.delete(component.id);
-    this._componentNamesToComponents.delete(Component.getComponentName(value));
-
+    // remove the onUpdate method from the component update pool
     if (component.onUpdate) {
-      this.space._componentUpdatePool.delete(component.id);
+      this.space.recs._componentUpdatePool.delete(component.id);
     }
 
+    // run the onDestroy method
     if (component.onDestroy) {
       component.onDestroy();
     }
 
+    // clear the components entity field
+    component.entity = null;
+
+    // remove the component from the components maps
+    this.components.delete(component.id);
+    this._componentNamesToComponents.delete(Component.getComponentName(value));
+
+    // tell the query manager that the component has been removed from the entity
     this.space.recs.queryManager.onEntityComponentRemoved(this, component);
+
+    // release the component back into the update pool
+    this.space.recs.componentPool.release(component);
 
     return this;
   }
@@ -242,22 +213,13 @@ export class Entity {
    * Adds a handler for entity events
    * @param eventName the event name
    * @param handler the handler function
-   * @returns the id of the created handler
+   * @returns the subscription
    */
   on<E extends Event | Event>(
     eventName: string,
     handler: EventHandler<E>
-  ): string {
+  ): EventSubscription {
     return this.events.on(eventName, handler);
-  }
-
-  /**
-   * Removes an event handler by handler id
-   * @param eventName the name of the event
-   * @param handlerId the id of the event handler
-   */
-  removeHandler(eventName: string, handlerId: string): void {
-    return this.events.removeHandler(eventName, handlerId);
   }
 
   /**
@@ -266,5 +228,50 @@ export class Entity {
    */
   emit<E extends Event | Event>(event: E): void {
     return this.events.emit(event);
+  }
+
+  /**
+   * Initialise the entity
+   */
+  _init(): Entity {
+    // add entity update to the update pool
+    this.space.recs._entityUpdatePool.set(this.id, () => {
+      // Process events in the buffer
+      this.events.tick();
+    });
+
+    // initialise components
+    this.components.forEach((c) => this.initialiseComponent(c));
+
+    this.initialised = true;
+
+    return this;
+  }
+
+  /**
+   * Resets the entity in preparation for object reuse
+   */
+  _reset(): void {
+    this.id = uuid();
+    this.events.reset();
+  }
+
+  /**
+   * Initialises a component
+   * @param component the component to initialise
+   */
+  private initialiseComponent(component: Component): void {
+    if (component.onInit) {
+      component.onInit();
+    }
+
+    if (component.onUpdate) {
+      this.space.recs._componentUpdatePool.set(
+        component.id,
+        component.onUpdate
+      );
+    }
+
+    this.space.recs.queryManager.onEntityComponentAdded(this, component);
   }
 }

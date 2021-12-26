@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
-import { EventSystem } from './index';
+import { EventSystem } from './event-system';
 
 describe('EventSystem', () => {
   beforeEach(() => {
@@ -61,7 +61,7 @@ describe('EventSystem', () => {
       data: 'data',
     };
 
-    const handlerId = eventSystem.on(eventName, handler);
+    const subscription = eventSystem.on(eventName, handler);
 
     eventSystem.emit(event);
 
@@ -70,7 +70,7 @@ describe('EventSystem', () => {
     expect(handler).toBeCalledTimes(1);
     expect(handler).toBeCalledWith(event);
 
-    eventSystem.removeHandler(eventName, handlerId);
+    subscription.unsubscribe();
 
     eventSystem.emit(event);
 

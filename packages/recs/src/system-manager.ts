@@ -32,6 +32,11 @@ export class SystemManager {
   private queryToSystems: Map<string, Set<System>> = new Map();
 
   /**
+   * A map of ids to systems with update methods
+   */
+  private updatePool: Map<string, System> = new Map();
+
+  /**
    * Constructor for the SystemManager
    * @param recs the RECS instance for the SystemManager
    */
@@ -57,7 +62,7 @@ export class SystemManager {
     );
 
     if (this.initialised) {
-      system._init();
+      this.initialiseSystem(system);
     }
 
     return this;
@@ -87,9 +92,7 @@ export class SystemManager {
    * Initialises the system manager
    */
   _init(): void {
-    this.systems.forEach((s) => {
-      s._init();
-    });
+    this.systems.forEach((s) => this.initialiseSystem(s));
     this.initialised = true;
   }
 
@@ -98,9 +101,9 @@ export class SystemManager {
    * @param timeElapsed the time elapsed in milliseconds
    */
   _update(timeElapsed: number): void {
-    this.systems.forEach((s) => {
-      if (s.enabled) {
-        s._update(timeElapsed);
+    this.updatePool.forEach((system) => {
+      if (system.enabled) {
+        system._update(timeElapsed);
       }
     });
   }
@@ -134,18 +137,27 @@ export class SystemManager {
    * @param system the system
    */
   private removeSystemFromQuery(query: Query, system: System) {
-    let systems: Set<System> | undefined = this.queryToSystems.get(query.key);
+    const systems: Set<System> | undefined = this.queryToSystems.get(query.key);
 
-    if (systems === undefined) {
-      systems = new Set([]);
-      this.queryToSystems.set(query.key, systems);
+    if (systems !== undefined) {
+      systems.delete(system);
+
+      // remove the query if it is not in use by any systems
+      if (systems.size === 0) {
+        this.recs.queryManager.removeQuery(query);
+      }
+    }
+  }
+
+  /**
+   * Initialises a system
+   * @param s the system to initialise
+   */
+  private initialiseSystem(s: System) {
+    if (s.onUpdate) {
+      this.updatePool.set(s.id, s);
     }
 
-    systems.delete(system);
-
-    // remove the query if it is not in use by any systems
-    if (systems.size === 0) {
-      this.recs.queryManager.removeQuery(query);
-    }
+    s._init();
   }
 }

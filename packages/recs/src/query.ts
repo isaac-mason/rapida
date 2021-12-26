@@ -38,7 +38,17 @@ export class Query {
   /**
    * The current entities matched by the query
    */
-  entities: Set<Entity> = new Set();
+  all: Set<Entity> = new Set();
+
+  /**
+   * Entities added to the query on the latest update
+   */
+  added: Set<Entity> = new Set();
+
+  /**
+   * Entities removed from the query on the latest update
+   */
+  removed: Set<Entity> = new Set();
 
   /**
    * A list of all component names that are involved in the conditions for this query
@@ -48,7 +58,7 @@ export class Query {
   /**
    * The query description for this query
    */
-  queryDescription: QueryDescription;
+  description: QueryDescription;
 
   /**
    * Constructor for a new query instance
@@ -64,7 +74,7 @@ export class Query {
     }
 
     this.key = Query.getDescriptionDedupeString(queryDescription);
-    this.queryDescription = queryDescription;
+    this.description = queryDescription;
     this.componentNames = Array.from(
       new Set<string>(
         [
@@ -80,16 +90,26 @@ export class Query {
    * Adds an entity to the query
    * @param e the entity to add
    */
-  addEntity(e: Entity): void {
-    this.entities.add(e);
+  _addEntity(e: Entity): void {
+    this.all.add(e);
+    this.added.add(e);
   }
 
   /**
    * Removes an entity from the query
    * @param e the entity to remove
    */
-  removeEntity(e: Entity): void {
-    this.entities.delete(e);
+  _removeEntity(e: Entity): void {
+    this.all.delete(e);
+    this.removed.add(e);
+  }
+
+  /**
+   * Prepares the query for the next update
+   */
+  _preUpdate(): void {
+    this.added.clear();
+    this.removed.clear();
   }
 
   /**
@@ -97,24 +117,15 @@ export class Query {
    * @param e the entity to check
    * @returns whether an entity matches the conditions of the query description
    */
-  match(e: Entity): boolean {
-    if (
-      this.queryDescription.not &&
-      this.queryDescription.not.some((c) => e.has(c))
-    ) {
+  _match(e: Entity): boolean {
+    if (this.description.not && this.description.not.some((c) => e.has(c))) {
       return false;
     }
 
-    if (
-      this.queryDescription.all &&
-      this.queryDescription.all.some((c) => !e.has(c))
-    ) {
+    if (this.description.all && this.description.all.some((c) => !e.has(c))) {
       return false;
     }
-    if (
-      this.queryDescription.one &&
-      this.queryDescription.one.every((c) => !e.has(c))
-    ) {
+    if (this.description.one && this.description.one.every((c) => !e.has(c))) {
       return false;
     }
 
