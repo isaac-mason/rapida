@@ -1,6 +1,5 @@
 /* eslint-disable max-classes-per-file */
 import { describe, it, expect, jest } from '@jest/globals';
-import { emit } from 'process';
 import { Space } from './space';
 import { Component } from './component';
 import { Entity } from './entity';
