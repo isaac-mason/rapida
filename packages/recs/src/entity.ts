@@ -234,6 +234,8 @@ export class Entity {
    * Initialise the entity
    */
   _init(): Entity {
+    this.initialised = true;
+
     // add entity update to the update pool
     this.space.recs._entityUpdatePool.set(this.id, () => {
       // Process events in the buffer
@@ -242,8 +244,6 @@ export class Entity {
 
     // initialise components
     this.components.forEach((c) => this.initialiseComponent(c));
-
-    this.initialised = true;
 
     return this;
   }

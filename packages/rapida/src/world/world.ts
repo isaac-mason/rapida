@@ -1,5 +1,5 @@
 import { Physics, PhysicsParams } from '@rapidajs/rapida-physics';
-import { uuid } from '@rapidajs/rapida-common';
+import { uuid, Event, EventHandler, EventSystem, EventSubscription } from '@rapidajs/rapida-common';
 import recs, { RECS, Space, SpaceParams, System } from '@rapidajs/recs';
 import { Engine } from '../engine';
 import { Scene, SceneParams } from '../scene';
@@ -11,6 +11,25 @@ import {
   CSSRenderer,
 } from '../renderer';
 import { XRRenderer, XRRendererParams } from '../renderer/xr/xr-renderer';
+
+export enum WorldEvent {
+  READY = 'ready',
+}
+
+export const WORLD_ALL_EVENT_NAMES: string[] = [
+  WorldEvent.READY,
+];
+
+export interface WorldReadyEvent {
+  topic: WorldEvent.READY;
+}
+
+export interface WorldEventMap {
+  ready: WorldReadyEvent;
+}
+
+type WorldEventName<T extends string> =
+  T extends keyof WorldEventMap ? WorldEventMap[T] : Event;
 
 /**
  * Params for creating a world
@@ -107,6 +126,11 @@ export class World {
   _physicsDelta?: number;
 
   /**
+   * Event system for the rapida world
+   */
+  private events = new EventSystem();
+
+  /**
    * Constructor for a World
    * @param param0 params for creating the world
    */
@@ -151,14 +175,22 @@ export class World {
    * Initialises the world
    */
   init(): void {
-    // Initialise the renderer manager
-    this.rendererManager._init();
-
+    // Set the world to be initialised
+    this.initialised = true;
+    
     // Initialise the ecs
     this.recs.init();
 
-    // Set the world to be initialised
-    this.initialised = true;
+    // Initialise the renderer manager
+    this.rendererManager._init();
+
+    // Initial render
+    this.render();
+
+    // emit ready event
+    this.events.emit({
+      topic: WorldEvent.READY,
+    });
   }
 
   /**
@@ -173,6 +205,9 @@ export class World {
    * @param timeElapsed the time elapsed in milliseconds
    */
   update(timeElapsed: number): void {
+    // tick the world event system
+    this.events.tick();
+
     // update the renderer manager
     this.rendererManager._update();
 
@@ -196,6 +231,23 @@ export class World {
     this.rendererManager._destroy();
     this.recs.destroy();
     this.physics.forEach((p) => p.terminate());
+  }
+
+  /**
+   * Registers events for world methods
+   * @param eventName the event name
+   * @param eventHandler the handler for the event
+   * @returns the event subscription
+   */
+  on<T extends typeof WORLD_ALL_EVENT_NAMES[number]>(
+    eventName: T,
+    eventHandler: EventHandler<WorldEventName<T>>
+  ): EventSubscription {
+    if (!WORLD_ALL_EVENT_NAMES.includes(eventName)) {
+      throw new Error(`${eventName} is not a supported view event`);
+    }
+
+    return this.events.on(eventName, eventHandler);
   }
 
   /**

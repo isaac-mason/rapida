@@ -23,7 +23,7 @@ class SpinningCubeComponent extends Component {
 
     this.cube = new three.Mesh(geometry, material);
     this.cube.position.set(0, 0, 0);
-  }
+  };
 
   onInit = (): void => {
     this.scene.add(this.cube);
@@ -49,7 +49,6 @@ export const HelloWorld = () => {
       });
 
       const renderer = world.create.renderer.webgl();
-      document.getElementById('renderer-root').appendChild(renderer.domElement);
 
       const scene = world.create.scene();
 
@@ -77,6 +76,12 @@ export const HelloWorld = () => {
 
       const cube = space.create.entity();
       cube.addComponent(SpinningCubeComponent, { scene });
+
+      world.on('ready', () => {
+        document
+          .getElementById('renderer-root')
+          .appendChild(renderer.domElement);
+      });
 
       return world;
     });

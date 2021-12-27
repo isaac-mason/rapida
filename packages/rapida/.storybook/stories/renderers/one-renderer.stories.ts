@@ -16,7 +16,6 @@ export const OneRenderer = () => {
       });
 
       const renderer = world.create.renderer.webgl();
-      document.getElementById('renderer-root').appendChild(renderer.domElement);
 
       const scene = world.create.scene();
 
@@ -43,6 +42,12 @@ export const OneRenderer = () => {
       cube.position.set(0, 0, 0);
 
       scene.add(cube);
+
+      world.on('ready', () => {
+        document
+          .getElementById('renderer-root')
+          .appendChild(renderer.domElement);
+      });
 
       return world;
     });

@@ -66,9 +66,8 @@ export class Space {
    * Initialise the space
    */
   _init(): void {
-    this.entities.forEach((e) => e._init());
-
     this.initialised = true;
+    this.entities.forEach((e) => e._init());
   }
 
   /**

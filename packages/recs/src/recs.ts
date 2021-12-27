@@ -85,6 +85,9 @@ export class RECS {
    * Initialises the RECS instance
    */
   init(): void {
+    // Set the RECS to be initialised
+    this.initialised = true;
+
     // Initialise systems
     this.systemManager._init();
 
@@ -92,9 +95,6 @@ export class RECS {
     this.spaces.forEach((s) => {
       s._init();
     });
-
-    // Set the RECS to be initialised
-    this.initialised = true;
   }
 
   /**

@@ -92,8 +92,8 @@ export class SystemManager {
    * Initialises the system manager
    */
   _init(): void {
-    this.systems.forEach((s) => this.initialiseSystem(s));
     this.initialised = true;
+    this.systems.forEach((s) => this.initialiseSystem(s));
   }
 
   /**

@@ -60,11 +60,10 @@ export class CSSRenderer implements Renderer {
    * Initialises all css views
    */
   init(): void {
+    this.initialised = true;
     this.views.forEach((v) => {
       v._init();
     });
-
-    this.initialised = true;
   }
 
   /**

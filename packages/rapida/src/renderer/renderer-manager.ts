@@ -24,8 +24,8 @@ export class RendererManager {
    * Initialises the renderer manager
    */
   _init(): void {
-    this.renderers.forEach((renderer) => renderer.init && renderer.init());
     this.initialised = true;
+    this.renderers.forEach((renderer) => renderer.init && renderer.init());
   }
 
   /**

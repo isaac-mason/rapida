@@ -1,5 +1,11 @@
 import { useEffect } from '@storybook/client-api';
-import { AmbientLight, BoxGeometry, DirectionalLight, Mesh, MeshPhongMaterial } from 'three';
+import {
+  AmbientLight,
+  BoxGeometry,
+  DirectionalLight,
+  Mesh,
+  MeshPhongMaterial,
+} from 'three';
 import { OrbitControls } from 'three-stdlib';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import rapida, { World } from '../../../src';
@@ -19,14 +25,8 @@ export const SimpleCSSRenderer = () => {
 
       // create renderers
       const webglRenderer = world.create.renderer.webgl();
-      document
-        .getElementById('renderer-root')
-        .appendChild(webglRenderer.domElement);
 
       const cssRenderer = world.create.renderer.css();
-      document
-        .getElementById('renderer-root')
-        .appendChild(cssRenderer.domElement);
 
       // create camera and scene
       const scene = world.create.scene();
@@ -83,6 +83,13 @@ export const SimpleCSSRenderer = () => {
       const domObject = new CSS3DObject(element);
       domObject.position.z = 50;
       scene.add(domObject);
+
+      world.on('ready', () => {
+        const root = document.getElementById('renderer-root');
+
+        root.appendChild(webglRenderer.domElement);
+        root.appendChild(cssRenderer.domElement);
+      });
 
       return world;
     });

@@ -35,7 +35,6 @@ export const InteractiveBallPit = () => {
           powerPreference: 'high-performance',
         }),
       });
-      document.getElementById('renderer-root').appendChild(renderer.domElement);
 
       const physics = world.create.physics({
         gravity: [0, -10, 0],
@@ -94,6 +93,12 @@ export const InteractiveBallPit = () => {
       space.create
         .entity()
         .addComponent(Cursor, { physics, camera, view, scene });
+
+      world.on('ready', () => {
+        document
+          .getElementById('renderer-root')
+          .appendChild(renderer.domElement);
+      });
 
       return world;
     });

@@ -107,11 +107,10 @@ export class WebGLRenderer implements Renderer {
    * Initialises views
    */
   init(): void {
+    this.initialised = true;
     this.views.forEach((v) => {
       v._init();
     });
-
-    this.initialised = true;
   }
 
   /**

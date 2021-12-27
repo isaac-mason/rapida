@@ -23,7 +23,7 @@ class SpinningCube extends Component {
     });
     this.cube = new three.Mesh(geometry, material);
     this.cube.position.set(0, 0, 0);
-  }
+  };
 
   onInit = () => {
     this.scene.add(this.cube);
@@ -43,13 +43,12 @@ export const TwoViewsEmbedded = () => {
   useEffect(() => {
     const R = rapida({ debug: true });
 
-    const worldProvider: WorldProvider = ({ engine }): World => {
+    R.run(({ engine }): World => {
       const world = new World({
         engine,
       });
 
       const renderer = world.create.renderer.webgl();
-      document.getElementById('renderer-root').appendChild(renderer.domElement);
 
       const scene = world.create.scene();
 
@@ -103,10 +102,14 @@ export const TwoViewsEmbedded = () => {
 
       space.create.entity().addComponent(SpinningCube, { scene });
 
-      return world;
-    };
+      world.on('ready', () => {
+        document
+          .getElementById('renderer-root')
+          .appendChild(renderer.domElement);
+      });
 
-    R.run(worldProvider);
+      return world;
+    });
 
     return () => R.destroy();
   });

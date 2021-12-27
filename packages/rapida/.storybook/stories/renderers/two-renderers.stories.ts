@@ -16,14 +16,8 @@ export const TwoRenderers = () => {
       });
 
       const rendererOne = world.create.renderer.webgl();
-      document
-        .getElementById('renderer-root-1')
-        .appendChild(rendererOne.domElement);
 
       const rendererTwo = world.create.renderer.webgl();
-      document
-        .getElementById('renderer-root-2')
-        .appendChild(rendererTwo.domElement);
 
       const scene = world.create.scene({ id: 'mainScene' });
 
@@ -55,6 +49,15 @@ export const TwoRenderers = () => {
       cube.position.set(0, 0, 0);
 
       scene.add(cube);
+
+      world.on('ready', () => {
+        document
+          .getElementById('renderer-root-1')
+          .appendChild(rendererOne.domElement);
+        document
+          .getElementById('renderer-root-2')
+          .appendChild(rendererTwo.domElement);
+      });
 
       return world;
     });

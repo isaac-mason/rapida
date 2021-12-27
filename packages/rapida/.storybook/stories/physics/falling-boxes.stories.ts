@@ -14,14 +14,7 @@ import {
   WebGLRenderer,
 } from 'three';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
-import rapida, {
-  Component,
-  Scene,
-  Space,
-  System,
-  World,
-  WorldProvider,
-} from '../../../src';
+import rapida, { Component, Scene, Space, System, World } from '../../../src';
 
 export default {
   title: 'Physics / Falling Boxes',
@@ -71,7 +64,7 @@ export const FallingBoxes = ({
       this.mesh = new Mesh(geometry, material);
       this.mesh.position.set(0, 0, 0);
       this.mesh.matrixAutoUpdate = false;
-    }
+    };
 
     onInit = (): void => {
       this.scene.add(this.mesh);
@@ -135,9 +128,10 @@ export const FallingBoxes = ({
 
     createFallingCube() {
       const cube = this.space.create.entity();
-      cube.addComponent(
-        FallingCubeComponent, { scene: this.scene, physics: this.physics }
-      );
+      cube.addComponent(FallingCubeComponent, {
+        scene: this.scene,
+        physics: this.physics,
+      });
     }
 
     onUpdate = (timeElapsed: number): void => {
@@ -164,7 +158,6 @@ export const FallingBoxes = ({
           powerPreference: 'high-performance',
         }),
       });
-      document.getElementById('renderer-root').appendChild(renderer.domElement);
 
       const physics = world.create.physics({
         allowSleep: true,
@@ -219,6 +212,12 @@ export const FallingBoxes = ({
 
       const cubeEmitter = new CubeSpawner({ space, scene, physics });
       world.add.system(cubeEmitter);
+
+      world.on('ready', () => {
+        document
+          .getElementById('renderer-root')
+          .appendChild(renderer.domElement);
+      });
 
       return world;
     });

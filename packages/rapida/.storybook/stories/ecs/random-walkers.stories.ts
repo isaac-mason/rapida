@@ -158,7 +158,7 @@ export const RandomWalkers = () => {
   useEffect(() => {
     const R = rapida({ debug: true });
 
-    const worldProvider: WorldProvider = ({ engine }): World => {
+    R.run(({ engine }): World => {
       const world = new World({
         engine,
       });
@@ -169,8 +169,6 @@ export const RandomWalkers = () => {
           powerPreference: 'high-performance',
         }),
       });
-
-      document.getElementById('renderer-root').appendChild(renderer.domElement);
 
       const scene = world.create.scene();
       scene.threeScene.fog = new Fog('red', 40, 110);
@@ -213,10 +211,14 @@ export const RandomWalkers = () => {
       world.add.system(new RandomWalkSystem());
       world.add.system(new RestingSystem());
 
-      return world;
-    };
+      world.on('ready', () => {
+        document
+          .getElementById('renderer-root')
+          .appendChild(renderer.domElement);
+      });
 
-    R.run(worldProvider);
+      return world;
+    });
 
     return () => R.destroy();
   });
