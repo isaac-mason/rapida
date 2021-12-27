@@ -1,5 +1,11 @@
 import { Physics, PhysicsParams } from '@rapidajs/rapida-physics';
-import { uuid, Event, EventHandler, EventSystem, EventSubscription } from '@rapidajs/rapida-common';
+import {
+  uuid,
+  Event,
+  EventHandler,
+  EventSystem,
+  EventSubscription,
+} from '@rapidajs/rapida-common';
 import recs, { RECS, Space, SpaceParams, System } from '@rapidajs/recs';
 import { Engine } from '../engine';
 import { Scene, SceneParams } from '../scene';
@@ -16,9 +22,7 @@ export enum WorldEvent {
   READY = 'ready',
 }
 
-export const WORLD_ALL_EVENT_NAMES: string[] = [
-  WorldEvent.READY,
-];
+export const WORLD_ALL_EVENT_NAMES: string[] = [WorldEvent.READY];
 
 export interface WorldReadyEvent {
   topic: WorldEvent.READY;
@@ -28,8 +32,9 @@ export interface WorldEventMap {
   ready: WorldReadyEvent;
 }
 
-type WorldEventName<T extends string> =
-  T extends keyof WorldEventMap ? WorldEventMap[T] : Event;
+type WorldEventName<T extends string> = T extends keyof WorldEventMap
+  ? WorldEventMap[T]
+  : Event;
 
 /**
  * Params for creating a world
@@ -129,126 +134,6 @@ export class World {
    * Event system for the rapida world
    */
   private events = new EventSystem();
-
-  /**
-   * Constructor for a World
-   * @param param0 params for creating the world
-   */
-  constructor({
-    id,
-    engine,
-    maxGameLoopUpdatesPerSecond,
-    maxPhysicsUpdatesPerSecond,
-  }: WorldParams) {
-    this.id = id || uuid();
-    this.engine = engine;
-
-    this._maxGameLoopUpdatesPerSecond = maxGameLoopUpdatesPerSecond || 60;
-    this._maxPhysicsUpdatesPerSecond = maxPhysicsUpdatesPerSecond || 60;
-    this._gameLoopUpdateDelayMs = 1000 / this._maxGameLoopUpdatesPerSecond;
-    this._physicsUpdateDelayMs = 1000 / this._maxPhysicsUpdatesPerSecond;
-    this._physicsDelta = 1 / this._maxPhysicsUpdatesPerSecond;
-
-    this.rendererManager = new RendererManager();
-  }
-
-  /**
-   * Removes from the scene
-   * @param value the value to remove
-   */
-  remove(value: System | Space | Scene | Physics | Camera): void {
-    if (value instanceof System) {
-      this.recs.remove(value);
-    } else if (value instanceof Space) {
-      this.recs.remove(value);
-    } else if (value instanceof Scene) {
-      this.scenes.delete(value.id);
-    } else if (value instanceof Physics) {
-      this.physics.delete(value.id);
-      value.terminate();
-    } else if (value instanceof Camera) {
-      this.cameras.delete(value.id);
-    }
-  }
-
-  /**
-   * Initialises the world
-   */
-  init(): void {
-    // Set the world to be initialised
-    this.initialised = true;
-    
-    // Initialise the ecs
-    this.recs.init();
-
-    // Initialise the renderer manager
-    this.rendererManager._init();
-
-    // Initial render
-    this.render();
-
-    // emit ready event
-    this.events.emit({
-      topic: WorldEvent.READY,
-    });
-  }
-
-  /**
-   * Renders the world
-   */
-  render(): void {
-    this.rendererManager.render();
-  }
-
-  /**
-   * Updates the world
-   * @param timeElapsed the time elapsed in milliseconds
-   */
-  update(timeElapsed: number): void {
-    // tick the world event system
-    this.events.tick();
-
-    // update the renderer manager
-    this.rendererManager._update();
-
-    // update spaces and systems in the ecs
-    this.recs.update(timeElapsed);
-  }
-
-  /**
-   * Steps the physics world
-   */
-  updatePhysics(timeElapsed: number): void {
-    this.physics.forEach((p) => {
-      p.step(timeElapsed);
-    });
-  }
-
-  /**
-   * Destroys the world
-   */
-  destroy(): void {
-    this.rendererManager._destroy();
-    this.recs.destroy();
-    this.physics.forEach((p) => p.terminate());
-  }
-
-  /**
-   * Registers events for world methods
-   * @param eventName the event name
-   * @param eventHandler the handler for the event
-   * @returns the event subscription
-   */
-  on<T extends typeof WORLD_ALL_EVENT_NAMES[number]>(
-    eventName: T,
-    eventHandler: EventHandler<WorldEventName<T>>
-  ): EventSubscription {
-    if (!WORLD_ALL_EVENT_NAMES.includes(eventName)) {
-      throw new Error(`${eventName} is not a supported view event`);
-    }
-
-    return this.events.on(eventName, eventHandler);
-  }
 
   /**
    * Factories for creating renderers in the world
@@ -355,7 +240,7 @@ export class World {
      * @returns the new physics instance
      */
     physics: (
-      params: Exclude<PhysicsParams, 'delta'> & { maxUpdatesPerSec?: number }
+      params: Exclude<PhysicsParams, 'delta'>
     ): Physics => {
       const physics = new Physics({
         ...params,
@@ -373,6 +258,28 @@ export class World {
   };
 
   /**
+   * Constructor for a World
+   * @param param0 params for creating the world
+   */
+  constructor({
+    id,
+    engine,
+    maxGameLoopUpdatesPerSecond,
+    maxPhysicsUpdatesPerSecond,
+  }: WorldParams) {
+    this.id = id || uuid();
+    this.engine = engine;
+
+    this._maxGameLoopUpdatesPerSecond = maxGameLoopUpdatesPerSecond || 60;
+    this._maxPhysicsUpdatesPerSecond = maxPhysicsUpdatesPerSecond || 60;
+    this._gameLoopUpdateDelayMs = 1000 / this._maxGameLoopUpdatesPerSecond;
+    this._physicsUpdateDelayMs = 1000 / this._maxPhysicsUpdatesPerSecond;
+    this._physicsDelta = 1 / this._maxPhysicsUpdatesPerSecond;
+
+    this.rendererManager = new RendererManager();
+  }
+
+  /**
    * Retrieves world factories
    */
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -383,5 +290,103 @@ export class World {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public get add() {
     return this._add;
+  }
+
+  /**
+   * Registers events for world methods
+   * @param eventName the event name
+   * @param eventHandler the handler for the event
+   * @returns the event subscription
+   */
+  on<T extends typeof WORLD_ALL_EVENT_NAMES[number]>(
+    eventName: T,
+    eventHandler: EventHandler<WorldEventName<T>>
+  ): EventSubscription {
+    if (!WORLD_ALL_EVENT_NAMES.includes(eventName)) {
+      throw new Error(`${eventName} is not a supported view event`);
+    }
+
+    return this.events.on(eventName, eventHandler);
+  }
+
+  /**
+   * Removes from the scene
+   * @param value the value to remove
+   */
+  remove(value: System | Space | Scene | Physics | Camera): void {
+    if (value instanceof System) {
+      this.recs.remove(value);
+    } else if (value instanceof Space) {
+      this.recs.remove(value);
+    } else if (value instanceof Scene) {
+      this.scenes.delete(value.id);
+    } else if (value instanceof Physics) {
+      this.physics.delete(value.id);
+      value.terminate();
+    } else if (value instanceof Camera) {
+      this.cameras.delete(value.id);
+    }
+  }
+
+  /**
+   * Initialises the world
+   */
+  _init(): void {
+    // Set the world to be initialised
+    this.initialised = true;
+
+    // Initialise the ecs
+    this.recs.init();
+
+    // Initialise the renderer manager
+    this.rendererManager._init();
+
+    // Initial render
+    this._render();
+
+    // emit ready event
+    this.events.emit({
+      topic: WorldEvent.READY,
+    });
+  }
+
+  /**
+   * Renders the world
+   */
+  _render(): void {
+    this.rendererManager.render();
+  }
+
+  /**
+   * Updates the world
+   * @param timeElapsed the time elapsed in milliseconds
+   */
+  _update(timeElapsed: number): void {
+    // tick the world event system
+    this.events.tick();
+
+    // update the renderer manager
+    this.rendererManager._update();
+
+    // update spaces and systems in the ecs
+    this.recs.update(timeElapsed);
+  }
+
+  /**
+   * Steps the physics world
+   */
+  _updatePhysics(timeElapsed: number): void {
+    this.physics.forEach((p) => {
+      p.step(timeElapsed);
+    });
+  }
+
+  /**
+   * Destroys the world
+   */
+  _destroy(): void {
+    this.rendererManager._destroy();
+    this.recs.destroy();
+    this.physics.forEach((p) => p.terminate());
   }
 }

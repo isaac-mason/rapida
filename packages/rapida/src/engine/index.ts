@@ -74,7 +74,7 @@ export class Engine {
       this.killLoop = true;
 
       // destroy the world
-      this.world.destroy();
+      this.world._destroy();
     }
 
     // create the world
@@ -89,7 +89,7 @@ export class Engine {
     this.killLoop = false;
 
     // start the world
-    this.world.init();
+    this.world._init();
 
     // start the loops
     const t = performance.now();
@@ -106,7 +106,7 @@ export class Engine {
    * Destroys the engine
    */
   destroy(): void {
-    this.world?.destroy();
+    this.world?._destroy();
     this.stats.dom.remove();
     this.stats.end();
   }
@@ -121,7 +121,7 @@ export class Engine {
         return;
       }
 
-      this.world?.render();
+      this.world?._render();
 
       this.stats.update();
 
@@ -141,7 +141,7 @@ export class Engine {
     const t = performance.now();
     const timeElapsed = t - (this.previousGameLoopFrame as number);
 
-    this.world?.update(timeElapsed);
+    this.world?._update(timeElapsed);
 
     this.previousGameLoopFrame = performance.now();
 
@@ -161,7 +161,7 @@ export class Engine {
 
     const now = performance.now() / 1000;
     const timeElapsed = now - (this.previousPhysicsFrame as number);
-    this.world?.updatePhysics(timeElapsed);
+    this.world?._updatePhysics(timeElapsed);
 
     this.previousPhysicsFrame = now;
 
