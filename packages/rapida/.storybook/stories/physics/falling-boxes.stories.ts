@@ -145,84 +145,78 @@ export const FallingBoxes = ({
   }
 
   useEffect(() => {
-    const R = rapida();
+    const engine = rapida.engine({ debug: true });
 
-    R.run(({ engine }): World => {
-      const world = new World({
-        engine,
-      });
+    const world = rapida.world();
 
-      const renderer = world.create.renderer.webgl({
-        renderer: new WebGLRenderer({
-          precision: 'lowp',
-          powerPreference: 'high-performance',
-        }),
-      });
-
-      const physics = world.create.physics({
-        allowSleep: true,
-        gravity: [gravity.x, gravity.y, gravity.z],
-      });
-
-      const scene = world.create.scene();
-      scene.threeScene.background = new Color(LIGHT_BLUE);
-
-      const threeCamera = new PerspectiveCamera(50, 1, 1, 1000);
-      const camera = world.create.camera({ id: 'camera', camera: threeCamera });
-      camera.position.set(0, 10, 40);
-      camera.three.lookAt(0, 0, 0);
-
-      const view = renderer.create.view({
-        camera,
-        scene,
-      });
-
-      new OrbitControls(camera.three, view.domElement);
-
-      const directionalLight = new DirectionalLight(0xffffff, 0.75);
-      directionalLight.position.set(100, 100, 100);
-      directionalLight.lookAt(new Vector3(0, 0, 0));
-      scene.add(directionalLight);
-
-      const ambientLight = new AmbientLight(0xffffff, 0.75);
-      ambientLight.position.set(50, 50, 50);
-      ambientLight.lookAt(new Vector3(0, 0, 0));
-      scene.add(ambientLight);
-
-      physics.create.plane({
-        type: BodyType.STATIC,
-        position: [0, -10, 0],
-        rotation: [-Math.PI / 2, 0, 0],
-        mass: 0,
-        material: {
-          friction: 0.0,
-          restitution: 0.3,
-        },
-      });
-
-      const planeMesh = new Mesh(
-        new PlaneGeometry(150, 150, 1, 1),
-        new MeshBasicMaterial({ color: LIGHT_BLUE })
-      );
-      planeMesh.rotation.set(-Math.PI / 2, 0, 0);
-      planeMesh.position.y = -10;
-      scene.add(planeMesh);
-
-      const space = world.create.space();
-
-      const cubeEmitter = new CubeSpawner({ space, scene, physics });
-      world.add.system(cubeEmitter);
-
-      world.on('ready', () => {
-        document
-          .getElementById('renderer-root')
-          .appendChild(renderer.domElement);
-      });
-
-      return world;
+    const renderer = world.create.renderer.webgl({
+      renderer: new WebGLRenderer({
+        precision: 'lowp',
+        powerPreference: 'high-performance',
+      }),
     });
 
-    return () => R.destroy();
+    const physics = world.create.physics({
+      allowSleep: true,
+      gravity: [gravity.x, gravity.y, gravity.z],
+    });
+
+    const scene = world.create.scene();
+    scene.threeScene.background = new Color(LIGHT_BLUE);
+
+    const threeCamera = new PerspectiveCamera(50, 1, 1, 1000);
+    const camera = world.create.camera({ id: 'camera', camera: threeCamera });
+    camera.position.set(0, 10, 40);
+    camera.three.lookAt(0, 0, 0);
+
+    const view = renderer.create.view({
+      camera,
+      scene,
+    });
+
+    new OrbitControls(camera.three, view.domElement);
+
+    const directionalLight = new DirectionalLight(0xffffff, 0.75);
+    directionalLight.position.set(100, 100, 100);
+    directionalLight.lookAt(new Vector3(0, 0, 0));
+    scene.add(directionalLight);
+
+    const ambientLight = new AmbientLight(0xffffff, 0.75);
+    ambientLight.position.set(50, 50, 50);
+    ambientLight.lookAt(new Vector3(0, 0, 0));
+    scene.add(ambientLight);
+
+    physics.create.plane({
+      type: BodyType.STATIC,
+      position: [0, -10, 0],
+      rotation: [-Math.PI / 2, 0, 0],
+      mass: 0,
+      material: {
+        friction: 0.0,
+        restitution: 0.3,
+      },
+    });
+
+    const planeMesh = new Mesh(
+      new PlaneGeometry(150, 150, 1, 1),
+      new MeshBasicMaterial({ color: LIGHT_BLUE })
+    );
+    planeMesh.rotation.set(-Math.PI / 2, 0, 0);
+    planeMesh.position.y = -10;
+    scene.add(planeMesh);
+
+    const space = world.create.space();
+
+    const cubeEmitter = new CubeSpawner({ space, scene, physics });
+    world.add.system(cubeEmitter);
+
+    world.on('ready', () => {
+      document.getElementById('renderer-root').appendChild(renderer.domElement);
+    });
+
+    engine.start(world);
+
+    return () => engine.destroy();
   });
 
   return `

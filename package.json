@@ -10,6 +10,7 @@
     "release": "yarn run build && yarn run test",
     "change": "yarn changeset",
     "version": "yarn changeset version",
+    "website:build": "yarn storybook:build && ",
     "prestorybook:https": "yarn run storybook:prep-local-https",
     "storybook:build": "yarn workspaces foreach --no-private run build-storybook",
     "storybook": "concurrently \"cd ./packages/rapida && yarn run storybook\" \"cd ./packages/rapida-physics && yarn run storybook\"",

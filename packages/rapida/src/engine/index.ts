@@ -1,5 +1,5 @@
 import Stats from 'stats.js';
-import { World, WorldProvider } from '../world';
+import { World, WorldParams } from '../world';
 
 /**
  * Parameters for creating a new rapida engine
@@ -23,11 +23,10 @@ export class Engine {
   private debug: boolean;
 
   /**
-   * Whether the render loop should be interrupted
-   * If set to true, the loop will be stopped on the next loop
-   * Set back to false after killing the loop
+   * Whether the engine is running the world
+   * If set to false, the loop will be stopped on the next loop
    */
-  private killLoop = false;
+  private running = false;
 
   /**
    * The time of the previous animation frame
@@ -40,9 +39,24 @@ export class Engine {
   private previousPhysicsFrame: number | undefined;
 
   /**
-   * The stats.js instance
+   * Whether there is a physics loop running
    */
-  private stats: Stats = new Stats();
+   private physicsLoopRunning = false;
+
+  /**
+   * Stats instance for the game loop
+   */
+  private gameLoopStats?: Stats;
+
+  /**
+   * Stats instance for the physics loop
+   */
+   private physicsStats?: Stats;
+
+  /**
+   * Stats instance for the render loop
+   */
+  private renderStats?: Stats;
 
   /**
    * Constructor for an Engine
@@ -54,39 +68,53 @@ export class Engine {
 
     // setup stats if in debug mode
     if (this.debug) {
-      this.stats.showPanel(0);
-      document.body.appendChild(this.stats.dom);
-      this.stats.dom.style.top = '0';
-      this.stats.dom.style.left = 'unset';
-      this.stats.dom.style.right = '0';
+      this.gameLoopStats = new Stats();
+      this.physicsStats = new Stats();
+      this.renderStats = new Stats();
+
+      this.gameLoopStats.showPanel(0);
+      this.physicsStats.showPanel(0);
+      this.renderStats.showPanel(0);
+
+      const container = document.createElement('div');
+
+      this.gameLoopStats.dom.style.position = 'relative';
+      this.physicsStats.dom.style.position = 'relative';
+      this.renderStats.dom.style.position = 'relative';
+
+      container.appendChild(this.gameLoopStats.dom);
+      container.appendChild(this.physicsStats.dom);
+      container.appendChild(this.renderStats.dom);
+
+      document.body.appendChild(container);
+      container.style.position = 'fixed';
+      container.style.top = '0';
+      container.style.left = 'unset';
+      container.style.right = '0';
     }
   }
 
   /**
-   * Sets the world that is playing.
-   * If a world is already playing, the current world is stopped and the new world is started.
+   * Runs a world. If a world is already running, the current world is stopped and the new world is started.
    * @param worldId the new world to start
    */
-  run(worldProvider: WorldProvider): Engine {
+  start(world: World): Engine {
     // clean up running world
     if (this.world !== undefined) {
       // kill the render loop
-      this.killLoop = true;
+      this.running = false;
 
       // destroy the world
       this.world._destroy();
     }
 
-    // create the world
-    this.world = worldProvider({
-      engine: this,
-    });
+    this.world = world;
     if (this.world === undefined) {
       throw new Error('Cannot init as the newly provided world is undefined');
     }
 
-    // set killLoop to false now in case anything went wrong
-    this.killLoop = false;
+    // set running to true now in case anything went wrong
+    this.running = true;
 
     // start the world
     this.world._init();
@@ -94,10 +122,25 @@ export class Engine {
     // start the loops
     const t = performance.now();
     this.previousGameLoopFrame = t;
-    this.previousPhysicsFrame = t / 1000;
     this.gameLoop();
-    this.physicsLoop();
     this.renderLoop();
+
+    if (this.world.physics.size > 0) {
+      this.physicsLoopRunning = true;
+      this.physicsLoop();
+    }
+
+    this.world.on('addphysics', () => {
+      if (!this.physicsLoopRunning) {
+        this.physicsLoopRunning = true;
+        this.physicsLoop();
+      }
+    });
+
+    this.world.on('removephysics', () => {
+      // kills physics loop on the next iteration 
+      this.physicsLoopRunning = false;
+    })
 
     return this;
   }
@@ -107,8 +150,10 @@ export class Engine {
    */
   destroy(): void {
     this.world?._destroy();
-    this.stats.dom.remove();
-    this.stats.end();
+    this.gameLoopStats?.dom.remove();
+    this.renderStats?.dom.remove();
+    this.gameLoopStats?.end();
+    this.renderStats?.end();
   }
 
   /**
@@ -116,14 +161,12 @@ export class Engine {
    */
   private renderLoop() {
     requestAnimationFrame((_t) => {
-      if (this.killLoop === true) {
-        this.killLoop = false;
+      if (!this.running) {
         return;
       }
 
       this.world?._render();
-
-      this.stats.update();
+      this.renderStats?.update();
 
       this.renderLoop();
     });
@@ -133,8 +176,7 @@ export class Engine {
    * The game logic loop
    */
   private gameLoop() {
-    if (this.killLoop === true) {
-      this.killLoop = false;
+    if (!this.running) {
       return;
     }
 
@@ -142,6 +184,8 @@ export class Engine {
     const timeElapsed = t - (this.previousGameLoopFrame as number);
 
     this.world?._update(timeElapsed);
+
+    this.gameLoopStats?.update();
 
     this.previousGameLoopFrame = performance.now();
 
@@ -153,15 +197,15 @@ export class Engine {
   /**
    * The physics loop
    */
-  private physicsLoop() {
-    if (this.killLoop === true) {
-      this.killLoop = false;
+   private async physicsLoop() {
+    if (!this.running || !this.physicsLoopRunning) {
       return;
     }
 
     const now = performance.now() / 1000;
     const timeElapsed = now - (this.previousPhysicsFrame as number);
-    this.world?._updatePhysics(timeElapsed);
+    await this.world?._updatePhysics(timeElapsed);
+    this.physicsStats?.update();
 
     this.previousPhysicsFrame = now;
 
@@ -169,4 +213,5 @@ export class Engine {
       this.physicsLoop();
     }, this.world?._physicsUpdateDelayMs);
   }
+
 }

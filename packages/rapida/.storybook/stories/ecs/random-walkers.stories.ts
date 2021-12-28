@@ -11,14 +11,7 @@ import {
   WebGLRenderer,
 } from 'three';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
-import rapida, {
-  Component,
-  Entity,
-  Scene,
-  System,
-  World,
-  WorldProvider,
-} from '../../../src';
+import rapida, { Component, Entity, Scene, System, World } from '../../../src';
 
 export default {
   title: 'ECS / Random Walkers',
@@ -30,7 +23,7 @@ const LIGHT_BLUE = '#89CFF0';
 
 class FireflyObject3DComponent extends Component {
   scene!: Scene;
-  
+
   mesh!: Mesh;
 
   construct = ({ scene }: { scene: Scene }) => {
@@ -42,7 +35,7 @@ class FireflyObject3DComponent extends Component {
     });
 
     this.mesh = new Mesh(geometry, material);
-  }
+  };
 
   onInit = () => {
     this.scene.add(this.mesh);
@@ -67,11 +60,11 @@ class WalkingComponent extends Component {
   target?: Vector3;
 
   newTargetCountdown!: number;
-  
+
   construct = () => {
     this.target = undefined;
     this.newTargetCountdown = WalkingComponent.initialNewTargetCountdown;
-  }
+  };
 
   static initialNewTargetCountdown = 100;
 }
@@ -81,7 +74,7 @@ class EnergyComponent extends Component {
 
   construct = () => {
     this.energy = 1;
-  }
+  };
 }
 
 class RandomWalkSystem extends System {
@@ -156,71 +149,68 @@ class RestingSystem extends System {
 
 export const RandomWalkers = () => {
   useEffect(() => {
-    const R = rapida({ debug: true });
+    const engine = rapida.engine({ debug: true });
 
-    R.run(({ engine }): World => {
-      const world = new World({
-        engine,
-      });
+    const world = rapida.world();
 
-      const renderer = world.create.renderer.webgl({
-        renderer: new WebGLRenderer({
-          precision: 'lowp',
-          powerPreference: 'high-performance',
-        }),
-      });
-
-      const scene = world.create.scene();
-      scene.threeScene.fog = new Fog('red', 40, 110);
-
-      scene.threeScene.background = new Color(DARK_BLUE);
-
-      scene.add(new AmbientLight(0xffffff, 1.5));
-
-      const camera = world.create.camera({
-        camera: new PerspectiveCamera(50, 1, 20, 1000),
-      });
-      camera.position.set(0, 10, 60);
-
-      const view = renderer.create.view({
-        camera,
-        scene,
-      });
-
-      new OrbitControls(camera.three, view.domElement);
-
-      const space = world.create.space();
-
-      const fireflies = 500;
-
-      const randomFireflyPos = () => Math.random() * 24 - 12;
-      for (let i = 0; i < fireflies; i++) {
-        const entity = space.create.entity();
-
-        const fireflyObjectComponent = entity.addComponent(FireflyObject3DComponent, { scene });
-        fireflyObjectComponent.mesh.position.set(
-          randomFireflyPos(),
-          randomFireflyPos(),
-          randomFireflyPos()
-        );
-
-        entity.addComponent(EnergyComponent);
-        entity.addComponent(WalkingComponent);
-      }
-
-      world.add.system(new RandomWalkSystem());
-      world.add.system(new RestingSystem());
-
-      world.on('ready', () => {
-        document
-          .getElementById('renderer-root')
-          .appendChild(renderer.domElement);
-      });
-
-      return world;
+    const renderer = world.create.renderer.webgl({
+      renderer: new WebGLRenderer({
+        precision: 'lowp',
+        powerPreference: 'high-performance',
+      }),
     });
 
-    return () => R.destroy();
+    const scene = world.create.scene();
+    scene.threeScene.fog = new Fog('red', 40, 110);
+
+    scene.threeScene.background = new Color(DARK_BLUE);
+
+    scene.add(new AmbientLight(0xffffff, 1.5));
+
+    const camera = world.create.camera({
+      camera: new PerspectiveCamera(50, 1, 20, 1000),
+    });
+    camera.position.set(0, 10, 60);
+
+    const view = renderer.create.view({
+      camera,
+      scene,
+    });
+
+    new OrbitControls(camera.three, view.domElement);
+
+    const space = world.create.space();
+
+    const fireflies = 500;
+
+    const randomFireflyPos = () => Math.random() * 24 - 12;
+    for (let i = 0; i < fireflies; i++) {
+      const entity = space.create.entity();
+
+      const fireflyObjectComponent = entity.addComponent(
+        FireflyObject3DComponent,
+        { scene }
+      );
+      fireflyObjectComponent.mesh.position.set(
+        randomFireflyPos(),
+        randomFireflyPos(),
+        randomFireflyPos()
+      );
+
+      entity.addComponent(EnergyComponent);
+      entity.addComponent(WalkingComponent);
+    }
+
+    world.add.system(new RandomWalkSystem());
+    world.add.system(new RestingSystem());
+
+    world.on('ready', () => {
+      document.getElementById('renderer-root').appendChild(renderer.domElement);
+    });
+
+    engine.start(world);
+
+    return () => engine.destroy();
   });
 
   return `

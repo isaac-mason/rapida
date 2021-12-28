@@ -1,4 +1,5 @@
 import { Engine, EngineParams } from './engine';
+import { World, WorldParams } from './world';
 
 export * from '@rapidajs/rapida-common';
 export * from '@rapidajs/rapida-physics';
@@ -9,6 +10,11 @@ export * from './renderer';
 export * from './scene';
 export * from './world';
 
-export const rapida = (params?: EngineParams): Engine => new Engine(params);
+export const engine = (params?: EngineParams): Engine => new Engine(params);
 
-export default rapida;
+export const world = (params?: WorldParams): World => new World(params);
+
+export default {
+  engine,
+  world,
+};

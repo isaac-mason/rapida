@@ -1,11 +1,11 @@
-import { EventHandler, EventSystem, uuid } from '@rapidajs/rapida-common';
+import { EventHandler, EventSystem, Event, uuid } from '@rapidajs/rapida-common';
 import { Color, PerspectiveCamera, Vector2 } from 'three';
 import { EffectComposer, RenderPass } from 'three-stdlib';
 import { Camera } from '../../camera';
 import { Scene } from '../../scene';
 import {
   View,
-  ViewEventName,
+  ViewEventByName,
   ViewInteractionEventSubscription,
   ViewMouseEvent,
   ViewRectangle,
@@ -354,7 +354,7 @@ export class WebGLView extends View {
    */
   on<T extends typeof ALL_VIEW_EVENT_NAMES[number]>(
     eventName: T,
-    eventHandler: EventHandler<ViewEventName<T>>
+    eventHandler: EventHandler<ViewEventByName<T>>
   ): ViewInteractionEventSubscription {
     if (!VIEW_ALL_EVENT_NAMES.includes(eventName)) {
       throw new Error(`${eventName} is not a supported view event`);

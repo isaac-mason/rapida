@@ -9,7 +9,7 @@ import {
 /**
  * Enum for all supported view interaction events
  */
-export enum ViewInteractionEvent {
+export enum ViewInteractionEventName {
   CLICK = 'click',
   MOUSE_MOVE = 'mousemove',
   MOUSE_DOWN = 'mousedown',
@@ -25,36 +25,36 @@ export enum ViewInteractionEvent {
 }
 
 export const VIEW_ALL_EVENT_NAMES: string[] = [
-  ViewInteractionEvent.CLICK,
-  ViewInteractionEvent.MOUSE_MOVE,
-  ViewInteractionEvent.MOUSE_DOWN,
-  ViewInteractionEvent.MOUSE_UP,
-  ViewInteractionEvent.MOUSE_ENTER,
-  ViewInteractionEvent.MOUSE_LEAVE,
-  ViewInteractionEvent.MOUSE_OUT,
-  ViewInteractionEvent.MOUSE_OVER,
-  ViewInteractionEvent.TOUCH_START,
-  ViewInteractionEvent.TOUCH_END,
-  ViewInteractionEvent.TOUCH_MOVE,
-  ViewInteractionEvent.TOUCH_CANCEL,
+  ViewInteractionEventName.CLICK,
+  ViewInteractionEventName.MOUSE_MOVE,
+  ViewInteractionEventName.MOUSE_DOWN,
+  ViewInteractionEventName.MOUSE_UP,
+  ViewInteractionEventName.MOUSE_ENTER,
+  ViewInteractionEventName.MOUSE_LEAVE,
+  ViewInteractionEventName.MOUSE_OUT,
+  ViewInteractionEventName.MOUSE_OVER,
+  ViewInteractionEventName.TOUCH_START,
+  ViewInteractionEventName.TOUCH_END,
+  ViewInteractionEventName.TOUCH_MOVE,
+  ViewInteractionEventName.TOUCH_CANCEL,
 ];
 
 export const VIEW_MOUSE_EVENTS: string[] = [
-  ViewInteractionEvent.CLICK,
-  ViewInteractionEvent.MOUSE_DOWN,
-  ViewInteractionEvent.MOUSE_UP,
-  ViewInteractionEvent.MOUSE_MOVE,
-  ViewInteractionEvent.MOUSE_OVER,
-  ViewInteractionEvent.MOUSE_OUT,
-  ViewInteractionEvent.MOUSE_ENTER,
-  ViewInteractionEvent.MOUSE_LEAVE,
+  ViewInteractionEventName.CLICK,
+  ViewInteractionEventName.MOUSE_DOWN,
+  ViewInteractionEventName.MOUSE_UP,
+  ViewInteractionEventName.MOUSE_MOVE,
+  ViewInteractionEventName.MOUSE_OVER,
+  ViewInteractionEventName.MOUSE_OUT,
+  ViewInteractionEventName.MOUSE_ENTER,
+  ViewInteractionEventName.MOUSE_LEAVE,
 ];
 
 export const VIEW_TOUCH_EVENTS: string[] = [
-  ViewInteractionEvent.TOUCH_START,
-  ViewInteractionEvent.TOUCH_END,
-  ViewInteractionEvent.TOUCH_MOVE,
-  ViewInteractionEvent.TOUCH_CANCEL,
+  ViewInteractionEventName.TOUCH_START,
+  ViewInteractionEventName.TOUCH_END,
+  ViewInteractionEventName.TOUCH_MOVE,
+  ViewInteractionEventName.TOUCH_CANCEL,
 ];
 
 /**
@@ -160,7 +160,7 @@ export interface ViewInteractionEventMap {
 /**
  * Type for a view event name
  */
-export type ViewEventName<T extends string> =
+export type ViewEventByName<T extends string> =
   T extends keyof ViewInteractionEventMap ? ViewInteractionEventMap[T] : Event;
 
 /**

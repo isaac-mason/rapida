@@ -7,7 +7,6 @@ import {
   EventSubscription,
 } from '@rapidajs/rapida-common';
 import recs, { RECS, Space, SpaceParams, System } from '@rapidajs/recs';
-import { Engine } from '../engine';
 import { Scene, SceneParams } from '../scene';
 import { Camera, CameraParams } from '../camera';
 import {
@@ -18,21 +17,39 @@ import {
 } from '../renderer';
 import { XRRenderer, XRRendererParams } from '../renderer/xr/xr-renderer';
 
-export enum WorldEvent {
+export enum WorldEventName {
   READY = 'ready',
+  ADD_PHYSICS = 'addphysics',
+  REMOVE_PHYSICS = 'removephysics',
 }
 
-export const WORLD_ALL_EVENT_NAMES: string[] = [WorldEvent.READY];
+export const WORLD_ALL_EVENT_NAMES: string[] = [
+  WorldEventName.READY,
+  WorldEventName.ADD_PHYSICS,
+  WorldEventName.REMOVE_PHYSICS,
+];
 
 export interface WorldReadyEvent {
-  topic: WorldEvent.READY;
+  topic: WorldEventName.READY;
+}
+
+export interface WorldAddPhysicsEvent {
+  topic: WorldEventName.ADD_PHYSICS;
+  data: Physics,
+}
+
+export interface WorldRemovePhysicsEvent {
+  topic: WorldEventName.REMOVE_PHYSICS;
+  data: Physics,
 }
 
 export interface WorldEventMap {
   ready: WorldReadyEvent;
+  addphysics: WorldAddPhysicsEvent;
+  removephysics: WorldRemovePhysicsEvent;
 }
 
-type WorldEventName<T extends string> = T extends keyof WorldEventMap
+type WorldEventFromName<T extends string> = T extends keyof WorldEventMap
   ? WorldEventMap[T]
   : Event;
 
@@ -44,11 +61,6 @@ export type WorldParams = {
    * The unique id for the world
    */
   id?: string;
-
-  /**
-   * The engine instance the world is in
-   */
-  engine: Engine;
 
   /**
    * The maximum game loop updates to run per second
@@ -99,11 +111,6 @@ export class World {
    * Whether the world has been initialised
    */
   initialised = false;
-
-  /**
-   * The engine instance the world is in
-   */
-  engine: Engine;
 
   /**
    * The maximum game loop updates to run per second
@@ -239,15 +246,18 @@ export class World {
      * @param params the params for the new physics instance
      * @returns the new physics instance
      */
-    physics: (
-      params: Exclude<PhysicsParams, 'delta'>
-    ): Physics => {
+    physics: (params: Exclude<PhysicsParams, 'delta'>): Physics => {
       const physics = new Physics({
         ...params,
         delta: this._physicsDelta,
       });
 
       this.physics.set(physics.id, physics);
+
+      this.events.emit({
+        topic: WorldEventName.ADD_PHYSICS,
+        data: physics,
+      } as WorldAddPhysicsEvent);
 
       return physics;
     },
@@ -261,17 +271,11 @@ export class World {
    * Constructor for a World
    * @param param0 params for creating the world
    */
-  constructor({
-    id,
-    engine,
-    maxGameLoopUpdatesPerSecond,
-    maxPhysicsUpdatesPerSecond,
-  }: WorldParams) {
-    this.id = id || uuid();
-    this.engine = engine;
+  constructor(params?: WorldParams) {
+    this.id = params?.id || uuid();
 
-    this._maxGameLoopUpdatesPerSecond = maxGameLoopUpdatesPerSecond || 60;
-    this._maxPhysicsUpdatesPerSecond = maxPhysicsUpdatesPerSecond || 60;
+    this._maxGameLoopUpdatesPerSecond = params?.maxGameLoopUpdatesPerSecond || 60;
+    this._maxPhysicsUpdatesPerSecond = params?.maxPhysicsUpdatesPerSecond || 60;
     this._gameLoopUpdateDelayMs = 1000 / this._maxGameLoopUpdatesPerSecond;
     this._physicsUpdateDelayMs = 1000 / this._maxPhysicsUpdatesPerSecond;
     this._physicsDelta = 1 / this._maxPhysicsUpdatesPerSecond;
@@ -300,7 +304,7 @@ export class World {
    */
   on<T extends typeof WORLD_ALL_EVENT_NAMES[number]>(
     eventName: T,
-    eventHandler: EventHandler<WorldEventName<T>>
+    eventHandler: EventHandler<WorldEventFromName<T>>
   ): EventSubscription {
     if (!WORLD_ALL_EVENT_NAMES.includes(eventName)) {
       throw new Error(`${eventName} is not a supported view event`);
@@ -323,6 +327,10 @@ export class World {
     } else if (value instanceof Physics) {
       this.physics.delete(value.id);
       value.terminate();
+      this.events.emit({
+        topic: WorldEventName.REMOVE_PHYSICS,
+        data: value,
+      } as WorldRemovePhysicsEvent);
     } else if (value instanceof Camera) {
       this.cameras.delete(value.id);
     }
@@ -346,7 +354,7 @@ export class World {
 
     // emit ready event
     this.events.emit({
-      topic: WorldEvent.READY,
+      topic: WorldEventName.READY,
     });
   }
 
@@ -375,10 +383,12 @@ export class World {
   /**
    * Steps the physics world
    */
-  _updatePhysics(timeElapsed: number): void {
+  async _updatePhysics(timeElapsed: number): Promise<void> {
+    const promises: Promise<void>[] = [];
     this.physics.forEach((p) => {
-      p.step(timeElapsed);
+      promises.push(p.step(timeElapsed));
     });
+    await Promise.all(promises);
   }
 
   /**

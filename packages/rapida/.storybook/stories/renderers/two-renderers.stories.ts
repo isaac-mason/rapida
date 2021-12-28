@@ -8,61 +8,57 @@ export default {
 
 export const TwoRenderers = () => {
   useEffect(() => {
-    const R = rapida();
+    const engine = rapida.engine();
 
-    R.run(({ engine }): World => {
-      const world = new World({
-        engine,
-      });
+    const world = rapida.world();
 
-      const rendererOne = world.create.renderer.webgl();
+    const rendererOne = world.create.renderer.webgl();
 
-      const rendererTwo = world.create.renderer.webgl();
+    const rendererTwo = world.create.renderer.webgl();
 
-      const scene = world.create.scene({ id: 'mainScene' });
+    const scene = world.create.scene({ id: 'mainScene' });
 
-      const camera = world.create.camera({ id: 'mainCamera' });
-      camera.position.set(0, 0, 500);
+    const camera = world.create.camera({ id: 'mainCamera' });
+    camera.position.set(0, 0, 500);
 
-      rendererOne.create.view({
-        camera,
-        scene,
-      });
-
-      rendererTwo.create.view({
-        camera,
-        scene,
-      });
-
-      const ambientLight = new three.AmbientLight(0xffffff, 1);
-      ambientLight.position.set(0, -20, 40);
-      ambientLight.lookAt(new three.Vector3(0, 0, 0));
-      scene.add(ambientLight);
-
-      const geometry = new three.BoxGeometry(50, 50, 50);
-      const material = new three.MeshPhongMaterial({
-        color: 'blue',
-        specular: 0x111111,
-        shininess: 30,
-      });
-      const cube = new three.Mesh(geometry, material);
-      cube.position.set(0, 0, 0);
-
-      scene.add(cube);
-
-      world.on('ready', () => {
-        document
-          .getElementById('renderer-root-1')
-          .appendChild(rendererOne.domElement);
-        document
-          .getElementById('renderer-root-2')
-          .appendChild(rendererTwo.domElement);
-      });
-
-      return world;
+    rendererOne.create.view({
+      camera,
+      scene,
     });
 
-    return () => R.destroy();
+    rendererTwo.create.view({
+      camera,
+      scene,
+    });
+
+    const ambientLight = new three.AmbientLight(0xffffff, 1);
+    ambientLight.position.set(0, -20, 40);
+    ambientLight.lookAt(new three.Vector3(0, 0, 0));
+    scene.add(ambientLight);
+
+    const geometry = new three.BoxGeometry(50, 50, 50);
+    const material = new three.MeshPhongMaterial({
+      color: 'blue',
+      specular: 0x111111,
+      shininess: 30,
+    });
+    const cube = new three.Mesh(geometry, material);
+    cube.position.set(0, 0, 0);
+
+    scene.add(cube);
+
+    world.on('ready', () => {
+      document
+        .getElementById('renderer-root-1')
+        .appendChild(rendererOne.domElement);
+      document
+        .getElementById('renderer-root-2')
+        .appendChild(rendererTwo.domElement);
+    });
+
+    engine.start(world);
+
+    return () => engine.destroy();
   });
 
   return `
