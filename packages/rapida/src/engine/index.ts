@@ -151,8 +151,10 @@ export class Engine {
   destroy(): void {
     this.world?._destroy();
     this.gameLoopStats?.dom.remove();
+    this.physicsStats?.dom.remove();
     this.renderStats?.dom.remove();
     this.gameLoopStats?.end();
+    this.physicsStats?.end();
     this.renderStats?.end();
   }
 
