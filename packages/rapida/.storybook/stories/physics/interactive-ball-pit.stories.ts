@@ -127,7 +127,7 @@ class Cursor extends Component {
     this.mesh = new Mesh(geometry, material);
     this.scene.add(this.mesh);
 
-    const [_, sphereApi] = this.physics.create.sphere(
+    const { api: sphereApi } = this.physics.create.sphere(
       {
         type: BodyType.STATIC,
         args: radius,
@@ -210,7 +210,7 @@ class Spheres extends Component {
   onInit = (): void => {
     this.scene.add(this.mesh);
 
-    const [_, sphereApi] = this.physics.create.sphere(
+    const { api: sphereApi } = this.physics.create.sphere(
       {
         type: BodyType.DYNAMIC,
         args: 1,

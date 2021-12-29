@@ -67,7 +67,7 @@ export const HelloWorld = () => {
     const mesh = new Mesh(geometry, material);
     scene.add(mesh);
 
-    const [_, cubeApi] = physics.create.box(
+    const { api: { velocity, angularVelocity } } = physics.create.box(
       {
         type: BodyType.DYNAMIC,
         args: [20, 20, 20],
@@ -80,9 +80,9 @@ export const HelloWorld = () => {
       mesh,
     );
 
-    cubeApi.velocity.set(Math.round(Math.random() * 4) - 2, 50, Math.round(Math.random() * 4) - 2);
+    velocity.set(Math.round(Math.random() * 4) - 2, 50, Math.round(Math.random() * 4) - 2);
 
-    cubeApi.angularVelocity.set(Math.random() * 5 - 2.5, Math.random() * 5 - 2.5, Math.random() * 5 - 2.5);
+    angularVelocity.set(Math.random() * 5 - 2.5, Math.random() * 5 - 2.5, Math.random() * 5 - 2.5);
 
     physics.create.plane({
       type: BodyType.STATIC,

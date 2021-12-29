@@ -69,7 +69,7 @@ export const FallingBoxes = ({
     onInit = (): void => {
       this.scene.add(this.mesh);
 
-      const [_, cubeApi] = this.physics.create.box(
+      const { api: cubeApi } = this.physics.create.box(
         {
           type: BodyType.DYNAMIC,
           args: [box.size.x, box.size.y, box.size.z],

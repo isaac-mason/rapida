@@ -38,7 +38,7 @@ export type SubscriptionName = typeof subscriptionNames[number];
 
 export type PublicVectorName = Exclude<VectorName, 'quaternion'> | 'rotation';
 
-export type Api = [Object3D, PhysicsObjectApi];
+export type Api = { ref: Object3D; api: PhysicsObjectApi };
 
 export type AtomicParams = {
   /**
@@ -136,19 +136,19 @@ export interface PhysicsObjectApi extends WorkerApi {
   at: (index: number) => WorkerApi;
 }
 
-export type ConstraintApi = [
-  Object3D,
-  Object3D,
-  {
+export type ConstraintApi = {
+  bodyA: Object3D,
+  bodyB: Object3D,
+  api: {
     enable: () => void;
     disable: () => void;
   },
-];
+};
 
-export type HingeConstraintApi = [
-  Object3D,
-  Object3D,
-  {
+export type HingeConstraintApi = {
+  bodyA: Object3D,
+  bodyB: Object3D,
+  api: {
     enable: () => void;
     disable: () => void;
     enableMotor: () => void;
@@ -156,18 +156,18 @@ export type HingeConstraintApi = [
     setMotorSpeed: (value: number) => void;
     setMotorMaxForce: (value: number) => void;
   },
-];
+};
 
-export type SpringApi = [
-  string, // uuid
-  Object3D,
-  Object3D,
-  {
+export type SpringApi = {
+  uuid: string, // uuid
+  bodyA: Object3D,
+  bodyB: Object3D,
+  api: {
     setStiffness: (value: number) => void;
     setRestLength: (value: number) => void;
     setDamping: (value: number) => void;
   },
-];
+};
 
 export type ConstraintTypes = 'PointToPoint' | 'ConeTwist' | 'Distance' | 'Lock';
 

@@ -80,7 +80,6 @@ import {
   WorkerRayhitEvent,
 } from './types';
 import { capitalize, getUUID, isString, makeTriplet, prepare, setupCollision } from './utils';
-import { Cylinder } from 'shapes/Cylinder';
 
 function noop() {
   /* no action taken */
@@ -612,27 +611,17 @@ class Physics {
         };
       };
 
-      return [object, api()];
+      return { ref: object, api: api() };
     },
     plane: (params: PlaneParams, ref: Object3D | null = null) => {
       return this._factories.body<PlaneParams>('Plane', params, () => [], ref);
     },
     box: (params: BoxParams, ref: Object3D | null = null) => {
       const defaultBoxArgs: Triplet = [1, 1, 1];
-      return this._factories.body<BoxParams>(
-        'Box',
-        params,
-        (args = defaultBoxArgs): Triplet => args,
-        ref,
-      );
+      return this._factories.body<BoxParams>('Box', params, (args = defaultBoxArgs): Triplet => args, ref);
     },
     cylinder: (params: CylinderParams, ref: Object3D | null = null) => {
-      return this._factories.body<CylinderParams>(
-        'Cylinder',
-        params,
-        (args = []) => args,
-        ref,
-      );
+      return this._factories.body<CylinderParams>('Cylinder', params, (args = []) => args, ref);
     },
     heightfield: (params: HeightfieldParams, ref: Object3D | null = null) => {
       return this._factories.body<HeightfieldParams>('Heightfield', params, (args) => args, ref);
@@ -641,12 +630,7 @@ class Physics {
       return this._factories.body<ParticleParams>('Particle', params, () => [], ref);
     },
     sphere: (params: SphereParams, ref: Object3D | null = null) => {
-      return this._factories.body<SphereParams>(
-        'Sphere',
-        params,
-        (radius = 1): [number] => [radius],
-        ref,
-      );
+      return this._factories.body<SphereParams>('Sphere', params, (radius = 1): [number] => [radius], ref);
     },
     trimesh: (params: TrimeshParams, ref: Object3D | null = null) => {
       return this._factories.body<TrimeshParams>('Trimesh', params, (args) => args, ref);
@@ -668,7 +652,11 @@ class Physics {
     compoundBody: (params: CompoundBodyParams, ref: Object3D | null = null) => {
       return this._factories.body('Compound', params, (args) => args as unknown[], ref);
     },
-    ray: (mode: RayMode, options: RayHookOptions, callback: (e: RayhitEvent) => void) => {
+    ray: (
+      mode: RayMode,
+      options: RayHookOptions,
+      callback: (e: RayhitEvent) => void,
+    ): { uuid: string; api: { destroy: () => void } } => {
       const uuid = MathUtils.generateUUID();
 
       this.events[uuid] = { rayhit: callback };
@@ -681,7 +669,7 @@ class Physics {
         },
       };
 
-      return [uuid, api];
+      return { uuid, api };
     },
     raycastClosest: (options: RayHookOptions, callback: (e: RayhitEvent) => void) => {
       this._factories.ray('Closest', options, callback);
@@ -695,7 +683,7 @@ class Physics {
     raycastVehicle: (
       params: RaycastVehicleParams,
       ref: Object3D | null = null,
-    ): [Object3D, RaycastVehiclePublicApi] => {
+    ): { ref: Object3D; api: RaycastVehiclePublicApi } => {
       const object = ref || new Object3D();
 
       const currentWorker = this.worker;
@@ -760,7 +748,7 @@ class Physics {
           },
         };
       };
-      return [object, api()];
+      return { ref: object, api: api() };
     },
     constraint: <T extends 'Hinge' | ConstraintTypes>(
       type: T,
@@ -811,7 +799,7 @@ class Physics {
         return common;
       };
 
-      return [bodyA, bodyB, api()] as ConstraintORHingeApi<T>;
+      return { bodyA, bodyB, api: api() } as ConstraintORHingeApi<T>;
     },
     pointToPointConstraint: (bodyA: Object3D, bodyB: Object3D, optns: PointToPointConstraintOpts) => {
       return this._factories.constraint('PointToPoint', bodyA, bodyB, optns);
@@ -850,7 +838,7 @@ class Physics {
         },
       });
 
-      return [uuid, bodyA, bodyB, api()];
+      return { uuid, bodyA, bodyB, api: api() };
     },
   };
 

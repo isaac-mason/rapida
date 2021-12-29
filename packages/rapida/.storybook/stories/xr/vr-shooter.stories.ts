@@ -147,7 +147,7 @@ export const VRShooter = () => {
         velocity.z = Math.random() - 15;
         velocity.applyQuaternion(controller.quaternion);
 
-        const [_, spherePhysics] = physics.create.sphere(
+        const { api: sphereApi } = physics.create.sphere(
           {
             args: 0.1,
             position: [
@@ -166,7 +166,7 @@ export const VRShooter = () => {
 
         setTimeout(() => {
           scene.remove(sphere);
-          spherePhysics.destroy();
+          sphereApi.destroy();
         }, 30000);
       });
 

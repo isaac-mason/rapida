@@ -15,14 +15,17 @@ export const Chain = () => {
 
     // gravity
     physics.gravity = [0, -20, 0];
-  
+
     // camera
     camera.position.y = 60;
     camera.position.z = 100;
     camera.lookAt(0, 0, 0);
 
     // chain handle
-    const [handleRef, { velocity }] = physics.create.sphere({
+    const {
+      ref: handleRef,
+      api: { velocity },
+    } = physics.create.sphere({
       type: BodyType.DYNAMIC,
       args: 1,
       mass: 1,
@@ -31,23 +34,23 @@ export const Chain = () => {
     velocity.set(10, 280, 20);
 
     // chain links
-    const chainSize: Triplet = [0.5, 2, 0.5]
+    const chainSize: Triplet = [0.5, 2, 0.5];
     const noChainLinks = 14;
-    
+
     const links = [];
     links.push(handleRef);
-    
+
     for (let i = 0; i < noChainLinks; i++) {
       const parent = links[links.length - 1];
 
-      const [ref] = physics.create.box({
+      const { ref } = physics.create.box({
         mass: 1,
         linearDamping: 0.8,
         args: chainSize,
         type: BodyType.DYNAMIC,
         position: [0, parent.position.y - (chainSize[1] + 1), 0],
-      })
-  
+      });
+
       physics.create.coneTwistConstraint(parent, ref, {
         pivotA: [0, -chainSize[1] / 2, 0],
         pivotB: [0, chainSize[1] / 2, 0],
@@ -67,7 +70,7 @@ export const Chain = () => {
       position: [0, -10, 0],
       rotation: [0, 0, 0],
     });
-    
+
     start();
 
     return () => {
