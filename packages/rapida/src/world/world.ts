@@ -16,6 +16,7 @@ import {
   CSSRenderer,
 } from '../renderer';
 import { XRRenderer, XRRendererParams } from '../renderer/xr/xr-renderer';
+import { Loaders } from '../loaders';
 
 export enum WorldEventName {
   READY = 'ready',
@@ -71,6 +72,17 @@ export type WorldParams = {
    * The maximum physics loop updates to run per second
    */
   maxPhysicsUpdatesPerSecond?: number;
+
+  /**
+   * Params for the loader
+   */
+  loaders?: {
+    /**
+     * An optional draco loader decoder path. Default to using a CDN.
+     * @see Loaders
+     */
+    dracoDecoderPath?: string;
+  }
 };
 
 /**
@@ -141,6 +153,11 @@ export class World {
    * @private used internally, do not use or assign
    */
   _physicsDelta?: number;
+
+  /**
+   * Loaders for various asset types
+   */
+  private loaders = new Loaders();
 
   /**
    * Event system for the rapida world
@@ -274,6 +291,13 @@ export class World {
         return system;
       },
     };
+  }
+
+  /**
+   * Retrieves methods for loading assets into the world
+   */
+  public get load() {
+    return this.loaders;
   }
 
   /**
