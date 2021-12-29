@@ -35,12 +35,12 @@ export interface WorldReadyEvent {
 
 export interface WorldAddPhysicsEvent {
   topic: WorldEventName.ADD_PHYSICS;
-  data: Physics,
+  data: Physics;
 }
 
 export interface WorldRemovePhysicsEvent {
   topic: WorldEventName.REMOVE_PHYSICS;
-  data: Physics,
+  data: Physics;
 }
 
 export interface WorldEventMap {
@@ -103,37 +103,42 @@ export class World {
   recs: RECS = recs();
 
   /**
-   * The renderer manager for the world
-   */
-  rendererManager: RendererManager;
-
-  /**
    * Whether the world has been initialised
    */
   initialised = false;
 
   /**
+   * The renderer manager for the world
+   */
+  rendererManager: RendererManager;
+
+  /**
    * The maximum game loop updates to run per second
+   * @private used internally, do not use or assign
    */
   _maxGameLoopUpdatesPerSecond: number;
 
   /**
    * The delay between game loop updates, based on _maxGameLoopUpdatesPerSecond
+   * @private used internally, do not use or assign
    */
   _gameLoopUpdateDelayMs: number;
 
   /**
    * The maximum physics loop updates to run per second
+   * @private used internally, do not use or assign
    */
   _maxPhysicsUpdatesPerSecond: number;
 
   /**
    * The delay between physics updates, based on _maxPhysicsUpdatesPerSecond
+   * @private used internally, do not use or assign
    */
   _physicsUpdateDelayMs: number;
 
   /**
    * The delta value for the physics worlds, based on _maxPhysicsUpdatesPerSecond
+   * @private used internally, do not use or assign
    */
   _physicsDelta?: number;
 
@@ -143,138 +148,14 @@ export class World {
   private events = new EventSystem();
 
   /**
-   * Factories for creating renderers in the world
-   */
-  private _rendererFactories = {
-    /**
-     * Creates a new webgl renderer
-     * @param params params for the webgl renderer
-     * @returns the new webgl renderer
-     */
-    webgl: (params?: WebGLRendererParams): WebGLRenderer => {
-      const renderer = new WebGLRenderer(this.rendererManager, params);
-      this.rendererManager.addRenderer(renderer);
-
-      return renderer;
-    },
-    /**
-     * Creates a new css renderer
-     * @param params the params for the css renderer
-     * @returns the new css renderer
-     */
-    css: (): CSSRenderer => {
-      const renderer = new CSSRenderer(this.rendererManager);
-      this.rendererManager.addRenderer(renderer);
-
-      return renderer;
-    },
-    /**
-     * Creates a new xr renderer
-     * @param params the params for the xr renderer
-     * @returns the new xr renderer
-     */
-    xr: (params: XRRendererParams): XRRenderer => {
-      const renderer = new XRRenderer(this.rendererManager, params);
-      this.rendererManager.addRenderer(renderer);
-
-      return renderer;
-    },
-  };
-
-  /**
-   * Methods for adding something to the world
-   */
-  private _add: {
-    system: (system: System) => World;
-  } = {
-    /**
-     * Adds a system to the World
-     * @param system the system to add to the world
-     */
-    system: (system: System) => {
-      this.recs.add.system(system);
-      return this;
-    },
-  };
-
-  /**
-   * Factories for creating something new in a world
-   */
-  private _factories: {
-    space: (params?: SpaceParams) => Space;
-    camera: (params?: CameraParams) => Camera;
-    scene: (params?: SceneParams) => Scene;
-    physics: (params: PhysicsParams) => Physics;
-    renderer: {
-      webgl: (params?: WebGLRendererParams) => WebGLRenderer;
-      css: () => CSSRenderer;
-      xr: (params: XRRendererParams) => XRRenderer;
-    };
-  } = {
-    /**
-     * Creates a space in the world
-     * @param params the params for the space
-     * @returns the new space
-     */
-    space: (params?: SpaceParams): Space => {
-      return this.recs.create.space(params);
-    },
-    /**
-     * Creates a camera in the world
-     * @param params the params for the camera
-     * @returns the new camera
-     */
-    camera: (params?: CameraParams): Camera => {
-      const camera = new Camera(this, params);
-      this.cameras.set(camera.id, camera);
-
-      return camera;
-    },
-    /**
-     * Creates a scene in the world
-     * @param params the params for the scene
-     * @returns the new scene
-     */
-    scene: (params?: SceneParams): Scene => {
-      const scene = new Scene(this, params);
-      this.scenes.set(scene.id, scene);
-
-      return scene;
-    },
-    /**
-     * Creates a physics instance in the world
-     * @param params the params for the new physics instance
-     * @returns the new physics instance
-     */
-    physics: (params: Exclude<PhysicsParams, 'delta'>): Physics => {
-      const physics = new Physics({
-        ...params,
-        delta: this._physicsDelta,
-      });
-
-      this.physics.set(physics.id, physics);
-
-      this.events.emit({
-        topic: WorldEventName.ADD_PHYSICS,
-        data: physics,
-      } as WorldAddPhysicsEvent);
-
-      return physics;
-    },
-    /**
-     * Factories for creating a renderer in the world
-     */
-    renderer: this._rendererFactories,
-  };
-
-  /**
    * Constructor for a World
-   * @param param0 params for creating the world
+   * @param params params for creating the world
    */
   constructor(params?: WorldParams) {
     this.id = params?.id || uuid();
 
-    this._maxGameLoopUpdatesPerSecond = params?.maxGameLoopUpdatesPerSecond || 60;
+    this._maxGameLoopUpdatesPerSecond =
+      params?.maxGameLoopUpdatesPerSecond || 60;
     this._maxPhysicsUpdatesPerSecond = params?.maxPhysicsUpdatesPerSecond || 60;
     this._gameLoopUpdateDelayMs = 1000 / this._maxGameLoopUpdatesPerSecond;
     this._physicsUpdateDelayMs = 1000 / this._maxPhysicsUpdatesPerSecond;
@@ -286,14 +167,113 @@ export class World {
   /**
    * Retrieves world factories
    */
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public get create() {
-    return this._factories;
+    return {
+      /**
+       * Creates a space in the world
+       * @param params the params for the space
+       * @returns the new space
+       */
+      space: (params?: SpaceParams): Space => {
+        return this.recs.create.space(params);
+      },
+      /**
+       * Creates a camera in the world
+       * @param params the params for the camera
+       * @returns the new camera
+       */
+      camera: (params?: CameraParams): Camera => {
+        const camera = new Camera(this, params);
+        this.cameras.set(camera.id, camera);
+
+        return camera;
+      },
+      /**
+       * Creates a scene in the world
+       * @param params the params for the scene
+       * @returns the new scene
+       */
+      scene: (params?: SceneParams): Scene => {
+        const scene = new Scene(this, params);
+        this.scenes.set(scene.id, scene);
+
+        return scene;
+      },
+      /**
+       * Creates a physics instance in the world
+       * @param params the params for the new physics instance
+       * @returns the new physics instance
+       */
+      physics: (params: Exclude<PhysicsParams, 'delta'>): Physics => {
+        const physics = new Physics({
+          ...params,
+          delta: this._physicsDelta,
+        });
+
+        this.physics.set(physics.id, physics);
+
+        this.events.emit({
+          topic: WorldEventName.ADD_PHYSICS,
+          data: physics,
+        } as WorldAddPhysicsEvent);
+
+        return physics;
+      },
+      /**
+       * Factories for creating a renderer in the world
+       */
+      renderer: {
+        /**
+         * Creates a new webgl renderer
+         * @param params params for the webgl renderer
+         * @returns the new webgl renderer
+         */
+        webgl: (params?: WebGLRendererParams): WebGLRenderer => {
+          const renderer = new WebGLRenderer(this.rendererManager, params);
+          this.rendererManager.addRenderer(renderer);
+
+          return renderer;
+        },
+        /**
+         * Creates a new css renderer
+         * @param params the params for the css renderer
+         * @returns the new css renderer
+         */
+        css: (): CSSRenderer => {
+          const renderer = new CSSRenderer(this.rendererManager);
+          this.rendererManager.addRenderer(renderer);
+
+          return renderer;
+        },
+        /**
+         * Creates a new xr renderer
+         * @param params the params for the xr renderer
+         * @returns the new xr renderer
+         */
+        xr: (params: XRRendererParams): XRRenderer => {
+          const renderer = new XRRenderer(this.rendererManager, params);
+          this.rendererManager.addRenderer(renderer);
+
+          return renderer;
+        },
+      },
+    };
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  /**
+   * Retrieves methods for adding to the world
+   */
   public get add() {
-    return this._add;
+    return {
+      /**
+       * Adds a system to the World
+       * @param system the system to add to the world
+       */
+      system: (system: System): System => {
+        this.recs.add.system(system);
+        return system;
+      },
+    };
   }
 
   /**
@@ -338,6 +318,7 @@ export class World {
 
   /**
    * Initialises the world
+   * @private called internally, do not call directly
    */
   _init(): void {
     // Set the world to be initialised
@@ -347,7 +328,7 @@ export class World {
     this.recs.init();
 
     // Initialise the renderer manager
-    this.rendererManager._init();
+    this.rendererManager.init();
 
     // Initial render
     this._render();
@@ -360,6 +341,7 @@ export class World {
 
   /**
    * Renders the world
+   * @private called internally, do not call directly
    */
   _render(): void {
     this.rendererManager.render();
@@ -368,13 +350,14 @@ export class World {
   /**
    * Updates the world
    * @param timeElapsed the time elapsed in milliseconds
+   * @private called internally, do not call directly
    */
   _update(timeElapsed: number): void {
     // tick the world event system
     this.events.tick();
 
     // update the renderer manager
-    this.rendererManager._update();
+    this.rendererManager.update();
 
     // update spaces and systems in the ecs
     this.recs.update(timeElapsed);
@@ -382,6 +365,7 @@ export class World {
 
   /**
    * Steps the physics world
+   * @private called internally, do not call directly
    */
   async _updatePhysics(timeElapsed: number): Promise<void> {
     const promises: Promise<void>[] = [];
@@ -393,9 +377,10 @@ export class World {
 
   /**
    * Destroys the world
+   * @private called internally, do not call directly
    */
   _destroy(): void {
-    this.rendererManager._destroy();
+    this.rendererManager.destroy();
     this.recs.destroy();
     this.physics.forEach((p) => p.terminate());
   }

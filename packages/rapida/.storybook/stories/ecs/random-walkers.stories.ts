@@ -161,9 +161,9 @@ export const RandomWalkers = () => {
     });
 
     const scene = world.create.scene();
-    scene.threeScene.fog = new Fog('red', 40, 110);
+    scene.three.fog = new Fog('red', 40, 110);
 
-    scene.threeScene.background = new Color(DARK_BLUE);
+    scene.three.background = new Color(DARK_BLUE);
 
     scene.add(new AmbientLight(0xffffff, 1.5));
 

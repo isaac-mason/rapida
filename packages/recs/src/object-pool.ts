@@ -1,3 +1,8 @@
+/**
+ * ObjectPool manages a pool of objects of a given type
+ *
+ * @private internal class, do not use directly
+ */
 export class ObjectPool<T> {
   /**
    * An array of available objects

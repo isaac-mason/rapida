@@ -162,7 +162,7 @@ export const FallingBoxes = ({
     });
 
     const scene = world.create.scene();
-    scene.threeScene.background = new Color(LIGHT_BLUE);
+    scene.three.background = new Color(LIGHT_BLUE);
 
     const threeCamera = new PerspectiveCamera(50, 1, 1, 1000);
     const camera = world.create.camera({ id: 'camera', camera: threeCamera });

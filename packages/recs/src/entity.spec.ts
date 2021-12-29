@@ -38,8 +38,8 @@ describe('Entity', () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
-    mockSpace.recs._entityUpdatePool = new Map();
-    mockSpace.recs._componentUpdatePool = new Map();
+    mockSpace.recs._entitiesToUpdate = new Map();
+    mockSpace.recs._componentsToUpdate = new Map();
 
     entity = new Entity();
     entity.space = mockSpace;
@@ -48,12 +48,6 @@ describe('Entity', () => {
   it('should construct with default params if none are given', () => {
     expect(entity.id).toBeTruthy();
     expect(entity.components.size).toBe(0);
-  });
-
-  it('should add the entity event system tick method to the entity update pool', () => {
-    entity._init();
-
-    expect(mockSpace.recs._entityUpdatePool.size).toBe(1);
   });
 
   describe('addComponent', () => {
@@ -78,11 +72,11 @@ describe('Entity', () => {
 
       entity.addComponent(TestComponentWithUpdate);
 
-      expect(mockSpace.recs._componentUpdatePool.size).toBe(0);
+      expect(mockSpace.recs._componentsToUpdate.size).toBe(0);
 
       entity._init();
 
-      expect(mockSpace.recs._componentUpdatePool.size).toBe(1);
+      expect(mockSpace.recs._componentsToUpdate.size).toBe(1);
     });
   });
 
@@ -128,16 +122,16 @@ describe('Entity', () => {
       entity.addComponent(TestComponentWithUpdateOne);
       const componentTwo = entity.addComponent(TestComponentWithUpdateTwo);
 
-      expect(mockSpace.recs._componentUpdatePool.size).toBe(0);
+      expect(mockSpace.recs._componentsToUpdate.size).toBe(0);
 
       entity._init();
 
-      expect(mockSpace.recs._componentUpdatePool.size).toBe(2);
+      expect(mockSpace.recs._componentsToUpdate.size).toBe(2);
 
       entity.removeComponent(TestComponentWithUpdateOne);
       entity.removeComponent(componentTwo);
 
-      expect(mockSpace.recs._componentUpdatePool.size).toBe(0);
+      expect(mockSpace.recs._componentsToUpdate.size).toBe(0);
     });
   });
 

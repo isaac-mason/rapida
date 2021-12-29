@@ -256,7 +256,7 @@ export const InteractiveBallPit = () => {
     const scene = world.create.scene();
 
     const BACKGROUND = '#89CFF0';
-    scene.threeScene.background = new Color(BACKGROUND);
+    scene.three.background = new Color(BACKGROUND);
 
     const camera = world.create.camera({
       camera: new PerspectiveCamera(50, 1, 20, 1000),
@@ -297,7 +297,7 @@ export const InteractiveBallPit = () => {
     const ambientLight = new AmbientLight(0xffffff, 2);
     scene.add(ambientLight);
 
-    scene.threeScene.fog = new Fog('red', 0, 80);
+    scene.three.fog = new Fog('red', 0, 80);
 
     const space = world.create.space();
 

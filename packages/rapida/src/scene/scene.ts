@@ -18,7 +18,7 @@ export class Scene {
   /**
    * The three js scene
    */
-  threeScene = new three.Scene();
+  three = new three.Scene();
 
   /**
    * The world the scene is in
@@ -36,30 +36,28 @@ export class Scene {
   }
 
   /**
-   * Adds to the scene
-   * Used for adding three objects
+   * Adds three objects to the scene
    * @param e what should be added to the scenes
    */
   add(value: three.Object3D | three.Object3D[]): Scene {
     if (Array.isArray(value)) {
       // add the three objects
-      this.threeScene.add(...(value as three.Object3D[]));
+      this.three.add(...(value as three.Object3D[]));
     } else {
       // add the three object
-      this.threeScene.add(value);
+      this.three.add(value);
     }
 
     return this;
   }
 
   /**
-   * Removes from the scene
-   * Used for removing three objects
+   * Removes three objects from the scene
    * @param value what should be removed
    */
   remove(value: three.Object3D): Scene {
     // remove the three object
-    this.threeScene.remove(value);
+    this.three.remove(value);
 
     return this;
   }

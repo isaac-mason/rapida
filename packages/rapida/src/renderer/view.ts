@@ -253,7 +253,7 @@ export abstract class View {
   /**
    * The z index for the view. Determines what order the views are rendered in, therefore what layer the view is on.
    */
-  abstract zIndex: number;
+  abstract _zIndex: number;
 
   /**
    * The renderers dom element

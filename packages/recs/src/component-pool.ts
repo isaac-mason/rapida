@@ -3,6 +3,8 @@ import { ObjectPool } from './object-pool';
 
 /**
  * ComponentPool that manages reuse of component objects
+ *
+ * @private internal class, do not use directly
  */
 export class ComponentPool {
   /**

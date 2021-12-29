@@ -85,6 +85,7 @@ export abstract class System {
 
   /**
    * Initialises the system
+   * @private called internally, do not call directly
    */
   _init(): void {
     if (this.onInit) {
@@ -94,6 +95,7 @@ export abstract class System {
 
   /**
    * Updates the system
+   * @private called internally, do not call directly
    */
   _update(timeElapsed: number): void {
     if (this.onUpdate) {
@@ -103,6 +105,7 @@ export abstract class System {
 
   /**
    * Destroy logic for the system
+   * @private called internally, do not call directly
    */
   _destroy(): void {
     if (this.onDestroy) {

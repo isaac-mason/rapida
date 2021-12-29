@@ -5,11 +5,12 @@ import {
   EventSystem,
   uuid,
 } from '@rapidajs/rapida-common';
+import { RECS } from './recs';
 import { Component } from './component';
 import { Space } from './space';
 
 /**
- * Entity that contains components and calls component lifecycle methods
+ * Entity with a unique id that contains Components, which contain data and behavior
  */
 export class Entity {
   /**
@@ -23,20 +24,26 @@ export class Entity {
   components: Map<string, Component> = new Map();
 
   /**
-   * Whether the entity is alive
-   * If false, the entity will be destroyed by the Space on the next update
+   * Whether the entity is alive. If false, the entity will be destroyed by the Space on the next update
    */
   alive = true;
-
-  /**
-   * Whether the entity has been initialised
-   */
-  initialised = false;
 
   /**
    * The space the entity is in
    */
   space!: Space;
+
+  /**
+   * The RECS instance the entity is in
+   */
+  get recs(): RECS {
+    return this.space.recs;
+  }
+
+  /**
+   * Whether the entity has been initialised
+   */
+  private initialised = false;
 
   /**
    * The event system for the entity
@@ -46,7 +53,7 @@ export class Entity {
   /**
    * Map of component names to components
    */
-  private _componentNamesToComponents: Map<string, Component> = new Map();
+  private componentNamesToComponents: Map<string, Component> = new Map();
 
   /**
    * Destroy the entities components and set the entity as dead
@@ -66,7 +73,7 @@ export class Entity {
     ...args: Parameters<T['construct']>
   ): T {
     // request a component from the component pool
-    const component = this.space.recs.componentPool.request(constr);
+    const component = this.recs.componentPool.request(constr);
 
     // set the components entity
     component.entity = this;
@@ -80,7 +87,7 @@ export class Entity {
 
     // add the component to the entity components maps
     this.components.set(component.id, component);
-    this._componentNamesToComponents.set(
+    this.componentNamesToComponents.set(
       Component.getComponentName(constr),
       component
     );
@@ -122,7 +129,7 @@ export class Entity {
 
     // remove the onUpdate method from the component update pool
     if (component.onUpdate) {
-      this.space.recs._componentUpdatePool.delete(component.id);
+      this.recs._componentsToUpdate.delete(component.id);
     }
 
     // run the onDestroy method
@@ -135,13 +142,13 @@ export class Entity {
 
     // remove the component from the components maps
     this.components.delete(component.id);
-    this._componentNamesToComponents.delete(Component.getComponentName(value));
+    this.componentNamesToComponents.delete(Component.getComponentName(value));
 
     // tell the query manager that the component has been removed from the entity
-    this.space.recs.queryManager.onEntityComponentRemoved(this, component);
+    this.recs.queryManager.onEntityComponentRemoved(this, component);
 
     // release the component back into the update pool
-    this.space.recs.componentPool.release(component);
+    this.recs.componentPool.release(component);
 
     return this;
   }
@@ -159,7 +166,7 @@ export class Entity {
       | Component
       | string
   ): boolean {
-    return this._componentNamesToComponents.has(
+    return this.componentNamesToComponents.has(
       Component.getComponentName(value)
     );
   }
@@ -200,7 +207,7 @@ export class Entity {
       | string
   ): T | undefined {
     const component: Component | undefined =
-      this._componentNamesToComponents.get(Component.getComponentName(value));
+      this.componentNamesToComponents.get(Component.getComponentName(value));
 
     if (component) {
       return component as T;
@@ -232,15 +239,10 @@ export class Entity {
 
   /**
    * Initialise the entity
+   * @private called internally, do not call directly
    */
   _init(): Entity {
     this.initialised = true;
-
-    // add entity update to the update pool
-    this.space.recs._entityUpdatePool.set(this.id, () => {
-      // Process events in the buffer
-      this.events.tick();
-    });
 
     // initialise components
     this.components.forEach((c) => this.initialiseComponent(c));
@@ -249,7 +251,16 @@ export class Entity {
   }
 
   /**
+   * Updates the event system for the entity
+   * @private called internally, do not call directly
+   */
+  _update(): void {
+    this.events.tick();
+  }
+
+  /**
    * Resets the entity in preparation for object reuse
+   * @private called internally, do not call directly
    */
   _reset(): void {
     this.id = uuid();
@@ -266,12 +277,9 @@ export class Entity {
     }
 
     if (component.onUpdate) {
-      this.space.recs._componentUpdatePool.set(
-        component.id,
-        component.onUpdate
-      );
+      this.recs._componentsToUpdate.set(component.id, component);
     }
 
-    this.space.recs.queryManager.onEntityComponentAdded(this, component);
+    this.recs.queryManager.onEntityComponentAdded(this, component);
   }
 }

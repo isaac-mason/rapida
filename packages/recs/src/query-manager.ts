@@ -32,7 +32,8 @@ type QueryManagerEvent =
   | EntityRemovedEvent;
 
 /**
- * QueryManager that manages Query class instances
+ * QueryManager is an internal class that manages Query class instances
+ * @private internal class, do not use directly
  */
 export class QueryManager {
   /**
@@ -48,7 +49,7 @@ export class QueryManager {
   /**
    * A map of entity ids and a set of queries the entity is part of
    */
-  private _entityQueries: Map<string, Set<Query>> = new Map();
+  private entityQueries: Map<string, Set<Query>> = new Map();
 
   /**
    * A buffer of query manager events to process on the next update call
@@ -71,31 +72,35 @@ export class QueryManager {
     this.queries.forEach((q) => q._preUpdate());
 
     // process all events
-    const toProcess = this.eventsBuffer.splice(0, this.eventsBuffer.length);
-    toProcess.forEach((event) => {
-      if (event.type === QueryManagerEventType.ENTITY_COMPONENT_ADDED_EVENT) {
-        // handle entity component added event
-        this.queries.forEach((query) => {
-          if (query.componentNames.includes(event.component.constructor.name)) {
-            this.updateQueryForEntity(query, event.entity);
+    this.eventsBuffer.splice(0, this.eventsBuffer.length).forEach((event) => {
+      switch (event.type) {
+        case QueryManagerEventType.ENTITY_COMPONENT_ADDED_EVENT:
+          // handle entity component added event
+          this.queries.forEach((query) => {
+            if (
+              query.componentNames.includes(event.component.constructor.name)
+            ) {
+              this.updateQueryForEntity(query, event.entity);
+            }
+          });
+          break;
+        case QueryManagerEventType.ENTITY_COMPONENT_REMOVED_EVENT:
+          // handle entity component removed event
+          this.queries.forEach((query) => {
+            if (
+              query.componentNames.includes(event.component.constructor.name)
+            ) {
+              this.updateQueryForEntity(query, event.entity);
+            }
+          });
+          break;
+        case QueryManagerEventType.ENTITY_REMOVED_EVENT:
+          // handle entity removed event
+          const queries = this.entityQueries.get(event.entity.id);
+          if (!queries) {
+            return;
           }
-        });
-      } else if (
-        event.type === QueryManagerEventType.ENTITY_COMPONENT_REMOVED_EVENT
-      ) {
-        // handle entity component removed event
-        this.queries.forEach((query) => {
-          if (query.componentNames.includes(event.component.constructor.name)) {
-            this.updateQueryForEntity(query, event.entity);
-          }
-        });
-      } else {
-        // handle entity removed event
-        const queries = this._entityQueries.get(event.entity.id);
-        if (!queries) {
-          return;
-        }
-        queries.forEach((q) => q._removeEntity(event.entity));
+          queries.forEach((q) => q._removeEntity(event.entity));
       }
     });
   }
@@ -211,11 +216,11 @@ export class QueryManager {
    * @returns a set of queries an entity is part of
    */
   private getEntityQueries(entity: Entity): Set<Query> {
-    let entityQueries = this._entityQueries.get(entity.id);
+    let entityQueries = this.entityQueries.get(entity.id);
 
     if (entityQueries === undefined) {
       entityQueries = new Set<Query>();
-      this._entityQueries.set(entity.id, entityQueries);
+      this.entityQueries.set(entity.id, entityQueries);
     }
 
     return entityQueries;

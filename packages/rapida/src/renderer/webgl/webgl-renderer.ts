@@ -5,13 +5,6 @@ import { Renderer } from '../renderer';
 import { WebGLView, WebGLViewParams } from './webgl-view';
 
 /**
- * Factories for creating something within the WebGLRenderer
- */
-type WebGLRendererFactories = {
-  view: (params: WebGLViewParams) => WebGLView;
-};
-
-/**
  * Params for creating a WebGLRenderer
  */
 export type WebGLRendererParams = {
@@ -104,20 +97,22 @@ export class WebGLRenderer implements Renderer {
   }
 
   /**
-   * Initialises views
+   * Retrieves renderer factories
    */
-  init(): void {
-    this.initialised = true;
-    this.views.forEach((v) => {
-      v._init();
-    });
-  }
+  public get create() {
+    return {
+      /**
+       * Creates a new webgl view
+       * @param params params for creating a new webgl view
+       * @returns
+       */
+      view: (params: WebGLViewParams): WebGLView => {
+        const view = new WebGLView(this, params);
+        this.addView(view);
 
-  /**
-   * Updates views to process interaction events
-   */
-  update(): void {
-    this.views.forEach((v) => v._update());
+        return view;
+      },
+    };
   }
 
   /**
@@ -125,48 +120,6 @@ export class WebGLRenderer implements Renderer {
    */
   destroy(): void {
     this.rendererManager.removeRenderer(this);
-  }
-
-  /**
-   * Destroys the renderer and all views
-   */
-  _destroy(): void {
-    this.views.forEach((v) => {
-      v._destroy();
-    });
-    this.resizeObserver.disconnect();
-    this.three.forceContextLoss();
-    this.three.dispose();
-  }
-
-  /**
-   * Handles resizing
-   */
-  _onResize(): void {
-    this.three.setSize(
-      this.domElement.clientWidth,
-      this.domElement.clientHeight
-    );
-
-    this.views.forEach((v) => v._onResize());
-  }
-
-  /**
-   * Adds a view to the renderer
-   * @param view the view to add
-   */
-  addView(view: WebGLView): void {
-    this.views.set(view.id, view);
-
-    if (this.initialised) {
-      view._init();
-    }
-
-    if (this.orderedViews.length === 0) {
-      this.orderedViews.push(view);
-    }
-
-    this.sortViews();
   }
 
   /**
@@ -181,9 +134,55 @@ export class WebGLRenderer implements Renderer {
   }
 
   /**
-   * Renders all views for the renderer
+   * Initialises views
+   * @private called internally, do not call directly
    */
-  render(): void {
+  _init(): void {
+    this.initialised = true;
+    this.views.forEach((v) => {
+      v._init();
+    });
+  }
+
+  /**
+   * Updates views to process interaction events
+   * @private called internally, do not call directly
+   */
+  _update(): void {
+    this.views.forEach((v) => v._update());
+  }
+
+  /**
+   * Destroys the renderer and all views
+   * @private called internally, do not call directly
+   */
+  _destroy(): void {
+    this.views.forEach((v) => {
+      v._destroy();
+    });
+    this.resizeObserver.disconnect();
+    this.three.forceContextLoss();
+    this.three.dispose();
+  }
+
+  /**
+   * Handles resizing
+   * @private called internally, do not call directly
+   */
+  _onResize(): void {
+    this.three.setSize(
+      this.domElement.clientWidth,
+      this.domElement.clientHeight
+    );
+
+    this.views.forEach((v) => v._onResize());
+  }
+
+  /**
+   * Renders all views for the renderer
+   * @private called internally, do not call directly
+   */
+  _render(): void {
     const rect = this.three.domElement.getBoundingClientRect();
 
     this.views.forEach((view: WebGLView) => {
@@ -214,28 +213,27 @@ export class WebGLRenderer implements Renderer {
   }
 
   /**
-   * Sorts the views in the renderer by their z index
+   * Adds a view to the renderer
+   * @param view the view to add
    */
-  private sortViews(): void {
-    this.orderedViews.sort((a, b) => a.zIndex - b.zIndex);
+  private addView(view: WebGLView): void {
+    this.views.set(view.id, view);
+
+    if (this.initialised) {
+      view._init();
+    }
+
+    if (this.orderedViews.length === 0) {
+      this.orderedViews.push(view);
+    }
+
+    this.sortViews();
   }
 
   /**
-   * Factories for creating new objects within the renderer
+   * Sorts the views in the renderer by their z index
    */
-  private _factories: WebGLRendererFactories = {
-    view: (params: WebGLViewParams): WebGLView => {
-      const view = new WebGLView(this, params);
-      this.addView(view);
-
-      return view;
-    },
-  };
-
-  /**
-   * Retrieves renderer factories
-   */
-  public get create(): WebGLRendererFactories {
-    return this._factories;
+  private sortViews(): void {
+    this.orderedViews.sort((a, b) => a._zIndex - b._zIndex);
   }
 }

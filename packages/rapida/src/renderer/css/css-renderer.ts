@@ -4,13 +4,6 @@ import { Renderer } from '../renderer';
 import { RendererManager } from '../renderer-manager';
 
 /**
- * Factories for creating something in the renderer
- */
-type CSSRendererFactories = {
-  view: (params: CSSViewParams) => CSSView;
-};
-
-/**
  * CSSRenderer is a thin wrapper around the CSS3DRenderer three js class with support for multiple views
  *
  * After construction, the domElement property, which contains a div dom element, should be added to the dom.
@@ -57,13 +50,17 @@ export class CSSRenderer implements Renderer {
   }
 
   /**
-   * Initialises all css views
+   * Retrieves renderer factories
    */
-  init(): void {
-    this.initialised = true;
-    this.views.forEach((v) => {
-      v._init();
-    });
+  public get create() {
+    return {
+      view: (params: CSSViewParams): CSSView => {
+        const view = new CSSView(this, params);
+        this.addView(view);
+
+        return view;
+      },
+    };
   }
 
   /**
@@ -71,27 +68,6 @@ export class CSSRenderer implements Renderer {
    */
   destroy(): void {
     this.rendererManager.removeRenderer(this);
-  }
-
-  /**
-   * Destroys all css views
-   */
-  _destroy(): void {
-    this.views.forEach((v) => {
-      v._destroy();
-    });
-  }
-
-  /**
-   * Adds a view to the renderer
-   * @param view the view to add
-   */
-  addView(view: CSSView): void {
-    this.views.set(view.id, view);
-
-    if (this.initialised) {
-      view._init();
-    }
   }
 
   /**
@@ -104,7 +80,39 @@ export class CSSRenderer implements Renderer {
   }
 
   /**
+   * Initialises all css views
+   * @private called internally, do not call directly
+   */
+  _init(): void {
+    this.initialised = true;
+    this.views.forEach((v) => {
+      v._init();
+    });
+  }
+
+  /**
+   * Renders all of the views in the renderer
+   * @private called internally, do not call directly
+   */
+  _render(): void {
+    this.views.forEach((view: CSSView) => {
+      view.css3DRenderer.render(view.scene.three, view.camera.three);
+    });
+  }
+
+  /**
+   * Destroys all css views
+   * @private called internally, do not call directly
+   */
+  _destroy(): void {
+    this.views.forEach((v) => {
+      v._destroy();
+    });
+  }
+
+  /**
    * Resizes all css views
+   * @private called internally, do not call directly
    */
   _onResize(): void {
     this.views.forEach((v) => {
@@ -113,30 +121,14 @@ export class CSSRenderer implements Renderer {
   }
 
   /**
-   * Renders all of the views in the renderer
+   * Adds a view to the renderer
+   * @param view the view to add
    */
-  render(): void {
-    this.views.forEach((view: CSSView) => {
-      view.css3DRenderer.render(view.scene.threeScene, view.camera.three);
-    });
-  }
+  private addView(view: CSSView): void {
+    this.views.set(view.id, view);
 
-  /**
-   * Factories for creating objects within the renderer
-   */
-  private _factories: CSSRendererFactories = {
-    view: (params: CSSViewParams): CSSView => {
-      const view = new CSSView(this, params);
-      this.addView(view);
-
-      return view;
-    },
-  };
-
-  /**
-   * Retrieves renderer factories
-   */
-  public get create(): CSSRendererFactories {
-    return this._factories;
+    if (this.initialised) {
+      view._init();
+    }
   }
 }

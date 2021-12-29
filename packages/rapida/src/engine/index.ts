@@ -213,5 +213,4 @@ export class Engine {
       this.physicsLoop();
     }, this.world?._physicsUpdateDelayMs);
   }
-
 }

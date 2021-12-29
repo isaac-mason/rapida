@@ -122,6 +122,11 @@ export class XRRenderer implements Renderer {
    */
   private rendererManager: RendererManager;
 
+  /**
+   * Constructor for an XRRenderer
+   * @param manager the renderer manager for the XRRenderer
+   * @param params the params for the XRRenderer
+   */
   constructor(
     manager: RendererManager,
     { appendButton, renderer, mode, scene, camera }: XRRendererParams
@@ -146,7 +151,7 @@ export class XRRenderer implements Renderer {
         } as FrameEvent);
       }
       this.events.tick();
-      this.three.render(this.scene.threeScene, this.camera.three);
+      this.three.render(this.scene.three, this.camera.three);
     });
 
     // Create the renderer dom element for views within the renderer
@@ -187,6 +192,14 @@ export class XRRenderer implements Renderer {
   }
 
   /**
+   * Registers an event handler for new XRFrame frames
+   * @param handler the handler for a new frame
+   */
+  onFrame(handler: (e: FrameEvent) => void): EventSubscription {
+    return this.events.on('frame', handler);
+  }
+
+  /**
    * Destroys the XR renderer and removes it from the renderer manager
    */
   destroy(): void {
@@ -195,6 +208,7 @@ export class XRRenderer implements Renderer {
 
   /**
    * Destroys the XR renderer
+   * @private used internally, do not call directly
    */
   _destroy(): void {
     this.resizeObserver.disconnect();
@@ -205,6 +219,7 @@ export class XRRenderer implements Renderer {
 
   /**
    * Handles resizing of the XR renderer
+   * @private used internally, do not call directly
    */
   _onResize(): void {
     this.three.setSize(
@@ -217,13 +232,5 @@ export class XRRenderer implements Renderer {
     }
 
     this.camera.three.updateProjectionMatrix();
-  }
-
-  /**
-   * Registers an event handler for new XRFrame frames
-   * @param handler the handler for a new frame
-   */
-  onFrame(handler: (e: FrameEvent) => void): EventSubscription {
-    return this.events.on('frame', handler);
   }
 }

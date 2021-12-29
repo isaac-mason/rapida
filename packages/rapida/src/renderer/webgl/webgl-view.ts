@@ -1,4 +1,9 @@
-import { EventHandler, EventSystem, Event, uuid } from '@rapidajs/rapida-common';
+import {
+  EventHandler,
+  EventSystem,
+  Event,
+  uuid,
+} from '@rapidajs/rapida-common';
 import { Color, PerspectiveCamera, Vector2 } from 'three';
 import { EffectComposer, RenderPass } from 'three-stdlib';
 import { Camera } from '../../camera';
@@ -86,45 +91,35 @@ export class WebGLView extends View {
   /**
    * The z index for the view. Determines what order the views are rendered in, therefore what layer the view is on.
    */
-  zIndex = 0;
-
-  /**
-   * Parameters for the viewport that are used to recalculate the viewport on resize
-   */
-  private _viewportParams: ViewRectangleParams;
+  _zIndex = 0;
 
   /**
    * Getter for the viewport params
    */
   get viewport(): ViewRectangleParams {
-    return this._viewportParams;
+    return this.viewportParams;
   }
 
   /**
    * Setter for the viewport params. Resizes the view on setting.
    */
   set viewport(v: ViewRectangleParams) {
-    this._viewportParams = v;
+    this.viewportParams = v;
     this._onResize();
   }
-
-  /**
-   * Parameters for the scissor that are used to recalculate the scissor on resize
-   */
-  private _scissorParams: ViewRectangleParams;
 
   /**
    * Getter for the scissor params
    */
   get scissor(): ViewRectangleParams {
-    return this._scissorParams;
+    return this.scissorParams;
   }
 
   /**
    * Setter for the scissor params. Resizes the view on setting.
    */
   set scissor(v: ViewRectangleParams) {
-    this._scissorParams = v;
+    this.scissorParams = v;
     this._onResize();
   }
 
@@ -165,13 +160,25 @@ export class WebGLView extends View {
 
   /**
    * The current size of the viewport for the view. Sets how to convert from a shader's clip space to some portion of the canvas's pixel space
+   * @private used internally, do not use or assign
    */
   _viewport: ViewRectangle;
 
   /**
    * The current size of the scissor for the view. The shape outside of which nothing can be rendered
+   * @private used internally, do not use or assign
    */
   _scissor: ViewRectangle;
+
+  /**
+   * Parameters for the viewport that are used to recalculate the viewport on resize
+   */
+  private viewportParams: ViewRectangleParams;
+
+  /**
+   * Parameters for the scissor that are used to recalculate the scissor on resize
+   */
+  private scissorParams: ViewRectangleParams;
 
   /**
    * The renderer the view belongs to
@@ -237,7 +244,7 @@ export class WebGLView extends View {
     this.effectComposer = new EffectComposer(this.renderer.three);
 
     // create the render pass for the view
-    this.renderPass = new RenderPass(this.scene.threeScene, this.camera.three);
+    this.renderPass = new RenderPass(this.scene.three, this.camera.three);
 
     // add the render pass for the view
     this.effectComposer.addPass(this.renderPass);
@@ -247,7 +254,7 @@ export class WebGLView extends View {
     this.domElement.id = this.id;
     this.domElement.className = 'view webgl-view';
     this.domElement.style.position = 'absolute';
-    this.domElement.style.zIndex = `${this.zIndex}`;
+    this.domElement.style.zIndex = `${this._zIndex}`;
     this.rendererDomElement.appendChild(this.domElement);
 
     // set initial values for computed viewport and scissor values
@@ -257,13 +264,13 @@ export class WebGLView extends View {
     this.scissorSize = { left: 0, bottom: 0, width: 0, height: 0 };
 
     // store params for viewport and scissor if present
-    this._viewportParams = viewport || {
+    this.viewportParams = viewport || {
       bottom: 0,
       left: 0,
       width: 1,
       height: 1,
     };
-    this._scissorParams = scissor || {
+    this.scissorParams = scissor || {
       bottom: 0,
       left: 0,
       width: 1,
@@ -272,17 +279,28 @@ export class WebGLView extends View {
   }
 
   /**
-   * Initialises the view
+   * Adds an event handler for a view mouse or touch event
+   * @param event the event of event to subscribe to
+   * @param eventHandler the event handler
+   * @returns
    */
-  _init = (): void => {
-    this._onResize();
-  };
+  on<T extends typeof ALL_VIEW_EVENT_NAMES[number]>(
+    eventName: T,
+    eventHandler: EventHandler<ViewEventByName<T>>
+  ): ViewInteractionEventSubscription {
+    if (!VIEW_ALL_EVENT_NAMES.includes(eventName)) {
+      throw new Error(`${eventName} is not a supported view event`);
+    }
 
-  /**
-   * Updates the view
-   */
-  _update(): void {
-    this.events.tick();
+    const subscription = this.events.on(eventName, eventHandler);
+    this.addHandler(eventName, subscription.id);
+
+    return {
+      unsubscribe: () => {
+        subscription.unsubscribe();
+        this.removeHandler(eventName, subscription.id);
+      },
+    };
   }
 
   /**
@@ -294,6 +312,7 @@ export class WebGLView extends View {
 
   /**
    * Destroys the view
+   * @private called internally, do not call directly
    */
   _destroy(): void {
     // add the render pass for the view
@@ -304,12 +323,29 @@ export class WebGLView extends View {
   }
 
   /**
+   * Initialises the view
+   * @private called internally, do not call directly
+   */
+  _init = (): void => {
+    this._onResize();
+  };
+
+  /**
+   * Updates the view
+   * @private called internally, do not call directly
+   */
+  _update(): void {
+    this.events.tick();
+  }
+
+  /**
    * Handles resizing
+   * @private called internally, do not call directly
    */
   _onResize = (): void => {
     // calculate the new scissor and viewport
-    this._scissor = this.calculateViewRectangle(this._scissorParams);
-    this._viewport = this.calculateViewRectangle(this._viewportParams);
+    this._scissor = this.calculateViewRectangle(this.scissorParams);
+    this._viewport = this.calculateViewRectangle(this.viewportParams);
 
     // store the new size of the view
     const rendererDomRect = this.rendererDomElement.getBoundingClientRect();
@@ -347,37 +383,12 @@ export class WebGLView extends View {
   };
 
   /**
-   * Adds an event handler for a view mouse or touch event
-   * @param event the event of event to subscribe to
-   * @param eventHandler the event handler
-   * @returns
-   */
-  on<T extends typeof ALL_VIEW_EVENT_NAMES[number]>(
-    eventName: T,
-    eventHandler: EventHandler<ViewEventByName<T>>
-  ): ViewInteractionEventSubscription {
-    if (!VIEW_ALL_EVENT_NAMES.includes(eventName)) {
-      throw new Error(`${eventName} is not a supported view event`);
-    }
-
-    const subscription = this.events.on(eventName, eventHandler);
-    this.addHandler(eventName, subscription.id);
-
-    return {
-      unsubscribe: () => {
-        subscription.unsubscribe();
-        this._removeHandler(eventName, subscription.id);
-      },
-    };
-  }
-
-  /**
    * Returns the relative mouse position for a view given the client x and y
    * @param clientX the client x
    * @param clientY the client y
    * @returns the relative mouse position for the view
    */
-  private _getRelativeMouse(
+  private getRelativeMouse(
     clientX: number,
     clientY: number
   ): { relativeX: number; relativeY: number } {
@@ -396,7 +407,7 @@ export class WebGLView extends View {
    * @param eventName the name of the view event
    * @param handlerId the id of the handlers
    */
-  private _removeHandler<T extends typeof ALL_VIEW_EVENT_NAMES[number]>(
+  private removeHandler<T extends typeof ALL_VIEW_EVENT_NAMES[number]>(
     eventName: T,
     handlerId: string
   ): void {
@@ -440,7 +451,7 @@ export class WebGLView extends View {
           topic: eventName,
           data: {
             ...event,
-            ...this._getRelativeMouse(event.clientX, event.clientY),
+            ...this.getRelativeMouse(event.clientX, event.clientY),
           },
         } as ViewMouseEvent);
       };
@@ -455,7 +466,7 @@ export class WebGLView extends View {
               (_v: unknown, idx: number) =>
                 ({
                   ...touches[idx],
-                  ...this._getRelativeMouse(
+                  ...this.getRelativeMouse(
                     touches[idx].clientX,
                     touches[idx].clientY
                   ),
@@ -483,7 +494,7 @@ export class WebGLView extends View {
 
     this.domElement.addEventListener(eventName, eventHandler, false);
 
-    const unsubscribe = () => this._removeHandler(eventName, handlerId);
+    const unsubscribe = () => this.removeHandler(eventName, handlerId);
 
     listener = {
       unsubscribe,
