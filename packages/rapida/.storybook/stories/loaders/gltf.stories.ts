@@ -75,7 +75,7 @@ export const GLTFExample = () => {
         };
 
         onUpdate = (t: number) => {
-          this.mixer.update(t / 1000);
+          this.mixer.update(t);
         };
       }
 

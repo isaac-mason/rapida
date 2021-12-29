@@ -156,19 +156,19 @@ export class Space {
 
   /**
    * Updates the space by stepping the spaces event system
-   * @param timeElapsed the time since the last update in milliseconds
+   * @param timeElapsed the time since the last update in seconds
    * @private called internally, do not call directly
    */
-  _updateEvents(_timeElapsed: number): void {
+  _updateEvents(): void {
     this.events.tick();
   }
 
   /**
    * Updates all entities within the space
-   * @param timeElapsed the time since the last update in milliseconds
+   * @param timeElapsed the time since the last update in seconds
    * @private called internally, do not call directly
    */
-  _updateEntities(_timeElapsed: number): void {
+  _updateEntities(): void {
     const dead: Entity[] = [];
     const alive: Entity[] = [];
 

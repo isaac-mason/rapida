@@ -79,7 +79,7 @@ export abstract class System {
 
   /**
    * Logic for a systems update loop
-   * @param timeElapsed the time since the last update
+   * @param timeElapsed the time since the last update in seconds
    */
   onUpdate?: (timeElapsed: number) => void = undefined;
 
@@ -95,6 +95,7 @@ export abstract class System {
 
   /**
    * Updates the system
+   * @param timeElapsed the time elapsed in seconds
    * @private called internally, do not call directly
    */
   _update(timeElapsed: number): void {

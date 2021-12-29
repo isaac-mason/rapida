@@ -22,7 +22,7 @@ export default {
 
 export const FallingBoxes = ({
   spawnInterval,
-  timeAlive,
+  timeAliveMs,
   gravity,
   box,
 }: {
@@ -93,7 +93,7 @@ export const FallingBoxes = ({
 
       setTimeout(() => {
         this.destroy();
-      }, timeAlive);
+      }, timeAliveMs);
     };
 
     destroy = (): void => {
@@ -108,7 +108,7 @@ export const FallingBoxes = ({
     scene: Scene;
     physics: Physics;
 
-    msCounter: number = 0;
+    counter: number = 0;
 
     constructor({
       space,
@@ -134,10 +134,10 @@ export const FallingBoxes = ({
     }
 
     onUpdate = (timeElapsed: number): void => {
-      this.msCounter += timeElapsed;
+      this.counter += timeElapsed;
 
-      if (this.msCounter >= spawnInterval) {
-        this.msCounter = 0;
+      if (this.counter >= spawnInterval) {
+        this.counter = 0;
         this.createFallingCube();
       }
     };
@@ -230,8 +230,8 @@ export const FallingBoxes = ({
 };
 
 FallingBoxes.args = {
-  spawnInterval: 250,
-  timeAlive: 30000,
+  spawnInterval: 0.25,
+  timeAliveMs: 30000,
   gravity: {
     x: 0,
     y: -10,

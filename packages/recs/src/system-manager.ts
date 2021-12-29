@@ -100,7 +100,7 @@ export class SystemManager {
 
   /**
    * Updates systems in the system manager
-   * @param timeElapsed the time elapsed in milliseconds
+   * @param timeElapsed the time elapsed in seconds
    */
   update(timeElapsed: number): void {
     this.updatePool.forEach((system) => {

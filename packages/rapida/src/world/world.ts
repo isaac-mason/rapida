@@ -373,7 +373,7 @@ export class World {
 
   /**
    * Updates the world
-   * @param timeElapsed the time elapsed in milliseconds
+   * @param timeElapsed the time elapsed in seconds
    * @private called internally, do not call directly
    */
   _update(timeElapsed: number): void {
@@ -389,6 +389,7 @@ export class World {
 
   /**
    * Steps the physics world
+   * @param timeElapsed the time elapsed in seconds
    * @private called internally, do not call directly
    */
   async _updatePhysics(timeElapsed: number): Promise<void> {

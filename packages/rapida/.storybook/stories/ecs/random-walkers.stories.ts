@@ -66,7 +66,7 @@ class WalkingComponent extends Component {
     this.newTargetCountdown = WalkingComponent.initialNewTargetCountdown;
   };
 
-  static initialNewTargetCountdown = 100;
+  static initialNewTargetCountdown = 0.3;
 }
 
 class EnergyComponent extends Component {
@@ -94,7 +94,7 @@ class RandomWalkSystem extends System {
 
       walk.newTargetCountdown -= timeElapsed * (Math.random() + 0.001);
       if (!walk.target || walk.newTargetCountdown <= 0) {
-        energy.energy -= (Math.random() + 0.01) * 0.1;
+        energy.energy -= (Math.random() + 0.01) * 0.5;
 
         if (energy.energy <= 0) {
           entity.removeComponent(WalkingComponent);
@@ -112,13 +112,13 @@ class RandomWalkSystem extends System {
       }
 
       const t = 1.0 - Math.pow(0.001, timeElapsed);
-      object.mesh.position.lerp(walk.target, 0.01 * t);
+      object.mesh.position.lerp(walk.target, 0.1 * t);
     });
   };
 }
 
 class RestingSystem extends System {
-  private static energyTimeThreshold = 200;
+  private static energyTimeThreshold = 0.2;
   private energyCounter = 0;
 
   queries = {

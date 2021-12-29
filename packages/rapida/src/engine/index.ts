@@ -185,7 +185,7 @@ export class Engine {
     const t = performance.now();
     const timeElapsed = t - (this.previousGameLoopFrame as number);
 
-    this.world?._update(timeElapsed);
+    this.world?._update(timeElapsed / 1000);
 
     this.gameLoopStats?.update();
 

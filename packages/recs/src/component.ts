@@ -82,7 +82,7 @@ export abstract class Component {
   /**
    * Update logic for the component
    * If this method is not implemented in a component it will not be added to the update job pool
-   * @param timeElapsed the time since the last update for this component in milliseconds
+   * @param timeElapsed the time since the last update for this component in seconds
    */
   onUpdate: ((timeElapsed: number) => void) | undefined = undefined;
 

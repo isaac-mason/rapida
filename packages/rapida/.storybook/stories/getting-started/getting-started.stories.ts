@@ -30,8 +30,8 @@ class SpinningCubeComponent extends Component {
   };
 
   onUpdate = (timeElapsed: number): void => {
-    this.cube.rotation.x += timeElapsed * 0.0001;
-    this.cube.rotation.y += timeElapsed * 0.0001;
+    this.cube.rotation.x += timeElapsed * 0.1;
+    this.cube.rotation.y += timeElapsed * 0.1;
   };
 
   onDestroy = (): void => {

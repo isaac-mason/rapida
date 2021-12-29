@@ -140,7 +140,7 @@ export class RECS {
 
   /**
    * Updates the RECS instance
-   * @param timeElapsed the time elapsed in milliseconds
+   * @param timeElapsed the time elapsed in seconds
    */
   update(timeElapsed: number): void {
     // update components - runs update methods for all components that have them
@@ -150,10 +150,10 @@ export class RECS {
     this._entitiesToUpdate.forEach((e) => e._update());
 
     // update spaces - steps space event system
-    this.spaces.forEach((s) => s._updateEvents(timeElapsed));
+    this.spaces.forEach((s) => s._updateEvents());
 
     // update entities in spaces - checks if entities are alive and releases them if they are dead
-    this.spaces.forEach((s) => s._updateEntities(timeElapsed));
+    this.spaces.forEach((s) => s._updateEntities());
 
     // update queries
     this.queryManager.update();
