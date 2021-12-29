@@ -64,11 +64,11 @@ class BallPitContainer extends Component {
         rotation: [0, -Math.PI / 2, 0],
       },
       {
-        position: [0, 0, 0],
+        position: [0, -(width / 2), 0],
         rotation: [0, 0, 0],
       },
       {
-        position: [0, 0, 12],
+        position: [0, 0, width / 2 + 1],
         rotation: [0, -Math.PI, 0],
       },
     ];

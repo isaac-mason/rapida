@@ -75,7 +75,6 @@ export const FallingBoxes = ({
           args: [box.size.x, box.size.y, box.size.z],
           position: [0, 0, 0],
           rotation: [0, 0, 0],
-          fixedRotation: false,
           mass: box.mass,
           allowSleep: true,
         },

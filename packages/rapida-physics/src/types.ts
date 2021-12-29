@@ -409,6 +409,7 @@ export type PhysicsContext = {
 export type DebugApi = {
   add(id: string, params: BodyParams, type: BodyShapeType): void;
   remove(id: string): void;
+  update(): void;
 };
 
 export type Broadphase = 'Naive' | 'SAP';

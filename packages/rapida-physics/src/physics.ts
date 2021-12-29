@@ -393,6 +393,7 @@ class Physics {
 
         this.stepOriginsToCallbacks[origin] = () => {
           delete this.stepOriginsToCallbacks[origin as number];
+          this.debugger?.update();
           resolve();
         };
       }
@@ -408,6 +409,7 @@ class Physics {
       );
 
       if (!waitToResolve) {
+        this.debugger?.update();
         resolve();
       }
     });

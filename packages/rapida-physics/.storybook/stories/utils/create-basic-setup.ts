@@ -59,7 +59,6 @@ loop: (() => void)[]
       physics.step(elapsed);
       lastCallTime = now;
     },
-    () => debug.update(),
     () => renderer.render(scene, camera),
   ];
 

@@ -73,7 +73,7 @@ class PhysicsDebugger {
     this.physics = physics;
 
     this.scene = params?.scene ? params.scene : new Scene();
-    this.color = params?.color ? params.color : 'black';
+    this.color = params?.color ? params.color : 'white';
     this.scale = params?.scale ? params.scale : 1;
 
     this.debugger = cannonDebugger(this.scene, this.debugInfo.bodies, {
