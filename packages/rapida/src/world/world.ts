@@ -19,20 +19,14 @@ import { XRRenderer, XRRendererParams } from '../renderer/xr/xr-renderer';
 import { Loaders } from '../loaders';
 
 export enum WorldEventName {
-  READY = 'ready',
   ADD_PHYSICS = 'addphysics',
   REMOVE_PHYSICS = 'removephysics',
 }
 
 export const WORLD_ALL_EVENT_NAMES: string[] = [
-  WorldEventName.READY,
   WorldEventName.ADD_PHYSICS,
   WorldEventName.REMOVE_PHYSICS,
 ];
-
-export interface WorldReadyEvent {
-  topic: WorldEventName.READY;
-}
 
 export interface WorldAddPhysicsEvent {
   topic: WorldEventName.ADD_PHYSICS;
@@ -45,7 +39,6 @@ export interface WorldRemovePhysicsEvent {
 }
 
 export interface WorldEventMap {
-  ready: WorldReadyEvent;
   addphysics: WorldAddPhysicsEvent;
   removephysics: WorldRemovePhysicsEvent;
 }
@@ -82,7 +75,7 @@ export type WorldParams = {
      * @see Loaders
      */
     dracoDecoderPath?: string;
-  }
+  };
 };
 
 /**
@@ -184,6 +177,7 @@ export class World {
   /**
    * Retrieves world factories
    */
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public get create() {
     return {
       /**
@@ -280,6 +274,7 @@ export class World {
   /**
    * Retrieves methods for adding to the world
    */
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public get add() {
     return {
       /**
@@ -296,6 +291,7 @@ export class World {
   /**
    * Retrieves methods for loading assets into the world
    */
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public get load() {
     return this.loaders;
   }
@@ -356,11 +352,6 @@ export class World {
 
     // Initial render
     this._render();
-
-    // emit ready event
-    this.events.emit({
-      topic: WorldEventName.READY,
-    });
   }
 
   /**

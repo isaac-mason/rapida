@@ -1,9 +1,4 @@
-import {
-  EventHandler,
-  EventSystem,
-  Event,
-  uuid,
-} from '@rapidajs/rapida-common';
+import { EventHandler, EventSystem, uuid } from '@rapidajs/rapida-common';
 import { Color, PerspectiveCamera, Vector2 } from 'three';
 import { EffectComposer, RenderPass } from 'three-stdlib';
 import { Camera } from '../../camera';

@@ -1,6 +1,6 @@
 import { useEffect } from '@storybook/client-api';
 import * as three from 'three';
-import rapida, { World } from '../../../src';
+import rapida from '../../../src';
 
 export default {
   title: 'Renderers / Two Renderers',
@@ -47,16 +47,14 @@ export const TwoRenderers = () => {
 
     scene.add(cube);
 
-    world.on('ready', () => {
-      document
-        .getElementById('renderer-root-1')
-        .appendChild(rendererOne.domElement);
-      document
-        .getElementById('renderer-root-2')
-        .appendChild(rendererTwo.domElement);
-    });
-
     engine.start(world);
+
+    document
+      .getElementById('renderer-root-1')
+      .appendChild(rendererOne.domElement);
+    document
+      .getElementById('renderer-root-2')
+      .appendChild(rendererTwo.domElement);
 
     return () => engine.destroy();
   });

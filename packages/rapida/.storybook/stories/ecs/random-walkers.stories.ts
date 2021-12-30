@@ -204,11 +204,9 @@ export const RandomWalkers = () => {
     world.add.system(new RandomWalkSystem());
     world.add.system(new RestingSystem());
 
-    world.on('ready', () => {
-      document.getElementById('renderer-root').appendChild(renderer.domElement);
-    });
-
     engine.start(world);
+
+    document.getElementById('renderer-root').appendChild(renderer.domElement);
 
     return () => engine.destroy();
   });

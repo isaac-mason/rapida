@@ -41,7 +41,7 @@ export class Engine {
   /**
    * Whether there is a physics loop running
    */
-   private physicsLoopRunning = false;
+  private physicsLoopRunning = false;
 
   /**
    * Stats instance for the game loop
@@ -51,7 +51,7 @@ export class Engine {
   /**
    * Stats instance for the physics loop
    */
-   private physicsStats?: Stats;
+  private physicsStats?: Stats;
 
   /**
    * Stats instance for the render loop
@@ -138,9 +138,9 @@ export class Engine {
     });
 
     this.world.on('removephysics', () => {
-      // kills physics loop on the next iteration 
+      // kills physics loop on the next iteration
       this.physicsLoopRunning = false;
-    })
+    });
 
     return this;
   }
@@ -199,7 +199,7 @@ export class Engine {
   /**
    * The physics loop
    */
-   private async physicsLoop() {
+  private async physicsLoop() {
     if (!this.running || !this.physicsLoopRunning) {
       return;
     }

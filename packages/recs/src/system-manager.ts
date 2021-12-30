@@ -9,7 +9,7 @@ import { System } from './system';
  *
  * Maintains the usage of queries by systems and removes queries from the `QueryManager` if no systems are
  * using a query.
- * 
+ *
  * @private internal class, do not use directly
  */
 export class SystemManager {

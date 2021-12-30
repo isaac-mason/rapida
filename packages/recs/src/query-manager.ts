@@ -73,34 +73,29 @@ export class QueryManager {
 
     // process all events
     this.eventsBuffer.splice(0, this.eventsBuffer.length).forEach((event) => {
-      switch (event.type) {
-        case QueryManagerEventType.ENTITY_COMPONENT_ADDED_EVENT:
-          // handle entity component added event
-          this.queries.forEach((query) => {
-            if (
-              query.componentNames.includes(event.component.constructor.name)
-            ) {
-              this.updateQueryForEntity(query, event.entity);
-            }
-          });
-          break;
-        case QueryManagerEventType.ENTITY_COMPONENT_REMOVED_EVENT:
-          // handle entity component removed event
-          this.queries.forEach((query) => {
-            if (
-              query.componentNames.includes(event.component.constructor.name)
-            ) {
-              this.updateQueryForEntity(query, event.entity);
-            }
-          });
-          break;
-        case QueryManagerEventType.ENTITY_REMOVED_EVENT:
-          // handle entity removed event
-          const queries = this.entityQueries.get(event.entity.id);
-          if (!queries) {
-            return;
+      if (event.type === QueryManagerEventType.ENTITY_COMPONENT_ADDED_EVENT) {
+        // handle entity component added event
+        this.queries.forEach((query) => {
+          if (query.componentNames.includes(event.component.constructor.name)) {
+            this.updateQueryForEntity(query, event.entity);
           }
-          queries.forEach((q) => q._removeEntity(event.entity));
+        });
+      } else if (
+        event.type === QueryManagerEventType.ENTITY_COMPONENT_REMOVED_EVENT
+      ) {
+        // handle entity component removed event
+        this.queries.forEach((query) => {
+          if (query.componentNames.includes(event.component.constructor.name)) {
+            this.updateQueryForEntity(query, event.entity);
+          }
+        });
+      } else if (event.type === QueryManagerEventType.ENTITY_REMOVED_EVENT) {
+        // handle entity removed event
+        const queries = this.entityQueries.get(event.entity.id);
+        if (!queries) {
+          return;
+        }
+        queries.forEach((q) => q._removeEntity(event.entity));
       }
     });
   }

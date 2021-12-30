@@ -8,7 +8,7 @@ import {
 } from 'three';
 import { OrbitControls } from 'three-stdlib';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
-import rapida, { World } from '../../../src';
+import rapida from '../../../src';
 
 export default {
   title: 'Renderers / Simple CSS Renderer',
@@ -81,14 +81,11 @@ export const SimpleCSSRenderer = () => {
     domObject.position.z = 50;
     scene.add(domObject);
 
-    world.on('ready', () => {
-      const root = document.getElementById('renderer-root');
-
-      root.appendChild(webglRenderer.domElement);
-      root.appendChild(cssRenderer.domElement);
-    });
-
     engine.start(world);
+
+    const root = document.getElementById('renderer-root');
+    root.appendChild(webglRenderer.domElement);
+    root.appendChild(cssRenderer.domElement);
 
     return () => engine.destroy();
   });

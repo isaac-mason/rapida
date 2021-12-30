@@ -27,12 +27,6 @@ export const GLTFExample = () => {
       const renderer = world.create.renderer.webgl();
       renderer.three.outputEncoding = sRGBEncoding;
 
-      world.on('ready', () => {
-        document
-          .getElementById('renderer-root')
-          .appendChild(renderer.domElement);
-      });
-
       const scene = world.create.scene();
       scene.three.background = new Color('#bfe3dd');
 
@@ -83,6 +77,8 @@ export const GLTFExample = () => {
       space.create.entity().addComponent(LittlestTokyoModel, loadedGLTF);
 
       engine.start(world);
+
+      document.getElementById('renderer-root').appendChild(renderer.domElement);
     })();
 
     return () => engine.destroy();

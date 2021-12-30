@@ -74,11 +74,9 @@ export const HelloWorld = () => {
     const cube = space.create.entity();
     cube.addComponent(SpinningCubeComponent, { scene });
 
-    world.on('ready', () => {
-      document.getElementById('renderer-root').appendChild(renderer.domElement);
-    });
-
     engine.start(world);
+
+    document.getElementById('renderer-root').appendChild(renderer.domElement);
 
     return () => engine.destroy();
   });

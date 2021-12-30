@@ -14,7 +14,7 @@ import {
   WebGLRenderer,
 } from 'three';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
-import rapida, { Component, Scene, Space, System, World } from '../../../src';
+import rapida, { Component, Scene, Space, System } from '../../../src';
 
 export default {
   title: 'Physics / Falling Boxes',
@@ -27,7 +27,7 @@ export const FallingBoxes = ({
   box,
 }: {
   spawnInterval: number;
-  timeAlive: number;
+  timeAliveMs: number;
   gravity: { x: number; y: number; z: number };
   box: {
     size: { x: number; y: number; z: number };
@@ -209,11 +209,9 @@ export const FallingBoxes = ({
     const cubeEmitter = new CubeSpawner({ space, scene, physics });
     world.add.system(cubeEmitter);
 
-    world.on('ready', () => {
-      document.getElementById('renderer-root').appendChild(renderer.domElement);
-    });
-
     engine.start(world);
+
+    document.getElementById('renderer-root').appendChild(renderer.domElement);
 
     return () => engine.destroy();
   });

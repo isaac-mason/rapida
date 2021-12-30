@@ -117,7 +117,7 @@ export class CSSView extends View {
    * The zIndex for the view
    * @private used internally, do not use or assign
    */
-   _zIndex = 0;
+  _zIndex = 0;
 
   /**
    * The viewport for the css view rectangle
@@ -216,14 +216,14 @@ export class CSSView extends View {
     this.resizeObserver = new ResizeObserver(() => this._onResize());
     this.resizeObserver.observe(this.renderer.domElement);
   }
-  
+
   /**
    * Destroys the view and removes it from the renderer
    */
   destroy = (): void => {
     this.renderer.removeView(this);
   };
-  
+
   /**
    * Initialises the view
    * @private called internally, do not call directly
@@ -236,6 +236,7 @@ export class CSSView extends View {
    * Destroys the views resources
    * @private called internally, do not call directly
    */
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   _destroy = (): void => {};
 
   /**

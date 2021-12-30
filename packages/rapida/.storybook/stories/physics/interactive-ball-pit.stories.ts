@@ -307,11 +307,9 @@ export const InteractiveBallPit = () => {
       .entity()
       .addComponent(Cursor, { physics, camera, view, scene });
 
-    world.on('ready', () => {
-      document.getElementById('renderer-root').appendChild(renderer.domElement);
-    });
-
     engine.start(world);
+
+    document.getElementById('renderer-root').appendChild(renderer.domElement);
 
     return () => engine.destroy();
   });

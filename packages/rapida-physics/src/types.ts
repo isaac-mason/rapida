@@ -137,17 +137,17 @@ export interface PhysicsObjectApi extends WorkerApi {
 }
 
 export type ConstraintApi = {
-  bodyA: Object3D,
-  bodyB: Object3D,
+  bodyA: Object3D;
+  bodyB: Object3D;
   api: {
     enable: () => void;
     disable: () => void;
-  },
+  };
 };
 
 export type HingeConstraintApi = {
-  bodyA: Object3D,
-  bodyB: Object3D,
+  bodyA: Object3D;
+  bodyB: Object3D;
   api: {
     enable: () => void;
     disable: () => void;
@@ -155,18 +155,18 @@ export type HingeConstraintApi = {
     disableMotor: () => void;
     setMotorSpeed: (value: number) => void;
     setMotorMaxForce: (value: number) => void;
-  },
+  };
 };
 
 export type SpringApi = {
-  uuid: string, // uuid
-  bodyA: Object3D,
-  bodyB: Object3D,
+  uuid: string; // uuid
+  bodyA: Object3D;
+  bodyB: Object3D;
   api: {
     setStiffness: (value: number) => void;
     setRestLength: (value: number) => void;
     setDamping: (value: number) => void;
-  },
+  };
 };
 
 export type ConstraintTypes = 'PointToPoint' | 'ConeTwist' | 'Distance' | 'Lock';
