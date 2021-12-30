@@ -16,7 +16,7 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>rapida - 3D for the Web</title>
+        <title>rápida - 3D for the Web</title>
         <meta
           name="description"
           content="rapida makes creating interactive 3d content for the web with three.js easy!"
@@ -24,7 +24,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>rapida</h1>
+        <h1 className={styles.title}>rápida</h1>
 
         <p className={styles.description}>
           rapida helps you create interactive 3d content for the web
