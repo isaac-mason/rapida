@@ -160,6 +160,8 @@ export const RandomWalkers = () => {
       }),
     });
 
+    document.getElementById('renderer-root').appendChild(renderer.domElement);
+
     const scene = world.create.scene();
     scene.three.fog = new Fog('red', 40, 110);
 
@@ -205,8 +207,6 @@ export const RandomWalkers = () => {
     world.add.system(new RestingSystem());
 
     engine.start(world);
-
-    document.getElementById('renderer-root').appendChild(renderer.domElement);
 
     return () => engine.destroy();
   });

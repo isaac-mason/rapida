@@ -47,6 +47,8 @@ export const HelloWorld = () => {
 
     const renderer = world.create.renderer.webgl();
 
+    document.getElementById('renderer-root').appendChild(renderer.domElement);
+
     const scene = world.create.scene();
 
     const camera = world.create.camera();
@@ -75,8 +77,6 @@ export const HelloWorld = () => {
     cube.addComponent(SpinningCubeComponent, { scene });
 
     engine.start(world);
-
-    document.getElementById('renderer-root').appendChild(renderer.domElement);
 
     return () => engine.destroy();
   });

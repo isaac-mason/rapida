@@ -16,6 +16,13 @@ export const TwoRenderers = () => {
 
     const rendererTwo = world.create.renderer.webgl();
 
+    document
+      .getElementById('renderer-root-1')
+      .appendChild(rendererOne.domElement);
+    document
+      .getElementById('renderer-root-2')
+      .appendChild(rendererTwo.domElement);
+
     const scene = world.create.scene({ id: 'mainScene' });
 
     const camera = world.create.camera({ id: 'mainCamera' });
@@ -48,13 +55,6 @@ export const TwoRenderers = () => {
     scene.add(cube);
 
     engine.start(world);
-
-    document
-      .getElementById('renderer-root-1')
-      .appendChild(rendererOne.domElement);
-    document
-      .getElementById('renderer-root-2')
-      .appendChild(rendererTwo.domElement);
 
     return () => engine.destroy();
   });

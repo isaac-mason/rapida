@@ -47,6 +47,8 @@ export const TwoViewsEmbedded = () => {
 
     const renderer = world.create.renderer.webgl();
 
+    document.getElementById('renderer-root').appendChild(renderer.domElement);
+
     const scene = world.create.scene();
 
     const cameraOne = world.create.camera({
@@ -100,8 +102,6 @@ export const TwoViewsEmbedded = () => {
     space.create.entity().addComponent(SpinningCube, { scene });
     
     engine.start(world);
-    
-    document.getElementById('renderer-root').appendChild(renderer.domElement);
 
     return () => engine.destroy();
   });

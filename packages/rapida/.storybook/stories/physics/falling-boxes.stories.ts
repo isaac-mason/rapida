@@ -154,7 +154,9 @@ export const FallingBoxes = ({
         powerPreference: 'high-performance',
       }),
     });
-
+    
+    document.getElementById('renderer-root').appendChild(renderer.domElement);
+    
     const physics = world.create.physics({
       allowSleep: true,
       gravity: [gravity.x, gravity.y, gravity.z],
@@ -210,8 +212,6 @@ export const FallingBoxes = ({
     world.add.system(cubeEmitter);
 
     engine.start(world);
-
-    document.getElementById('renderer-root').appendChild(renderer.domElement);
 
     return () => engine.destroy();
   });

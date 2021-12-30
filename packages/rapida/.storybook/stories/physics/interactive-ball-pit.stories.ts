@@ -249,6 +249,8 @@ export const InteractiveBallPit = () => {
       }),
     });
 
+    document.getElementById('renderer-root').appendChild(renderer.domElement);
+
     const physics = world.create.physics({
       gravity: [0, -10, 0],
     });
@@ -308,8 +310,6 @@ export const InteractiveBallPit = () => {
       .addComponent(Cursor, { physics, camera, view, scene });
 
     engine.start(world);
-
-    document.getElementById('renderer-root').appendChild(renderer.domElement);
 
     return () => engine.destroy();
   });

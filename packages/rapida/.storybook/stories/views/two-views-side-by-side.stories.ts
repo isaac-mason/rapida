@@ -47,6 +47,8 @@ export const TwoViewsSideBySide = () => {
 
     const renderer = world.create.renderer.webgl();
 
+    document.getElementById('renderer-root').appendChild(renderer.domElement);
+
     const scene = world.create.scene();
 
     const cameraOne = world.create.camera({
@@ -108,10 +110,8 @@ export const TwoViewsSideBySide = () => {
     const space = world.create.space();
 
     space.create.entity().addComponent(SpinningCube, { scene });
-    
+
     engine.start(world);
-    document
-    .getElementById('renderer-root').appendChild(renderer.domElement);
 
     return () => engine.destroy();
   });

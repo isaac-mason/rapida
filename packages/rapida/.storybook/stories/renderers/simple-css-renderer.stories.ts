@@ -25,6 +25,10 @@ export const SimpleCSSRenderer = () => {
 
     const cssRenderer = world.create.renderer.css();
 
+    const root = document.getElementById('renderer-root');
+    root.appendChild(webglRenderer.domElement);
+    root.appendChild(cssRenderer.domElement);
+
     // create camera and scene
     const scene = world.create.scene();
     const camera = world.create.camera();
@@ -82,10 +86,6 @@ export const SimpleCSSRenderer = () => {
     scene.add(domObject);
 
     engine.start(world);
-
-    const root = document.getElementById('renderer-root');
-    root.appendChild(webglRenderer.domElement);
-    root.appendChild(cssRenderer.domElement);
 
     return () => engine.destroy();
   });
