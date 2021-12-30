@@ -1,5 +1,5 @@
 import Stats from 'stats.js';
-import { World, WorldParams } from '../world';
+import { World } from '../world';
 
 /**
  * Parameters for creating a new rapida engine

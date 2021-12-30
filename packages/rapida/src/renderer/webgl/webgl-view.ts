@@ -188,7 +188,7 @@ export class WebGLView extends View {
   /**
    * The events system for the view which is used for mouse and touch events
    */
-  private events = new EventSystem();
+  private events = new EventSystem({ queued: true });
 
   /**
    * A map of dom event listener names to data about listeners

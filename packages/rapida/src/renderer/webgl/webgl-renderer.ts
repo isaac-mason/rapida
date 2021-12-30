@@ -99,7 +99,7 @@ export class WebGLRenderer implements Renderer {
   /**
    * Retrieves renderer factories
    */
-  public get create() {
+  public get create(): { view: (params: WebGLViewParams) => WebGLView } {
     return {
       /**
        * Creates a new webgl view

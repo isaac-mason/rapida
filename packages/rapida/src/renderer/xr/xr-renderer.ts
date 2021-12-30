@@ -115,7 +115,7 @@ export class XRRenderer implements Renderer {
   /**
    * Events system for frame events
    */
-  private events = new EventSystem();
+  private events = new EventSystem({ queued: true });
 
   /**
    * The renderer manager for the XR Renderer

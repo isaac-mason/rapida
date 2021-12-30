@@ -21,20 +21,44 @@ export type EventSubscription = {
 export type EventHandler<E extends Event | Event> = (event: E) => void;
 
 /**
- * A simple event handling system
+ * Params for creating an EventSystem
+ */
+export type EventSystemParams = {
+  /**
+   * If true, events will be queued and processed on calling `.tick()`. If false, events will be processed immediately on emit
+   * @see EventSystem.queued
+   */
+  queued: boolean;
+};
+
+/**
+ * EventSystem that can register event handlers and process events, either immediately or by queuing events
  */
 export class EventSystem {
   /**
    * The event handlers
    */
-  private handlers: {
-    [eventName: string]: { [handlerId: string]: EventHandler<Event> };
-  } = {};
+  private handlers: Map<string, Map<string, EventHandler<Event>>> = new Map();
 
   /**
    * The events that will be processed on the next update
    */
   private buffer: Event[] = [];
+
+  /**
+   * If true, events will be queued and processed on calling `.tick()`. If false, events will be processed immediately on emit.
+   * By default, this will be `false`; events will be processed immediately.
+   * @see EventSystemParams.queued
+   */
+  private queued: boolean;
+
+  /**
+   * Constructor for an EventSystem
+   * @param params params for creating the event system
+   */
+  constructor(params?: EventSystemParams) {
+    this.queued = params?.queued || false;
+  }
 
   /**
    * Processes all events currently in the buffer
@@ -57,10 +81,14 @@ export class EventSystem {
     handler: EventHandler<E>
   ): EventSubscription {
     const id = uuid();
-    if (this.handlers[eventName] === undefined) {
-      this.handlers[eventName] = {};
+    let eventHandlers = this.handlers.get(eventName);
+
+    if (eventHandlers === undefined) {
+      eventHandlers = new Map<string, EventHandler<Event>>();
+      this.handlers.set(eventName, eventHandlers);
     }
-    this.handlers[eventName][id] = handler as EventHandler<Event>;
+
+    eventHandlers.set(id, handler as EventHandler<Event>);
 
     return {
       id,
@@ -74,8 +102,9 @@ export class EventSystem {
    * @param handlerId the id of the event handler
    */
   removeHandler(eventName: string, handlerId: string): void {
-    if (this.handlers[eventName] !== undefined) {
-      delete this.handlers[eventName][handlerId];
+    const eventHandlers = this.handlers.get(eventName);
+    if (eventHandlers !== undefined) {
+      eventHandlers.delete(handlerId);
     }
   }
 
@@ -85,14 +114,18 @@ export class EventSystem {
    * @param event the event to broadcast
    */
   emit(event: Event): void {
-    this.buffer.push(event);
+    if (this.queued) {
+      this.buffer.push(event);
+    } else {
+      this.process(event);
+    }
   }
 
   /**
    * Resets the event system
    */
   reset(): void {
-    this.handlers = {};
+    this.handlers.clear();
     this.buffer = [];
   }
 
@@ -101,11 +134,9 @@ export class EventSystem {
    * @param event the event to process
    */
   private process(event: Event): void {
-    const handlers = this.handlers[event.topic];
-    if (handlers !== undefined) {
-      Object.values(handlers).forEach((handler: EventHandler<Event>) =>
-        handler(event)
-      );
+    const eventHandlers = this.handlers.get(event.topic);
+    if (eventHandlers !== undefined) {
+      eventHandlers.forEach((handler: EventHandler<Event>) => handler(event));
     }
   }
 }

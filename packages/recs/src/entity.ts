@@ -48,7 +48,7 @@ export class Entity {
   /**
    * The event system for the entity
    */
-  private events = new EventSystem();
+  private events = new EventSystem({ queued: true });
 
   /**
    * Map of component names to components

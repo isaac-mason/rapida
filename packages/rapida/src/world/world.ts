@@ -155,7 +155,7 @@ export class World {
   /**
    * Event system for the rapida world
    */
-  private events = new EventSystem();
+  private events = new EventSystem({ queued: false });
 
   /**
    * Constructor for a World
@@ -177,8 +177,17 @@ export class World {
   /**
    * Retrieves world factories
    */
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  public get create() {
+  public get create(): {
+    space: (params?: SpaceParams) => Space;
+    camera: (params?: CameraParams) => Camera;
+    scene: (params?: SceneParams) => Scene;
+    physics: (params: Exclude<PhysicsParams, 'delta'>) => Physics;
+    renderer: {
+      webgl: (params?: WebGLRendererParams) => WebGLRenderer;
+      css: () => CSSRenderer;
+      xr: (params: XRRendererParams) => XRRenderer;
+    };
+  } {
     return {
       /**
        * Creates a space in the world
@@ -274,8 +283,9 @@ export class World {
   /**
    * Retrieves methods for adding to the world
    */
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  public get add() {
+  public get add(): {
+    system: (system: System) => System;
+  } {
     return {
       /**
        * Adds a system to the World
@@ -291,8 +301,7 @@ export class World {
   /**
    * Retrieves methods for loading assets into the world
    */
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  public get load() {
+  public get load(): Loaders {
     return this.loaders;
   }
 
@@ -368,9 +377,6 @@ export class World {
    * @private called internally, do not call directly
    */
   _update(timeElapsed: number): void {
-    // tick the world event system
-    this.events.tick();
-
     // update the renderer manager
     this.rendererManager.update();
 

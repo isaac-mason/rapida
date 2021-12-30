@@ -47,7 +47,7 @@ export class Space {
   /**
    * The spaces event system
    */
-  private events = new EventSystem();
+  private events = new EventSystem({ queued: true });
 
   /**
    * Constructor for the Space
@@ -61,7 +61,7 @@ export class Space {
   /**
    * Retrieves space factories
    */
-  public get create() {
+  public get create(): { entity: () => Entity } {
     return {
       /**
        * Creates a new entity in the space
