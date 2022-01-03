@@ -358,17 +358,14 @@ export class World {
 
     // Initialise the renderer manager
     this.rendererManager.init();
-
-    // Initial render
-    this._render();
   }
 
   /**
    * Renders the world
    * @private called internally, do not call directly
    */
-  _render(): void {
-    this.rendererManager.render();
+  _render(timeElapsed: number): void {
+    this.rendererManager.render(timeElapsed);
   }
 
   /**

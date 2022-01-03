@@ -29,6 +29,11 @@ export class Engine {
   private running = false;
 
   /**
+   * The time of the previous render frame
+   */
+  private previousRenderFrame: number | undefined;
+
+  /**
    * The time of the previous animation frame
    */
   private previousGameLoopFrame: number | undefined;
@@ -120,8 +125,10 @@ export class Engine {
     this.world._init();
 
     // start the loops
-    const t = performance.now();
+    const t = performance.now() / 1000;
+    this.previousRenderFrame = t;
     this.previousGameLoopFrame = t;
+    this.previousPhysicsFrame = t;
     this.gameLoop();
     this.renderLoop();
 
@@ -162,13 +169,19 @@ export class Engine {
    * Runs the render loop for the engine
    */
   private renderLoop() {
-    requestAnimationFrame((_t) => {
+    requestAnimationFrame((time) => {
       if (!this.running) {
         return;
       }
 
-      this.world?._render();
+      const now = time / 1000;
+
+      const timeElapsed = now - (this.previousRenderFrame as number);
+
+      this.world?._render(timeElapsed);
       this.renderStats?.update();
+
+      this.previousRenderFrame = now;
 
       this.renderLoop();
     });
@@ -182,14 +195,14 @@ export class Engine {
       return;
     }
 
-    const t = performance.now();
-    const timeElapsed = t - (this.previousGameLoopFrame as number);
+    const now = performance.now() / 1000;
+    const timeElapsed = now - (this.previousGameLoopFrame as number);
 
-    this.world?._update(timeElapsed / 1000);
+    this.world?._update(timeElapsed);
 
     this.gameLoopStats?.update();
 
-    this.previousGameLoopFrame = performance.now();
+    this.previousGameLoopFrame = now;
 
     setTimeout(() => {
       this.gameLoop();

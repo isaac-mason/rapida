@@ -3,5 +3,5 @@ export interface Renderer {
   _init?: () => void;
   _destroy?: () => void;
   _onResize?: () => void;
-  _render?: () => void;
+  _render?: (timeElapsed: number) => void;
 }

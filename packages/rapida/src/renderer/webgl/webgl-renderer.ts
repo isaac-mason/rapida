@@ -182,7 +182,7 @@ export class WebGLRenderer implements Renderer {
    * Renders all views for the renderer
    * @private called internally, do not call directly
    */
-  _render(): void {
+  _render(timeElapsed: number): void {
     const rect = this.three.domElement.getBoundingClientRect();
 
     this.views.forEach((view: WebGLView) => {
@@ -208,7 +208,7 @@ export class WebGLRenderer implements Renderer {
         this.three.clearDepth();
       }
 
-      view.effectComposer.render();
+      view._renderMethod(timeElapsed);
     });
   }
 

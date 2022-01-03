@@ -1,6 +1,6 @@
 import { EventHandler, EventSystem, uuid } from '@rapidajs/rapida-common';
-import { Color, PerspectiveCamera, Vector2 } from 'three';
-import { EffectComposer, RenderPass } from 'three-stdlib';
+import { EffectComposer, EffectComposerParams } from '@rapidajs/postprocessing';
+import { Color, PerspectiveCamera } from 'three';
 import { Camera } from '../../camera';
 import { Scene } from '../../scene';
 import {
@@ -12,7 +12,6 @@ import {
   ViewRectangleParams,
   ViewTouch,
   ViewTouchEvent,
-  VIEW_ALL_EVENT_NAMES as ALL_VIEW_EVENT_NAMES,
   VIEW_ALL_EVENT_NAMES,
   VIEW_MOUSE_EVENTS,
   VIEW_TOUCH_EVENTS,
@@ -62,6 +61,16 @@ export type WebGLViewParams = {
    * The clear color for the view
    */
   clearColor?: Color | string;
+
+  /**
+   * Whether the view should use an effect composer
+   */
+  useEffectComposer?: boolean;
+
+  /**
+   * Params for the effect composer
+   */
+  effectComposer?: Omit<EffectComposerParams, 'scene' | 'camera' | 'renderer'>;
 };
 
 /**
@@ -74,19 +83,41 @@ export class WebGLView extends View {
   id: string;
 
   /**
+   * Whether clearDepth should be called after rendering this view
+   */
+  clearDepth: boolean;
+
+  /**
+   * The clear color the renderer should use for this view. Defaults to black - 0x000000
+   */
+  clearColor?: Color;
+
+  /**
+   * The dom element for the view
+   */
+  domElement: HTMLElement;
+
+  /**
+   * The size of the view in pixels
+   */
+  viewportSize: ViewRectangle;
+
+  /**
+   * The size of the scissor in pixels
+   */
+  scissorSize: ViewRectangle;
+
+  /**
    * The views camera
+   * @see WebGLView.camera
    */
   camera: Camera;
 
   /**
    * The views scene
+   * @see WebGLView.scene;
    */
   scene: Scene;
-
-  /**
-   * The z index for the view. Determines what order the views are rendered in, therefore what layer the view is on.
-   */
-  _zIndex = 0;
 
   /**
    * Getter for the viewport params
@@ -119,39 +150,45 @@ export class WebGLView extends View {
   }
 
   /**
-   * Whether clearDepth should be called after rendering this view
+   * The effect composer for the webgl view
+   * @see WebGLView.effectComposer
    */
-  clearDepth: boolean;
+  get composer(): EffectComposer {
+    if (this.effectComposerEnabled) {
+      return this.effectComposer as EffectComposer;
+    }
+
+    throw new Error('effect composer is not enabled for this view');
+  }
 
   /**
-   * The clear color the renderer should use for this view. Defaults to black - 0x000000
+   * Whether the effect composer should be used
    */
-  clearColor?: Color;
+  get useEffectComposer(): boolean {
+    return this.effectComposerEnabled;
+  }
 
   /**
-   * The relative mouse position on the view.
+   * Sets whether the effect composer should be used
    */
-  mouse: Vector2 = new Vector2();
+  set useEffectComposer(value: boolean) {
+    this.effectComposerEnabled = value;
+    this.updateRenderMethod();
+  }
 
   /**
-   * The effect composer for the view
+   * Gets the dom element used by the renderer
    */
-  effectComposer: EffectComposer;
+  get rendererDomElement(): HTMLElement {
+    return this.renderer.domElement;
+  }
 
   /**
-   * The dom element for the view
+   * The z index for the view. Determines what order the views are rendered in, therefore what layer the view is on.
+   * @private used internally, do not use or assign
+   * @see WebGLViewParams.zIndex
    */
-  domElement: HTMLElement;
-
-  /**
-   * The size of the view in pixels
-   */
-  viewportSize: ViewRectangle;
-
-  /**
-   * The size of the scissor in pixels
-   */
-  scissorSize: ViewRectangle;
+  _zIndex = 0;
 
   /**
    * The current size of the viewport for the view. Sets how to convert from a shader's clip space to some portion of the canvas's pixel space
@@ -164,6 +201,12 @@ export class WebGLView extends View {
    * @private used internally, do not use or assign
    */
   _scissor: ViewRectangle;
+
+  /**
+   * The method called used for rendering
+   * @private internally set method, do not modify
+   */
+  _renderMethod!: (timeElapsed: number) => void;
 
   /**
    * Parameters for the viewport that are used to recalculate the viewport on resize
@@ -181,11 +224,6 @@ export class WebGLView extends View {
   private renderer: WebGLRenderer;
 
   /**
-   * The render pass for the view
-   */
-  private renderPass: RenderPass;
-
-  /**
    * The events system for the view which is used for mouse and touch events
    */
   private events = new EventSystem({ queued: true });
@@ -199,11 +237,14 @@ export class WebGLView extends View {
   > = new Map();
 
   /**
-   * Gets the dom element used by the renderer
+   * Whether the view is using an effect composer
    */
-  get rendererDomElement(): HTMLElement {
-    return this.renderer.domElement;
-  }
+  private effectComposerEnabled: boolean;
+
+  /**
+   * The effect composer for the view
+   */
+  private effectComposer: EffectComposer;
 
   /**
    * Constructor for a WebGLView
@@ -220,6 +261,8 @@ export class WebGLView extends View {
       scissor,
       clearDepth,
       clearColor,
+      useEffectComposer,
+      effectComposer,
     }: WebGLViewParams
   ) {
     super();
@@ -235,14 +278,17 @@ export class WebGLView extends View {
         clearColor instanceof Color ? clearColor : new Color(clearColor);
     }
 
-    // create the effect composer for the view
-    this.effectComposer = new EffectComposer(this.renderer.three);
+    // set effect composer enabled for the view if enableEffectComposer is true
+    this.effectComposerEnabled = !!useEffectComposer;
+    this.effectComposer = new EffectComposer({
+      renderer: this.renderer.three,
+      camera: this.camera.three,
+      scene: this.scene.three,
+      ...(effectComposer || {}),
+    });
 
-    // create the render pass for the view
-    this.renderPass = new RenderPass(this.scene.three, this.camera.three);
-
-    // add the render pass for the view
-    this.effectComposer.addPass(this.renderPass);
+    // updates the render method from current properties
+    this.updateRenderMethod();
 
     // create a dom element for the view
     this.domElement = document.createElement('div');
@@ -274,12 +320,35 @@ export class WebGLView extends View {
   }
 
   /**
+   * Sets the camera for the view
+   * @param c the new camera for the view
+   */
+  setCamera(c: Camera): void {
+    this.camera = c;
+    this.effectComposer.camera = this.camera.three;
+
+    this.updateRenderMethod();
+    this._onResize();
+  }
+
+  /**
+   * Setter for the views scene
+   * @param s the new scene
+   */
+  setScene(s: Scene): void {
+    this.scene = s;
+    this.effectComposer.scene = this.scene.three;
+
+    this.updateRenderMethod();
+  }
+
+  /**
    * Adds an event handler for a view mouse or touch event
    * @param event the event of event to subscribe to
    * @param eventHandler the event handler
    * @returns
    */
-  on<T extends typeof ALL_VIEW_EVENT_NAMES[number]>(
+  on<T extends typeof VIEW_ALL_EVENT_NAMES[number]>(
     eventName: T,
     eventHandler: EventHandler<ViewEventByName<T>>
   ): ViewInteractionEventSubscription {
@@ -310,9 +379,6 @@ export class WebGLView extends View {
    * @private called internally, do not call directly
    */
   _destroy(): void {
-    // add the render pass for the view
-    this.effectComposer.removePass(this.renderPass);
-
     // remove the view dom element
     this.rendererDomElement.removeChild(this.domElement);
   }
@@ -351,7 +417,7 @@ export class WebGLView extends View {
       height: rendererDomRect.height * this._viewport.height,
     };
 
-    // update the scissor dom element
+    // update the dom element with the scissor size
     this.scissorSize = {
       bottom: this._scissor.bottom * rendererDomRect.height,
       left: this._scissor.left * rendererDomRect.width,
@@ -364,18 +430,38 @@ export class WebGLView extends View {
     this.domElement.style.height = `${this.scissorSize.height}px`;
 
     // update the camera
+    this.resizeCamera();
+
+    // set the size of the effect composer
+    this.effectComposer.setSize(
+      this.renderer.domElement.clientWidth,
+      this.renderer.domElement.clientHeight
+    );
+  };
+
+  /**
+   * Resizes the camera based on the latest viewport size
+   */
+  private resizeCamera(): void {
     if (this.camera.three instanceof PerspectiveCamera) {
       this.camera.three.aspect =
         this.viewportSize.width / this.viewportSize.height;
     }
     this.camera.three.updateProjectionMatrix();
+  }
 
-    // set the size of the effect composer
-    this.effectComposer.setSize(
-      this.viewportSize.width,
-      this.viewportSize.height
-    );
-  };
+  /**
+   * Sets the render method according to the current state of the WebGL View
+   */
+  private updateRenderMethod(): void {
+    if (this.effectComposerEnabled) {
+      this._renderMethod = (timeElapsed: number) =>
+        this.effectComposer!.render(timeElapsed);
+    } else {
+      this._renderMethod = (_timeElapsed: number) =>
+        this.renderer.three.render(this.scene.three, this.camera.three);
+    }
+  }
 
   /**
    * Returns the relative mouse position for a view given the client x and y
@@ -402,7 +488,7 @@ export class WebGLView extends View {
    * @param eventName the name of the view event
    * @param handlerId the id of the handlers
    */
-  private removeHandler<T extends typeof ALL_VIEW_EVENT_NAMES[number]>(
+  private removeHandler<T extends typeof VIEW_ALL_EVENT_NAMES[number]>(
     eventName: T,
     handlerId: string
   ): void {
@@ -425,7 +511,7 @@ export class WebGLView extends View {
    * @param eventName the name of the view event
    * @param handlerId the id of the handler
    */
-  private addHandler<T extends typeof ALL_VIEW_EVENT_NAMES[number]>(
+  private addHandler<T extends typeof VIEW_ALL_EVENT_NAMES[number]>(
     eventName: T,
     handlerId: string
   ): void {
