@@ -123,11 +123,6 @@ export class XRRenderer implements Renderer {
   private rendererManager: RendererManager;
 
   /**
-   * The method called used for rendering
-   */
-  private renderMethod!: (timeElapsed: number) => void;
-
-  /**
    * Constructor for an XRRenderer
    * @param manager the renderer manager for the XRRenderer
    * @param params the params for the XRRenderer
@@ -194,6 +189,15 @@ export class XRRenderer implements Renderer {
     window.addEventListener('resize', () => this._onResize(), false);
     this.resizeObserver = new ResizeObserver(() => this._onResize());
     this.resizeObserver.observe(this.three.domElement);
+  }
+
+  /**
+   * Sets the camera for the renderer
+   * @param c the new camera for the renderer
+   */
+  setCamera(c: Camera): void {
+    this.camera = c;
+    this._onResize();
   }
 
   /**

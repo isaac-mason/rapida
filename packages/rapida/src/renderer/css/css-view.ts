@@ -218,6 +218,15 @@ export class CSSView extends View {
   }
 
   /**
+   * Sets the camera for the view
+   * @param c the new camera for the view
+   */
+  setCamera(c: Camera): void {
+    this.camera = c;
+    this._onResize();
+  }
+
+  /**
    * Destroys the view and removes it from the renderer
    */
   destroy = (): void => {
