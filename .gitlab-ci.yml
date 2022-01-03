@@ -17,6 +17,7 @@ workflow:
     # build npm packages
     - yarn workspaces focus @rapidajs/rapida
     - (cd packages/rapida-common && yarn run build)
+    - (cd packages/postprocessing && yarn run build)
     - (cd packages/recs && yarn run build)
     - (cd packages/rapida-physics && yarn run build)
     - (cd packages/rapida && yarn run build)

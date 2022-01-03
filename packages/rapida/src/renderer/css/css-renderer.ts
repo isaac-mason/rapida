@@ -92,9 +92,10 @@ export class CSSRenderer implements Renderer {
 
   /**
    * Renders all of the views in the renderer
+   * @param _t the time elapsed in seconds
    * @private called internally, do not call directly
    */
-  _render(): void {
+  _render(_t: number): void {
     this.views.forEach((view: CSSView) => {
       view.css3DRenderer.render(view.scene.three, view.camera.three);
     });

@@ -50,10 +50,11 @@ export class RendererManager {
 
   /**
    * Calls the render method for all renderers
+   * @param timeElapsed the time elapsed in seconds
    */
-  render(): void {
+  render(timeElapsed: number): void {
     this.renderers.forEach(
-      (renderer) => renderer._render && renderer._render()
+      (renderer) => renderer._render && renderer._render(timeElapsed)
     );
   }
 

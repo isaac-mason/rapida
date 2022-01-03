@@ -4,13 +4,13 @@ import {
   EventSystem,
   uuid,
 } from '@rapidajs/rapida-common';
-import { WebGLRenderer, PerspectiveCamera, XRFrame } from 'three';
+import { PerspectiveCamera, WebGLRenderer, XRFrame } from 'three';
 import { ARButton } from 'three-stdlib/webxr/ARButton';
 import { VRButton } from 'three-stdlib/webxr/VRButton';
-import { RendererManager } from '../renderer-manager';
 import { Camera } from '../../camera';
 import { Scene } from '../../scene';
 import { Renderer } from '../renderer';
+import { RendererManager } from '../renderer-manager';
 
 /**
  * An event for a new XRFrame
@@ -68,12 +68,12 @@ export type XRRendererParams = {
  */
 export class XRRenderer implements Renderer {
   /**
-   * Unique id for the vr renderer
+   * Unique id for the xr renderer
    */
   id = uuid();
 
   /**
-   * The renderer for the vr renderer
+   * The renderer for the xr renderer
    */
   three: WebGLRenderer;
 
@@ -123,6 +123,11 @@ export class XRRenderer implements Renderer {
   private rendererManager: RendererManager;
 
   /**
+   * The method called used for rendering
+   */
+  private renderMethod!: (timeElapsed: number) => void;
+
+  /**
    * Constructor for an XRRenderer
    * @param manager the renderer manager for the XRRenderer
    * @param params the params for the XRRenderer
@@ -135,10 +140,10 @@ export class XRRenderer implements Renderer {
     this.mode = mode;
     this.three = renderer || new WebGLRenderer();
     this.three.xr.enabled = true;
-
     this.scene = scene;
     this.camera = camera;
 
+    // set the animation loop
     this.three.setAnimationLoop((time: number, frame?: XRFrame) => {
       if (frame) {
         this.frame = frame;
