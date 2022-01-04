@@ -153,14 +153,7 @@ class CannonPhysics {
   /**
    * The physics web worker
    */
-  _worker: Worker = new WebWorker() as Worker;
-
-  /**
-   * Getter for the physics web worker
-   */
-  get worker(): Worker {
-    return this._worker;
-  }
+  worker: Worker = new WebWorker() as Worker;
 
   /**
    * Sets the axis angle
