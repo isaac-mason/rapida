@@ -61,12 +61,14 @@ export class Space {
   /**
    * Retrieves space factories
    */
-  public get create(): { entity: () => Entity } {
+  public get create(): {
+    /**
+     * Creates a new entity in the space
+     * @returns a new entity
+     */
+    entity: () => Entity;
+  } {
     return {
-      /**
-       * Creates a new entity in the space
-       * @returns a new entity
-       */
       entity: (): Entity => {
         const entity = this.recs.entityPool.request();
         entity.space = this;

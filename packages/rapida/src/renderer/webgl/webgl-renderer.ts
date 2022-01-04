@@ -99,13 +99,15 @@ export class WebGLRenderer implements Renderer {
   /**
    * Retrieves renderer factories
    */
-  public get create(): { view: (params: WebGLViewParams) => WebGLView } {
+  public get create(): {
+    /**
+     * Creates a new webgl view
+     * @param params params for creating a new webgl view
+     * @returns
+     */
+    view: (params: WebGLViewParams) => WebGLView;
+  } {
     return {
-      /**
-       * Creates a new webgl view
-       * @param params params for creating a new webgl view
-       * @returns
-       */
       view: (params: WebGLViewParams): WebGLView => {
         const view = new WebGLView(this, params);
         this.addView(view);

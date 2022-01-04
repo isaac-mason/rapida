@@ -48,12 +48,12 @@ export class RECS {
   initialised = false;
 
   /**
-   * A map of ids to update functions for all entities and components in the space
+   * A map of ids to update functions for all components
    */
   _componentsToUpdate: Map<string, Component> = new Map();
 
   /**
-   * A map of ids to update functions for all entities and components in the space
+   * A map of ids to update functions for all entities
    */
   _entitiesToUpdate: Map<string, Entity> = new Map();
 
@@ -73,13 +73,15 @@ export class RECS {
   /**
    * Retrieves RECS factories
    */
-  public get create() {
+  public get create(): {
+    /**
+     * Creates a space in the RECS
+     * @param params the params for the space
+     * @returns the new space
+     */
+    space: (params?: SpaceParams) => Space;
+  } {
     return {
-      /**
-       * Creates a space in the RECS
-       * @param params the params for the space
-       * @returns the new space
-       */
       space: (params?: SpaceParams): Space => {
         const space = new Space(this, params);
         this.spaces.set(space.id, space);
@@ -96,13 +98,15 @@ export class RECS {
   /**
    * Retrieves RECS add methods
    */
-  public get add() {
+  public get add(): {
+    /**
+     * Adds a system to the RECS
+     * @param system the system to add to the RECS
+     */
+    system: (system: System) => System;
+  } {
     return {
-      /**
-       * Adds a system to the RECS
-       * @param system the system to add to the RECS
-       */
-      system: (system: System) => {
+      system: (system: System): System => {
         this.systemManager.addSystem(system);
         return system;
       },

@@ -178,52 +178,68 @@ export class World {
    * Retrieves world factories
    */
   public get create(): {
+    /**
+     * Creates a space in the world
+     * @param params the params for the space
+     * @returns the new space
+     */
     space: (params?: SpaceParams) => Space;
+    /**
+     * Creates a camera in the world
+     * @param params the params for the camera
+     * @returns the new camera
+     */
     camera: (params?: CameraParams) => Camera;
+    /**
+     * Creates a scene in the world
+     * @param params the params for the scene
+     * @returns the new scene
+     */
     scene: (params?: SceneParams) => Scene;
+    /**
+     * Creates a physics instance in the world
+     * @param params the params for the new physics instance
+     * @returns the new physics instance
+     */
     physics: (params: Exclude<CannonPhysicsParams, 'delta'>) => CannonPhysics;
+    /**
+     * Factories for creating a renderer in the world
+     */
     renderer: {
+      /**
+       * Creates a new webgl renderer
+       * @param params params for the webgl renderer
+       * @returns the new webgl renderer
+       */
       webgl: (params?: WebGLRendererParams) => WebGLRenderer;
+      /**
+       * Creates a new css renderer
+       * @param params the params for the css renderer
+       * @returns the new css renderer
+       */
       css: () => CSSRenderer;
+      /**
+       * Creates a new xr renderer
+       * @param params the params for the xr renderer
+       * @returns the new xr renderer
+       */
       xr: (params: XRRendererParams) => XRRenderer;
     };
   } {
     return {
-      /**
-       * Creates a space in the world
-       * @param params the params for the space
-       * @returns the new space
-       */
       space: (params?: SpaceParams): Space => {
         return this.recs.create.space(params);
       },
-      /**
-       * Creates a camera in the world
-       * @param params the params for the camera
-       * @returns the new camera
-       */
       camera: (params?: CameraParams): Camera => {
         const camera = new Camera(this, params);
         this.cameras.set(camera.id, camera);
-
         return camera;
       },
-      /**
-       * Creates a scene in the world
-       * @param params the params for the scene
-       * @returns the new scene
-       */
       scene: (params?: SceneParams): Scene => {
         const scene = new Scene(this, params);
         this.scenes.set(scene.id, scene);
-
         return scene;
       },
-      /**
-       * Creates a physics instance in the world
-       * @param params the params for the new physics instance
-       * @returns the new physics instance
-       */
       physics: (
         params: Exclude<CannonPhysicsParams, 'delta'>
       ): CannonPhysics => {
@@ -241,41 +257,20 @@ export class World {
 
         return physics;
       },
-      /**
-       * Factories for creating a renderer in the world
-       */
       renderer: {
-        /**
-         * Creates a new webgl renderer
-         * @param params params for the webgl renderer
-         * @returns the new webgl renderer
-         */
         webgl: (params?: WebGLRendererParams): WebGLRenderer => {
           const renderer = new WebGLRenderer(this.rendererManager, params);
           this.rendererManager.addRenderer(renderer);
-
           return renderer;
         },
-        /**
-         * Creates a new css renderer
-         * @param params the params for the css renderer
-         * @returns the new css renderer
-         */
         css: (): CSSRenderer => {
           const renderer = new CSSRenderer(this.rendererManager);
           this.rendererManager.addRenderer(renderer);
-
           return renderer;
         },
-        /**
-         * Creates a new xr renderer
-         * @param params the params for the xr renderer
-         * @returns the new xr renderer
-         */
         xr: (params: XRRendererParams): XRRenderer => {
           const renderer = new XRRenderer(this.rendererManager, params);
           this.rendererManager.addRenderer(renderer);
-
           return renderer;
         },
       },
@@ -286,13 +281,13 @@ export class World {
    * Retrieves methods for adding to the world
    */
   public get add(): {
+    /**
+     * Adds a system to the World
+     * @param system the system to add to the world
+     */
     system: (system: System) => System;
   } {
     return {
-      /**
-       * Adds a system to the World
-       * @param system the system to add to the world
-       */
       system: (system: System): System => {
         this.recs.add.system(system);
         return system;

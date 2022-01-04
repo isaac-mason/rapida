@@ -52,7 +52,14 @@ export class CSSRenderer implements Renderer {
   /**
    * Retrieves renderer factories
    */
-  public get create(): { view: (params: CSSViewParams) => CSSView } {
+  public get create(): {
+    /**
+     * Creates a new css view
+     * @param params the params for the css view
+     * @returns a new css view
+     */
+    view: (params: CSSViewParams) => CSSView;
+  } {
     return {
       view: (params: CSSViewParams): CSSView => {
         const view = new CSSView(this, params);
