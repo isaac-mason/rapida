@@ -63,7 +63,7 @@ pages:
     - yarn workspaces focus @rapidajs/rapida-website
     # the above ^ will include @rapidajs/rapida-website, @rapidajs/rapida, @rapidajs/postprocessing, @rapidajs/recs, @rapidajs/cannon-worker and @rapidajs/rapida-common
     # build @rapidajs/rapida-website
-    - (cd website && yarn run build) 
+    - yarn website:build 
     - |- 
       if [[ $CI_COMMIT_BRANCH == "main" ]]; then
         # copy @rapidajs/rapida-website files in place for gitlab pages
