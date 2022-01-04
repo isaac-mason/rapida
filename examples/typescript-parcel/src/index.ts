@@ -1,4 +1,5 @@
-import rapida, { BodyType, Component, Physics, Scene } from "@rapidajs/rapida";
+import rapida, { Component, Scene } from "@rapidajs/rapida";
+import { BodyType, CannonPhysics } from "@rapidajs/cannon-worker";
 import {
   AmbientLight,
   BoxGeometry,
@@ -13,9 +14,9 @@ class SpinningCube extends Component {
 
   scene: Scene;
 
-  physics: Physics;
+  physics: CannonPhysics;
 
-  construct = (params: { scene: Scene; physics: Physics }) => {
+  construct = (params: { scene: Scene; physics: CannonPhysics }) => {
     this.scene = params.scene;
     this.physics = params.physics;
 
