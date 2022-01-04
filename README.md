@@ -12,11 +12,11 @@
 - [x] Simple API for handling multiple renderers and multiple views
 
 ```bash
-> npm install @rapidajs/rapida three@^0.133.0
+> npm install @rapidajs/rapida @rapidajs/cannon-worker three@^0.133.0
 
 # or yarn
 
-> yarn add @rapidajs/rapida three@^0.133.0
+> yarn add @rapidajs/rapida @rapidajs/cannon-worker three@^0.133.0
 ```
 
 The package `@rapidajs/cannon-worker` can also be used independently to add physics into your three scene!

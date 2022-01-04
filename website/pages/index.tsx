@@ -44,7 +44,7 @@ const Home: NextPage = () => {
                 setCopied(true);
               }}
             >
-              &gt; yarn add @rapidajs/rapida three
+              &gt; yarn add @rapidajs/rapida @rapidajs/cannon-worker three
             </a>
             <Tooltip
               flip
