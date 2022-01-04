@@ -1,5 +1,5 @@
 import { Vec3 } from 'cannon-es';
-import { Triplet } from '../..';
+import { Triplet } from '../../types';
 import { PhysicsEventTopic } from '../physics-event-topic';
 import { State } from '../../state';
 

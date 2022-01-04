@@ -6,7 +6,7 @@ import { QueryManager } from './query-manager';
 import { EntityPool } from './entity-pool';
 import { ComponentPool } from './component-pool';
 import { Component } from './component';
-import { Entity } from '.';
+import { Entity } from './entity';
 
 /**
  * RECS Entity Component System that contains systems and spaces
