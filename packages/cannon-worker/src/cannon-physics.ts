@@ -34,7 +34,7 @@ import type {
   DefaultContactMaterial,
   IncomingWorkerMessage,
   PhysicsContext,
-  PhysicsParams,
+  CannonPhysicsParams,
   PhysicsWorldConfig,
   PropValue,
   RaycastVehicleParams,
@@ -134,7 +134,7 @@ function apply(index: number, buffers: Buffers, object?: Object3D) {
 /**
  * Cannon Physics World that runs in a web worker
  */
-class Physics {
+class CannonPhysics {
   /**
    * A name for the physics world
    */
@@ -309,7 +309,7 @@ class Physics {
     size,
     maxSubSteps,
     delta,
-  }: PhysicsParams) {
+  }: CannonPhysicsParams) {
     this.id = id || Date.now().toString();
 
     this.config = {
@@ -935,4 +935,4 @@ class Physics {
   }
 }
 
-export { Physics };
+export { CannonPhysics };

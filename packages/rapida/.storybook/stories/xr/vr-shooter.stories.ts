@@ -1,3 +1,4 @@
+import { BodyType } from '@rapidajs/cannon-worker';
 import { useEffect } from '@storybook/client-api';
 import {
   AdditiveBlending,
@@ -14,11 +15,11 @@ import {
   MeshLambertMaterial,
   RingGeometry,
   SphereBufferGeometry,
-  Vector3,
+  Vector3
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerModelFactory';
-import rapida, { BodyType, XRRendererMode } from '../../../src';
+import rapida, { XRRendererMode } from '../../../src';
 
 export default {
   title: 'XR / VR Shooter',

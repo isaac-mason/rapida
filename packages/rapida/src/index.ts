@@ -2,7 +2,6 @@ import { Engine, EngineParams } from './engine';
 import { World, WorldParams } from './world';
 
 export * from '@rapidajs/rapida-common';
-export * from '@rapidajs/cannon-worker';
 export * from '@rapidajs/recs';
 export * from '@rapidajs/postprocessing';
 export * from './camera';

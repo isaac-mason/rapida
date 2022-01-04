@@ -1,4 +1,4 @@
-import { Physics, PhysicsParams } from '@rapidajs/cannon-worker';
+import { CannonPhysics, CannonPhysicsParams } from '@rapidajs/cannon-worker';
 import {
   uuid,
   Event,
@@ -30,12 +30,12 @@ export const WORLD_ALL_EVENT_NAMES: string[] = [
 
 export interface WorldAddPhysicsEvent {
   topic: WorldEventName.ADD_PHYSICS;
-  data: Physics;
+  data: CannonPhysics;
 }
 
 export interface WorldRemovePhysicsEvent {
   topic: WorldEventName.REMOVE_PHYSICS;
-  data: Physics;
+  data: CannonPhysics;
 }
 
 export interface WorldEventMap {
@@ -95,7 +95,7 @@ export class World {
   /**
    * Physics worlds within the world
    */
-  physics: Map<string, Physics> = new Map();
+  physics: Map<string, CannonPhysics> = new Map();
 
   /**
    * Cameras for the world
@@ -181,7 +181,7 @@ export class World {
     space: (params?: SpaceParams) => Space;
     camera: (params?: CameraParams) => Camera;
     scene: (params?: SceneParams) => Scene;
-    physics: (params: Exclude<PhysicsParams, 'delta'>) => Physics;
+    physics: (params: Exclude<CannonPhysicsParams, 'delta'>) => CannonPhysics;
     renderer: {
       webgl: (params?: WebGLRendererParams) => WebGLRenderer;
       css: () => CSSRenderer;
@@ -224,8 +224,10 @@ export class World {
        * @param params the params for the new physics instance
        * @returns the new physics instance
        */
-      physics: (params: Exclude<PhysicsParams, 'delta'>): Physics => {
-        const physics = new Physics({
+      physics: (
+        params: Exclude<CannonPhysicsParams, 'delta'>
+      ): CannonPhysics => {
+        const physics = new CannonPhysics({
           ...params,
           delta: this._physicsDelta,
         });
@@ -326,14 +328,14 @@ export class World {
    * Removes from the scene
    * @param value the value to remove
    */
-  remove(value: System | Space | Scene | Physics | Camera): void {
+  remove(value: System | Space | Scene | CannonPhysics | Camera): void {
     if (value instanceof System) {
       this.recs.remove(value);
     } else if (value instanceof Space) {
       this.recs.remove(value);
     } else if (value instanceof Scene) {
       this.scenes.delete(value.id);
-    } else if (value instanceof Physics) {
+    } else if (value instanceof CannonPhysics) {
       this.physics.delete(value.id);
       value.terminate();
       this.events.emit({

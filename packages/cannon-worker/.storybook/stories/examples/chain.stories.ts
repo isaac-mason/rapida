@@ -1,5 +1,5 @@
 import { useEffect } from '@storybook/client-api';
-import { BodyType, PhysicsDebugger, Triplet } from '../../../lib';
+import { BodyType, Triplet } from '../../../lib';
 import { createBasicSetup } from '../utils/create-basic-setup';
 
 export default {
@@ -9,8 +9,6 @@ export default {
 export const Chain = () => {
   useEffect(() => {
     const { renderer, camera, scene, physics, loop, start, destroy } = createBasicSetup();
-    const debug = new PhysicsDebugger(physics, { scene });
-    loop.push(() => debug.update());
     document.getElementById('renderer-root').prepend(renderer.domElement);
 
     // gravity

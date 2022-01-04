@@ -1,4 +1,4 @@
-import paramsToBody from '../../params-to-body';
+import { paramsToBody } from '../../params-to-body';
 import { State } from '../../state';
 import { BodyShapeType, SerializableBodyParams } from '../../types';
 import { syncBodies } from '../sync-bodies';

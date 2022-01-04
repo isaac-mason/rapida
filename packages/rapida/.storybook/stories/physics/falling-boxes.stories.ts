@@ -1,4 +1,4 @@
-import { BodyType, Physics, PhysicsObjectApi } from '@rapidajs/cannon-worker';
+import { BodyApi, BodyType, CannonPhysics } from '@rapidajs/cannon-worker';
 import { useEffect } from '@storybook/client-api';
 import {
   AmbientLight,
@@ -11,7 +11,7 @@ import {
   PerspectiveCamera,
   PlaneGeometry,
   Vector3,
-  WebGLRenderer,
+  WebGLRenderer
 } from 'three';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
 import rapida, { Component, Scene, Space, System } from '../../../src';
@@ -44,13 +44,13 @@ export const FallingBoxes = ({
   class FallingCubeComponent extends Component {
     scene!: Scene;
 
-    physics!: Physics;
+    physics!: CannonPhysics;
 
     mesh!: Mesh;
 
-    cubeApi!: PhysicsObjectApi;
+    cubeApi!: BodyApi;
 
-    construct = ({ scene, physics }: { scene: Scene; physics: Physics }) => {
+    construct = ({ scene, physics }: { scene: Scene; physics: CannonPhysics }) => {
       this.cubeApi = undefined;
       this.scene = scene;
       this.physics = physics;
@@ -106,7 +106,7 @@ export const FallingBoxes = ({
     queries = {};
     space: Space;
     scene: Scene;
-    physics: Physics;
+    physics: CannonPhysics;
 
     counter: number = 0;
 
@@ -117,7 +117,7 @@ export const FallingBoxes = ({
     }: {
       space: Space;
       scene: Scene;
-      physics: Physics;
+      physics: CannonPhysics;
     }) {
       super();
       this.space = space;

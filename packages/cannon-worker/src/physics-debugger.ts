@@ -1,8 +1,8 @@
 import { Body, Quaternion as CQuaternion, Vec3 } from 'cannon-es';
 import cannonDebugger from 'cannon-es-debugger';
 import { Color, Quaternion, Scene, Vector3 } from 'three';
-import paramsToBody from './params-to-body';
-import type { Physics } from './physics';
+import { paramsToBody } from './params-to-body';
+import type { CannonPhysics } from './cannon-physics';
 import type { BodyParams, BodyShapeType } from './types';
 
 /**
@@ -15,21 +15,21 @@ type DebugApi = {
 /**
  * Debugging information available to a debugger
  */
-type PhysicsDebugInfo = { bodies: Body[]; refs: { [uuid: string]: Body } };
+export type PhysicsDebugInfo = { bodies: Body[]; refs: { [uuid: string]: Body } };
 
 /**
  * Color for the physics debugger to use
  */
-type PhysicsDebuggerColor = string | number | Color;
+export type PhysicsDebuggerColor = string | number | Color;
 
 /**
  * Params for creating a PhysicsDebugger instance
  */
-interface PhysicsDebuggerParams {
+export type CannonPhysicsDebuggerParams = {
   scene?: Scene;
   color?: PhysicsDebuggerColor;
   scale?: number;
-}
+};
 
 const v = new Vector3();
 const s = new Vector3(1, 1, 1);
@@ -38,11 +38,11 @@ const q = new Quaternion();
 /**
  * Debugger for Physics that adds physics object representations to a three scene
  */
-class PhysicsDebugger {
+export class CannonPhysicsDebugger {
   /**
    * The physics world for the debugger
    */
-  physics: Physics;
+  physics: CannonPhysics;
 
   /**
    * The scene that the debugger is adding and removing from
@@ -69,7 +69,12 @@ class PhysicsDebugger {
    */
   debugInfo: PhysicsDebugInfo = { bodies: [], refs: {} };
 
-  constructor(physics: Physics, params?: PhysicsDebuggerParams) {
+  /**
+   * Constructor for a new cannon physics debugger
+   * @param physics the physics instance
+   * @param params the params for the debugger
+   */
+  constructor(physics: CannonPhysics, params?: CannonPhysicsDebuggerParams) {
     this.physics = physics;
 
     this.scene = params?.scene ? params.scene : new Scene();
@@ -118,7 +123,3 @@ class PhysicsDebugger {
     delete this.debugInfo.refs[id];
   }
 }
-
-export { PhysicsDebugger };
-
-export type { PhysicsDebuggerParams, PhysicsDebuggerColor, PhysicsDebugInfo };

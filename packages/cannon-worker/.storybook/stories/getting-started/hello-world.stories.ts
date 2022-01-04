@@ -1,5 +1,5 @@
 import { useEffect } from '@storybook/client-api';
-import { Physics, BodyType } from '../../../lib';
+import { CannonPhysics, BodyType } from '../../../lib';
 import {
   WebGLRenderer,
   Scene,
@@ -56,7 +56,7 @@ export const HelloWorld = () => {
     const ambientLight = new AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
 
-    const physics = new Physics({
+    const physics = new CannonPhysics({
       gravity: [0, -20, 0],
       maxSubSteps: 5,
       delta: 1 / 60,

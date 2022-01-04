@@ -80,6 +80,7 @@
     "typedoc-plugin-markdown": "^3.11.7"
   },
   "peerDependencies": {
+    "@rapidajs/cannon-worker": "0.0.8",
     "postprocessing": "^6.23.3",
     "three": "^0.133.0"
   }

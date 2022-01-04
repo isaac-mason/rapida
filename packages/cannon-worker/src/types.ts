@@ -38,7 +38,7 @@ export type SubscriptionName = typeof subscriptionNames[number];
 
 export type PublicVectorName = Exclude<VectorName, 'quaternion'> | 'rotation';
 
-export type Api = { ref: Object3D; api: PhysicsObjectApi };
+export type Api = { ref: Object3D; api: BodyApi };
 
 export type AtomicParams = {
   /**
@@ -132,7 +132,7 @@ export type WorkerApi = AtomicApi &
     destroy: () => void;
   };
 
-export interface PhysicsObjectApi extends WorkerApi {
+export interface BodyApi extends WorkerApi {
   at: (index: number) => WorkerApi;
 }
 
@@ -646,7 +646,7 @@ export type DefaultContactMaterial = {
   frictionEquationRelaxation?: number;
 };
 
-export type PhysicsParams = {
+export type CannonPhysicsParams = {
   /**
    * An optional id for the physics world
    */

@@ -1,13 +1,13 @@
 import { WebGLRenderer, PerspectiveCamera, Scene, AmbientLight, DirectionalLight, Vector3 } from 'three';
 
-import { Physics, PhysicsDebugger } from '../../../lib';
+import { CannonPhysics, CannonPhysicsDebugger } from '../../../lib';
 
 export const createBasicSetup = (): {
   renderer: WebGLRenderer;
   camera: PerspectiveCamera;
   scene: Scene;
-  physics: Physics;
-  debug: PhysicsDebugger;
+  physics: CannonPhysics;
+  debug: CannonPhysicsDebugger;
 loop: (() => void)[] 
   start: () => void;
   destroy: () => void;
@@ -43,11 +43,11 @@ loop: (() => void)[]
   const ambientLight = new AmbientLight(0xffffff, 0.5);
   scene.add(ambientLight);
 
-  const physics = new Physics({
+  const physics = new CannonPhysics({
     gravity: [0, -10, 0],
   });
 
-  const debug = new PhysicsDebugger(physics, { scene, color: 'white' });
+  const debug = new CannonPhysicsDebugger(physics, { scene, color: 'white' });
   physics.debugger = debug;
 
   let lastCallTime = 0;

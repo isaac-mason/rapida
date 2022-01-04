@@ -63,7 +63,7 @@ function createShape(type: BodyShapeType, args: any) {
  * @param type the body type
  * @return {module:objects/Body.Body}
  */
-const paramsToBody = (uuid: string, params: BodyParams<unknown>, type: BodyShapeType): Body => {
+export const paramsToBody = (uuid: string, params: BodyParams<unknown>, type: BodyShapeType): Body => {
   const {
     type: bodyType,
     mass,
@@ -131,5 +131,3 @@ const paramsToBody = (uuid: string, params: BodyParams<unknown>, type: BodyShape
 
   return body;
 };
-
-export default paramsToBody;

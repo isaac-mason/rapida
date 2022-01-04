@@ -16,12 +16,10 @@ import {
   Vector3,
   WebGLRenderer,
 } from 'three';
+import { CannonPhysics, BodyType, BodyApi } from '@rapidajs/cannon-worker';
 import rapida, {
-  BodyType,
   Camera,
   Component,
-  Physics,
-  PhysicsObjectApi,
   Scene,
   View,
   WebGLView,
@@ -34,11 +32,11 @@ export default {
 };
 
 class BallPitContainer extends Component {
-  physics!: Physics;
+  physics!: CannonPhysics;
 
-  planeApis!: PhysicsObjectApi[];
+  planeApis!: BodyApi[];
 
-  construct = ({ physics }: { physics: Physics }) => {
+  construct = ({ physics }: { physics: CannonPhysics }) => {
     this.planeApis = undefined;
     this.physics = physics;
   };
@@ -89,7 +87,7 @@ class BallPitContainer extends Component {
 }
 
 class Cursor extends Component {
-  physics!: Physics;
+  physics!: CannonPhysics;
 
   camera!: Camera;
 
@@ -101,10 +99,10 @@ class Cursor extends Component {
 
   raycaster!: Raycaster;
 
-  sphereApi!: PhysicsObjectApi;
+  sphereApi!: BodyApi;
 
   construct = (params: {
-    physics: Physics;
+    physics: CannonPhysics;
     camera: Camera;
     view: WebGLView;
     scene: Scene;
@@ -175,7 +173,7 @@ class Cursor extends Component {
 const ORANGE = '#ff7b00';
 
 class Spheres extends Component {
-  physics!: Physics;
+  physics!: CannonPhysics;
 
   scene!: Scene;
 
@@ -183,11 +181,11 @@ class Spheres extends Component {
 
   mesh!: InstancedMesh;
 
-  sphereApi!: PhysicsObjectApi;
+  sphereApi!: BodyApi;
 
   static count = 200;
 
-  construct = (params: { view: View; scene: Scene; physics: Physics }) => {
+  construct = (params: { view: View; scene: Scene; physics: CannonPhysics }) => {
     this.sphereApi = undefined;
 
     this.view = params.view;
