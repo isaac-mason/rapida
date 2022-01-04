@@ -1,4 +1,4 @@
-import { BodyType, Physics, PhysicsObjectApi } from '@rapidajs/rapida-physics';
+import { BodyType, Physics, PhysicsObjectApi } from '@rapidajs/cannon-worker';
 import { useEffect } from '@storybook/client-api';
 import {
   AmbientLight,

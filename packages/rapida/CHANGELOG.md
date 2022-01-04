@@ -4,10 +4,10 @@
 
 ### Patch Changes
 
-- 2fa043a: Revert back to using 'args' syntax for physics object creation in '@rapidajs/rapida-physics
+- 2fa043a: Revert back to using 'args' syntax for physics object creation in '@rapidajs/cannon-worker
 - Updated dependencies [a50c7ec]
 - Updated dependencies [2fa043a]
-  - @rapidajs/rapida-physics@0.0.8
+  - @rapidajs/cannon-worker@0.0.8
 
 ## 0.0.7
 
@@ -29,7 +29,7 @@
 - Updated dependencies [9ebc693]
 - Updated dependencies [6d8058b]
   - @rapidajs/recs@0.0.7
-  - @rapidajs/rapida-physics@0.0.7
+  - @rapidajs/cannon-worker@0.0.7
   - @rapidajs/rapida-common@0.0.7
 
 ## 0.0.6
@@ -38,7 +38,7 @@
 
 - 0b66f10: Add README
 - Updated dependencies [0b66f10]
-  - @rapidajs/rapida-physics@0.0.6
+  - @rapidajs/cannon-worker@0.0.6
 
 ## 0.0.5
 

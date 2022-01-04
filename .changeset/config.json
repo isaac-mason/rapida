@@ -2,7 +2,7 @@
   "$schema": "https://unpkg.com/@changesets/config@1.6.3/schema.json",
   "changelog": "@changesets/cli/changelog",
   "commit": false,
-  "linked": [["@rapidajs/rapida", "@rapidajs/recs", "@rapidajs/rapida-common", "@rapidajs/rapida-physics"]],
+  "linked": [["@rapidajs/rapida", "@rapidajs/recs", "@rapidajs/rapida-common", "@rapidajs/cannon-worker"]],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "minor",

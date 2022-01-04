@@ -1,4 +1,4 @@
-import { Physics, PhysicsParams } from '@rapidajs/rapida-physics';
+import { Physics, PhysicsParams } from '@rapidajs/cannon-worker';
 import {
   uuid,
   Event,

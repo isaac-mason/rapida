@@ -11,7 +11,7 @@
       "path": "../packages/recs"
     },
     {
-      "path": "../packages/rapida-physics"
+      "path": "../packages/cannon-worker"
     },
     {
       "path": "../packages/rapida-common"

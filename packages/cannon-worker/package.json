@@ -1,8 +1,8 @@
 {
-  "name": "@rapidajs/rapida-physics",
+  "name": "@rapidajs/cannon-worker",
   "version": "0.0.8",
   "description": "web worker wrapped cannon-es",
-  "homepage": "https://gitlab.com/rapidajs/rapida/-/tree/main/packages/rapida",
+  "homepage": "https://gitlab.com/rapidajs/rapida/-/tree/main/packages/cannon-worker",
   "bugs": {
     "url": "https://gitlab.com/rapidajs/rapida/issues"
   },

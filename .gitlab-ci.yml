@@ -19,7 +19,7 @@ workflow:
     - (cd packages/rapida-common && yarn run build)
     - (cd packages/postprocessing && yarn run build)
     - (cd packages/recs && yarn run build)
-    - (cd packages/rapida-physics && yarn run build)
+    - (cd packages/cannon-worker && yarn run build)
     - (cd packages/rapida && yarn run build)
     - yarn run release
     - |- 
@@ -39,11 +39,11 @@ workflow:
     paths:
       - node_modules/
       - packages/rapida-common/node_modules/
-      - packages/rapida-physics/node_modules/
+      - packages/cannon-worker/node_modules/
       - packages/recs/node_modules/
       - packages/rapida/node_modules/
       - packages/rapida-common/lib/
-      - packages/rapida-physics/lib/
+      - packages/cannon-worker/lib/
       - packages/recs/lib/
       - packages/rapida/lib/
     expire_in: 1 day
@@ -59,7 +59,7 @@ pages:
     url: "https://rapidajs.dev/"
   script:
     - yarn workspaces focus @rapidajs/rapida-website
-    # the above ^ will include @rapidajs/rapida-website build, @rapidajs/rapida, @rapidajs/rapida-physics and @rapidajs/rapida-common
+    # the above ^ will include @rapidajs/rapida-website build, @rapidajs/rapida, @rapidajs/cannon-worker and @rapidajs/rapida-common
     # build @rapidajs/rapida-website
     - (cd website && yarn run build) 
     - |- 

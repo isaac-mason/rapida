@@ -1,6 +1,6 @@
-# @rapidajs/rapida-physics
+# @rapidajs/cannon-worker
 
-`@rapidajs/rapida-physics` is a javascript package that makes adding physics to your three.js scenes easy!
+`@rapidajs/cannon-worker` is a javascript package that makes adding physics to your three.js scenes easy!
 
 **rapida is under active alpha development and is not yet battle-tested and stable. We don't recommend using rapida in production just yet, but watch this space!**
 
@@ -10,9 +10,9 @@
 - [x] Supports running on node.js! (not well tested *yet*)
 
 ```bash
-> npm install @rapidajs/rapida-physics
+> npm install @rapidajs/cannon-worker
 
 # or yarn
 
-> yarn add @rapidajs/rapida-physics
+> yarn add @rapidajs/cannon-worker
 ```
