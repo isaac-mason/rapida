@@ -13,6 +13,10 @@ import { SVGLoader, SVGResult } from 'three/examples/jsm/loaders/SVGLoader';
 
 const DEFAULT_DRACO_DECODER_PATH = 'https://www.gstatic.com/draco/v1/decoders/';
 
+const noop = (..._args: unknown[]) => {
+  // noop
+};
+
 /**
  * Params for creating Loaders
  */
@@ -99,27 +103,41 @@ export class Loaders {
   private preloadAliases = new Map<string, string>();
 
   /**
-   * Pre loads a resource
-   * @param key the friendly name that will be a key for the resource
+   * Pre-loads a resource
+   * @param friendlyName the friendly name that will be a key for the resource
    * @param url the url for the resource
-   * @returns a promise for preloading the resource
+   * @returns a void promise for finishing preloading the resource
    */
-  async preload(key: string, url: string): Promise<any> {
-    this.preloadAliases.set(key, url);
+  async preload(
+    friendlyName: string,
+    url: string,
+    params: { onProgress?: (event: ProgressEvent<EventTarget>) => void }
+  ): Promise<void> {
+    this.preloadAliases.set(friendlyName, url);
 
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       const isModel = /\.fbx$|\.glb$|\.gltf$/.test(url);
       const isTexture = /\.jpe?g$|\.png$/.test(url);
 
       if (isTexture) {
-        this.textureLoader.load(url, (texture) => {
-          return resolve(texture);
-        });
+        this.textureLoader.load(
+          url,
+          (_texture) => {
+            return resolve();
+          },
+          params?.onProgress || noop,
+          (error) => reject(error)
+        );
       } else {
         if (isModel) this.fileLoader.setResponseType('arraybuffer');
-        this.fileLoader.load(url, (file) => {
-          return resolve(file);
-        });
+        this.fileLoader.load(
+          url,
+          (_file) => {
+            return resolve();
+          },
+          params?.onProgress || noop,
+          (error) => reject(error)
+        );
       }
     });
   }
@@ -129,14 +147,24 @@ export class Loaders {
    * @param url the url or key for the image
    * @returns a promise for a HTMLImageElement
    */
-  image(url: string): Promise<HTMLImageElement> {
+  image(
+    url: string,
+    params: {
+      onProgress?: (event: ProgressEvent<EventTarget>) => void;
+    }
+  ): Promise<HTMLImageElement> {
     const key = this.preloadAliases.get(url);
     url = key || url;
 
-    return new Promise((resolve) => {
-      this.imageLoader.load(url, (image) => {
-        return resolve(image);
-      });
+    return new Promise((resolve, reject) => {
+      this.imageLoader.load(
+        url,
+        (image) => {
+          return resolve(image);
+        },
+        params?.onProgress || noop,
+        (error) => reject(error)
+      );
     });
   }
 
@@ -145,14 +173,24 @@ export class Loaders {
    * @param url the url or key for the file
    * @returns a promise for a string or arraybuffer for the file
    */
-  file(url: string): Promise<string | ArrayBuffer> {
+  file(
+    url: string,
+    params: {
+      onProgress?: (event: ProgressEvent<EventTarget>) => void;
+    }
+  ): Promise<string | ArrayBuffer> {
     const key = this.preloadAliases.get(url);
     url = key || url;
 
-    return new Promise((resolve) => {
-      this.fileLoader.load(url, (file) => {
-        return resolve(file);
-      });
+    return new Promise((resolve, reject) => {
+      this.fileLoader.load(
+        url,
+        (file) => {
+          return resolve(file);
+        },
+        params?.onProgress || noop,
+        (error) => reject(error)
+      );
     });
   }
 
@@ -161,14 +199,24 @@ export class Loaders {
    * @param url the url or key for the svg
    * @returns a promise for the SVGResult
    */
-  svg(url: string): Promise<SVGResult> {
+  svg(
+    url: string,
+    params: {
+      onProgress?: (event: ProgressEvent<EventTarget>) => void;
+    }
+  ): Promise<SVGResult> {
     const key = this.preloadAliases.get(url);
     url = key || url;
 
-    return new Promise((resolve) => {
-      this.svgLoader.load(url, (svg) => {
-        return resolve(svg);
-      });
+    return new Promise((resolve, reject) => {
+      this.svgLoader.load(
+        url,
+        (svg) => {
+          return resolve(svg);
+        },
+        params?.onProgress || noop,
+        (error) => reject(error)
+      );
     });
   }
 
@@ -177,7 +225,13 @@ export class Loaders {
    * @param url the url or key for the texture
    * @returns a promise for the texture
    */
-  texture(url: string, textureAnisotropy = 1): Promise<Texture> {
+  texture(
+    url: string,
+    params: {
+      onProgress?: (event: ProgressEvent<EventTarget>) => void;
+      textureAnisotropy: number;
+    }
+  ): Promise<Texture> {
     const isBase64 = /^data:image\/[\S]+;base64,/gm.test(url);
 
     // we do not want to cache base64 images
@@ -186,13 +240,20 @@ export class Loaders {
       url = key || url;
     }
 
-    return new Promise((resolve) => {
-      this.textureLoader.load(url, (texture: Texture) => {
-        texture.anisotropy = textureAnisotropy;
-        texture.needsUpdate = true;
-
-        resolve(texture);
-      });
+    return new Promise((resolve, reject) => {
+      this.textureLoader.load(
+        url,
+        (texture: Texture) => {
+          texture.anisotropy =
+            params.textureAnisotropy !== undefined
+              ? params.textureAnisotropy
+              : 1;
+          texture.needsUpdate = true;
+          resolve(texture);
+        },
+        params?.onProgress || noop,
+        (error) => reject(error)
+      );
     });
   }
 
@@ -201,14 +262,24 @@ export class Loaders {
    * @param url the url or key for the GLTF
    * @returns a promise for the GLTF
    */
-  gltf(url: string): Promise<GLTF> {
+  gltf(
+    url: string,
+    params: {
+      onProgress?: (event: ProgressEvent<EventTarget>) => void;
+    }
+  ): Promise<GLTF> {
     const value = this.preloadAliases.get(url);
     url = value || url;
 
-    return new Promise((resolve) => {
-      this.gltfLoader.load(url, (gltf: GLTF) => {
-        resolve(gltf);
-      });
+    return new Promise((resolve, reject) => {
+      this.gltfLoader.load(
+        url,
+        (gltf: GLTF) => {
+          resolve(gltf);
+        },
+        params?.onProgress || noop,
+        (error) => reject(error)
+      );
     });
   }
 
@@ -217,14 +288,23 @@ export class Loaders {
    * @param url the url of key for the FBX
    * @returns a promise for the FBX
    */
-  fbx(url: string): Promise<Group> {
+  fbx(
+    url: string,
+    params: {
+      onProgress?: (event: ProgressEvent<EventTarget>) => void;
+    }
+  ): Promise<Group> {
     const key = this.preloadAliases.get(url);
     url = key || url;
 
     return new Promise((resolve) => {
-      this.fbxLoader.load(url, (fbx: Group) => {
-        resolve(fbx);
-      });
+      this.fbxLoader.load(
+        url,
+        (fbx: Group) => {
+          resolve(fbx);
+        },
+        params?.onProgress || noop
+      );
     });
   }
 }
