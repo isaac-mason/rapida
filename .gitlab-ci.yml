@@ -39,10 +39,12 @@ workflow:
     paths:
       - node_modules/
       - packages/rapida-common/node_modules/
+      - packages/postprocessing/node_modules/
       - packages/cannon-worker/node_modules/
       - packages/recs/node_modules/
       - packages/rapida/node_modules/
       - packages/rapida-common/lib/
+      - packages/postprocessing/lib/
       - packages/cannon-worker/lib/
       - packages/recs/lib/
       - packages/rapida/lib/
@@ -59,7 +61,7 @@ pages:
     url: "https://rapidajs.dev/"
   script:
     - yarn workspaces focus @rapidajs/rapida-website
-    # the above ^ will include @rapidajs/rapida-website build, @rapidajs/rapida, @rapidajs/cannon-worker and @rapidajs/rapida-common
+    # the above ^ will include @rapidajs/rapida-website, @rapidajs/rapida, @rapidajs/postprocessing, @rapidajs/recs, @rapidajs/cannon-worker and @rapidajs/rapida-common
     # build @rapidajs/rapida-website
     - (cd website && yarn run build) 
     - |- 
