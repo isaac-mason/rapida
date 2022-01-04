@@ -1,4 +1,4 @@
-import { Spring, Vec3 } from 'cannon-es';
+import { Spring, SpringWithId, Vec3 } from 'cannon-es';
 import { Triplet } from '../../types';
 import { PhysicsEventTopic } from '../physics-event-topic';
 import { State } from '../../state';
@@ -39,9 +39,8 @@ export const handleAddSpring = (e: AddSpringEvent, state: State): void => {
     restLength,
     stiffness,
     damping,
-  });
+  }) as SpringWithId;
 
-  // @ts-expect-error extra untyped uuid property
   spring.uuid = uuid;
 
   const postStepSpring = () => spring.applyForce();

@@ -1,7 +1,16 @@
-import { GSSolver, NaiveBroadphase, SAPBroadphase, SplitSolver, Vec3, World } from 'cannon-es';
+import {
+  Body,
+  BodyWithId,
+  GSSolver,
+  NaiveBroadphase,
+  SAPBroadphase,
+  SplitSolver,
+  Vec3,
+  World,
+} from 'cannon-es';
+import { State } from '../state';
 import { PhysicsWorldConfig } from '../types';
 import { PhysicsEventTopic } from './physics-event-topic';
-import { State } from '../state';
 
 export type InitEvent = {
   topic: PhysicsEventTopic.INIT;
@@ -15,10 +24,8 @@ function emitBeginContact({ bodyA, bodyB }: { bodyA: Body; bodyB: Body }) {
   ctx.postMessage({
     topic: PhysicsEventTopic.EVENT,
     type: PhysicsEventTopic.COLLIDE_BEGIN,
-    // @ts-expect-error using added untyped uuid
-    bodyA: bodyA.uuid,
-    // @ts-expect-error using added untyped uuid
-    bodyB: bodyB.uuid,
+    bodyA: (bodyA as BodyWithId).uuid,
+    bodyB: (bodyB as BodyWithId).uuid,
   });
 }
 
@@ -26,10 +33,8 @@ function emitEndContact({ bodyA, bodyB }: { bodyA: Body; bodyB: Body }) {
   if (!bodyA || !bodyB) return;
   ctx.postMessage({
     topic: PhysicsEventTopic.COLLIDE_END,
-    // @ts-expect-error using added untyped uuid
-    bodyA: bodyA.uuid,
-    // @ts-expect-error using added untyped uuid
-    bodyB: bodyB.uuid,
+    bodyA: (bodyA as BodyWithId).uuid,
+    bodyB: (bodyB as BodyWithId).uuid,
   });
 }
 
@@ -64,14 +69,14 @@ export const handleInit = (e: InitEvent, state: State): void => {
     broadphase: new (broadphases[`${broadphase}Broadphase`] || NaiveBroadphase)(state.world),
   });
 
-  // @ts-expect-error accessing private property
-  state.world.solver.tolerance = tolerance;
+  (state.world.solver as SplitSolver | GSSolver).tolerance = tolerance;
+  (state.world.solver as SplitSolver | GSSolver).iterations = iterations;
 
-  // @ts-expect-error accessing private property
-  state.world.solver.iterations = iterations;
-
-  // @ts-expect-error accessing private property
-  state.world.broadphase.axisIndex = axisIndex === undefined || axisIndex === null ? 0 : axisIndex;
+  if (broadphase === 'SAP') {
+    (state.world.broadphase as SAPBroadphase).axisIndex = (
+      axisIndex === undefined || axisIndex === null ? 0 : axisIndex
+    ) as 0 | 1 | 2;
+  }
 
   state.world.addEventListener('beginContact', emitBeginContact);
   state.world.addEventListener('endContact', emitEndContact);

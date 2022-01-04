@@ -1,10 +1,16 @@
 import {
   ConeTwistConstraint,
+  ConeTwistConstraintWithId,
   Constraint,
+  ConstraintWithId,
   DistanceConstraint,
+  DistanceConstraintWithId,
   HingeConstraint,
+  HingeConstraintWithId,
   LockConstraint,
+  LockConstraintWithId,
   PointToPointConstraint,
+  PointToPointConstraintWithId,
   Vec3,
 } from 'cannon-es';
 import { Triplet } from '../../types';
@@ -52,7 +58,7 @@ export const handleAddConstraint = (e: AddConstraintEvent, state: State): void =
         state.bodies[bodyB],
         pivotB,
         optns.maxForce,
-      );
+      ) as PointToPointConstraintWithId;
       break;
     case 'ConeTwist':
       constraint = new ConeTwistConstraint(state.bodies[bodyA], state.bodies[bodyB], {
@@ -61,7 +67,7 @@ export const handleAddConstraint = (e: AddConstraintEvent, state: State): void =
         pivotB,
         axisA,
         axisB,
-      });
+      }) as ConeTwistConstraintWithId;
       break;
     case 'Hinge':
       constraint = new HingeConstraint(state.bodies[bodyA], state.bodies[bodyB], {
@@ -70,7 +76,7 @@ export const handleAddConstraint = (e: AddConstraintEvent, state: State): void =
         pivotB,
         axisA,
         axisB,
-      });
+      }) as HingeConstraintWithId;
       break;
     case 'Distance':
       constraint = new DistanceConstraint(
@@ -78,16 +84,20 @@ export const handleAddConstraint = (e: AddConstraintEvent, state: State): void =
         state.bodies[bodyB],
         optns.distance,
         optns.maxForce,
-      );
+      ) as DistanceConstraintWithId;
       break;
     case 'Lock':
-      constraint = new LockConstraint(state.bodies[bodyA], state.bodies[bodyB], optns);
+      constraint = new LockConstraint(
+        state.bodies[bodyA],
+        state.bodies[bodyB],
+        optns,
+      ) as LockConstraintWithId;
       break;
     default:
-      constraint = new Constraint(state.bodies[bodyA], state.bodies[bodyB], optns);
+      constraint = new Constraint(state.bodies[bodyA], state.bodies[bodyB], optns) as ConstraintWithId;
       break;
   }
-  // @ts-expect-error extra untyped uuid property
+
   constraint.uuid = uuid;
   state.world.addConstraint(constraint);
 };

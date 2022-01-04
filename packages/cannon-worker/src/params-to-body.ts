@@ -1,5 +1,6 @@
 import {
   Body,
+  BodyWithId,
   Box,
   ConvexPolyhedron,
   Cylinder,
@@ -16,8 +17,7 @@ import type { BodyParams, BodyShapeType, CompoundBodyParams } from './types';
 
 const makeVec3 = ([x, y, z]: [number, number, number]) => new Vec3(x, y, z);
 
-// @ts-expect-error TODO: types
-const prepareSphere = (args) => (Array.isArray(args) ? args : [args]);
+const prepareSphere = (args: number | number[]): number[] => (Array.isArray(args) ? args : [args]);
 
 // @ts-expect-error TODO: types
 const prepareConvexPolyhedron = ([v, faces, n, a, boundingSphereRadius]) => [
@@ -46,11 +46,9 @@ function createShape(type: BodyShapeType, args: any) {
     case 'Plane':
       return new Plane(); // no args, infinite x and y
     case 'Sphere':
-      // @ts-expect-error TODO: type
-      return new Sphere(...prepareSphere(args)); // radius = args
+      return new Sphere(...(prepareSphere(args) as [number]));
     case 'Trimesh':
-      // @ts-expect-error TODO: type
-      return new Trimesh(...args); // [vertices, indices] = args
+      return new Trimesh(...(args as [number[], number[]])); // [vertices, indices] = args
     default:
       throw new Error('unsupported shape type');
   }
@@ -83,18 +81,17 @@ export const paramsToBody = (uuid: string, params: BodyParams<unknown>, type: Bo
 
   const args = params.args || [];
 
-  const body = new Body({
+  const body: BodyWithId = new Body({
     ...extra,
     mass: bodyType === 'Static' ? 0 : mass,
-    // @ts-expect-error TODO - indexing static property by string
+    // @ts-expect-error accessing static property by string name
     type: bodyType ? Body[bodyType.toUpperCase()] : undefined,
     material: material ? new Material(material) : undefined,
-  });
-  // @ts-expect-error untyped uuid field
+  }) as BodyWithId;
   body.uuid = uuid;
 
   if (collisionResponse !== undefined) {
-    // TODO - determine if param collisionResponse should be boolean
+    // transform number (0 | 1) to boolean
     body.collisionResponse = Boolean(collisionResponse);
   }
 
@@ -107,7 +104,7 @@ export const paramsToBody = (uuid: string, params: BodyParams<unknown>, type: Bo
 
   if (type === 'Compound') {
     const { shapes } = params as CompoundBodyParams;
-    // @ts-expect-error TODO: fix shadowed var names
+    // @ts-expect-error TODO: fix shadowed var names and spread warning
     // eslint-disable-next-line @typescript-eslint/no-shadow
     shapes.forEach(({ type, args, position, rotation, material, ...extra }) => {
       const shapeBody = body.addShape(

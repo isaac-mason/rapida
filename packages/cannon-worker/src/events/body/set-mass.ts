@@ -14,6 +14,7 @@ export const handleSetMass = (e: SetMassEvent, state: State): void => {
   if (params !== 0 && state.bodies[uuid].type === 0) {
     state.bodies[uuid].type = 1;
   }
+
   state.bodies[uuid].mass = params;
   state.bodies[uuid].updateMassProperties();
 };

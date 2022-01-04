@@ -1,13 +1,13 @@
-import { Body, Vec3, RaycastVehicle, Spring, World } from 'cannon-es';
+import { BodyWithId, RaycastVehicleWithId, SpringWithId, Vec3, World } from 'cannon-es';
 
 export class State {
-  bodies: { [id: string]: Body } = {};
+  bodies: { [id: string]: BodyWithId } = {};
 
-  vehicles: { [id: string]: RaycastVehicle } = {};
+  vehicles: { [id: string]: RaycastVehicleWithId } = {};
 
   springs: { [id: string]: () => void } = {};
 
-  springInstances: { [id: string]: Spring } = {};
+  springInstances: { [id: string]: SpringWithId } = {};
 
   rays: { [id: string]: () => void } = {};
 

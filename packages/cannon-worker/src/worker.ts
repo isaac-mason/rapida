@@ -1,4 +1,4 @@
-import { Quaternion, Vec3 } from 'cannon-es';
+import { BodyWithId, Quaternion, Vec3 } from 'cannon-es';
 import { handleInit } from './events/init';
 import { PhysicsEventTopic } from './events/physics-event-topic';
 import { StepEvent } from './events/step';
@@ -76,8 +76,7 @@ const handleStep = (e: StepEvent): void => {
   };
 
   if (state.bodiesNeedSyncing) {
-    // @ts-expect-error extra untyped uuid property
-    message.bodies = state.world.bodies.map((body) => body.uuid);
+    message.bodies = (state.world.bodies as BodyWithId[]).map((body) => body.uuid);
     state.bodiesNeedSyncing = false;
   }
 

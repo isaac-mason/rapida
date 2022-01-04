@@ -1,4 +1,4 @@
-import { RaycastVehicle, Vec3 } from 'cannon-es';
+import { RaycastVehicle, RaycastVehicleWithId, Vec3 } from 'cannon-es';
 import { PhysicsEventTopic } from '../physics-event-topic';
 import { State } from '../../state';
 import { WheelInfoOptions } from '../../types';
@@ -24,7 +24,7 @@ export const handleAddRaycastVehicle = (e: AddRaycastVehicleEvent, state: State)
     indexForwardAxis,
     indexRightAxis,
     indexUpAxis,
-  });
+  }) as RaycastVehicleWithId;
   vehicle.world = state.world;
   for (let i = 0; i < wheelInfos.length; i++) {
     const wheelInfo = wheelInfos[i];
@@ -50,11 +50,10 @@ export const handleAddRaycastVehicle = (e: AddRaycastVehicleEvent, state: State)
     });
   }
 
-  // @ts-expect-error add method
   vehicle.preStep = () => {
     state.vehicles[uuid].updateVehicle(state.world.dt);
   };
-  // @ts-expect-error add method
+
   vehicle.postStep = () => {
     for (let i = 0; i < state.vehicles[uuid].wheelInfos.length; i++) {
       state.vehicles[uuid].updateWheelTransform(i);
@@ -67,9 +66,7 @@ export const handleAddRaycastVehicle = (e: AddRaycastVehicleEvent, state: State)
 
   state.vehicles[uuid] = vehicle;
 
-  // @ts-expect-error using untyped added method
   state.world.addEventListener('preStep', state.vehicles[uuid].preStep);
 
-  // @ts-expect-error using untyped added method
   state.world.addEventListener('postStep', state.vehicles[uuid].postStep);
 };

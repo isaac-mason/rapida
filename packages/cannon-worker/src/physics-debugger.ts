@@ -15,19 +15,19 @@ type DebugApi = {
 /**
  * Debugging information available to a debugger
  */
-export type PhysicsDebugInfo = { bodies: Body[]; refs: { [uuid: string]: Body } };
+export type DebuggerInfo = { bodies: Body[]; refs: { [uuid: string]: Body } };
 
 /**
  * Color for the physics debugger to use
  */
-export type PhysicsDebuggerColor = string | number | Color;
+export type DebuggerColor = string | number | Color;
 
 /**
  * Params for creating a PhysicsDebugger instance
  */
 export type CannonPhysicsDebuggerParams = {
   scene?: Scene;
-  color?: PhysicsDebuggerColor;
+  color?: DebuggerColor;
   scale?: number;
 };
 
@@ -52,7 +52,7 @@ export class CannonPhysicsDebugger {
   /**
    * The color for debug three objects to be displayed as
    */
-  color: PhysicsDebuggerColor;
+  color: DebuggerColor;
 
   /**
    * The scale of the debugger
@@ -67,7 +67,7 @@ export class CannonPhysicsDebugger {
   /**
    * Physics world debug information
    */
-  debugInfo: PhysicsDebugInfo = { bodies: [], refs: {} };
+  debugInfo: DebuggerInfo = { bodies: [], refs: {} };
 
   /**
    * Constructor for a new cannon physics debugger

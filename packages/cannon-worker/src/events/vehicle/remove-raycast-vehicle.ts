@@ -9,10 +9,8 @@ export type RemoveRaycastVehicleEvent = {
 export const handleRemoveRaycastVehicle = (e: RemoveRaycastVehicleEvent, state: State): void => {
   const { uuid } = e;
 
-  // @ts-expect-error using untyped added method
   state.world.removeEventListener('preStep', state.vehicles[uuid].preStep);
 
-  // @ts-expect-error using untyped added method
   state.world.removeEventListener('postStep', state.vehicles[uuid].postStep);
 
   state.vehicles[uuid].world = null;

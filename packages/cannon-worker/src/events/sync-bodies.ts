@@ -1,11 +1,11 @@
+import { BodyWithId } from 'cannon-es';
 import { State } from '../state';
 
 export function syncBodies(state: State): void {
   state.bodiesNeedSyncing = true;
-  state.bodies = state.world.bodies.reduce(
+  state.bodies = (state.world.bodies as BodyWithId[]).reduce(
     (acc, body) => ({
       ...acc,
-      // @ts-expect-error using added untyped uuid
       [body.uuid]: body,
     }),
     {},

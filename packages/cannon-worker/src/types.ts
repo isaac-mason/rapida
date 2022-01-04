@@ -564,7 +564,7 @@ export type TrimeshParams = BodyParamsArgsRequired<TrimeshArgs>;
 export type HeightfieldParams = BodyParamsArgsRequired<HeightfieldArgs>;
 export type ConvexPolyhedronParams = BodyParams<ConvexPolyhedronArgs>;
 export interface CompoundBodyParams extends BodyParams {
-  shapes: BodyParams & { type: ShapeType }[];
+  shapes: (BodyParams & { type: ShapeType })[];
 }
 
 export interface ConstraintOptns {

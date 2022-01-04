@@ -24,7 +24,7 @@ export const handleAddRay = (e: AddRayEvent, state: State): void => {
   const { uuid, params } = e;
   const { from, to, ...options } = params;
   const ray = new Ray(from ? new Vec3(...from) : undefined, to ? new Vec3(...to) : undefined);
-  // @ts-expect-error should become clear with typing
+  // @ts-expect-error accessing static property with string
   options.mode = Ray[options.mode.toUpperCase()];
   options.result = new RaycastResult();
   state.rays[uuid] = () => {
