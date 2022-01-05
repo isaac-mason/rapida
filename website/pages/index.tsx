@@ -2,62 +2,76 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { Tooltip } from 'reactstrap';
-import styles from '../styles/Home.module.scss';
+import styled from 'styled-components';
+import { FindUs } from '../components/FindUs';
+import { Packages } from '../components/Packages';
+import { PageContainer, PageMain } from '../components/Page';
 
-const packages = [
-  {
-    name: '@rapidajs/rapida',
-    description:
-      'rapida is a javascript package that helps you create interactive 3d content for the web. It is the culmination of all of the @rapidajs packages.',
-    links: [
-      {
-        name: 'Examples',
-        href: '/storybooks/rapida/index.html',
-      },
-      {
-        name: 'Source',
-        href: 'https://gitlab.com/rapidajs/rapida/-/tree/main/packages/rapida',
-      },
-    ],
-  },
-  {
-    name: '@rapidajs/cannon-worker',
-    description:
-      'cannon-worker is a javascript package that makes adding physics to your three.js scenes easy!',
-    links: [
-      {
-        name: 'Examples',
-        href: '/storybooks/cannon-worker/index.html',
-      },
-      {
-        name: 'Source',
-        href: 'https://gitlab.com/rapidajs/rapida/-/tree/main/packages/cannon-worker',
-      },
-    ],
-  },
-  {
-    name: '@rapidajs/recs',
-    description:
-      'recs is Reminiscent [of an] Entity Component System. It is the entity component system used in rapida, and it can also be used standalone.',
-    links: [
-      {
-        name: 'Source',
-        href: 'https://gitlab.com/rapidajs/rapida/-/tree/main/packages/recs',
-      },
-    ],
-  },
-  {
-    name: '@rapidajs/postprocessing',
-    description:
-      'postprocessing is a thin wrapper around vanruesc/postprocessing with typed effect factory functions. It is used in rapida to provide a typed way of creating post processing effects.',
-    links: [
-      {
-        name: 'Source',
-        href: 'https://gitlab.com/rapidajs/rapida/-/tree/main/packages/postprocessing',
-      },
-    ],
-  },
-];
+const CodeBlock = styled.code`
+  background-color: #333;
+  color: #fafafa;
+  border-radius: 5px;
+  padding: 2rem;
+  font-size: 1.1rem;
+  font-family: $rapida-font;
+  margin-bottom: 3em;
+
+  font-size: 1.1rem;
+  font-family: $rapida-font;
+
+  a {
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
+const Title = styled.h1`
+  margin: 0;
+  line-height: 1.15;
+  font-size: 4rem;
+  font-weight: 300;
+  font-family: ${(p) => p.theme.fonts.rapida};
+  text-align: center;
+
+  @media screen and (max-width: 500px) {
+    font-size: 3rem;
+  }
+`;
+
+const Description = styled.p`
+  margin: 1.5em 0;
+  max-width: 800px;
+  font-family: ${(p) => p.theme.fonts.rapida};
+  font-size: 1.5rem;
+  text-align: center;
+  line-height: 1.5;
+
+  @media screen and (max-width: 500px) {
+    text-align: left;
+  }
+`;
+
+const Warning = styled.div`
+background-color: #fff399;
+  border-radius: 5px;
+  padding: 2rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.5;
+  max-width: 700px;
+  text-align: center;
+  margin-bottom: 3em;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+`;
+
 const Home: NextPage = () => {
   const [copied, setCopied] = useState(false);
 
@@ -68,7 +82,7 @@ const Home: NextPage = () => {
   }, [copied]);
 
   return (
-    <div className={styles.container}>
+    <PageContainer>
       <Head>
         <title>rápida - 3D for the Web</title>
         <meta
@@ -77,40 +91,37 @@ const Home: NextPage = () => {
         />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>rápida</h1>
+      <PageMain>
+        <Title>rápida</Title>
 
-        <p className={styles.description}>
+        <Description>
           rapida helps you create interactive 3d content for the web &#x1f919;
-        </p>
+        </Description>
 
-        <code className={styles.codeBlock}>
-          <div>
-            <a
-              href="#"
-              id={'copyInstallCommand'}
-              className={styles.copyInstallCommand}
-              onClick={(e) => {
-                window.navigator.clipboard.writeText(
-                  'yarn add @rapidajs/rapida three'
-                );
-                setCopied(true);
-              }}
-            >
-              &gt; yarn add @rapidajs/rapida @rapidajs/cannon-worker three
-            </a>
-            <Tooltip
-              flip
-              target="copyInstallCommand"
-              placement="bottom"
-              isOpen={copied}
-            >
-              Copied to clipboard!
-            </Tooltip>
-          </div>
-        </code>
+        <CodeBlock>
+          <a
+            href="#"
+            id="copyInstallCommand"
+            onClick={(e) => {
+              window.navigator.clipboard.writeText(
+                'yarn add @rapidajs/rapida three'
+              );
+              setCopied(true);
+            }}
+          >
+            &gt; yarn add @rapidajs/rapida @rapidajs/cannon-worker three
+          </a>
+          <Tooltip
+            flip
+            target="copyInstallCommand"
+            placement="bottom"
+            isOpen={copied}
+          >
+            Copied to clipboard!
+          </Tooltip>
+        </CodeBlock>
 
-        <div className={styles.warning}>
+        <Warning>
           <p>&#9888; &#9888; &#9888;</p>
           <p>
             <strong>
@@ -128,52 +139,13 @@ const Home: NextPage = () => {
             each release right now.
           </p>
           <p>&#9888; &#9888; &#9888;</p>
-        </div>
+        </Warning>
 
-        <div className={styles.packages}>
-          {packages.map((p) => (
-            <div className={styles.package} key={p.name}>
-              <div className={styles.top}>
-                <div className={styles.packageTitle}>{p.name}</div>
-                <div className={styles.packageDescription}>{p.description}</div>
-              </div>
-              <div className={styles.bottom}>
-                <div className={styles.packageLinks}>
-                  {p.links.map((l) => (
-                    <a href={l.href} key={l.name}>
-                      {l.name}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <Packages />
 
-        <div className={styles.findUs}>
-          <div className={styles.links}>
-            <a
-              href="https://gitlab.com/rapidajs/rapida"
-              className={styles.code}
-            >
-              GitLab
-            </a>
-            <a
-              href="https://github.com/rapidajs/rapida"
-              className={styles.code}
-            >
-              GitHub (mirror)
-            </a>
-            <a
-              href="https://www.npmjs.com/package/@rapidajs/rapida"
-              className={styles.code}
-            >
-              NPM
-            </a>
-          </div>
-        </div>
-      </main>
-    </div>
+        <FindUs />
+      </PageMain>
+    </PageContainer>
   );
 };
 

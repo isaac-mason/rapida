@@ -12,16 +12,8 @@ import {
   Vector3,
 } from 'three';
 
-// @ts-expect-error mdx import
-import docs from './1-introduction.stories.mdx';
-
 export default {
   title: 'Getting Started / Hello World',
-  parameters: {
-    docs: {
-      page: docs,
-    },
-  },
 };
 
 export const HelloWorld = () => {
