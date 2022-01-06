@@ -135,8 +135,6 @@ export const VRShooter = () => {
 
       // fire a sphere on select event
       controller.addEventListener('selectstart', (e) => {
-        console.log('here');
-        console.log(controller.position);
         const sphere = new Mesh(
           new SphereBufferGeometry(0.1),
           new MeshLambertMaterial()

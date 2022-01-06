@@ -185,9 +185,9 @@ export type ViewRectangleParam = {
 /**
  * A ViewParam, which can either be a:
  * - decimal percentage (passthrough)
- * - number of pixels given by a string '<n>px'
- * - percentage of the dom container given by a string '<n>%'
- * - percentage of the screen size given by '<n>vw' or '<n>vh'
+ * - number of pixels given by a string '[n]px'
+ * - percentage of the dom container given by a string '[n]%'
+ * - percentage of the screen size given by '[n]vw' or '[n]vh'
  */
 export type ViewRectangleParamInput = (string | number) | ViewRectangleParam;
 

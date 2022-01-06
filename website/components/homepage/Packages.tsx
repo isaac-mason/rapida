@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import React from 'react';
+import { up } from 'styled-breakpoints';
 import styled from 'styled-components';
 
 const packages = [
@@ -8,15 +10,15 @@ const packages = [
       'rapida is a javascript package that helps you create interactive 3d content for the web. It is the culmination of all of the @rapidajs packages.',
     links: [
       {
-        name: 'NPM',
-        href: 'https://www.npmjs.com/package/@rapidajs/rapida',
+        name: 'Docs',
+        href: '/docs/rapida/README',
       },
       {
         name: 'Examples',
         href: '/storybooks/rapida/index.html',
       },
       {
-        name: 'Source',
+        name: 'GitLab',
         href: 'https://gitlab.com/rapidajs/rapida/-/tree/main/packages/rapida',
       },
     ],
@@ -27,15 +29,15 @@ const packages = [
       'cannon-worker is a javascript package that makes adding physics to your three.js scenes easy!',
     links: [
       {
-        name: 'NPM',
-        href: 'https://www.npmjs.com/package/@rapidajs/cannon-worker',
+        name: 'Docs',
+        href: '/docs/cannon-worker/README',
       },
       {
         name: 'Examples',
         href: '/storybooks/cannon-worker/index.html',
       },
       {
-        name: 'Source',
+        name: 'GitLab',
         href: 'https://gitlab.com/rapidajs/rapida/-/tree/main/packages/cannon-worker',
       },
     ],
@@ -46,11 +48,11 @@ const packages = [
       'recs is Reminiscent [of an] Entity Component System. It is the entity component system used in rapida, and it can also be used standalone.',
     links: [
       {
-        name: 'NPM',
-        href: 'https://www.npmjs.com/package/@rapidajs/recs',
+        name: 'Docs',
+        href: '/docs/recs/README',
       },
       {
-        name: 'Source',
+        name: 'GitLab',
         href: 'https://gitlab.com/rapidajs/rapida/-/tree/main/packages/recs',
       },
     ],
@@ -61,11 +63,11 @@ const packages = [
       'postprocessing is a thin wrapper around vanruesc/postprocessing with typed effect factory functions. It is used in rapida to provide a typed way of creating post processing effects.',
     links: [
       {
-        name: 'NPM',
-        href: 'https://www.npmjs.com/package/@rapidajs/postprocessing',
+        name: 'Docs',
+        href: '/docs/postprocessing/README',
       },
       {
-        name: 'Source',
+        name: 'GitLab',
         href: 'https://gitlab.com/rapidajs/rapida/-/tree/main/packages/postprocessing',
       },
     ],
@@ -73,7 +75,7 @@ const packages = [
 ];
 
 const PackagesContainer = styled.div`
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   margin-bottom: 3em;
 
@@ -82,7 +84,13 @@ const PackagesContainer = styled.div`
 
   grid-template-columns: repeat(1, minmax(0, 1fr));
 
-  @media screen and (min-width: 1024px) {
+  font-size: 0.8rem;
+
+  ${up('sm')} {
+    font-size: 1rem;
+  }
+
+  ${up('md')} {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 `;
@@ -123,7 +131,7 @@ const PackageLinks = styled.div`
   border-top: 1px solid #333;
 `;
 
-const PackageLink = styled.a`
+const PackageLink = styled.div`
   padding: 0.5em;
   display: block;
 
@@ -142,8 +150,10 @@ export const Packages = () => (
         <PackageBottom>
           <PackageLinks>
             {p.links.map((l) => (
-              <PackageLink href={l.href} key={l.name}>
-                {l.name}
+              <PackageLink key={l.name}>
+                <Link href={l.href}>
+                  <a>{l.name}</a>
+                </Link>
               </PackageLink>
             ))}
           </PackageLinks>

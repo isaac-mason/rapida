@@ -3,20 +3,19 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { Tooltip } from 'reactstrap';
 import styled from 'styled-components';
-import { FindUs } from '../components/FindUs';
-import { Packages } from '../components/Packages';
-import { PageContainer, PageMain } from '../components/Page';
+import { FindUs } from '../components/homepage/FindUs';
+import { Packages } from '../components/homepage/Packages';
+import { PageContainer, PageMain } from '../components/homepage/Page';
 
 const CodeBlock = styled.code`
   background-color: #333;
   color: #fafafa;
   border-radius: 5px;
   padding: 2rem;
-  font-size: 1.1rem;
   font-family: $rapida-font;
   margin-bottom: 3em;
 
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-family: $rapida-font;
 
   a {
@@ -57,7 +56,7 @@ const Description = styled.p`
 `;
 
 const Warning = styled.div`
-background-color: #fff399;
+  background-color: #fff399;
   border-radius: 5px;
   padding: 2rem;
   font-size: 1.2rem;
@@ -109,7 +108,7 @@ const Home: NextPage = () => {
               setCopied(true);
             }}
           >
-            &gt; yarn add @rapidajs/rapida @rapidajs/cannon-worker three
+            &gt; yarn add @rapidajs/rapida three
           </a>
           <Tooltip
             flip
@@ -129,6 +128,11 @@ const Home: NextPage = () => {
               recommend using rapida in production just yet, but watch this
               space!
             </strong>
+          </p>
+          <p>
+            Docs are currently WIP - there are only auto-generated docs here
+            right now. Getting started docs and worked examples will be
+            added soon.
           </p>
           <p>
             Things will{' '}
