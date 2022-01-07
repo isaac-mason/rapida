@@ -15,13 +15,15 @@ workflow:
     - merge_requests
   script:
     # build npm packages
-    - yarn workspaces focus @rapidajs/rapida
+    - yarn workspaces focus @rapidajs/rapida-website
     - (cd packages/rapida-common && yarn run build)
     - (cd packages/postprocessing && yarn run build)
     - (cd packages/recs && yarn run build)
     - (cd packages/cannon-worker && yarn run build)
     - (cd packages/rapida && yarn run build)
+    # will build and test all packages and build website
     - yarn run release
+    # release if we are on the main branch
     - |- 
       if [[ $CI_COMMIT_BRANCH == "main" ]]; then
         # publish npm packages if on the main branch
@@ -60,9 +62,9 @@ pages:
     name: Production
     url: "https://rapidajs.dev/"
   script:
+    # includes @rapidajs/rapida-website, @rapidajs/rapida, @rapidajs/postprocessing, @rapidajs/recs, @rapidajs/cannon-worker and @rapidajs/rapida-common
     - yarn workspaces focus @rapidajs/rapida-website
-    # the above ^ will include @rapidajs/rapida-website, @rapidajs/rapida, @rapidajs/postprocessing, @rapidajs/recs, @rapidajs/cannon-worker and @rapidajs/rapida-common
-    # build @rapidajs/rapida-website
+    # build storybooks, generate docs, then build the nextjs static website
     - yarn website:build 
     - |- 
       if [[ $CI_COMMIT_BRANCH == "main" ]]; then

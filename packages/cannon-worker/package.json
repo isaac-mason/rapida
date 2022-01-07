@@ -32,7 +32,7 @@
     "storybook": "start-storybook -p 6008",
     "storybook:https": "start-storybook -p 6008 --https --ssl-cert ../../dev/ca.crt --ssl-key ../../dev/ca.key",
     "build-storybook": "build-storybook",
-    "docs": "typedoc --hideBreadcrumbs --out docs src/index.ts && rm docs/README.md && mv docs/modules.md docs/README.md"
+    "docs": "typedoc"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",

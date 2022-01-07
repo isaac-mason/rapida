@@ -13,7 +13,7 @@
     "build:js": "babel src --out-dir lib --extensions \".ts\" --source-maps inline",
     "build": "yarn run build:types && yarn run build:js",
     "lint": "eslint . --ext .ts",
-    "docs": "typedoc --hideBreadcrumbs --out docs src/index.ts && rm docs/README.md && mv docs/modules.md docs/README.md"
+    "docs": "typedoc"
   },
   "author": "Isaac Mason",
   "license": "MIT",

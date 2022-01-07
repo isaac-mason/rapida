@@ -3,9 +3,9 @@ import { World, WorldParams } from './world';
 
 export * from '@rapidajs/rapida-common';
 export * from '@rapidajs/recs';
-export * from '@rapidajs/postprocessing';
 export * from './camera';
 export * from './engine';
+export * from './loaders';
 export * from './renderer';
 export * from './scene';
 export * from './world';

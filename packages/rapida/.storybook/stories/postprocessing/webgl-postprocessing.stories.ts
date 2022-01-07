@@ -1,16 +1,16 @@
+import { Effects } from '@rapidajs/postprocessing';
 import { useEffect } from '@storybook/client-api';
 import * as three from 'three';
 import {
   Mesh,
   MeshBasicMaterial,
-  Points,
   SphereBufferGeometry,
   Vector2,
   Vector3,
   WebGLRenderer,
 } from 'three';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
-import rapida, { Component, Scene, Effects } from '../../../src';
+import rapida, { Component, Scene } from '../../../src';
 
 export default {
   title: 'Postprocessing / WebGLRenderer Examples',
@@ -633,7 +633,9 @@ export const ToneMapping = ({ middleGrey, maxLuminance }) => {
       useEffectComposer: true,
     });
 
-    view.composer.add.effects(Effects.toneMapping({ middleGrey, maxLuminance }));
+    view.composer.add.effects(
+      Effects.toneMapping({ middleGrey, maxLuminance })
+    );
 
     new OrbitControls(camera.three, view.domElement);
 
@@ -668,4 +670,3 @@ export const Vignette = () => {
 
   return html;
 };
-
