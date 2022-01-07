@@ -7,7 +7,6 @@
 - [x] Physics provided by the javascript library [cannon-es](https://github.com/pmndrs/cannon-es)
 - [x] Easy integration with three.js
 - [x] Runs in a web worker!
-- [x] Supports running on node.js! (not well tested *yet*)
 
 ```bash
 > npm install @rapidajs/cannon-worker
