@@ -3,7 +3,7 @@ import { BodyType } from '../../../lib';
 import { createBasicSetup } from '../utils/create-basic-setup';
 
 export default {
-  title: 'Shapes / Box',
+  title: 'Examples / Box',
 };
 
 export const Box = () => {

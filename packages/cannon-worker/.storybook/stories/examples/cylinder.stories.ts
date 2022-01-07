@@ -3,7 +3,7 @@ import { BodyType } from '../../../lib';
 import { createBasicSetup } from '../utils/create-basic-setup';
 
 export default {
-  title: 'Shapes / Cylinder',
+  title: 'Examples / Cylinder',
 };
 
 export const Cylinder = ({

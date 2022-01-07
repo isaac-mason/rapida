@@ -13,6 +13,7 @@ import {
   Trimesh,
   Vec3,
 } from 'cannon-es';
+import { SerializableBodyParams } from './types';
 import type { BodyParams, BodyShapeType, CompoundBodyParams } from './types';
 
 const makeVec3 = ([x, y, z]: [number, number, number]) => new Vec3(x, y, z);
@@ -61,7 +62,11 @@ function createShape(type: BodyShapeType, args: any) {
  * @param type the body type
  * @return {module:objects/Body.Body}
  */
-export const paramsToBody = (uuid: string, params: BodyParams<unknown>, type: BodyShapeType): Body => {
+export const paramsToBody = (
+  uuid: string,
+  params: BodyParams<unknown> | SerializableBodyParams,
+  type: BodyShapeType,
+): Body => {
   const {
     type: bodyType,
     mass,

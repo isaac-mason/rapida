@@ -1,8 +1,7 @@
 import { WebGLRenderer, PerspectiveCamera, Scene, AmbientLight, DirectionalLight, Vector3 } from 'three';
-
 import { CannonPhysics, CannonPhysicsDebugger } from '../../../lib';
 
-export const createBasicSetup = (): {
+export const createBasicSetup = (params?: { delta?: number }): {
   renderer: WebGLRenderer;
   camera: PerspectiveCamera;
   scene: Scene;
@@ -44,6 +43,7 @@ loop: (() => void)[]
   scene.add(ambientLight);
 
   const physics = new CannonPhysics({
+    delta: params?.delta || 1 / 60,
     gravity: [0, -10, 0],
   });
 

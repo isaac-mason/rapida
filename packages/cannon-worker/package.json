@@ -84,7 +84,8 @@
     "three": "^0.133.0"
   },
   "peerDependencies": {
-    "three": "^0.133.0"
+    "three": "^0.133.0",
+    "cannon-es": "^0.18.0"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix",

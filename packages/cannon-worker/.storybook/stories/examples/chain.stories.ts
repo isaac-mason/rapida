@@ -8,7 +8,7 @@ export default {
 
 export const Chain = () => {
   useEffect(() => {
-    const { renderer, camera, scene, physics, loop, start, destroy } = createBasicSetup();
+    const { renderer, camera, physics, start, destroy } = createBasicSetup();
     document.getElementById('renderer-root').prepend(renderer.domElement);
 
     // gravity

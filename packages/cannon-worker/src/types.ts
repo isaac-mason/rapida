@@ -348,9 +348,7 @@ type ApplyMessage =
   | ApplyLocalImpulseMessage
   | ApplyTorque;
 
-export type SerializableBodyParams = {
-  onCollide: boolean;
-};
+export type SerializableBodyParams = Omit<BodyParams<unknown>, `onCollide`> & { onCollide: true };
 
 type AddBodiesMessage = WithUUIDs<'addBodies', SerializableBodyParams[]> & { type: BodyShapeType };
 type RemoveBodiesMessage = WithUUIDs<'removeBodies'>;
