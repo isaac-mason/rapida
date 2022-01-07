@@ -1,10 +1,9 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable import/extensions */
 
 // @ts-expect-error expected
-// eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line import/no-unresolved, import/extensions
 import WebWorker from 'web-worker:./worker.ts';
 
 import {

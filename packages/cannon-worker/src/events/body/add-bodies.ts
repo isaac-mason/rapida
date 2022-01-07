@@ -1,7 +1,7 @@
 import { BodyWithId, Vec3 } from 'cannon-es';
 import { paramsToBody } from '../../params-to-body';
 import { State } from '../../state';
-import { BodyShapeType, SerializableBodyParams } from '../../types';
+import type { BodyShapeType, SerializableBodyParams } from '../../types';
 import { PhysicsEventTopic } from '../physics-event-topic';
 import { syncBodies } from '../sync-bodies';
 

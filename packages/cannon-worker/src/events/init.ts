@@ -9,7 +9,7 @@ import {
   World,
 } from 'cannon-es';
 import { State } from '../state';
-import { PhysicsWorldConfig } from '../types';
+import type { PhysicsWorldConfig } from '../types';
 import { PhysicsEventTopic } from './physics-event-topic';
 
 export type InitEvent = {

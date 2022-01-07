@@ -1,7 +1,7 @@
 import { RaycastVehicle, RaycastVehicleWithId, Vec3 } from 'cannon-es';
 import { PhysicsEventTopic } from '../physics-event-topic';
 import { State } from '../../state';
-import { WheelInfoOptions } from '../../types';
+import type { WheelInfoOptions } from '../../types';
 
 export type AddRaycastVehicleEvent = {
   topic: PhysicsEventTopic.ADD_RAYCAST_VEHICLE;

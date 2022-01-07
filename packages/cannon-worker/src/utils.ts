@@ -11,8 +11,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable-next-line no-restricted-syntax */
 import { Object3D, Vector3 } from 'three';
-import type { PhysicsContext, Triplet } from './types';
-import { BodyParams } from './types';
+import type { BodyParams, PhysicsContext, Triplet } from './types';
 
 export function capitalize<T extends string>(str: T): Capitalize<T> {
   return (str.charAt(0).toUpperCase() + str.slice(1)) as Capitalize<T>;
