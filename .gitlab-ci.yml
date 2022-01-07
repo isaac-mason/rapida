@@ -15,7 +15,7 @@ workflow:
     - merge_requests
   script:
     # build npm packages
-    - yarn workspaces focus @rapidajs/rapida
+    - yarn workspaces focus @rapidajs/rapida-website
     - (cd packages/rapida-common && yarn run build)
     - (cd packages/postprocessing && yarn run build)
     - (cd packages/recs && yarn run build)
