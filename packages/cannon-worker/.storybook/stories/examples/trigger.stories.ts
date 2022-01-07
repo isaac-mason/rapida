@@ -1,5 +1,4 @@
 import { useEffect } from '@storybook/client-api';
-import { Camera } from 'three';
 import { BodyType } from '../../../lib';
 import { createBasicSetup } from '../utils/create-basic-setup';
 
