@@ -66,7 +66,7 @@ export const Cylinder = ({
 
 Cylinder.args = {
   radiusTop: 20,
-  radiusBottom: 1,
+  radiusBottom: 20,
   height: 100,
-  numSegments: 10,
+  numSegments: 50,
 };
