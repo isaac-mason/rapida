@@ -52,6 +52,9 @@ The below commands can be used to help with development:
 # Start storybook for all packages
 > yarn run storybook
 
+# Build the rapida website
+> yarn run website:build
+
 # Create a new changeset
 > yarn run change
 
