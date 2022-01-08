@@ -57,11 +57,6 @@ export type WorldParams = {
   id?: string;
 
   /**
-   * The maximum game loop updates to run per second
-   */
-  maxGameLoopUpdatesPerSecond?: number;
-
-  /**
    * Params for the loader
    */
   loaders?: {
@@ -113,18 +108,6 @@ export class World {
   rendererManager: RendererManager;
 
   /**
-   * The maximum game loop updates to run per second
-   * @private used internally, do not use or assign
-   */
-  _maxGameLoopUpdatesPerSecond: number;
-
-  /**
-   * The delta value for the physics worlds, based on _maxPhysicsUpdatesPerSecond
-   * @private used internally, do not use or assign
-   */
-  _physicsDelta?: number;
-
-  /**
    * Loaders for various asset types
    */
   private loaders = new Loaders();
@@ -140,9 +123,6 @@ export class World {
    */
   constructor(params?: WorldParams) {
     this.id = params?.id || uuid();
-
-    this._maxGameLoopUpdatesPerSecond =
-      params?.maxGameLoopUpdatesPerSecond || 60;
 
     this.rendererManager = new RendererManager();
   }
@@ -174,7 +154,7 @@ export class World {
      * @param params the params for the new physics instance
      * @returns the new physics instance
      */
-    physics: (params: Exclude<CannonPhysicsParams, 'delta'>) => CannonPhysics;
+    physics: (params: CannonPhysicsParams) => CannonPhysics;
     /**
      * Factories for creating a renderer in the world
      */

@@ -31,8 +31,6 @@ export type LoadersParams = {
  * Loaders methods providing loaders for various asset types
  */
 export class Loaders {
-  private cache: typeof Cache;
-
   private _fileLoader!: FileLoader;
 
   private _imgLoader!: ImageLoader;
@@ -48,7 +46,6 @@ export class Loaders {
   private dracoDecoderPath: string;
 
   constructor(params?: LoadersParams) {
-    this.cache = Cache;
     Cache.enabled = true;
     this.dracoDecoderPath =
       params?.dracoDecoderPath || DEFAULT_DRACO_DECODER_PATH;
@@ -111,7 +108,7 @@ export class Loaders {
   async preload(
     friendlyName: string,
     url: string,
-    params: { onProgress?: (event: ProgressEvent<EventTarget>) => void }
+    params?: { onProgress?: (event: ProgressEvent<EventTarget>) => void }
   ): Promise<void> {
     this.preloadAliases.set(friendlyName, url);
 
@@ -149,7 +146,7 @@ export class Loaders {
    */
   image(
     url: string,
-    params: {
+    params?: {
       onProgress?: (event: ProgressEvent<EventTarget>) => void;
     }
   ): Promise<HTMLImageElement> {
@@ -175,7 +172,7 @@ export class Loaders {
    */
   file(
     url: string,
-    params: {
+    params?: {
       onProgress?: (event: ProgressEvent<EventTarget>) => void;
     }
   ): Promise<string | ArrayBuffer> {
@@ -201,7 +198,7 @@ export class Loaders {
    */
   svg(
     url: string,
-    params: {
+    params?: {
       onProgress?: (event: ProgressEvent<EventTarget>) => void;
     }
   ): Promise<SVGResult> {
@@ -227,7 +224,7 @@ export class Loaders {
    */
   texture(
     url: string,
-    params: {
+    params?: {
       onProgress?: (event: ProgressEvent<EventTarget>) => void;
       textureAnisotropy: number;
     }
@@ -245,8 +242,8 @@ export class Loaders {
         url,
         (texture: Texture) => {
           texture.anisotropy =
-            params.textureAnisotropy !== undefined
-              ? params.textureAnisotropy
+            params?.textureAnisotropy !== undefined
+              ? params?.textureAnisotropy
               : 1;
           texture.needsUpdate = true;
           resolve(texture);
@@ -264,7 +261,7 @@ export class Loaders {
    */
   gltf(
     url: string,
-    params: {
+    params?: {
       onProgress?: (event: ProgressEvent<EventTarget>) => void;
     }
   ): Promise<GLTF> {
@@ -290,7 +287,7 @@ export class Loaders {
    */
   fbx(
     url: string,
-    params: {
+    params?: {
       onProgress?: (event: ProgressEvent<EventTarget>) => void;
     }
   ): Promise<Group> {

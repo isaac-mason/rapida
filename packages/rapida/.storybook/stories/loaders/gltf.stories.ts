@@ -9,13 +9,40 @@ import {
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-import rapida, { Component } from '../../../src';
+import rapida, { Camera, Component, Scene, View } from '../../../src';
 // @ts-expect-error webpack import
 import littlestTokyoGlb from '../../resources/LittlestTokyo.glb';
+import { SmoothOrbitControls } from '../../utils/components/smooth-orbit-controls';
 
 export default {
   title: 'Loaders / GLTF Example',
 };
+
+class LittlestTokyoModel extends Component {
+  mixer!: AnimationMixer;
+  gltf!: GLTF;
+  scene!: Scene;
+  model!: Group;
+
+  construct = (scene: Scene, gltf: GLTF) => {
+    this.scene = scene;
+    this.model = gltf.scene;
+    this.model.position.set(0.5, 0, 0);
+    this.model.scale.set(0.005, 0.005, 0.005);
+
+    this.gltf = gltf;
+    this.mixer = new AnimationMixer(this.model);
+  };
+
+  onInit = () => {
+    this.scene.add(this.model);
+    this.mixer.clipAction(this.gltf.animations[0]).play();
+  };
+
+  onUpdate = (t: number) => {
+    this.mixer.update(t);
+  };
+}
 
 export const GLTFExample = () => {
   useEffect(() => {
@@ -40,8 +67,9 @@ export const GLTFExample = () => {
         scene,
       });
 
-      const controls = new OrbitControls(camera.three, view.domElement);
-      controls.enableDamping = true;
+      const space = world.create.space();
+
+      space.create.entity().addComponent(SmoothOrbitControls, camera, view);
 
       const pmremGenerator = new PMREMGenerator(renderer.three);
       scene.three.environment = pmremGenerator.fromScene(
@@ -51,32 +79,7 @@ export const GLTFExample = () => {
 
       const loadedGLTF = await world.load.gltf(littlestTokyoGlb);
 
-      class LittlestTokyoModel extends Component {
-        mixer!: AnimationMixer;
-        gltf!: GLTF;
-        model: Group;
-
-        construct = (gltf: GLTF) => {
-          this.model = gltf.scene;
-          this.model.position.set(0.5, 0, 0);
-          this.model.scale.set(0.005, 0.005, 0.005);
-
-          this.gltf = gltf;
-          this.mixer = new AnimationMixer(this.model);
-        };
-
-        onInit = () => {
-          scene.add(this.model);
-          this.mixer.clipAction(this.gltf.animations[0]).play();
-        };
-
-        onUpdate = (t: number) => {
-          this.mixer.update(t);
-        };
-      }
-
-      const space = world.create.space();
-      space.create.entity().addComponent(LittlestTokyoModel, loadedGLTF);
+      space.create.entity().addComponent(LittlestTokyoModel, scene, loadedGLTF);
 
       engine.start(world);
     })();
