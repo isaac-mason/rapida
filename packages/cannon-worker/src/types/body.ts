@@ -20,17 +20,20 @@ export type BodyParamsArgsRequired<T = unknown> = BodyParams<T> & {
   args: T;
 };
 
-export type ShapeType =
-  | 'Plane'
-  | 'Box'
-  | 'Cylinder'
-  | 'Heightfield'
-  | 'Particle'
-  | 'Sphere'
-  | 'Trimesh'
-  | 'ConvexPolyhedron';
+export enum ShapeType {
+  Plane = 'Plane',
+  Box = 'Box',
+  Cylinder = 'Cylinder',
+  Heightfield = 'Heightfield',
+  Particle = 'Particle',
+  Sphere = 'Sphere',
+  Trimesh = 'Trimesh',
+  ConvexPolyhedron = 'ConvexPolyhedron',
+}
 
-export type BodyShapeType = ShapeType | 'Compound';
+export type ShapeTypeString = `${ShapeType}`;
+
+export type BodyShapeType = ShapeTypeString | 'Compound';
 
 export type CylinderArgs = [radiusTop?: number, radiusBottom?: number, height?: number, numSegments?: number];
 
@@ -65,6 +68,6 @@ export type HeightfieldParams = BodyParamsArgsRequired<HeightfieldArgs>;
 
 export type ConvexPolyhedronParams = BodyParams<ConvexPolyhedronArgs>;
 
-export interface CompoundBodyParams extends BodyParams {
-  shapes: (BodyParams & { type: ShapeType })[];
+export interface CompoundBodyParams extends BodyParams<unknown> {
+  shapes: (Omit<BodyParams, `type`> & { type: ShapeType | ShapeTypeString })[];
 }

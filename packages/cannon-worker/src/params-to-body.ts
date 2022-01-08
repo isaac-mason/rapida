@@ -108,16 +108,26 @@ export const paramsToBody = (
 
   if (type === 'Compound') {
     const { shapes } = params as CompoundBodyParams;
-    // @ts-expect-error TODO: fix shadowed var names and spread warning
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    shapes.forEach(({ type, args, position, rotation, material, ...extra }) => {
+    shapes.forEach((shape) => {
+      const {
+        type: shapeType,
+        args: shapeArgs,
+        position: shapePosition,
+        rotation: shapeRotation,
+        material: shapeMaterial,
+        ...shapeExtra
+      } = shape;
       const shapeBody = body.addShape(
-        createShape(type, args),
-        position ? new Vec3(...initPosition) : undefined,
-        rotation ? new Quaternion().setFromEuler(...initRotation) : undefined,
+        createShape(shapeType, shapeArgs),
+        shapePosition ? new Vec3(...shapePosition) : undefined,
+        shapeRotation ? new Quaternion().setFromEuler(...shapeRotation) : undefined,
       );
-      if (material) shapeBody.material = new Material(material);
-      Object.assign(shapeBody, extra);
+
+      if (shapeMaterial) {
+        shapeBody.material = new Material(shapeMaterial);
+      }
+
+      Object.assign(shapeBody, shapeExtra);
     });
   } else {
     body.addShape(createShape(type, args));
