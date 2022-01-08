@@ -27,7 +27,8 @@ export const HelloWorld = () => {
     document.getElementById('renderer-root').prepend(renderer.domElement);
 
     const camera = new PerspectiveCamera();
-    camera.position.z = 500;
+    camera.position.z = 20;
+    camera.position.y = 5;
 
     const onResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -49,12 +50,12 @@ export const HelloWorld = () => {
     scene.add(ambientLight);
 
     const physics = new CannonPhysics({
-      gravity: [0, -20, 0],
+      gravity: [0, -10, 0],
       maxSubSteps: 5,
       delta: 1 / 60,
     });
 
-    const geometry = new BoxBufferGeometry(20, 20, 20, 32, 32);
+    const geometry = new BoxBufferGeometry(1, 1, 1, 32, 32);
     const material = new MeshStandardMaterial();
     const mesh = new Mesh(geometry, material);
     scene.add(mesh);
@@ -62,9 +63,9 @@ export const HelloWorld = () => {
     const { api: { velocity, angularVelocity } } = physics.create.box(
       {
         type: BodyType.DYNAMIC,
-        args: [20, 20, 20],
+        args: [1, 1, 1],
         mass: 1,
-        position: [0, 75, 0],
+        position: [0, 3, 0],
         rotation: [0, 0, 0],
         fixedRotation: false,
         allowSleep: false,
@@ -72,13 +73,13 @@ export const HelloWorld = () => {
       mesh,
     );
 
-    velocity.set(Math.round(Math.random() * 4) - 2, 50, Math.round(Math.random() * 4) - 2);
+    velocity.set(Math.round(Math.random() * 2) - 1, 10, Math.round(Math.random() * 2) - 1);
 
-    angularVelocity.set(Math.random() * 5 - 2.5, Math.random() * 5 - 2.5, Math.random() * 5 - 2.5);
+    angularVelocity.set(Math.random() * 6 - 3, Math.random() * 6 - 3, Math.random() * 6 - 3);
 
     physics.create.plane({
       type: BodyType.STATIC,
-      position: [0, -10, 0],
+      position: [0, -1, 0],
       rotation: [-Math.PI / 2, 0, 0],
       mass: 0,
       material: {
@@ -93,12 +94,11 @@ export const HelloWorld = () => {
       const elapsed = now - lastCallTime;
       physics.step(elapsed);
       lastCallTime = now;
-
       renderer.render(scene, camera);
-      setTimeout(() => renderLoop(), physics.config.delta);
+      requestAnimationFrame(renderLoop);
     };
 
-    renderLoop();
+    requestAnimationFrame(renderLoop);
 
     return () => {
       physics.terminate();

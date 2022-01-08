@@ -1,22 +1,19 @@
+import { BodyApi, BodyType, CannonPhysics } from '@rapidajs/cannon-worker';
+import { Effects } from '@rapidajs/postprocessing';
 import { useEffect } from '@storybook/client-api';
 import {
   AmbientLight,
   Color,
   DirectionalLight,
-  DynamicDrawUsage,
   Fog,
   InstancedMesh,
   Mesh,
-  MeshBasicMaterial,
   MeshLambertMaterial,
   Object3D,
   PerspectiveCamera,
-  Raycaster,
   SphereBufferGeometry,
-  Vector3,
   WebGLRenderer,
 } from 'three';
-import { CannonPhysics, BodyType, BodyApi } from '@rapidajs/cannon-worker';
 import rapida, {
   Camera,
   Component,
@@ -34,16 +31,25 @@ export default {
 class BallPitContainer extends Component {
   physics!: CannonPhysics;
 
+  view!: WebGLView;
+
   planeApis!: BodyApi[];
 
-  construct = ({ physics }: { physics: CannonPhysics }) => {
+  construct = ({
+    physics,
+    view,
+  }: {
+    physics: CannonPhysics;
+    view: WebGLView;
+  }) => {
     this.planeApis = undefined;
     this.physics = physics;
+    this.view = view;
   };
 
   onInit = (): void => {
-    const height = 15;
-    const width = 15;
+    const width = this.view.worldViewport.width * 0.6;
+    const height = this.view.worldViewport.height * 0.6;
 
     const planes: {
       position: [number, number, number];
@@ -62,11 +68,11 @@ class BallPitContainer extends Component {
         rotation: [0, -Math.PI / 2, 0],
       },
       {
-        position: [0, -(width / 2), 0],
+        position: [0, 0, 0],
         rotation: [0, 0, 0],
       },
       {
-        position: [0, 0, width / 2 + 1],
+        position: [0, 0, 12],
         rotation: [0, -Math.PI, 0],
       },
     ];
@@ -93,11 +99,7 @@ class Cursor extends Component {
 
   view!: WebGLView;
 
-  scene!: Scene;
-
   mesh!: Mesh;
-
-  raycaster!: Raycaster;
 
   sphereApi!: BodyApi;
 
@@ -105,25 +107,15 @@ class Cursor extends Component {
     physics: CannonPhysics;
     camera: Camera;
     view: WebGLView;
-    scene: Scene;
   }) => {
     this.physics = params.physics;
     this.camera = params.camera;
     this.view = params.view;
-    this.scene = params.scene;
-    this.raycaster = new Raycaster();
     this.sphereApi = undefined;
   };
 
   onInit = (): void => {
     const radius = 6;
-
-    const geometry = new SphereBufferGeometry(radius, 32, 32);
-    const material = new MeshBasicMaterial({ color: 'blue' });
-    material.opacity = 0.3;
-    material.transparent = true;
-    this.mesh = new Mesh(geometry, material);
-    this.scene.add(this.mesh);
 
     const { api: sphereApi } = this.physics.create.sphere(
       {
@@ -133,8 +125,7 @@ class Cursor extends Component {
         rotation: [0, 0, 0],
         fixedRotation: false,
         allowSleep: false,
-      },
-      this.mesh
+      }
     );
 
     this.sphereApi = sphereApi;
@@ -153,24 +144,16 @@ class Cursor extends Component {
 
   onDestroy = (): void => {
     this.sphereApi.destroy();
-    this.scene.remove(this.mesh);
   };
 
   updateCursorPosition(x: number, y: number): void {
-    const vector = new Vector3(x, y, 0);
-    vector.unproject(this.camera.three);
-
-    const dir = vector.sub(this.camera.three.position).normalize();
-    const distance = -this.camera.three.position.z / dir.z;
-    const pos = this.camera.three.position
-      .clone()
-      .add(dir.multiplyScalar(distance));
-
-    this.sphereApi.position.set(pos.x, pos.y, 6);
+    this.sphereApi.position.set(
+      (x * this.view.worldViewport.width) / 2,
+      (y * this.view.worldViewport.height) / 2,
+      7
+    );
   }
 }
-
-const ORANGE = '#ff7b00';
 
 class Spheres extends Component {
   physics!: CannonPhysics;
@@ -183,22 +166,31 @@ class Spheres extends Component {
 
   sphereApi!: BodyApi;
 
-  static count = 200;
+  count: number;
 
-  construct = (params: { view: View; scene: Scene; physics: CannonPhysics }) => {
+  static radius = 1.1;
+
+  construct = (params: {
+    view: View;
+    scene: Scene;
+    physics: CannonPhysics;
+    count: number,
+  }) => {
+    this.count = params.count;
+
     this.sphereApi = undefined;
 
     this.view = params.view;
     this.scene = params.scene;
     this.physics = params.physics;
 
-    const geometry = new SphereBufferGeometry(1, 32, 32);
+    const geometry = new SphereBufferGeometry(Spheres.radius, 32, 32);
     const material = new MeshLambertMaterial({
-      color: ORANGE,
+      color: '#ff7b00',
     });
 
-    this.mesh = new InstancedMesh(geometry, material, Spheres.count);
-    this.mesh.instanceMatrix.setUsage(DynamicDrawUsage);
+    this.mesh = new InstancedMesh(geometry, material, this.count);
+
     this.mesh.position.set(0, 0, 0);
     this.mesh.matrixAutoUpdate = false;
     (this.mesh as Object3D).castShadow = true;
@@ -211,11 +203,11 @@ class Spheres extends Component {
     const { api: sphereApi } = this.physics.create.sphere(
       {
         type: BodyType.DYNAMIC,
-        args: 1,
-        position: [4 - Math.random() * 8, this.view.viewportSize.height, 0],
+        args: Spheres.radius,
+        position: [4 - Math.random() * 8, this.view.viewportSizePx.height, 0],
         rotation: [0, 0, 0],
         fixedRotation: false,
-        mass: 1,
+        mass: 200,
         allowSleep: false,
       },
       this.mesh
@@ -223,7 +215,7 @@ class Spheres extends Component {
 
     this.sphereApi = sphereApi;
 
-    for (let i = 0; i < Spheres.count; i++) {
+    for (let i = 0; i < this.count; i++) {
       sphereApi.at(i).position.set(2 - Math.random() * 4, 0, 0);
     }
   };
@@ -234,7 +226,7 @@ class Spheres extends Component {
   };
 }
 
-export const InteractiveBallPit = () => {
+export const InteractiveBallPit = ({ count }) => {
   useEffect(() => {
     const engine = rapida.engine({ debug: true });
 
@@ -242,34 +234,51 @@ export const InteractiveBallPit = () => {
 
     const renderer = world.create.renderer.webgl({
       renderer: new WebGLRenderer({
-        precision: 'lowp',
+        precision: 'highp',
         powerPreference: 'high-performance',
+        stencil: false,
+        alpha: false,
+        antialias: false,
       }),
     });
+
+    const camera = world.create.camera({
+      camera: new PerspectiveCamera(50, 1, 17, 40),
+    });
+    camera.position.set(0, 0, 40);
+
+    const scene = world.create.scene();
+    const BACKGROUND = '#ffdd41'; //'#89CFF0';
+    scene.three.background = new Color(BACKGROUND);
+ 
+    const view = renderer.create.view({
+      id: 'ball-pit-view',
+      camera,
+      scene,
+      useEffectComposer: true,
+    });
+
+    view.composer.add.effects(
+      Effects.bloom({
+        intensity: 1.25,
+        kernelSize: 2,
+        luminanceThreshold: 0.8,
+        luminanceSmoothing: 0,
+      })
+    );
+
+    scene.three.fog = new Fog('red', 30, 80);
 
     document.getElementById('renderer-root').appendChild(renderer.domElement);
 
     const physics = world.create.physics({
       gravity: [0, -10, 0],
+      defaultContactMaterial: {
+        restitution: 0.5,
+      },
     });
 
-    const scene = world.create.scene();
-
-    const BACKGROUND = '#89CFF0';
-    scene.three.background = new Color(BACKGROUND);
-
-    const camera = world.create.camera({
-      camera: new PerspectiveCamera(50, 1, 20, 1000),
-    });
-    camera.position.set(0, 0, 40);
-
-    const view = renderer.create.view({
-      id: 'ball-pit-view',
-      camera,
-      scene,
-    });
-
-    const directionalLightOne = new DirectionalLight(0xffffff, 2);
+    const directionalLightOne = new DirectionalLight(0xffffff, 1);
     directionalLightOne.position.set(50, 50, 25);
     directionalLightOne.castShadow = true;
     directionalLightOne.shadow.mapSize.width = 64;
@@ -278,12 +287,11 @@ export const InteractiveBallPit = () => {
     directionalLightOne.shadow.camera.top = 10;
     directionalLightOne.shadow.camera.bottom = -10;
     directionalLightOne.shadow.mapSize.width = 64;
-    directionalLightOne.lookAt(new Vector3(0, 0, 0));
     directionalLightOne.lookAt(0, 0, 0);
     scene.add(directionalLightOne);
 
     const directionalLightTwo = new DirectionalLight(0xffffff, 0.5);
-    directionalLightTwo.position.set(5, -10, 25);
+    directionalLightTwo.position.set(-10, -10, -5);
     directionalLightTwo.castShadow = true;
     directionalLightTwo.shadow.mapSize.width = 64;
     directionalLightTwo.shadow.camera.left = -10;
@@ -294,18 +302,16 @@ export const InteractiveBallPit = () => {
     directionalLightTwo.lookAt(0, 0, 0);
     scene.add(directionalLightTwo);
 
-    const ambientLight = new AmbientLight(0xffffff, 2);
+    const ambientLight = new AmbientLight(0xffffff, 1);
     scene.add(ambientLight);
-
-    scene.three.fog = new Fog('red', 0, 80);
 
     const space = world.create.space();
 
-    space.create.entity().addComponent(BallPitContainer, { physics });
-    space.create.entity().addComponent(Spheres, { physics, scene, view });
+    space.create.entity().addComponent(BallPitContainer, { physics, view });
+    space.create.entity().addComponent(Spheres, { physics, scene, view, count });
     space.create
       .entity()
-      .addComponent(Cursor, { physics, camera, view, scene });
+      .addComponent(Cursor, { physics, camera, view });
 
     engine.start(world);
 
@@ -328,3 +334,5 @@ export const InteractiveBallPit = () => {
   <div id="renderer-root"></div>
   `;
 };
+
+InteractiveBallPit.args = { count: 200 };

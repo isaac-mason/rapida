@@ -306,7 +306,7 @@ class CannonPhysics {
 
     this.config = {
       gravity: gravity || [0, -10, 0],
-      tolerance: tolerance || 0.001,
+      tolerance: tolerance || 0.0001,
       iterations: iterations || 5,
       allowSleep: allowSleep || false,
       broadphase: broadphase || 'Naive',
@@ -316,7 +316,7 @@ class CannonPhysics {
       solver: solver || 'GS',
       defaultContactMaterial: defaultContactMaterial || { contactEquationStiffness: 1e6 },
       size: size || 1000,
-      maxSubSteps: maxSubSteps || 5,
+      maxSubSteps: maxSubSteps || 20,
       delta: delta || 1 / 60,
     };
 

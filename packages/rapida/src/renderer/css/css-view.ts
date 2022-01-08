@@ -1,9 +1,12 @@
 import { uuid } from '@rapidajs/rapida-common';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
+import { Vector3 } from 'three';
 import { Camera } from '../../camera';
 import { Scene } from '../../scene';
 import { CSSRenderer } from './css-renderer';
 import { View, ViewRectangle, ViewRectangleParams, ViewSize } from '../view';
+
+const defaultWorldViewportTarget = new Vector3();
 
 /**
  * Params for creating a css view
@@ -57,9 +60,14 @@ export class CSSView extends View {
   scene: Scene;
 
   /**
+   * Bounds of the viewport in 3d units + factor (size/viewport)
+   */
+  worldViewport!: ReturnType<View['getWorldViewport']>;
+
+  /**
    * The current size of the viewport in pixels
    */
-  viewportSize: ViewSize;
+  viewportSizePx: ViewSize;
 
   /**
    * The current size of the scissor in pixels
@@ -178,7 +186,7 @@ export class CSSView extends View {
     // set initial values for computed viewport and scissor properties
     this._viewport = { bottom: 0, left: 0, width: 0, height: 0 };
     this._scissor = { bottom: 0, left: 0, width: 0, height: 0 };
-    this.viewportSize = { left: 0, bottom: 0, width: 0, height: 0 };
+    this.viewportSizePx = { left: 0, bottom: 0, width: 0, height: 0 };
     this.scissorSize = { left: 0, bottom: 0, width: 0, height: 0 };
 
     // set viewport and scissor params
@@ -259,7 +267,7 @@ export class CSSView extends View {
 
     // store the new size of the view
     const rendererDomRect = this.rendererDomElement.getBoundingClientRect();
-    this.viewportSize = {
+    this.viewportSizePx = {
       left: rendererDomRect.width * this._viewport.left,
       bottom: rendererDomRect.height * this._viewport.bottom,
       width: rendererDomRect.width * this._viewport.width,
@@ -280,19 +288,22 @@ export class CSSView extends View {
 
     // set the size of the css renderer for the view
     this.css3DRenderer.setSize(
-      this.viewportSize.width,
-      this.viewportSize.height
+      this.viewportSizePx.width,
+      this.viewportSizePx.height
     );
 
     // update the position of the viewport dom element
     this.viewportElement.style.bottom = `${
-      this.viewportSize.bottom - this.scissorSize.bottom
+      this.viewportSizePx.bottom - this.scissorSize.bottom
     }px`;
     this.viewportElement.style.left = `${
-      this.viewportSize.left - this.scissorSize.left
+      this.viewportSizePx.left - this.scissorSize.left
     }px`;
 
     // update the camera
     this.camera.three.updateProjectionMatrix();
+
+    // update the world viewport for the default target
+    this.worldViewport = this.getWorldViewport(defaultWorldViewportTarget);
   };
 }

@@ -1,6 +1,6 @@
 import { EventHandler, EventSystem, uuid } from '@rapidajs/rapida-common';
 import { EffectComposer, EffectComposerParams } from '@rapidajs/postprocessing';
-import { Color, PerspectiveCamera } from 'three';
+import { Color, PerspectiveCamera, Vector3 } from 'three';
 import { Camera } from '../../camera';
 import { Scene } from '../../scene';
 import {
@@ -17,6 +17,8 @@ import {
   VIEW_TOUCH_EVENTS,
 } from '../view';
 import { WebGLRenderer } from './webgl-renderer';
+
+const defaultWorldViewportTarget = new Vector3();
 
 /**
  * Params for creating a webgl view
@@ -98,14 +100,19 @@ export class WebGLView extends View {
   domElement: HTMLElement;
 
   /**
+   * Bounds of the viewport in 3d units + factor (size/viewport) for the default target ({ x: 0, y: 0, z: 0})
+   */
+  worldViewport!: ReturnType<View['getWorldViewport']>;
+
+  /**
    * The size of the view in pixels
    */
-  viewportSize: ViewRectangle;
+  viewportSizePx: ViewRectangle;
 
   /**
    * The size of the scissor in pixels
    */
-  scissorSize: ViewRectangle;
+  scissorSizePx: ViewRectangle;
 
   /**
    * The views camera
@@ -194,13 +201,13 @@ export class WebGLView extends View {
    * The current size of the viewport for the view. Sets how to convert from a shader's clip space to some portion of the canvas's pixel space
    * @private used internally, do not use or assign
    */
-  _viewport: ViewRectangle;
+  _viewportViewRetangle: ViewRectangle;
 
   /**
    * The current size of the scissor for the view. The shape outside of which nothing can be rendered
    * @private used internally, do not use or assign
    */
-  _scissor: ViewRectangle;
+  _scissorViewRectangle: ViewRectangle;
 
   /**
    * The method called used for rendering
@@ -299,10 +306,10 @@ export class WebGLView extends View {
     this.rendererDomElement.appendChild(this.domElement);
 
     // set initial values for computed viewport and scissor values
-    this._viewport = { bottom: 0, left: 0, width: 0, height: 0 };
-    this._scissor = { bottom: 0, left: 0, width: 0, height: 0 };
-    this.viewportSize = { left: 0, bottom: 0, width: 0, height: 0 };
-    this.scissorSize = { left: 0, bottom: 0, width: 0, height: 0 };
+    this._viewportViewRetangle = { bottom: 0, left: 0, width: 0, height: 0 };
+    this._scissorViewRectangle = { bottom: 0, left: 0, width: 0, height: 0 };
+    this.viewportSizePx = { left: 0, bottom: 0, width: 0, height: 0 };
+    this.scissorSizePx = { left: 0, bottom: 0, width: 0, height: 0 };
 
     // store params for viewport and scissor if present
     this.viewportParams = viewport || {
@@ -405,29 +412,33 @@ export class WebGLView extends View {
    */
   _onResize = (): void => {
     // calculate the new scissor and viewport
-    this._scissor = this.calculateViewRectangle(this.scissorParams);
-    this._viewport = this.calculateViewRectangle(this.viewportParams);
+    this._scissorViewRectangle = this.calculateViewRectangle(
+      this.scissorParams
+    );
+    this._viewportViewRetangle = this.calculateViewRectangle(
+      this.viewportParams
+    );
 
     // store the new size of the view
     const rendererDomRect = this.rendererDomElement.getBoundingClientRect();
-    this.viewportSize = {
-      left: rendererDomRect.width * this._viewport.left,
-      bottom: rendererDomRect.height * this._viewport.bottom,
-      width: rendererDomRect.width * this._viewport.width,
-      height: rendererDomRect.height * this._viewport.height,
+    this.viewportSizePx = {
+      left: rendererDomRect.width * this._viewportViewRetangle.left,
+      bottom: rendererDomRect.height * this._viewportViewRetangle.bottom,
+      width: rendererDomRect.width * this._viewportViewRetangle.width,
+      height: rendererDomRect.height * this._viewportViewRetangle.height,
     };
 
     // update the dom element with the scissor size
-    this.scissorSize = {
-      bottom: this._scissor.bottom * rendererDomRect.height,
-      left: this._scissor.left * rendererDomRect.width,
-      width: this._scissor.width * rendererDomRect.width,
-      height: this._scissor.height * rendererDomRect.height,
+    this.scissorSizePx = {
+      bottom: this._scissorViewRectangle.bottom * rendererDomRect.height,
+      left: this._scissorViewRectangle.left * rendererDomRect.width,
+      width: this._scissorViewRectangle.width * rendererDomRect.width,
+      height: this._scissorViewRectangle.height * rendererDomRect.height,
     };
-    this.domElement.style.bottom = `${this.scissorSize.bottom}px`;
-    this.domElement.style.left = `${this.scissorSize.left}px`;
-    this.domElement.style.width = `${this.scissorSize.width}px`;
-    this.domElement.style.height = `${this.scissorSize.height}px`;
+    this.domElement.style.bottom = `${this.scissorSizePx.bottom}px`;
+    this.domElement.style.left = `${this.scissorSizePx.left}px`;
+    this.domElement.style.width = `${this.scissorSizePx.width}px`;
+    this.domElement.style.height = `${this.scissorSizePx.height}px`;
 
     // update the camera
     this.resizeCamera();
@@ -437,6 +448,9 @@ export class WebGLView extends View {
       this.renderer.domElement.clientWidth,
       this.renderer.domElement.clientHeight
     );
+
+    // update the world viewport for the default target
+    this.worldViewport = this.getWorldViewport(defaultWorldViewportTarget);
   };
 
   /**
@@ -445,7 +459,7 @@ export class WebGLView extends View {
   private resizeCamera(): void {
     if (this.camera.three instanceof PerspectiveCamera) {
       this.camera.three.aspect =
-        this.viewportSize.width / this.viewportSize.height;
+        this.viewportSizePx.width / this.viewportSizePx.height;
     }
     this.camera.three.updateProjectionMatrix();
   }
@@ -474,9 +488,11 @@ export class WebGLView extends View {
     clientY: number
   ): { relativeX: number; relativeY: number } {
     const relativeX =
-      ((clientX - this.viewportSize.left) / this.viewportSize.width) * 2 - 1;
+      ((clientX - this.viewportSizePx.left) / this.viewportSizePx.width) * 2 -
+      1;
     const relativeY = -(
-      ((clientY - (1 - this.viewportSize.bottom)) / this.viewportSize.height) *
+      ((clientY - (1 - this.viewportSizePx.bottom)) /
+        this.viewportSizePx.height) *
         2 -
       1
     );

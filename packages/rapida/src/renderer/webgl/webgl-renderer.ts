@@ -190,16 +190,16 @@ export class WebGLRenderer implements Renderer {
     this.views.forEach((view: WebGLView) => {
       this.three.setScissorTest(true);
       this.three.setScissor(
-        view._scissor.left * rect.width,
-        view._scissor.bottom * rect.height,
-        view._scissor.width * rect.width,
-        view._scissor.height * rect.height
+        view._scissorViewRectangle.left * rect.width,
+        view._scissorViewRectangle.bottom * rect.height,
+        view._scissorViewRectangle.width * rect.width,
+        view._scissorViewRectangle.height * rect.height
       );
       this.three.setViewport(
-        view._viewport.left * rect.width,
-        view._viewport.bottom * rect.height,
-        view._viewport.width * rect.width,
-        view._viewport.height * rect.height
+        view._viewportViewRetangle.left * rect.width,
+        view._viewportViewRetangle.bottom * rect.height,
+        view._viewportViewRetangle.width * rect.width,
+        view._viewportViewRetangle.height * rect.height
       );
 
       if (view.clearColor) {

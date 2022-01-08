@@ -1,5 +1,6 @@
 import { Event } from '@rapidajs/rapida-common';
 import { Camera, Scene } from 'src';
+import { OrthographicCamera, Vector3 } from 'three';
 import {
   decimalPercentageFromViewParam,
   convertViewParamInputToViewParam,
@@ -268,7 +269,48 @@ export abstract class View {
   /**
    * The size of the view in pixels
    */
-  abstract viewportSize: ViewSize;
+  abstract viewportSizePx: ViewSize;
+
+  /**
+   * Gets the world viewport for a given target
+   * @param target the target to calculate the viewport for
+   * @returns the world viewport for a given target
+   */
+  getWorldViewport(target: Vector3): {
+    width: number;
+    height: number;
+    factor: number;
+    distance: number;
+    aspect: number;
+  } {
+    const { width, height } = this.viewportSizePx;
+
+    const aspect = width / height;
+
+    const tempTarget = new Vector3();
+    tempTarget.copy(target);
+
+    const position = new Vector3();
+
+    const distance = this.camera.three
+      .getWorldPosition(position)
+      .distanceTo(tempTarget);
+
+    if (this.camera.three instanceof OrthographicCamera) {
+      return {
+        width: width / this.camera.three.zoom,
+        height: height / this.camera.three.zoom,
+        factor: 1,
+        distance,
+        aspect,
+      };
+    }
+    const fov = (this.camera.three.fov * Math.PI) / 180; // convert vertical fov to radians
+    const h = 2 * Math.tan(fov / 2) * distance; // visible height
+    const w = h * (width / height);
+
+    return { width: w, height: h, factor: width / w, distance, aspect };
+  }
 
   /**
    * Calculates a view rectangle from given view rectangle params

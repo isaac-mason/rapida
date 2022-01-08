@@ -8,9 +8,7 @@ export default {
 
 export const Heightfield = () => {
   useEffect(() => {
-    // higher delta to prevent spheres from clipping through the heightfield
-    const delta = 1 / 90;
-    const { camera, renderer, physics, start, destroy } = createBasicSetup({ delta });
+    const { camera, renderer, physics, start, destroy } = createBasicSetup();
     document.getElementById('renderer-root').prepend(renderer.domElement);
 
     new OrbitControls(camera, renderer.domElement);
@@ -56,7 +54,7 @@ export const Heightfield = () => {
         physics.create.sphere({
           args: 0.1,
           mass: 1,
-          position: [(i + 0.25) - (sizeX / 2), 1, (-j + 0.25) + (sizeZ / 2)],
+          position: [(i + 0.25) - (sizeX / 2), -1, (-j + 0.25) + (sizeZ / 2)],
         });
       }
     }

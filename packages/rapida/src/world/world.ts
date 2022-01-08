@@ -62,11 +62,6 @@ export type WorldParams = {
   maxGameLoopUpdatesPerSecond?: number;
 
   /**
-   * The maximum physics loop updates to run per second
-   */
-  maxPhysicsUpdatesPerSecond?: number;
-
-  /**
    * Params for the loader
    */
   loaders?: {
@@ -124,24 +119,6 @@ export class World {
   _maxGameLoopUpdatesPerSecond: number;
 
   /**
-   * The delay between game loop updates, based on _maxGameLoopUpdatesPerSecond
-   * @private used internally, do not use or assign
-   */
-  _gameLoopUpdateDelayMs: number;
-
-  /**
-   * The maximum physics loop updates to run per second
-   * @private used internally, do not use or assign
-   */
-  _maxPhysicsUpdatesPerSecond: number;
-
-  /**
-   * The delay between physics updates, based on _maxPhysicsUpdatesPerSecond
-   * @private used internally, do not use or assign
-   */
-  _physicsUpdateDelayMs: number;
-
-  /**
    * The delta value for the physics worlds, based on _maxPhysicsUpdatesPerSecond
    * @private used internally, do not use or assign
    */
@@ -166,10 +143,6 @@ export class World {
 
     this._maxGameLoopUpdatesPerSecond =
       params?.maxGameLoopUpdatesPerSecond || 60;
-    this._maxPhysicsUpdatesPerSecond = params?.maxPhysicsUpdatesPerSecond || 60;
-    this._gameLoopUpdateDelayMs = 1000 / this._maxGameLoopUpdatesPerSecond;
-    this._physicsUpdateDelayMs = 1000 / this._maxPhysicsUpdatesPerSecond;
-    this._physicsDelta = 1 / this._maxPhysicsUpdatesPerSecond;
 
     this.rendererManager = new RendererManager();
   }
@@ -240,12 +213,9 @@ export class World {
         this.scenes.set(scene.id, scene);
         return scene;
       },
-      physics: (
-        params: Exclude<CannonPhysicsParams, 'delta'>
-      ): CannonPhysics => {
+      physics: (params: CannonPhysicsParams): CannonPhysics => {
         const physics = new CannonPhysics({
           ...params,
-          delta: this._physicsDelta,
         });
 
         this.physics.set(physics.id, physics);
@@ -350,11 +320,11 @@ export class World {
     // Set the world to be initialised
     this.initialised = true;
 
-    // Initialise the ecs
-    this.recs.init();
-
     // Initialise the renderer manager
     this.rendererManager.init();
+
+    // Initialise the ecs
+    this.recs.init();
   }
 
   /**
@@ -383,12 +353,10 @@ export class World {
    * @param timeElapsed the time elapsed in seconds
    * @private called internally, do not call directly
    */
-  async _updatePhysics(timeElapsed: number): Promise<void> {
-    const promises: Promise<void>[] = [];
+  _updatePhysics(timeElapsed: number): void {
     this.physics.forEach((p) => {
-      promises.push(p.step(timeElapsed));
+      p.step(timeElapsed);
     });
-    await Promise.all(promises);
   }
 
   /**

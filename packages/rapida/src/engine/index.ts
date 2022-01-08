@@ -31,17 +31,7 @@ export class Engine {
   /**
    * The time of the previous render frame
    */
-  private previousRenderFrame: number | undefined;
-
-  /**
-   * The time of the previous animation frame
-   */
-  private previousGameLoopFrame: number | undefined;
-
-  /**
-   * The time of the previous physics frame
-   */
-  private previousPhysicsFrame: number | undefined;
+  private previousFrame: number | undefined;
 
   /**
    * Whether there is a physics loop running
@@ -49,19 +39,14 @@ export class Engine {
   private physicsLoopRunning = false;
 
   /**
-   * Stats instance for the game loop
-   */
-  private gameLoopStats?: Stats;
-
-  /**
-   * Stats instance for the physics loop
-   */
-  private physicsStats?: Stats;
-
-  /**
    * Stats instance for the render loop
    */
-  private renderStats?: Stats;
+  private stats?: Stats;
+
+  /**
+   * The dom element for stats
+   */
+  private statsDomElement?: HTMLElement;
 
   /**
    * Constructor for an Engine
@@ -73,29 +58,18 @@ export class Engine {
 
     // setup stats if in debug mode
     if (this.debug) {
-      this.gameLoopStats = new Stats();
-      this.physicsStats = new Stats();
-      this.renderStats = new Stats();
+      this.stats = new Stats();
+      this.stats.showPanel(0);
 
-      this.gameLoopStats.showPanel(0);
-      this.physicsStats.showPanel(0);
-      this.renderStats.showPanel(0);
+      this.statsDomElement = document.createElement('div');
 
-      const container = document.createElement('div');
+      this.stats.dom.style.position = 'relative';
 
-      this.gameLoopStats.dom.style.position = 'relative';
-      this.physicsStats.dom.style.position = 'relative';
-      this.renderStats.dom.style.position = 'relative';
-
-      container.appendChild(this.gameLoopStats.dom);
-      container.appendChild(this.physicsStats.dom);
-      container.appendChild(this.renderStats.dom);
-
-      document.body.appendChild(container);
-      container.style.position = 'fixed';
-      container.style.top = '0';
-      container.style.left = 'unset';
-      container.style.right = '0';
+      document.body.appendChild(this.statsDomElement);
+      this.statsDomElement.style.position = 'fixed';
+      this.statsDomElement.style.top = '0';
+      this.statsDomElement.style.left = 'unset';
+      this.statsDomElement.style.right = '0';
     }
   }
 
@@ -126,21 +100,18 @@ export class Engine {
 
     // start the loops
     const t = performance.now() / 1000;
-    this.previousRenderFrame = t;
-    this.previousGameLoopFrame = t;
-    this.previousPhysicsFrame = t;
-    this.gameLoop();
-    this.renderLoop();
+    this.previousFrame = t;
+    requestAnimationFrame(this.loop);
 
     if (this.world.physics.size > 0) {
       this.physicsLoopRunning = true;
-      this.physicsLoop();
+      // this.physicsLoop();
     }
 
     this.world.on('addphysics', () => {
       if (!this.physicsLoopRunning) {
         this.physicsLoopRunning = true;
-        this.physicsLoop();
+        // this.physicsLoop();
       }
     });
 
@@ -156,76 +127,37 @@ export class Engine {
    * Destroys the engine
    */
   destroy(): void {
+    this.running = false;
     this.world?._destroy();
-    this.gameLoopStats?.dom.remove();
-    this.physicsStats?.dom.remove();
-    this.renderStats?.dom.remove();
-    this.gameLoopStats?.end();
-    this.physicsStats?.end();
-    this.renderStats?.end();
+    this.stats?.dom.remove();
+    this.statsDomElement?.remove();
+    this.stats?.end();
   }
 
   /**
-   * Runs the render loop for the engine
+   * Runs the loop for the engine
    */
-  private renderLoop() {
-    requestAnimationFrame((time) => {
-      if (!this.running) {
-        return;
-      }
-
-      const now = time / 1000;
-
-      const timeElapsed = now - (this.previousRenderFrame as number);
-
-      this.world?._render(timeElapsed);
-      this.renderStats?.update();
-
-      this.previousRenderFrame = now;
-
-      this.renderLoop();
-    });
-  }
-
-  /**
-   * The game logic loop
-   */
-  private gameLoop() {
+  private loop = (time: number) => {
     if (!this.running) {
       return;
     }
 
-    const now = performance.now() / 1000;
-    const timeElapsed = now - (this.previousGameLoopFrame as number);
+    const now = time / 1000;
+
+    const timeElapsed = now - (this.previousFrame as number);
 
     this.world?._update(timeElapsed);
 
-    this.gameLoopStats?.update();
-
-    this.previousGameLoopFrame = now;
-
-    setTimeout(() => {
-      this.gameLoop();
-    }, this.world?._gameLoopUpdateDelayMs);
-  }
-
-  /**
-   * The physics loop
-   */
-  private async physicsLoop() {
-    if (!this.running || !this.physicsLoopRunning) {
-      return;
+    if (this.physicsLoopRunning) {
+      this.world?._updatePhysics(timeElapsed);
     }
 
-    const now = performance.now() / 1000;
-    const timeElapsed = now - (this.previousPhysicsFrame as number);
-    await this.world?._updatePhysics(timeElapsed);
-    this.physicsStats?.update();
+    this.world?._render(timeElapsed);
 
-    this.previousPhysicsFrame = now;
+    this.stats?.update();
 
-    setTimeout(() => {
-      this.physicsLoop();
-    }, this.world?._physicsUpdateDelayMs);
-  }
+    this.previousFrame = now;
+
+    requestAnimationFrame(this.loop);
+  };
 }

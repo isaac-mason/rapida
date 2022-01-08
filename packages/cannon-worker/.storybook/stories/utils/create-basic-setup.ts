@@ -7,7 +7,7 @@ export const createBasicSetup = (params?: { delta?: number }): {
   scene: Scene;
   physics: CannonPhysics;
   debug: CannonPhysicsDebugger;
-loop: (() => void)[] 
+loop: ((now: number) => void)[] 
   start: () => void;
   destroy: () => void;
 } => {
@@ -52,23 +52,23 @@ loop: (() => void)[]
 
   let lastCallTime = 0;
 
-  const loop = [
-    () => {
-      const now = performance.now() / 1000;
-      const elapsed = now - lastCallTime;
+  const loop: ((elapsed: number) => void)[] = [
+    (elapsed) => { 
       physics.step(elapsed);
-      lastCallTime = now;
     },
-    () => renderer.render(scene, camera),
+    (_elapsed) => renderer.render(scene, camera),
   ];
 
-  const renderLoop = () => {
-    loop.forEach(l => l());
-    setTimeout(() => renderLoop(), physics.config.delta);
+  const renderLoop = (now: number) => {
+    now = now / 1000;
+    const elapsed = now - lastCallTime;
+    loop.forEach(l => l(elapsed));
+    requestAnimationFrame(renderLoop);
+    lastCallTime = now;
   };
 
   const start = (): void => {
-    renderLoop();
+    requestAnimationFrame(renderLoop);
   }
 
   const destroy = () => {
