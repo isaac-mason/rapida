@@ -6,7 +6,6 @@ import {
   PMREMGenerator,
   sRGBEncoding,
 } from 'three';
-import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import rapida, { Camera, Component, Scene, View } from '../../../src';
