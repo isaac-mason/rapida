@@ -10,6 +10,7 @@ import {
   Vector3,
   WebGLRenderer,
 } from 'three';
+import { Effects } from '@rapidajs/postprocessing';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
 import rapida, { Component, Entity, Scene, System, World } from '../../../src';
 
@@ -18,7 +19,7 @@ export default {
 };
 
 const DARK_BLUE = '#003366';
-const ORANGE = '#ff7b00';
+const ORANGE = '#ffad61';
 const LIGHT_BLUE = '#89CFF0';
 
 class FireflyObject3DComponent extends Component {
@@ -177,7 +178,17 @@ export const RandomWalkers = () => {
     const view = renderer.create.view({
       camera,
       scene,
+      useEffectComposer: true,
     });
+
+    view.composer.add.effects(
+      Effects.bloom({
+        intensity: 0.5,
+        kernelSize: 2,
+        luminanceThreshold: 0.8,
+        luminanceSmoothing: 0,
+      })
+    );
 
     new OrbitControls(camera.three, view.domElement);
 
@@ -185,7 +196,7 @@ export const RandomWalkers = () => {
 
     const fireflies = 500;
 
-    const randomFireflyPos = () => Math.random() * 24 - 12;
+    const randomFireflyPos = () => Math.random() * 30 - 15;
     for (let i = 0; i < fireflies; i++) {
       const entity = space.create.entity();
 
