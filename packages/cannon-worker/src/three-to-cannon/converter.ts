@@ -25,10 +25,6 @@ import { getComponent, getGeometry, getVertices } from './utils.js';
 
 const PI_2 = Math.PI / 2;
 
-/** ****************************************************************************
- * Shape construction
- */
-
 function createBoxShape(geometry: BufferGeometry): ThreeToCannonShapeResult | null {
   const vertices = getVertices(geometry);
 
@@ -227,7 +223,10 @@ function createTrimeshShape(geometry: BufferGeometry): ThreeToCannonShapeResult 
 }
 
 /**
- * Given a THREE.Object3D instance, creates a corresponding CANNON shape.
+ * Given a THREE.Object3D instance, creates corresponding cannon body params
+ * @param object the three object to convert
+ * @param options optional options for the conversion
+ * @returns the conversion result, including the result shape type and the params for the shape
  */
 export const threeToCannon = (
   object: Object3D,
