@@ -4,11 +4,11 @@ import {
   Color,
   Group,
   PMREMGenerator,
-  sRGBEncoding,
+  sRGBEncoding
 } from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-import rapida, { Camera, Component, Scene, View } from '../../../src';
+import rapida, { Component, Scene } from '../../../src';
 // @ts-expect-error webpack import
 import littlestTokyoGlb from '../../resources/LittlestTokyo.glb';
 import { SmoothOrbitControls } from '../../utils/components/smooth-orbit-controls';
