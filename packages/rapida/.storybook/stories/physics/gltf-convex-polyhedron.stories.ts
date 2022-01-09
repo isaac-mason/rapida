@@ -40,7 +40,7 @@ class Diamonds extends Component {
     // Cannon assumes contiguous, closed meshes to work
     geo.mergeVertices();
 
-    // create the convex polyhedron from the geometry and faces
+    // create the convex polyhedron from the geometry vertices and faces
     this.physics.create.convexPolyhedron({
       position: [-6, 0, 0],
       mass: 10,
