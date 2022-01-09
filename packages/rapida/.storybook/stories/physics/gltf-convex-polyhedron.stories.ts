@@ -2,7 +2,11 @@ import { useEffect } from '@storybook/client-api';
 import { AmbientLight, BufferGeometry, Color, Group, Mesh } from 'three';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { Geometry } from 'three-stdlib';
-import { CannonPhysics, CannonPhysicsDebugger } from '@rapidajs/cannon-worker';
+import {
+  CannonPhysics,
+  CannonPhysicsDebugger,
+  ThreeToCannonShapeType,
+} from '@rapidajs/cannon-worker';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
 import rapida, { Component, Scene } from '../../../src';
 // @ts-expect-error webpack import
@@ -13,14 +17,12 @@ export default {
   title: 'Physics / GLTF Physics Example',
 };
 
-class Diamond extends Component {
+class Diamonds extends Component {
   gltf!: GLTF;
-  scene!: Scene;
   physics!: CannonPhysics;
   mesh!: Mesh;
 
-  construct = (scene: Scene, physics: CannonPhysics, gltf: GLTF) => {
-    this.scene = scene;
+  construct = (physics: CannonPhysics, gltf: GLTF) => {
     this.physics = physics;
     this.mesh = gltf.scene.children[0] as Mesh;
     this.mesh.position.set(0, -5, -10);
@@ -40,6 +42,7 @@ class Diamond extends Component {
 
     // create the convex polyhedron from the geometry and faces
     this.physics.create.convexPolyhedron({
+      position: [-6, 0, 0],
       mass: 10,
       args: [
         geo.vertices.map((v) => [v.x, v.y, v.z]),
@@ -47,7 +50,23 @@ class Diamond extends Component {
         [],
       ],
       angularVelocity: [0, -1, -1],
-    }, this.mesh);
+    });
+
+    // also create a diamond from its convex hull with cannon-worker automatic conversion
+    this.physics.create.three(
+      {
+        three: this.mesh,
+        position: [6, 0, 0],
+        mass: 10,
+        angularVelocity: [0, -1, -1],
+      },
+      {
+        conversion: {
+          type: ThreeToCannonShapeType.HULL,
+        },
+        ref: null,
+      }
+    );
   };
 }
 
@@ -69,7 +88,7 @@ export const GLTFPhysicsExample = () => {
       scene.add(new AmbientLight(0xffffff, 1));
 
       const camera = world.create.camera();
-      camera.position.set(0, 2.5, 20);
+      camera.position.set(1, 2.5, 30);
 
       renderer.create.view({
         camera,
@@ -80,7 +99,9 @@ export const GLTFPhysicsExample = () => {
         gravity: [0, -10, 0],
       });
 
-      physics.debugger = new CannonPhysicsDebugger(physics, { scene: scene.three })
+      physics.debugger = new CannonPhysicsDebugger(physics, {
+        scene: scene.three,
+      });
 
       physics.create.plane({
         position: [0, -1, 0],
@@ -94,7 +115,7 @@ export const GLTFPhysicsExample = () => {
 
       const space = world.create.space();
 
-      space.create.entity().addComponent(Diamond, scene, physics, diamondGLTF);
+      space.create.entity().addComponent(Diamonds, physics, diamondGLTF);
 
       engine.start(world);
     })();
