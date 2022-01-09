@@ -1,14 +1,14 @@
 import { useEffect } from '@storybook/client-api';
 import * as three from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { BodyType, ThreeToCannonShapeType } from '../../../lib';
+import { BodyType } from '../../../lib';
 import { createBasicSetup } from '../utils/create-basic-setup';
 
 export default {
   title: 'Examples / Three Object Conversion',
 };
 
-export const Box = () => {
+export const ThreeObjectConversion = () => {
   useEffect(() => {
     const { camera, renderer, physics, start, destroy } = createBasicSetup();
     document.getElementById('renderer-root').prepend(renderer.domElement);
