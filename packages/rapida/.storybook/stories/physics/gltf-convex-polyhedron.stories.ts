@@ -1,17 +1,16 @@
-import { useEffect } from '@storybook/client-api';
-import { AmbientLight, BufferGeometry, Color, Group, Mesh } from 'three';
-import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-import { Geometry } from 'three-stdlib';
 import {
   CannonPhysics,
   CannonPhysicsDebugger,
-  ThreeToCannonShapeType,
+  ThreeToCannonShapeType
 } from '@rapidajs/cannon-worker';
-import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
-import rapida, { Component, Scene } from '../../../src';
+import { useEffect } from '@storybook/client-api';
+import { AmbientLight, BufferGeometry, Color, Mesh } from 'three';
+import { Geometry } from 'three-stdlib';
+import { } from 'three/examples/jsm/loaders/GLTFLoader';
+import rapida, { Component, GLTF } from '../../../src';
+
 // @ts-expect-error webpack import
 import diamondGlb from '../../resources/diamond.glb';
-import { SmoothOrbitControls } from '../../utils/components/smooth-orbit-controls';
 
 export default {
   title: 'Physics / GLTF Physics Example',

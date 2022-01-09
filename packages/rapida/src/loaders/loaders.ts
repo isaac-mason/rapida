@@ -305,3 +305,5 @@ export class Loaders {
     });
   }
 }
+
+export type { GLTF, SVGResult };

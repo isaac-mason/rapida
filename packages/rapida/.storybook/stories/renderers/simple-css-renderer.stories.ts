@@ -7,8 +7,7 @@ import {
   MeshPhongMaterial,
 } from 'three';
 import { OrbitControls } from 'three-stdlib';
-import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
-import rapida from '../../../src';
+import rapida, { CSS3DObject } from '../../../src';
 
 export default {
   title: 'Renderers / Simple CSS Renderer',

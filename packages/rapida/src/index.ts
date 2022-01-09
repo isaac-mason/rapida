@@ -10,6 +10,12 @@ export * from './renderer';
 export * from './scene';
 export * from './world';
 
+// export css3d objects
+export {
+  CSS3DObject,
+  CSS3DSprite,
+} from 'three/examples/jsm/renderers/CSS3DRenderer';
+
 /**
  * Creates a new rapida engine
  * @param params the params for the new rapida engine
@@ -24,6 +30,7 @@ export const engine = (params?: EngineParams): Engine => new Engine(params);
  */
 export const world = (params?: WorldParams): World => new World(params);
 
+// export engine and world factory methods
 export default {
   engine,
   world,
