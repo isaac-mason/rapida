@@ -2,16 +2,13 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-shadow */
 
-// @ts-expect-error expected
-// eslint-disable-next-line import/no-unresolved, import/extensions
-import WebWorker from 'web-worker:./worker.ts';
-
 import {
   DynamicDrawUsage,
   Euler,
   InstancedMesh,
   MathUtils,
   Matrix4,
+  Mesh,
   Object3D,
   Quaternion,
   Vector3,
@@ -21,10 +18,13 @@ import { InitEvent } from './events/init';
 import { PhysicsEventTopic } from './events/physics-event-topic';
 import { StepEvent } from './events/step';
 import { AddRaycastVehicleEvent } from './events/vehicle/add-raycast-vehicle';
+import type { ThreeToCannonShapeOptions } from './three-to-cannon';
+import { threeToCannon } from './three-to-cannon';
 import type {
   AtomicName,
   BodyShapeType,
   Buffers,
+  CannonPhysicsParams,
   CannonWorker,
   CollideBeginEvent,
   CollideEndEvent,
@@ -33,7 +33,6 @@ import type {
   DefaultContactMaterial,
   IncomingWorkerMessage,
   PhysicsContext,
-  CannonPhysicsParams,
   PhysicsWorldConfig,
   PropValue,
   RaycastVehicleParams,
@@ -67,6 +66,7 @@ import {
   ParticleParams,
   PlaneParams,
   PointToPointConstraintOpts,
+  ShapeType,
   SphereParams,
   SpringOptns,
   TrimeshParams,
@@ -79,6 +79,10 @@ import {
   WorkerRayhitEvent,
 } from './types';
 import { capitalize, getUUID, isString, makeTriplet, prepare, setupCollision } from './utils';
+
+// @ts-expect-error expected
+// eslint-disable-next-line import/no-unresolved, import/extensions, import/order
+import WebWorker from 'web-worker:./worker.ts';
 
 function noop() {
   /* no action taken */
@@ -415,6 +419,62 @@ class CannonPhysics {
   }
 
   private _factories = {
+    /**
+     * Converts a three Mesh or Object3D into a cannon shape
+     * @param three the three Mesh or Object3D
+     * @param options optional options for the conversion and ref
+     * @returns the converted cannon shape
+     */
+    three: (
+      params: BodyParams & { three: Mesh | Object3D },
+      options?: {
+        conversion?: ThreeToCannonShapeOptions;
+        ref?: Object3D | null;
+      },
+    ): Api => {
+      const { three, ...bodyParams } = params;
+
+      let ref;
+      if (options?.ref === undefined) {
+        ref = three;
+      } else if (options.ref === null) {
+        ref = new Object3D();
+      } else {
+        ref = options.ref;
+      }
+
+      const conversionResult = threeToCannon(three, options?.conversion);
+
+      if (!conversionResult) {
+        throw new Error('Three Mesh or Object3D could not be converted to a cannon body');
+      }
+
+      const result = {
+        ...conversionResult.params,
+        ...bodyParams,
+      };
+
+      switch (conversionResult.type) {
+        case ShapeType.Box:
+          return this._factories.box(result as BoxParams, ref);
+        case ShapeType.ConvexPolyhedron:
+          return this._factories.convexPolyhedron(result as ConvexPolyhedronParams, ref);
+        case ShapeType.Cylinder:
+          return this._factories.cylinder(result as CylinderParams, ref);
+        case ShapeType.Heightfield:
+          return this._factories.heightfield(result as HeightfieldParams, ref);
+        case ShapeType.Particle:
+          return this._factories.particle(result, ref);
+        case ShapeType.Plane:
+          return this._factories.plane(result, ref);
+        case ShapeType.Sphere:
+          return this._factories.sphere(result as SphereParams, ref);
+        case ShapeType.Trimesh:
+          return this._factories.trimesh(result as TrimeshParams, ref);
+        default:
+          throw new Error('Three Mesh or Object3D could not be converted to a cannon body');
+      }
+    },
     body: <B extends BodyParams<unknown>>(
       type: BodyShapeType,
       params: B,
