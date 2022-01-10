@@ -6,14 +6,14 @@ import {
 import { useEffect } from '@storybook/client-api';
 import { AmbientLight, BufferGeometry, Color, Mesh } from 'three';
 import { Geometry } from 'three-stdlib';
-import { } from 'three/examples/jsm/loaders/GLTFLoader';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import rapida, { Component, GLTF } from '../../../src';
 
 // @ts-expect-error webpack import
 import diamondGlb from '../../resources/diamond.glb';
 
 export default {
-  title: 'Physics / GLTF Physics Example',
+  title: 'Physics / GLTF Convex Polyhedron Physics',
 };
 
 class Diamonds extends Component {
@@ -51,7 +51,7 @@ class Diamonds extends Component {
       angularVelocity: [0, -1, -1],
     });
 
-    // also create a diamond from its convex hull with cannon-worker automatic conversion
+    // also create a diamond physics object by calculating its convex hull cannon-worker
     this.physics.create.three(
       {
         three: this.mesh,
@@ -69,7 +69,7 @@ class Diamonds extends Component {
   };
 }
 
-export const GLTFPhysicsExample = () => {
+export const GLTFConvexPolyhedronPhysics = () => {
   useEffect(() => {
     const engine = rapida.engine();
 
@@ -89,10 +89,12 @@ export const GLTFPhysicsExample = () => {
       const camera = world.create.camera();
       camera.position.set(1, 2.5, 30);
 
-      renderer.create.view({
+      const view = renderer.create.view({
         camera,
         scene,
       });
+
+      new OrbitControls(camera.three, view.domElement);
 
       const physics = world.create.physics({
         gravity: [0, -10, 0],

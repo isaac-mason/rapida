@@ -20,12 +20,12 @@ import {
   Triplet,
 } from '../types';
 import { ConvexHull } from './convex-hull';
-import { ThreeToCannonShapeResult, ThreeToCannonShapeOptions, ThreeToCannonShapeType } from './types';
+import { ThreeToCannonShapeOptions, ThreeToCannonShapeResult, ThreeToCannonShapeType } from './types';
 import { getComponent, getGeometry, getVertices } from './utils.js';
 
 const PI_2 = Math.PI / 2;
 
-function createBoxShape(geometry: BufferGeometry): ThreeToCannonShapeResult | null {
+const createBoxShape = (geometry: BufferGeometry): ThreeToCannonShapeResult | null => {
   const vertices = getVertices(geometry);
 
   if (!vertices.length) return null;
@@ -41,10 +41,10 @@ function createBoxShape(geometry: BufferGeometry): ThreeToCannonShapeResult | nu
     params,
     type: ShapeType.Box,
   };
-}
+};
 
 /** Bounding box needs to be computed with the entire subtree, not just geometry. */
-function createBoundingBoxShape(object: Object3D): ThreeToCannonShapeResult | null {
+const createBoundingBoxShape = (object: Object3D): ThreeToCannonShapeResult | null => {
   const clone = object.clone();
   clone.quaternion.set(0, 0, 0, 1);
   clone.updateMatrixWorld();
@@ -54,22 +54,24 @@ function createBoundingBoxShape(object: Object3D): ThreeToCannonShapeResult | nu
   if (!isFinite(box.min.lengthSq())) return null;
 
   const params = {
-    args: [(box.max.x - box.min.x) / 2, (box.max.y - box.min.y) / 2, (box.max.z - box.min.z) / 2],
+    args: [box.max.x - box.min.x, box.max.y - box.min.y, box.max.z - box.min.z],
   } as BoxParams;
 
   const localPosition = box.translate(clone.position.negate()).getCenter(new Vector3());
 
+  const offset = localPosition.lengthSq()
+    ? new Vec3(localPosition.x, localPosition.y, localPosition.z)
+    : undefined;
+
   return {
     params,
     type: ShapeType.Box,
-    offset: localPosition.lengthSq()
-      ? new Vec3(localPosition.x, localPosition.y, localPosition.z)
-      : undefined,
+    offset,
   };
-}
+};
 
 /** Computes 3D convex hull as a CANNON.ConvexPolyhedron. */
-function createConvexPolyhedron(object: Object3D): ThreeToCannonShapeResult | null {
+const createConvexPolyhedron = (object: Object3D): ThreeToCannonShapeResult | null => {
   const geometry = getGeometry(object);
 
   if (!geometry) return null;
@@ -85,7 +87,7 @@ function createConvexPolyhedron(object: Object3D): ThreeToCannonShapeResult | nu
     );
   }
 
-  // Compute the 3D convex hull.
+  // Compute the 3D convex hull
   const hull = new ConvexHull().setFromObject(new Mesh(geometry));
   const hullFaces = hull.faces;
   const vertices: Triplet[] = [];
@@ -110,7 +112,7 @@ function createConvexPolyhedron(object: Object3D): ThreeToCannonShapeResult | nu
   } as ConvexPolyhedronParams;
 
   return { params, type: ShapeType.ConvexPolyhedron };
-}
+};
 
 function createCylinderShape(geometry: CylinderGeometry): ThreeToCannonShapeResult | null {
   const { parameters } = geometry;
@@ -126,10 +128,10 @@ function createCylinderShape(geometry: CylinderGeometry): ThreeToCannonShapeResu
   };
 }
 
-function createBoundingCylinderShape(
+const createBoundingCylinderShape = (
   object: Object3D,
   options: ThreeToCannonShapeOptions,
-): ThreeToCannonShapeResult | null {
+): ThreeToCannonShapeResult | null => {
   const axes = ['x', 'y', 'z'];
   const majorAxis = options.cylinderAxis || 'y';
   const minorAxes = axes.splice(axes.indexOf(majorAxis), 1) && axes;
@@ -159,9 +161,9 @@ function createBoundingCylinderShape(
     type: ShapeType.Cylinder,
     orientation: new CQuaternion().setFromEuler(eulerX, eulerY, 0, 'XYZ').normalize(),
   };
-}
+};
 
-function createPlaneShape(geometry: BufferGeometry): ThreeToCannonShapeResult | null {
+const createPlaneShape = (geometry: BufferGeometry): ThreeToCannonShapeResult | null => {
   geometry.computeBoundingBox();
   const box = geometry.boundingBox!;
 
@@ -174,21 +176,21 @@ function createPlaneShape(geometry: BufferGeometry): ThreeToCannonShapeResult | 
   } as BoxParams;
 
   return { params, type: ShapeType.Box };
-}
+};
 
-function createSphereShape(geometry: SphereGeometry): ThreeToCannonShapeResult | null {
+const createSphereShape = (geometry: SphereGeometry): ThreeToCannonShapeResult | null => {
   return {
     params: {
       args: geometry.parameters.radius,
     } as SphereParams,
     type: ShapeType.Sphere,
   };
-}
+};
 
-function createBoundingSphereShape(
+const createBoundingSphereShape = (
   object: Object3D,
   options: ThreeToCannonShapeOptions,
-): ThreeToCannonShapeResult | null {
+): ThreeToCannonShapeResult | null => {
   if (options.sphereRadius) {
     return {
       params: {
@@ -206,9 +208,9 @@ function createBoundingSphereShape(
     } as SphereParams,
     type: ShapeType.Sphere,
   };
-}
+};
 
-function createTrimeshShape(geometry: BufferGeometry): ThreeToCannonShapeResult | null {
+const createTrimeshShape = (geometry: BufferGeometry): ThreeToCannonShapeResult | null => {
   const vertices = getVertices(geometry);
 
   if (!vertices.length) return null;
@@ -220,7 +222,7 @@ function createTrimeshShape(geometry: BufferGeometry): ThreeToCannonShapeResult 
   } as TrimeshParams;
 
   return { params, type: ShapeType.Trimesh };
-}
+};
 
 /**
  * Given a THREE.Object3D instance, creates corresponding cannon body params

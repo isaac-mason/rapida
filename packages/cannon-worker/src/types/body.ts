@@ -29,6 +29,7 @@ export enum ShapeType {
   Sphere = 'Sphere',
   Trimesh = 'Trimesh',
   ConvexPolyhedron = 'ConvexPolyhedron',
+  Compound = 'Compound',
 }
 
 export type ShapeTypeString = `${ShapeType}`;

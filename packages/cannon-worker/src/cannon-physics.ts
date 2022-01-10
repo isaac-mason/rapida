@@ -457,6 +457,8 @@ class CannonPhysics {
       switch (conversionResult.type) {
         case ShapeType.Box:
           return this._factories.box(result as BoxParams, ref);
+        case ShapeType.Compound:
+          return this._factories.compoundBody(result as CompoundBodyParams, ref);
         case ShapeType.ConvexPolyhedron:
           return this._factories.convexPolyhedron(result as ConvexPolyhedronParams, ref);
         case ShapeType.Cylinder:

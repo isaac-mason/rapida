@@ -6,10 +6,14 @@ import {
   Texture,
   TextureLoader,
 } from 'three';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
-import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { SVGLoader, SVGResult } from 'three/examples/jsm/loaders/SVGLoader';
+import {
+  SVGLoader,
+  SVGResult,
+  GLTF,
+  GLTFLoader,
+  FBXLoader,
+  DRACOLoader,
+} from 'three-stdlib';
 
 const DEFAULT_DRACO_DECODER_PATH = 'https://www.gstatic.com/draco/v1/decoders/';
 
