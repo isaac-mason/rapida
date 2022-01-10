@@ -5,6 +5,11 @@
  */
 export class ObjectPool<T> {
   /**
+   * Factory method for creating a new object to add to the pool
+   */
+  factory: () => T;
+
+  /**
    * An array of available objects
    */
   availableObjects: T[] = [];
@@ -34,11 +39,6 @@ export class ObjectPool<T> {
    * The number of objects in the pool
    */
   private count = 0;
-
-  /**
-   * Factory method for creating a new object to add to the pool
-   */
-  factory: () => T;
 
   /**
    * Constructor for a new object pool
