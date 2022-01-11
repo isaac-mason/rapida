@@ -38,15 +38,10 @@ const SidebarDiv = styled.div`
   padding-top: 4em;
   height: 100vh;
   width: 300px;
-  border-right: 1px solid #ccc;
 
   img {
     width: 150px;
     filter: drop-shadow(-3px -3px 6px rgba(0, 0, 0, 0.5));
-  }
-
-  ${up('md')} {
-    border-right: none;
   }
 `;
 
@@ -59,6 +54,12 @@ const SidebarLinks = styled.nav`
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   background-color: #fff;
+
+  border-right: 1px solid #ccc;
+
+  ${up('md')} {
+    border-right: none;
+  }
 
   ul {
     list-style-type: none;

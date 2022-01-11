@@ -110,12 +110,17 @@ const PackageTop = styled.div`
 `;
 
 const PackageTitle = styled.h3`
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-family: ${(p) => p.theme.fonts.rapida};
+  word-break: break-word;
+
+  ${up('md')} {
+    font-size: 1.2rem;
+  }
 `;
 
 const PackageDescription = styled.p`
-  font-size: 0.9rem;
+  font-size: 1rem;
 `;
 
 const PackageBottom = styled.div`

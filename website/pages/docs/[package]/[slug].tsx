@@ -46,22 +46,45 @@ const DocsMainWrapper = styled.div`
 const DocsMain = styled.main`
   max-width: 800px;
   margin: 0 auto;
+
+  word-break: break-word;
 `;
 
 const h1 = styled.h1`
   font-weight: 800;
+  font-size: 1.5rem;
+
+  ${up('md')} {
+    font-size: 2.5rem;
+  }
 `;
 
 const h2 = styled.h2`
   font-weight: 600;
+  font-size: 1.4rem;
+
+  ${up('md')} {
+    font-size: 1.4rem
+  }
 `;
 
 const h3 = styled.h3`
   font-weight: 600;
+  font-size: 1.2rem;
+
+  ${up('md')} {
+    font-size: 1.2rem
+  }
 `;
 
 const h4 = styled.h4`
-  font-weight: 400;
+  font-weight: 600;
+
+  font-size: 1.1rem;
+
+  ${up('md')} {
+    font-size: 1.1rem
+  }
 `;
 
 const hr = styled.hr`
@@ -96,6 +119,7 @@ const TableWrapper = styled.div`
     th,
     td {
       padding: 0.75em;
+      min-width: 100px;
     }
   }
 `;

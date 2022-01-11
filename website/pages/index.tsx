@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { Tooltip } from 'reactstrap';
+import { up } from 'styled-breakpoints';
 import styled from 'styled-components';
 import { FindUs } from '../components/homepage/FindUs';
 import { Packages } from '../components/homepage/Packages';
@@ -32,13 +33,14 @@ const CodeBlock = styled.code`
 const Title = styled.h1`
   margin: 0;
   line-height: 1.15;
-  font-size: 4rem;
+
+  font-size: 3rem;
   font-weight: 300;
   font-family: ${(p) => p.theme.fonts.rapida};
   text-align: center;
 
-  @media screen and (max-width: 500px) {
-    font-size: 3rem;
+  ${up('md')} {
+    font-size: 4rem;
   }
 `;
 
@@ -46,20 +48,20 @@ const Description = styled.p`
   margin: 1.5em 0;
   max-width: 800px;
   font-family: ${(p) => p.theme.fonts.rapida};
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   text-align: center;
   line-height: 1.5;
 
-  @media screen and (max-width: 500px) {
-    text-align: left;
+  ${up('md')} {
+    font-size: 1.5rem;
   }
 `;
 
 const Warning = styled.div`
   background-color: #fff399;
   border-radius: 5px;
-  padding: 2rem;
-  font-size: 1.2rem;
+  padding: 1rem;
+  font-size: 1rem;
   font-weight: 500;
   line-height: 1.5;
   max-width: 700px;
@@ -68,6 +70,11 @@ const Warning = styled.div`
 
   p:last-child {
     margin-bottom: 0;
+  }
+
+  ${up('md')} {
+    font-size: 1.2rem;
+    padding: 2rem;
   }
 `;
 
@@ -131,8 +138,8 @@ const Home: NextPage = () => {
           </p>
           <p>
             Docs are currently WIP - there are only auto-generated docs here
-            right now. Getting started docs and worked examples will be
-            added soon.
+            right now. Getting started docs and worked examples will be added
+            soon.
           </p>
           <p>
             Things will{' '}
