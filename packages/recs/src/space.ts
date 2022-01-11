@@ -101,7 +101,7 @@ export class Space {
     this.entities.delete(value.id);
 
     // remove entity update from the RECS update pool
-    this.recs._entitiesToUpdate.delete(this.id);
+    this.recs._entitiesToUpdate.delete(value.id);
 
     // emit the entity destroy event to the space
     this.recs.queryManager.onEntityRemoved(value);
@@ -204,6 +204,6 @@ export class Space {
     e._init();
 
     // add entity update to the update pool
-    this.recs._entitiesToUpdate.set(this.id, e);
+    this.recs._entitiesToUpdate.set(e.id, e);
   }
 }
