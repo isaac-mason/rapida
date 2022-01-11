@@ -62,8 +62,7 @@ class Diamonds extends Component {
       {
         conversion: {
           type: ThreeToCannonShapeType.HULL,
-        },
-        ref: null,
+        }
       }
     );
   };

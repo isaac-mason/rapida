@@ -59,6 +59,8 @@ export const Trigger = () => {
         // change the trigger mesh color
         triggerMesh.material.color = new Color('#050');
       },
+    }, {
+      ref: triggerMesh,
     });
 
     // create a plane for the sphere to roll on

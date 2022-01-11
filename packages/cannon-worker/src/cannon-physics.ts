@@ -429,19 +429,12 @@ class CannonPhysics {
       params: BodyParams & { three: Mesh | Object3D },
       options?: {
         conversion?: ThreeToCannonShapeOptions;
-        ref?: Object3D | null;
+        ref?: Object3D | undefined;
       },
     ): Api => {
       const { three, ...bodyParams } = params;
 
-      let ref;
-      if (options?.ref === undefined) {
-        ref = three;
-      } else if (options.ref === null) {
-        ref = new Object3D();
-      } else {
-        ref = options.ref;
-      }
+      const ref = options?.ref !== undefined ? options.ref : new Object3D();
 
       const conversionResult = threeToCannon(three, options?.conversion);
 

@@ -39,6 +39,7 @@ class Model extends Component {
         conversion: {
           type: ThreeToCannonShapeType.HULL,
         },
+        ref: this.object,
       }
     );
   };
