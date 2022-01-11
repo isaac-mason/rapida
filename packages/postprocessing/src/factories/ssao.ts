@@ -5,13 +5,28 @@ import {
 } from 'postprocessing';
 import { Camera } from 'three';
 
-// first two args are camera and texture
-type SSAOParams = ConstructorParameters<typeof SSAOEffectImpl>[2];
+const wrapEffect =
+  <C extends new (...args: any[]) => SSAOEffectImpl>(effectImpl: C) =>
+  (
+    camera: Camera,
+    normalPass: NormalPass,
+    { ...params }: ConstructorParameters<C>[2]
+  ) => {
+    const effect: SSAOEffectImpl = new effectImpl(
+      camera,
+      normalPass.renderTarget,
+      params
+    );
+
+    return effect;
+  };
+
+const WrappedSSAO = wrapEffect(SSAOEffectImpl);
 
 export const SSAOEffect = (
   camera: Camera,
   normalPass: NormalPass,
-  props: SSAOParams
+  props: Parameters<typeof WrappedSSAO>[2]
 ): SSAOEffectImpl => {
   return new SSAOEffectImpl(camera, normalPass.renderTarget.texture, {
     blendFunction: BlendFunction.MULTIPLY,

@@ -1,12 +1,12 @@
 import { PixelationEffect as PixelationEffectImpl } from 'postprocessing';
 
-type ExtraParams = Partial<{
+type Params = Partial<{
   granularity: number;
 }>;
 
 const wrapEffect =
   <C extends new (...args: any[]) => PixelationEffectImpl>(effectImpl: C) =>
-  ({ ...params }: ExtraParams & ConstructorParameters<C>[0]) => {
+  ({ ...params }: Params) => {
     const effect: PixelationEffectImpl = new effectImpl(params.granularity);
 
     return effect;
