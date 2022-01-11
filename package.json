@@ -18,7 +18,7 @@
     "storybook:local-https-generate-ca": "openssl req -x509 -nodes -new -sha512 -days 365 -newkey rsa:4096 -keyout dev/ca.key -out dev/ca.pem -subj \"/C=US/CN=MY-CA\"",
     "storybook:local-https-generate-crt": "openssl x509 -outform pem -in dev/ca.pem -out dev/ca.crt",
     "website:docs": "yarn docs && rm -rf website/generated/docs && mkdir -p website/generated/docs && cp -R packages/rapida/docs website/generated/docs/rapida && cp -R packages/cannon-worker/docs website/generated/docs/cannon-worker && cp -R packages/recs/docs website/generated/docs/recs && cp -R packages/postprocessing/docs website/generated/docs/postprocessing",
-    "website:storybooks": "yarn storybook:build && mkdir -p ./website/public/storybooks && cp -R packages/rapida/storybook-static website/public/storybooks/rapida && cp -R packages/cannon-worker/storybook-static website/public/storybooks/cannon-worker",
+    "website:storybooks": "yarn storybook:build && rm -rf ./website/public/storybooks && mkdir -p ./website/public/storybooks && cp -R packages/rapida/storybook-static website/public/storybooks/rapida && cp -R packages/cannon-worker/storybook-static website/public/storybooks/cannon-worker",
     "website:build": "yarn website:storybooks && yarn website:docs && (cd website && yarn build)"
   },
   "workspaces": [

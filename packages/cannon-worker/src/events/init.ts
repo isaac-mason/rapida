@@ -22,8 +22,7 @@ const ctx = self as unknown as Worker;
 function emitBeginContact({ bodyA, bodyB }: { bodyA: Body; bodyB: Body }) {
   if (!bodyA || !bodyB) return;
   ctx.postMessage({
-    topic: PhysicsEventTopic.EVENT,
-    type: PhysicsEventTopic.COLLIDE_BEGIN,
+    topic: PhysicsEventTopic.COLLIDE_BEGIN,
     bodyA: (bodyA as BodyWithId).uuid,
     bodyB: (bodyB as BodyWithId).uuid,
   });

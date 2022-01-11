@@ -1,6 +1,6 @@
 import { useEffect } from '@storybook/client-api';
 import { BodyType } from '../../../lib';
-import { createBasicSetup } from '../utils/create-basic-setup';
+import { createDebuggerSetup } from '../utils/create-debugger-setup';
 
 export default {
   title: 'Examples / Sphere',
@@ -8,7 +8,7 @@ export default {
 
 export const Sphere = () => {
   useEffect(() => {
-    const { renderer, physics, start, destroy } = createBasicSetup();
+    const { renderer, physics, start, destroy } = createDebuggerSetup();
     document.getElementById('renderer-root').prepend(renderer.domElement);
 
     physics.gravity = [0, -10, 0];
@@ -16,20 +16,16 @@ export const Sphere = () => {
     physics.create.sphere(
       {
         type: BodyType.DYNAMIC,
-        args: 20,
+        args: 1,
         mass: 1,
-        position: [0, 75, 0],
-        rotation: [0, 0, 0],
-        velocity: [Math.random(), 10, Math.random()],
+        velocity: [Math.random(), 8, Math.random()],
         angularVelocity: [Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5],
-        fixedRotation: false,
-        allowSleep: false,
       },
     );
 
     physics.create.plane({
       type: BodyType.STATIC,
-      position: [0, -10, 0],
+      position: [0, -1, 0],
       rotation: [-Math.PI / 2, 0, 0],
       mass: 0,
       material: {

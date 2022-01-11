@@ -53,11 +53,11 @@ const createBoundingBoxShape = (object: Object3D): ThreeToCannonShapeResult | nu
 
   if (!isFinite(box.min.lengthSq())) return null;
 
+  const localPosition = box.translate(clone.position.negate()).getCenter(new Vector3());
+
   const params = {
     args: [box.max.x - box.min.x, box.max.y - box.min.y, box.max.z - box.min.z],
   } as BoxParams;
-
-  const localPosition = box.translate(clone.position.negate()).getCenter(new Vector3());
 
   const offset = localPosition.lengthSq()
     ? new Vec3(localPosition.x, localPosition.y, localPosition.z)

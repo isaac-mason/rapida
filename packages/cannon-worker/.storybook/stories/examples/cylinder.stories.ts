@@ -1,6 +1,6 @@
 import { useEffect } from '@storybook/client-api';
 import { BodyType } from '../../../lib';
-import { createBasicSetup } from '../utils/create-basic-setup';
+import { createDebuggerSetup } from '../utils/create-debugger-setup';
 
 export default {
   title: 'Examples / Cylinder',
@@ -18,7 +18,7 @@ export const Cylinder = ({
   numSegments: number;
 }) => {
   useEffect(() => {
-    const { renderer, physics, start, destroy } = createBasicSetup();
+    const { renderer, physics, start, destroy } = createDebuggerSetup();
     document.getElementById('renderer-root').prepend(renderer.domElement);
 
     physics.gravity = [0, -10, 0];
@@ -27,7 +27,7 @@ export const Cylinder = ({
       type: BodyType.DYNAMIC,
       args: [radiusTop, radiusBottom, height, numSegments],
       mass: 1,
-      position: [0, 75, 0],
+      position: [0, 1, 0],
       rotation: [0, 0, 0],
       velocity: [Math.random(), 10, Math.random()],
       angularVelocity: [0.5, 0.2, 0.3],
@@ -37,7 +37,7 @@ export const Cylinder = ({
 
     physics.create.plane({
       type: BodyType.STATIC,
-      position: [0, -10, 0],
+      position: [0, -1, 0],
       rotation: [-Math.PI / 2, 0, 0],
       mass: 0,
       material: {
@@ -65,8 +65,8 @@ export const Cylinder = ({
 };
 
 Cylinder.args = {
-  radiusTop: 20,
-  radiusBottom: 20,
-  height: 100,
+  radiusTop: 1,
+  radiusBottom: 1,
+  height: 2,
   numSegments: 50,
 };

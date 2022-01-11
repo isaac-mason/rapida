@@ -13,7 +13,7 @@ import littlestTokyoGlb from '../../resources/LittlestTokyo.glb';
 import { SmoothOrbitControls } from '../../utils/components/smooth-orbit-controls';
 
 export default {
-  title: 'Loaders / GLTF Example',
+  title: 'Loaders / GLTF Animation Example',
 };
 
 class LittlestTokyoModel extends Component {
@@ -42,7 +42,7 @@ class LittlestTokyoModel extends Component {
   };
 }
 
-export const GLTFExample = () => {
+export const GLTFAnimationExample = () => {
   useEffect(() => {
     const engine = rapida.engine();
 

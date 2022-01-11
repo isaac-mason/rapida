@@ -1,7 +1,7 @@
 import { WebGLRenderer, PerspectiveCamera, Scene, AmbientLight, DirectionalLight, Vector3 } from 'three';
 import { CannonPhysics, CannonPhysicsDebugger } from '../../../lib';
 
-export const createBasicSetup = (params?: { delta?: number }): {
+export const createDebuggerSetup = (params?: { delta?: number }): {
   renderer: WebGLRenderer;
   camera: PerspectiveCamera;
   scene: Scene;
@@ -19,8 +19,9 @@ loop: ((now: number) => void)[]
   renderer.setSize(window.innerWidth, window.innerHeight);
 
   const camera = new PerspectiveCamera();
-  camera.position.y = 30;
-  camera.position.z = 500;
+  camera.position.z = 15;
+  camera.position.y = 5;
+  camera.position.x = 0;
   camera.lookAt(0, 0, 0);
 
   const onResize = () => {

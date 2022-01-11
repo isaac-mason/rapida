@@ -2,7 +2,7 @@ import { useEffect } from '@storybook/client-api';
 import * as three from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { BodyType } from '../../../lib';
-import { createBasicSetup } from '../utils/create-basic-setup';
+import { createDebuggerSetup } from '../utils/create-debugger-setup';
 
 export default {
   title: 'Examples / Three Object Conversion',
@@ -10,7 +10,7 @@ export default {
 
 export const ThreeObjectConversion = () => {
   useEffect(() => {
-    const { camera, renderer, physics, start, destroy } = createBasicSetup();
+    const { camera, renderer, physics, start, destroy } = createDebuggerSetup();
     document.getElementById('renderer-root').prepend(renderer.domElement);
 
     camera.position.x = -3;

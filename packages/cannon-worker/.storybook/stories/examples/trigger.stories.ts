@@ -1,6 +1,7 @@
 import { useEffect } from '@storybook/client-api';
+import { BoxGeometry, Color, Mesh, MeshBasicMaterial } from 'three';
 import { BodyType } from '../../../lib';
-import { createBasicSetup } from '../utils/create-basic-setup';
+import { createDebuggerSetup } from '../utils/create-debugger-setup';
 
 export default {
   title: 'Examples / Trigger',
@@ -8,11 +9,13 @@ export default {
 
 export const Trigger = () => {
   useEffect(() => {
-    const { camera, renderer, physics, start, destroy } = createBasicSetup();
+    const { camera, scene, renderer, physics, start, destroy } = createDebuggerSetup();
+
     document.getElementById('renderer-root').prepend(renderer.domElement);
 
+    camera.position.x = 0;
+    camera.position.y = 10;
     camera.position.z = 30;
-    camera.position.y = 3;
 
     physics.gravity = [0, -10, 0];
 
@@ -27,13 +30,34 @@ export const Trigger = () => {
     );
     sphereApi.applyLocalImpulse([5.5, 0, 0], [0, sphereRadius, 0]);
 
+    // set the scene background color
+    scene.background = new Color('#003');
+
     // create the trigger
-    physics.create.box({
-      args: [2, 2, 5],
+    const triggerMesh = new Mesh(new BoxGeometry(2, 2, 5), new MeshBasicMaterial({ color: '#500' }));
+    scene.add(triggerMesh);
+
+    physics.create.three({
+      three: triggerMesh,
       position: [5, 0, 0],
       isTrigger: true,
+      onCollideBegin: (event) => {
+        console.log(event);
+
+        // change the scene background color
+        scene.background = new Color('#010');
+      },
+      onCollideEnd: (event) => {
+        console.log(event);
+
+        // change the scene background color
+        scene.background = new Color('#003');
+      },
       onCollide: (event) => {
         console.log(event);
+
+        // change the trigger mesh color
+        triggerMesh.material.color = new Color('#050');
       },
     });
 

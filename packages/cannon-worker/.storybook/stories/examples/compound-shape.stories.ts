@@ -1,7 +1,7 @@
 import { useEffect } from '@storybook/client-api';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { BodyType, CompoundBodyParams, ShapeType } from '../../../lib';
-import { createBasicSetup } from '../utils/create-basic-setup';
+import { createDebuggerSetup } from '../utils/create-debugger-setup';
 
 export default {
   title: 'Examples / Compound Shape',
@@ -9,7 +9,7 @@ export default {
 
 export const CompoundShape = () => {
   useEffect(() => {
-    const { camera, renderer, physics, start, destroy } = createBasicSetup();
+    const { camera, renderer, physics, start, destroy } = createDebuggerSetup();
     document.getElementById('renderer-root').prepend(renderer.domElement);
 
     new OrbitControls(camera, renderer.domElement);

@@ -160,6 +160,7 @@ export const FallingBoxes = ({
     const physics = world.create.physics({
       allowSleep: true,
       gravity: [gravity.x, gravity.y, gravity.z],
+      size: 10000,
     });
 
     const scene = world.create.scene();

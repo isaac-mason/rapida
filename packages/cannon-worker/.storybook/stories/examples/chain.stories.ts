@@ -1,6 +1,6 @@
 import { useEffect } from '@storybook/client-api';
 import { BodyType, Triplet } from '../../../lib';
-import { createBasicSetup } from '../utils/create-basic-setup';
+import { createDebuggerSetup } from '../utils/create-debugger-setup';
 
 export default {
   title: 'Examples / Chain',
@@ -8,7 +8,7 @@ export default {
 
 export const Chain = () => {
   useEffect(() => {
-    const { renderer, camera, physics, start, destroy } = createBasicSetup();
+    const { renderer, camera, physics, start, destroy } = createDebuggerSetup();
     document.getElementById('renderer-root').prepend(renderer.domElement);
 
     // gravity
