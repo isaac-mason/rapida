@@ -2,6 +2,10 @@ import { uuid } from '@rapidajs/rapida-common';
 import { Entity } from './entity';
 import { Space } from './space';
 
+export type ComponentClass<T extends Component | Component = Component> = {
+  new (...args: never[]): T;
+};
+
 /**
  * Component that has data and behavior through lifecycle hooks, and can be added to an entity.
  *
@@ -14,11 +18,6 @@ export abstract class Component {
    * This component instances unique id
    */
   id: string = uuid();
-
-  /**
-   * The entity this component belongs to. Set on adding to an Entity.
-   */
-  private _entity: Entity | null = null;
 
   /**
    * Gets the entity for the component. Available during init call.
@@ -41,6 +40,16 @@ export abstract class Component {
   get space(): Space {
     return this.entity.space;
   }
+
+  /**
+   * The class the component was constructed from
+   */
+  _class!: ComponentClass;
+
+  /**
+   * The entity this component belongs to. Set on adding to an Entity.
+   */
+  private _entity: Entity | null = null;
 
   /**
    * Method for "re-constructing" a component object instance.
@@ -90,26 +99,4 @@ export abstract class Component {
    * Destruction logic
    */
   onDestroy: (() => void) | undefined = undefined;
-
-  /**
-   * Gets the component name
-   * @param value the component constructor, component instance, or component string name
-   * @returns the component name
-   */
-  static getComponentName<T extends Component | Component>(
-    value:
-      | {
-          new (...args: never[]): T;
-        }
-      | Component
-      | string
-  ): string {
-    if (typeof value === 'string') {
-      return value;
-    }
-    if (value instanceof Component) {
-      return value.constructor.name;
-    }
-    return value.name;
-  }
 }

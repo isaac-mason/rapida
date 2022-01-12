@@ -21,7 +21,7 @@ export class Entity {
   /**
    * Map of component ids to components
    */
-  components: Map<string, Component> = new Map();
+  components: Map<{ new (...args: never[]): Component }, Component> = new Map();
 
   /**
    * Whether the entity is alive. If false, the entity will be destroyed by the Space on the next update
@@ -51,16 +51,16 @@ export class Entity {
   private events = new EventSystem({ queued: true });
 
   /**
-   * Map of component names to components
-   */
-  private componentNamesToComponents: Map<string, Component> = new Map();
-
-  /**
-   * Destroy the entities components and set the entity as dead
+   * Destroy the entities components and set the entity as dead immediately
    */
   destroy(): void {
-    // destroy components
-    this.components.forEach((c) => c.onDestroy && c.onDestroy());
+    this.space.remove(this);
+  }
+
+  /**
+   * Destroy the entities components
+   */
+  _destroy(): void {
     this.alive = false;
   }
 
@@ -72,26 +72,14 @@ export class Entity {
     constr: { new (...args: never[]): T },
     ...args: Parameters<T['construct']>
   ): T {
-    // request a component from the component pool
-    const component = this.recs.componentPool.request(constr);
-
-    // set the components entity
-    component.entity = this;
-
-    // construct the component instance with args if they are present
-    if (args.length > 0) {
-      component.construct(...args);
-    } else {
-      component.construct();
-    }
-
-    // add the component to the entity components maps
-    this.components.set(component.id, component);
-    this.componentNamesToComponents.set(
-      Component.getComponentName(constr),
-      component
+    // add the component to this entity
+    const component = this.recs.entityManager.addComponentToEntity(
+      this,
+      constr,
+      ...args
     );
 
+    // initialise the component if the entity is already initialised
     if (this.initialised) {
       this.initialiseComponent(component);
     }
@@ -113,9 +101,9 @@ export class Entity {
   ): Entity {
     let component: Component;
 
-    // retrieve the component from the entity
+    // retrieve the component
     if (value instanceof Component) {
-      if (!this.components.has(value.id)) {
+      if (!this.components.has(value._class)) {
         throw new Error('Component does not exist in Entity');
       }
       component = value;
@@ -127,28 +115,8 @@ export class Entity {
       component = c;
     }
 
-    // remove the onUpdate method from the component update pool
-    if (component.onUpdate) {
-      this.recs._componentsToUpdate.delete(component.id);
-    }
-
-    // run the onDestroy method
-    if (component.onDestroy) {
-      component.onDestroy();
-    }
-
-    // clear the components entity field
-    component.entity = null;
-
-    // remove the component from the components maps
-    this.components.delete(component.id);
-    this.componentNamesToComponents.delete(Component.getComponentName(value));
-
-    // tell the query manager that the component has been removed from the entity
-    this.recs.queryManager.onEntityComponentRemoved(this, component);
-
-    // release the component back into the update pool
-    this.recs.componentPool.release(component);
+    // remove the component from this entity
+    this.recs.entityManager.removeComponentFromEntity(this, component, true);
 
     return this;
   }
@@ -158,17 +126,8 @@ export class Entity {
    * @param constr the component constructor, a component instance, or the string name of the component
    * @returns whether the entity contains the given component
    */
-  has(
-    value:
-      | {
-          new (...args: never[]): Component;
-        }
-      | Component
-      | string
-  ): boolean {
-    return this.componentNamesToComponents.has(
-      Component.getComponentName(value)
-    );
+  has(value: { new (...args: never[]): Component }): boolean {
+    return this.components.has(value);
   }
 
   /**
@@ -176,14 +135,9 @@ export class Entity {
    * @param value a constructor for the component type to retrieve
    * @returns the component
    */
-  get<T extends Component | Component>(
-    value:
-      | {
-          new (...args: never[]): T;
-        }
-      | Component
-      | string
-  ): T {
+  get<T extends Component | Component>(value: {
+    new (...args: never[]): T;
+  }): T {
     const component: T | undefined = this.find(value);
 
     if (component) {
@@ -198,16 +152,10 @@ export class Entity {
    * @param value a constructor for the component type to retrieve
    * @returns the component if it is found, or undefined
    */
-  find<T extends Component | Component>(
-    value:
-      | {
-          new (...args: never[]): T;
-        }
-      | Component
-      | string
-  ): T | undefined {
-    const component: Component | undefined =
-      this.componentNamesToComponents.get(Component.getComponentName(value));
+  find<T extends Component | Component>(value: {
+    new (...args: never[]): T;
+  }): T | undefined {
+    const component: Component | undefined = this.components.get(value);
 
     if (component) {
       return component as T;
@@ -272,14 +220,6 @@ export class Entity {
    * @param component the component to initialise
    */
   private initialiseComponent(component: Component): void {
-    if (component.onInit) {
-      component.onInit();
-    }
-
-    if (component.onUpdate) {
-      this.recs._componentsToUpdate.set(component.id, component);
-    }
-
-    this.recs.queryManager.onEntityComponentAdded(this, component);
+    this.recs.entityManager.initialiseComponent(component);
   }
 }

@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { describe, it, expect } from '@jest/globals';
-import { recs, Component, RECS, System } from '../src';
+import { recs, Component, RECS, System, QueryDescription } from '../src';
 
 describe('Systems and Queries Integration Tests', () => {
   let R: RECS;
@@ -85,17 +85,29 @@ describe('Systems and Queries Integration Tests', () => {
     expect(systemDestroyJestFn).toHaveBeenCalledTimes(1);
   });
 
-  it('systems can be removed', () => {
+  it('systems can be removed, and queries will be removed if they are no longer used by systems', () => {
     class TestComponentOne extends Component {}
-    class TestSystem extends System {
+    class TestSystemOne extends System {
       queries = {
         example: {
           all: [TestComponentOne],
         },
       };
     }
-    const system = new TestSystem();
-    R.add.system(system);
+
+    class TestSystemTwo extends System {
+      queries = {
+        example: {
+          all: [TestComponentOne],
+        },
+      };
+    }
+
+    const systemOne = new TestSystemOne();
+    R.add.system(systemOne);
+
+    const systemTwo = new TestSystemTwo();
+    R.add.system(systemTwo);
 
     R.init();
 
@@ -105,12 +117,203 @@ describe('Systems and Queries Integration Tests', () => {
       })
     ).toBe(true);
 
-    system.destroy();
+    systemOne.destroy();
+
+    expect(
+      R.queryManager.hasQuery({
+        all: [TestComponentOne],
+      })
+    ).toBe(true);
+
+    systemTwo.destroy();
 
     expect(
       R.queryManager.hasQuery({
         all: [TestComponentOne],
       })
     ).toBe(false);
+  });
+
+  describe('getQuery', () => {
+    class TestComponent extends Component {}
+
+    it('should create a query if it has not been created', () => {
+      const description: QueryDescription = {
+        all: [TestComponent],
+      };
+
+      R.init();
+
+      const query = R.queryManager.getQuery(description);
+
+      expect(query).toBeTruthy();
+    });
+
+    it('should populate a new query with existing entities', () => {
+      const description: QueryDescription = {
+        all: [TestComponent],
+      };
+
+      const space = R.create.space();
+      const entity = space.create.entity();
+      entity.addComponent(TestComponent);
+
+      R.init();
+
+      const query = R.queryManager.getQuery(description);
+
+      expect(query).toBeTruthy();
+      expect(query.all.size).toBe(1);
+      expect(query.all.has(entity)).toBeTruthy();
+    });
+
+    it('should get the existing query if it has already been created', () => {
+      const description: QueryDescription = {
+        all: [TestComponent],
+      };
+
+      R.init();
+
+      const queryOne = R.queryManager.getQuery(description);
+
+      const queryTwo = R.queryManager.getQuery(description);
+
+      expect(queryOne).toBeTruthy();
+      expect(queryTwo).toBeTruthy();
+
+      expect(queryOne).toEqual(queryTwo);
+    });
+  });
+
+  describe('onEntityComponentAdded', () => {
+    class TestComponentOne extends Component {}
+
+    class TestComponentTwo extends Component {}
+
+    it('should add entities to a query if the entity matches the query', () => {
+      const description: QueryDescription = {
+        all: [TestComponentOne],
+      };
+
+      R.init();
+
+      let query = R.queryManager.getQuery(description);
+
+      expect(R.queryManager.queries.size).toBe(1);
+
+      const space = R.create.space();
+
+      const entityOne = space.create.entity();
+
+      entityOne.addComponent(TestComponentOne);
+
+      const entityTwo = space.create.entity();
+
+      entityTwo.addComponent(TestComponentTwo);
+
+      query = R.queryManager.getQuery(description);
+
+      R.update(0.1);
+
+      expect(query.all.size).toBe(1);
+      expect(query.all).toContain(entityOne);
+      expect(query.all).not.toContain(entityTwo);
+    });
+  });
+
+  describe('onEntityComponentRemoved', () => {
+    class TestComponentOne extends Component {}
+
+    class TestComponentTwo extends Component {}
+
+    it('should remove entities from a query if an entity no longer matches the query', () => {
+      const description: QueryDescription = {
+        all: [TestComponentOne],
+      };
+
+      R.init();
+
+      let query = R.queryManager.getQuery(description);
+      expect(R.queryManager.queries.size).toBe(1);
+      expect(query.all.size).toBe(0);
+
+      const space = R.create.space();
+
+      const entityOne = space.create.entity();
+
+      entityOne.addComponent(TestComponentOne);
+
+      const entityTwo = space.create.entity();
+
+      entityTwo.addComponent(TestComponentOne);
+      entityTwo.addComponent(TestComponentTwo);
+
+      R.update(0.1);
+
+      expect(query.all.size).toBe(2);
+      expect(query.all).toContain(entityOne);
+      expect(query.all).toContain(entityTwo);
+
+      const entityOneComponentOne = entityOne.get(TestComponentOne);
+      entityOne.removeComponent(entityOneComponentOne);
+
+      const entityTwoComponentTwo = entityTwo.get(TestComponentTwo);
+      entityTwo.removeComponent(entityTwoComponentTwo);
+
+      R.update(0.1);
+
+      query = R.queryManager.getQuery(description);
+
+      expect(query.all.size).toBe(1);
+      expect(query.all).not.toContain(entityOne);
+      expect(query.all).toContain(entityTwo);
+    });
+  });
+
+  describe('onEntityRemoved', () => {
+    class TestComponentOne extends Component {}
+
+    class TestComponentTwo extends Component {}
+
+    it('should remove the entity from all queries', () => {
+      const description: QueryDescription = {
+        all: [TestComponentOne],
+      };
+
+      R.init();
+
+      let query = R.queryManager.getQuery(description);
+
+      expect(R.queryManager.queries.size).toBe(1);
+
+      expect(query.all.size).toBe(0);
+
+      const space = R.create.space();
+
+      const entityOne = space.create.entity();
+
+      entityOne.addComponent(TestComponentOne);
+
+      const entityTwo = space.create.entity();
+
+      entityTwo.addComponent(TestComponentOne);
+      entityTwo.addComponent(TestComponentTwo);
+
+      R.update(0.1);
+
+      expect(query.all.size).toBe(2);
+      expect(query.all).toContain(entityOne);
+      expect(query.all).toContain(entityTwo);
+
+      entityOne.destroy();
+
+      R.update(0.1);
+
+      query = R.queryManager.getQuery(description);
+
+      expect(query.all.size).toBe(1);
+      expect(query.all).not.toContain(entityOne);
+      expect(query.all).toContain(entityTwo);
+    });
   });
 });

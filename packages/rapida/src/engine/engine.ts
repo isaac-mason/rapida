@@ -99,9 +99,8 @@ export class Engine {
     // start the world
     this.world._init();
 
-    // start the loops
-    const t = performance.now() / 1000;
-    this.previousFrame = t;
+    // start the loop
+    this.previousFrame = 0;
     requestAnimationFrame(this.loop);
 
     if (this.world.physics.size > 0) {

@@ -70,51 +70,17 @@ export class Space {
   } {
     return {
       entity: (): Entity => {
-        const entity = this.recs.entityPool.request();
-        entity.space = this;
-        this.add(entity);
-        return entity;
+        return this.recs.entityManager.createEntityInSpace(this);
       },
     };
   }
 
   /**
-   * Adds an entity to the space
-   * @param value the entity to add
-   */
-  add(entity: Entity): Space {
-    this.entities.set(entity.id, entity);
-
-    if (this.initialised) {
-      this.initialiseEntity(entity);
-    }
-
-    return this;
-  }
-
-  /**
    * Removes an entity from the space
-   * @param value the entity to remove
+   * @param entity the entity to remove
    */
-  remove(value: Entity): Space {
-    // remove the entity from the entities map
-    this.entities.delete(value.id);
-
-    // remove entity update from the RECS update pool
-    this.recs._entitiesToUpdate.delete(this.id);
-
-    // emit the entity destroy event to the space
-    this.recs.queryManager.onEntityRemoved(value);
-
-    // destroy the entity
-    value.destroy();
-
-    // reset the entity for object reuse
-    value._reset();
-
-    // release the entity back into the entity pool
-    this.recs.entityPool.release(value);
-
+  remove(entity: Entity): Space {
+    this.recs.entityManager.removeEntityFromSpace(entity, this);
     return this;
   }
 
@@ -145,6 +111,21 @@ export class Space {
    */
   destroy(): void {
     this.recs.remove(this);
+  }
+
+  /**
+   * Adds an entity to the space
+   * @param value the entity to add
+   * @private called internally, do not call directly
+   */
+  _add(entity: Entity): Space {
+    this.entities.set(entity.id, entity);
+
+    if (this.initialised) {
+      this.recs.entityManager.initialiseEntity(entity);
+    }
+
+    return this;
   }
 
   /**
@@ -200,10 +181,6 @@ export class Space {
    * @param e the entity to initialise
    */
   private initialiseEntity(e: Entity): void {
-    // initialise the entity
-    e._init();
-
-    // add entity update to the update pool
-    this.recs._entitiesToUpdate.set(this.id, e);
+    this.recs.entityManager.initialiseEntity(e);
   }
 }

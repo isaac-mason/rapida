@@ -1,3 +1,4 @@
+import { ComponentClass } from '.';
 import { Component } from './component';
 import { ObjectPool } from './object-pool';
 
@@ -10,56 +11,68 @@ export class ComponentPool {
   /**
    * The a map of component names to object pools
    */
-  _objectPools: { [componentName: string]: ObjectPool<Component> } = {};
+  _objectPools: Map<ComponentClass, ObjectPool<Component>> = new Map();
 
   /**
    * The total number of component pools
    */
   get totalPools(): number {
-    return Object.values(this._objectPools).length;
+    return this._objectPools.size;
   }
 
   /**
    * The total size of the component pool
    */
   get totalSize(): number {
-    return Object.values(this._objectPools).reduce((total, pool) => {
-      return total + pool.totalSize;
-    }, 0);
+    let total = 0;
+    this._objectPools.forEach((p) => {
+      total += p.totalSize;
+    });
+    return total;
   }
 
   /**
    * The number of available objects in the component pool
    */
   get totalFree(): number {
-    return Object.values(this._objectPools).reduce((total, pool) => {
-      return total + pool.totalFree;
-    }, 0);
+    let total = 0;
+    this._objectPools.forEach((p) => {
+      total += p.totalFree;
+    });
+    return total;
   }
 
   /**
    * The number of used objects in the component pool
    */
   get totalUsed(): number {
-    return Object.values(this._objectPools).reduce((total, pool) => {
-      return total + pool.totalUsed;
-    }, 0);
+    let total = 0;
+    this._objectPools.forEach((p) => {
+      total += p.totalUsed;
+    });
+    return total;
   }
 
   /**
    * Requests a component from the component pool
    */
-  request<T extends Component>(constr: { new (...args: never[]): T }): T {
-    const name = Component.getComponentName(constr);
-    let pool = this._objectPools[name];
+  request<T extends Component>(clazz: ComponentClass<T>): T {
+    let pool = this._objectPools.get(clazz);
 
-    if (!pool) {
-      // eslint-disable-next-line new-cap
-      pool = new ObjectPool<T>(() => new constr());
-      this._objectPools[name] = pool;
+    if (pool === undefined) {
+      pool = new ObjectPool<T>(() => {
+        // eslint-disable-next-line new-cap
+        const component = new clazz();
+
+        // store a reference to the class in the component instance
+        component._class = clazz;
+
+        return component;
+      });
+      this._objectPools.set(clazz, pool);
     }
 
-    return (pool as ObjectPool<T>).request();
+    return pool.request() as T;
   }
 
   /**
@@ -67,10 +80,9 @@ export class ComponentPool {
    * @param component the component to release
    */
   release(component: Component): void {
-    const name = Component.getComponentName(component);
-    const pool = this._objectPools[name];
+    const pool = this._objectPools.get(component._class);
 
-    if (pool) {
+    if (pool !== undefined) {
       pool.release(component);
     }
   }
