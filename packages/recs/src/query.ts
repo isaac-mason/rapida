@@ -1,10 +1,5 @@
-import { Component } from './component';
+import { ComponentClass } from './component';
 import { Entity } from './entity';
-
-/**
- * Type for a component constructor
- */
-type ComponentConstructor = new (...args: never[]) => Component;
 
 /**
  * Enum for query condition types
@@ -19,9 +14,9 @@ export enum QueryConditionType {
  * Type for query conditions
  */
 export type QueryDescription = {
-  [QueryConditionType.ALL]?: ComponentConstructor[];
-  [QueryConditionType.ONE]?: ComponentConstructor[];
-  [QueryConditionType.NOT]?: ComponentConstructor[];
+  [QueryConditionType.ALL]?: ComponentClass[];
+  [QueryConditionType.ONE]?: ComponentClass[];
+  [QueryConditionType.NOT]?: ComponentClass[];
 };
 
 /**
@@ -51,9 +46,9 @@ export class Query {
   removed: Set<Entity> = new Set();
 
   /**
-   * A list of all component names that are involved in the conditions for this query
+   * A list of all component classes that are involved in the conditions for this query
    */
-  componentNames: string[];
+  components: ComponentClass[];
 
   /**
    * The query description for this query
@@ -75,14 +70,12 @@ export class Query {
 
     this.key = Query.getDescriptionDedupeString(queryDescription);
     this.description = queryDescription;
-    this.componentNames = Array.from(
-      new Set<string>(
-        [
-          ...(queryDescription.all ? queryDescription.all : []),
-          ...(queryDescription.one ? queryDescription.one : []),
-          ...(queryDescription.not ? queryDescription.not : []),
-        ].map((c) => c.name)
-      )
+    this.components = Array.from(
+      new Set<ComponentClass>([
+        ...(queryDescription.all ? queryDescription.all : []),
+        ...(queryDescription.one ? queryDescription.one : []),
+        ...(queryDescription.not ? queryDescription.not : []),
+      ])
     );
   }
 

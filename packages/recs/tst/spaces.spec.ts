@@ -39,16 +39,6 @@ describe('Spaces', () => {
     expect(mockFn).toBeCalledTimes(1);
   });
 
-  it('should initialise entities and add the entity event system tick method to the entity update pool', () => {
-    const space = R.create.space();
-
-    R.init();
-
-    space.create.entity();
-
-    expect(R._entitiesToUpdate.size).toBe(1);
-  });
-
   it('should should remove dead entities on update', () => {
     const space = R.create.space();
 
@@ -60,7 +50,7 @@ describe('Spaces', () => {
 
     expect(space.entities.size).toBe(1);
 
-    entity.destroy();
+    entity.alive = false;
 
     R.update(1);
 

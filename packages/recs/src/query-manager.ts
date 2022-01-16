@@ -76,7 +76,7 @@ export class QueryManager {
       if (event.type === QueryManagerEventType.ENTITY_COMPONENT_ADDED_EVENT) {
         // handle entity component added event
         this.queries.forEach((query) => {
-          if (query.componentNames.includes(event.component.constructor.name)) {
+          if (query.components.includes(event.component._class)) {
             this.updateQueryForEntity(query, event.entity);
           }
         });
@@ -85,14 +85,14 @@ export class QueryManager {
       ) {
         // handle entity component removed event
         this.queries.forEach((query) => {
-          if (query.componentNames.includes(event.component.constructor.name)) {
+          if (query.components.includes(event.component._class)) {
             this.updateQueryForEntity(query, event.entity);
           }
         });
       } else if (event.type === QueryManagerEventType.ENTITY_REMOVED_EVENT) {
         // handle entity removed event
         const queries = this.entityQueries.get(event.entity.id);
-        if (!queries) {
+        if (queries === undefined) {
           return;
         }
         queries.forEach((q) => q._removeEntity(event.entity));
@@ -191,7 +191,12 @@ export class QueryManager {
    * @param entity the entity
    */
   private updateQueryForEntity(query: Query, entity: Entity): void {
-    const entityQueries = this.getEntityQueries(entity);
+    let entityQueries = this.entityQueries.get(entity.id);
+
+    if (entityQueries === undefined) {
+      entityQueries = new Set<Query>();
+      this.entityQueries.set(entity.id, entityQueries);
+    }
 
     const match = query._match(entity);
     const has = query.all.has(entity);
@@ -203,21 +208,7 @@ export class QueryManager {
       query._removeEntity(entity);
       entityQueries.delete(query);
     }
-  }
 
-  /**
-   * Gets a set of queries an entity is part of
-   * @param entity the entity
-   * @returns a set of queries an entity is part of
-   */
-  private getEntityQueries(entity: Entity): Set<Query> {
-    let entityQueries = this.entityQueries.get(entity.id);
-
-    if (entityQueries === undefined) {
-      entityQueries = new Set<Query>();
-      this.entityQueries.set(entity.id, entityQueries);
-    }
-
-    return entityQueries;
+    this.entityQueries.set(entity.id, entityQueries);
   }
 }

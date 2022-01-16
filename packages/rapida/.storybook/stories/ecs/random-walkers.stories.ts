@@ -27,7 +27,13 @@ class FireflyObject3DComponent extends Component {
 
   mesh!: Mesh;
 
-  construct = ({ scene }: { scene: Scene }) => {
+  construct = ({
+    scene,
+    initialPosition,
+  }: {
+    scene: Scene;
+    initialPosition: [number, number, number];
+  }) => {
     this.scene = scene;
 
     const geometry = new SphereBufferGeometry(0.2, 32, 32);
@@ -36,6 +42,8 @@ class FireflyObject3DComponent extends Component {
     });
 
     this.mesh = new Mesh(geometry, material);
+
+    this.mesh.position.set(...initialPosition);
   };
 
   onInit = () => {
@@ -200,14 +208,16 @@ export const RandomWalkers = () => {
     for (let i = 0; i < fireflies; i++) {
       const entity = space.create.entity();
 
-      const fireflyObjectComponent = entity.addComponent(
+      entity.addComponent(
         FireflyObject3DComponent,
-        { scene }
-      );
-      fireflyObjectComponent.mesh.position.set(
-        randomFireflyPos(),
-        randomFireflyPos(),
-        randomFireflyPos()
+        {
+          scene,
+          initialPosition: [
+            randomFireflyPos(),
+            randomFireflyPos(),
+            randomFireflyPos(),
+          ],
+        }
       );
 
       entity.addComponent(EnergyComponent);
@@ -216,7 +226,6 @@ export const RandomWalkers = () => {
 
     world.add.system(new RandomWalkSystem());
     world.add.system(new RestingSystem());
-
     engine.start(world);
 
     return () => engine.destroy();
