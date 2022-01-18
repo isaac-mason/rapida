@@ -1597,7 +1597,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-react@npm:^7.12.10, @babel/preset-react@npm:^7.13.13, @babel/preset-react@npm:^7.16.0":
+"@babel/preset-react@npm:^7.12.10, @babel/preset-react@npm:^7.16.0":
   version: 7.16.5
   resolution: "@babel/preset-react@npm:7.16.5"
   dependencies:
@@ -3663,7 +3663,6 @@ __metadata:
     "@babel/core": ^7.15.5
     "@babel/plugin-transform-runtime": ^7.14.3
     "@babel/preset-env": ^7.14.4
-    "@babel/preset-react": ^7.13.13
     "@babel/preset-typescript": ^7.13.0
     "@rollup/plugin-babel": ^5.3.0
     "@rollup/plugin-node-resolve": ^13.0.0
@@ -3675,7 +3674,7 @@ __metadata:
     "@storybook/builder-webpack5": ^6.4.1
     "@storybook/html": ^6.4.1
     "@storybook/manager-webpack5": ^6.4.1
-    "@types/three": ^0.133.0
+    "@types/three": ^0.129.1
     "@typescript-eslint/eslint-plugin": ^4.28.0
     "@typescript-eslint/parser": ^4.28.0
     cannon-es: ^0.18.0
@@ -3688,8 +3687,6 @@ __metadata:
     eslint-plugin-import: ^2.24.2
     eslint-plugin-jsx-a11y: ^6.4.1
     eslint-plugin-prettier: ^4.0.0
-    eslint-plugin-react: ^7.25.1
-    eslint-plugin-react-hooks: ^4.2.0
     eslint-plugin-storybook: ^0.5.1
     lint-staged: ^11.0.0
     prettier: ^2.4.1
@@ -3700,14 +3697,10 @@ __metadata:
     rollup-plugin-sourcemaps: ^0.6.3
     rollup-plugin-typescript2: ^0.30.0
     rollup-plugin-web-worker-loader: ^1.6.1
-    three: ^0.133.0
-    three-stdlib: ^2.6.4
+    three: ^0.129.0
     typedoc: ^0.22.10
     typedoc-plugin-markdown: ^3.11.7
     typescript: ^4.3.4
-  peerDependencies:
-    cannon-es: ^0.18.0
-    three: ^0.133.0
   languageName: unknown
   linkType: soft
 
@@ -5863,6 +5856,13 @@ __metadata:
   version: 1.0.8
   resolution: "@types/tapable@npm:1.0.8"
   checksum: b4b754dd0822c407b8f29ef6b766490721c276880f9e976d92ee2b3ef915f11a05a2442ae36c8978bcd872ad6bc833b0a2c4d267f2d611590668a366bad50652
+  languageName: node
+  linkType: hard
+
+"@types/three@npm:^0.129.1":
+  version: 0.129.2
+  resolution: "@types/three@npm:0.129.2"
+  checksum: 1971cf99fe4f26a928f3244983a1889ebcf3c1fe573f30515caedddb3d4f9e6de338f2d6cf1f280694fa5036c8d365ea8cc05d10d428934be205f20601e2e826
   languageName: node
   linkType: hard
 
@@ -22187,24 +22187,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three-stdlib@npm:^2.6.4":
-  version: 2.6.4
-  resolution: "three-stdlib@npm:2.6.4"
-  dependencies:
-    "@babel/runtime": ^7.14.6
-    "@webgpu/glslang": ^0.0.15
-    "@webxr-input-profiles/motion-controllers": ^1.0.0
-    chevrotain: ^9.0.2
-    draco3d: ^1.4.1
-    fflate: ^0.6.9
-    ktx-parse: ^0.2.1
-    mmd-parser: ^1.0.4
-    opentype.js: ^1.3.3
-    potpack: ^1.0.1
-    zstddec: ^0.0.2
-  peerDependencies:
-    three: ">=0.128.0"
-  checksum: 4bd5a0ccaaaa2166a579b429d3432e9676e2b171b1ac2a873ebf178860f785a9564c4f61e4ce3821e675076d35daf7cdb6622dade702c50e68dba3b37d1c21b3
+"three@npm:^0.129.0":
+  version: 0.129.0
+  resolution: "three@npm:0.129.0"
+  checksum: 1fbe60ee56a3f1ff0d715f078364f3f521907e15d632e52a786ffd493e400fbcdab71e04150523bf15e69b310dd5267cd8dd3f97c5f3e2b3abfa5522b954fb5b
   languageName: node
   linkType: hard
 

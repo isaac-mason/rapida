@@ -11,12 +11,12 @@ import {
   Vector3,
 } from 'three';
 import {
-  BoxParams,
-  ConvexPolyhedronParams,
-  CylinderParams,
+  BoxProps,
+  ConvexPolyhedronProps,
+  CylinderProps,
   ShapeType,
-  SphereParams,
-  TrimeshParams,
+  SphereProps,
+  TrimeshProps,
   Triplet,
 } from '../types';
 import { ConvexHull } from './convex-hull';
@@ -35,7 +35,7 @@ const createBoxShape = (geometry: BufferGeometry): ThreeToCannonShapeResult | nu
 
   const params = {
     args: [(box.max.x - box.min.x) / 2, (box.max.y - box.min.y) / 2, (box.max.z - box.min.z) / 2],
-  } as BoxParams;
+  } as BoxProps;
 
   return {
     params,
@@ -57,7 +57,7 @@ const createBoundingBoxShape = (object: Object3D): ThreeToCannonShapeResult | nu
 
   const params = {
     args: [box.max.x - box.min.x, box.max.y - box.min.y, box.max.z - box.min.z],
-  } as BoxParams;
+  } as BoxProps;
 
   const offset = localPosition.lengthSq()
     ? new Vec3(localPosition.x, localPosition.y, localPosition.z)
@@ -109,7 +109,7 @@ const createConvexPolyhedron = (object: Object3D): ThreeToCannonShapeResult | nu
 
   const params = {
     args: [vertices, faces, []],
-  } as ConvexPolyhedronParams;
+  } as ConvexPolyhedronProps;
 
   return { params, type: ShapeType.ConvexPolyhedron };
 };
@@ -119,7 +119,7 @@ function createCylinderShape(geometry: CylinderGeometry): ThreeToCannonShapeResu
 
   const params = {
     args: [parameters.radiusTop, parameters.radiusBottom, parameters.height, parameters.radialSegments],
-  } as CylinderParams;
+  } as CylinderProps;
 
   return {
     params,
@@ -151,7 +151,7 @@ const createBoundingCylinderShape = (
   // Create shape.
   const params = {
     args: [radius, radius, height, 12],
-  } as CylinderParams;
+  } as CylinderProps;
 
   const eulerX = majorAxis === 'y' ? PI_2 : 0;
   const eulerY = majorAxis === 'z' ? PI_2 : 0;
@@ -173,7 +173,7 @@ const createPlaneShape = (geometry: BufferGeometry): ThreeToCannonShapeResult | 
       (box.max.y - box.min.y) / 2 || 0.1,
       (box.max.z - box.min.z) / 2 || 0.1,
     ],
-  } as BoxParams;
+  } as BoxProps;
 
   return { params, type: ShapeType.Box };
 };
@@ -182,7 +182,7 @@ const createSphereShape = (geometry: SphereGeometry): ThreeToCannonShapeResult |
   return {
     params: {
       args: geometry.parameters.radius,
-    } as SphereParams,
+    } as SphereProps,
     type: ShapeType.Sphere,
   };
 };
@@ -195,7 +195,7 @@ const createBoundingSphereShape = (
     return {
       params: {
         args: options.sphereRadius,
-      } as SphereParams,
+      } as SphereProps,
       type: ShapeType.Sphere,
     };
   }
@@ -205,7 +205,7 @@ const createBoundingSphereShape = (
   return {
     params: {
       args: geometry.boundingSphere!.radius,
-    } as SphereParams,
+    } as SphereProps,
     type: ShapeType.Sphere,
   };
 };
@@ -219,7 +219,7 @@ const createTrimeshShape = (geometry: BufferGeometry): ThreeToCannonShapeResult 
 
   const params = {
     args: [vertices as unknown as number[], indices],
-  } as TrimeshParams;
+  } as TrimeshProps;
 
   return { params, type: ShapeType.Trimesh };
 };

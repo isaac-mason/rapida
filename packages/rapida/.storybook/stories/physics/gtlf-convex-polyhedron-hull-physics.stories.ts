@@ -1,6 +1,6 @@
 import {
-  CannonPhysics,
-  CannonPhysicsDebugger,
+  CannonWorker,
+  CannonWorkerDebugger,
   ThreeToCannonShapeType
 } from '@rapidajs/cannon-worker';
 import { useEffect } from '@storybook/client-api';
@@ -17,10 +17,10 @@ export default {
 
 class Model extends Component {
   scene!: Scene;
-  physics!: CannonPhysics;
+  physics!: CannonWorker;
   object!: Object3D;
 
-  construct = (scene: Scene, physics: CannonPhysics, gltf: GLTF) => {
+  construct = (scene: Scene, physics: CannonWorker, gltf: GLTF) => {
     this.scene = scene;
     this.physics = physics;
     this.object = gltf.scene.children[0];
@@ -77,11 +77,11 @@ export const GLTFConvexPolyhedronHullPhysics = () => {
         gravity: [0, -10, 0],
       });
 
-      physics.debugger = new CannonPhysicsDebugger(physics, {
+      physics.debugger = new CannonWorkerDebugger(physics, {
         scene: scene.three,
       });
 
-      physics.create.plane({
+      physics.create.plane(() => ({
         position: [0, -1, 0],
         rotation: [-Math.PI / 2, 0, 0],
         mass: 0,
@@ -89,7 +89,7 @@ export const GLTFConvexPolyhedronHullPhysics = () => {
           friction: 0.0,
           restitution: 0.3,
         },
-      });
+      }));
 
       const space = world.create.space();
 

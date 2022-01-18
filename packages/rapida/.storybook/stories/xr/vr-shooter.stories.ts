@@ -15,7 +15,7 @@ import {
   MeshLambertMaterial,
   RingGeometry,
   SphereBufferGeometry,
-  Vector3
+  Vector3,
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerModelFactory';
@@ -114,7 +114,7 @@ export const VRShooter = () => {
     ];
 
     walls.forEach((w) => {
-      physics.create.box({
+      physics.create.box(() => ({
         type: BodyType.STATIC,
         args: w.args,
         position: w.position,
@@ -124,7 +124,7 @@ export const VRShooter = () => {
           friction: 0.0,
           restitution: 0.3,
         },
-      });
+      }));
     });
 
     // set up controllers
@@ -147,7 +147,7 @@ export const VRShooter = () => {
         velocity.applyQuaternion(controller.quaternion);
 
         const { api: sphereApi } = physics.create.sphere(
-          {
+          () => ({
             args: 0.1,
             position: [
               controller.position.x,
@@ -158,7 +158,7 @@ export const VRShooter = () => {
             velocity: [velocity.x, velocity.y, velocity.z],
             type: BodyType.DYNAMIC,
             mass: 1,
-          },
+          }),
           sphere
         );
         scene.add(sphere);

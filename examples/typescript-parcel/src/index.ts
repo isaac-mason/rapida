@@ -1,5 +1,5 @@
 import rapida, { Component, Scene } from "@rapidajs/rapida";
-import { BodyType, CannonPhysics } from "@rapidajs/cannon-worker";
+import CannonWorker, { BodyType } from "@rapidajs/cannon-worker";
 import {
   AmbientLight,
   BoxGeometry,
@@ -14,9 +14,9 @@ class SpinningCube extends Component {
 
   scene: Scene;
 
-  physics: CannonPhysics;
+  physics: CannonWorker;
 
-  construct = (params: { scene: Scene; physics: CannonPhysics }) => {
+  construct = (params: { scene: Scene; physics: CannonWorker }) => {
     this.scene = params.scene;
     this.physics = params.physics;
 
@@ -25,7 +25,7 @@ class SpinningCube extends Component {
     this.mesh = new Mesh(geometry, material);
 
     this.physics.create.box(
-      {
+      () => ({
         args: [10, 10, 10],
         mass: 1,
         type: BodyType.DYNAMIC,
@@ -34,7 +34,7 @@ class SpinningCube extends Component {
         allowSleep: false,
         angularVelocity: [1, 1, 1],
         velocity: [0, 20, 0],
-      },
+      }),
       this.mesh
     );
   };

@@ -43,6 +43,7 @@ module.exports = {
     'no-param-reassign': 'off',
     'no-continue': 'off',
     'no-restricted-globals': 'off',
+    'max-classes-per-file': 'off',
     '@typescript-eslint/no-unused-vars': [
       'warn',
       {

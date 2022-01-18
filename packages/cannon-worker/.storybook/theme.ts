@@ -5,7 +5,7 @@ import logo from './resources/rapida-logo.png';
 
 export default create({
   base: 'light',
-  brandTitle: 'rapida',
-  brandUrl: 'https://rapidajs.dev',
+  brandTitle: 'cannon-worker',
+  brandUrl: 'https://github.com/pmndrs/cannon-worker',
   brandImage: logo,
 });

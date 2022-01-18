@@ -1,5 +1,9 @@
-export * from './cannon-physics';
-export * from './cannon-physics-debugger';
-export * from './params-to-body';
+import { CannonWorker } from './cannon-worker';
+
+export * from './cannon-worker';
+export * from './debugger';
+export * from './props-to-body';
 export * from './three-to-cannon';
 export * from './types';
+
+export default CannonWorker;

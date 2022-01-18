@@ -1,4 +1,4 @@
-import { BodyApi, BodyType, CannonPhysics } from '@rapidajs/cannon-worker';
+import CannonPhysics, { BodyApi, BodyType } from '@rapidajs/cannon-worker';
 import { useEffect } from '@storybook/client-api';
 import {
   AmbientLight,
@@ -69,15 +69,14 @@ export const FallingBoxes = ({
     onInit = (): void => {
       this.scene.add(this.mesh);
 
-      const { api: cubeApi } = this.physics.create.box(
-        {
+      const { api: cubeApi } = this.physics.create.box(() => ({
           type: BodyType.DYNAMIC,
           args: [box.size.x, box.size.y, box.size.z],
           position: [0, 0, 0],
           rotation: [0, 0, 0],
           mass: box.mass,
           allowSleep: true,
-        },
+        }),
         this.mesh
       );
 
@@ -188,7 +187,7 @@ export const FallingBoxes = ({
     ambientLight.lookAt(new Vector3(0, 0, 0));
     scene.add(ambientLight);
 
-    physics.create.plane({
+    physics.create.plane(() => ({
       type: BodyType.STATIC,
       position: [0, -10, 0],
       rotation: [-Math.PI / 2, 0, 0],
@@ -197,7 +196,7 @@ export const FallingBoxes = ({
         friction: 0.0,
         restitution: 0.3,
       },
-    });
+    }));
 
     const planeMesh = new Mesh(
       new PlaneGeometry(150, 150, 1, 1),

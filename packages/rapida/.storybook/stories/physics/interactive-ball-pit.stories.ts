@@ -1,4 +1,4 @@
-import { BodyApi, BodyType, CannonPhysics } from '@rapidajs/cannon-worker';
+import CannonWorker, { BodyApi, BodyType } from '@rapidajs/cannon-worker';
 import { Effects } from '@rapidajs/postprocessing';
 import { useEffect } from '@storybook/client-api';
 import {
@@ -29,7 +29,7 @@ export default {
 };
 
 class BallPitContainer extends Component {
-  physics!: CannonPhysics;
+  physics!: CannonWorker;
 
   view!: WebGLView;
 
@@ -39,7 +39,7 @@ class BallPitContainer extends Component {
     physics,
     view,
   }: {
-    physics: CannonPhysics;
+    physics: CannonWorker;
     view: WebGLView;
   }) => {
     this.planeApis = undefined;
@@ -78,7 +78,7 @@ class BallPitContainer extends Component {
     ];
 
     planes.forEach((p) => {
-      this.physics.create.plane({
+      this.physics.create.plane(() => ({
         type: BodyType.STATIC,
         position: p.position,
         rotation: p.rotation,
@@ -87,13 +87,13 @@ class BallPitContainer extends Component {
           friction: 0.0,
           restitution: 0.3,
         },
-      });
+      }));
     });
   };
 }
 
 class Cursor extends Component {
-  physics!: CannonPhysics;
+  physics!: CannonWorker;
 
   camera!: Camera;
 
@@ -104,7 +104,7 @@ class Cursor extends Component {
   sphereApi!: BodyApi;
 
   construct = (params: {
-    physics: CannonPhysics;
+    physics: CannonWorker;
     camera: Camera;
     view: WebGLView;
   }) => {
@@ -117,16 +117,14 @@ class Cursor extends Component {
   onInit = (): void => {
     const radius = 6;
 
-    const { api: sphereApi } = this.physics.create.sphere(
-      {
-        type: BodyType.STATIC,
-        args: radius,
-        position: [0, 0, 0],
-        rotation: [0, 0, 0],
-        fixedRotation: false,
-        allowSleep: false,
-      }
-    );
+    const { api: sphereApi } = this.physics.create.sphere(() => ({
+      type: BodyType.STATIC,
+      args: radius,
+      position: [0, 0, 0],
+      rotation: [0, 0, 0],
+      fixedRotation: false,
+      allowSleep: false,
+    }));
 
     this.sphereApi = sphereApi;
 
@@ -156,7 +154,7 @@ class Cursor extends Component {
 }
 
 class Spheres extends Component {
-  physics!: CannonPhysics;
+  physics!: CannonWorker;
 
   scene!: Scene;
 
@@ -173,8 +171,8 @@ class Spheres extends Component {
   construct = (params: {
     view: View;
     scene: Scene;
-    physics: CannonPhysics;
-    count: number,
+    physics: CannonWorker;
+    count: number;
   }) => {
     this.count = params.count;
 
@@ -201,7 +199,7 @@ class Spheres extends Component {
     this.scene.add(this.mesh);
 
     const { api: sphereApi } = this.physics.create.sphere(
-      {
+      () => ({
         type: BodyType.DYNAMIC,
         args: Spheres.radius,
         position: [4 - Math.random() * 8, this.view.viewportSizePx.height, 0],
@@ -209,7 +207,7 @@ class Spheres extends Component {
         fixedRotation: false,
         mass: 200,
         allowSleep: false,
-      },
+      }),
       this.mesh
     );
 
@@ -250,7 +248,7 @@ export const InteractiveBallPit = ({ count }) => {
     const scene = world.create.scene();
     const BACKGROUND = '#ffdd41'; //'#89CFF0';
     scene.three.background = new Color(BACKGROUND);
- 
+
     const view = renderer.create.view({
       id: 'ball-pit-view',
       camera,
@@ -308,10 +306,10 @@ export const InteractiveBallPit = ({ count }) => {
     const space = world.create.space();
 
     space.create.entity().addComponent(BallPitContainer, { physics, view });
-    space.create.entity().addComponent(Spheres, { physics, scene, view, count });
     space.create
       .entity()
-      .addComponent(Cursor, { physics, camera, view });
+      .addComponent(Spheres, { physics, scene, view, count });
+    space.create.entity().addComponent(Cursor, { physics, camera, view });
 
     engine.start(world);
 

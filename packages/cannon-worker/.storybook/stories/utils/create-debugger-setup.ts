@@ -1,13 +1,20 @@
 import { WebGLRenderer, PerspectiveCamera, Scene, AmbientLight, DirectionalLight, Vector3 } from 'three';
-import { CannonPhysics, CannonPhysicsDebugger } from '../../../lib';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { CannonWorker, CannonWorkerDebugger, CannonWorkerProps, Triplet } from '../../../lib';
 
-export const createDebuggerSetup = (params?: { delta?: number }): {
+export const createDebuggerSetup = (params?: {
+  cannonWorkerProps: CannonWorkerProps;
+  camera?: {
+    position?: Triplet;
+    lookAt?: Triplet;
+  }
+}): {
   renderer: WebGLRenderer;
   camera: PerspectiveCamera;
   scene: Scene;
-  physics: CannonPhysics;
-  debug: CannonPhysicsDebugger;
-loop: ((now: number) => void)[] 
+  physics: CannonWorker;
+  debug: CannonWorkerDebugger;
+  loop: ((now: number) => void)[];
   start: () => void;
   destroy: () => void;
 } => {
@@ -19,10 +26,30 @@ loop: ((now: number) => void)[]
   renderer.setSize(window.innerWidth, window.innerHeight);
 
   const camera = new PerspectiveCamera();
-  camera.position.z = 15;
-  camera.position.y = 5;
-  camera.position.x = 0;
-  camera.lookAt(0, 0, 0);
+  
+  if (params?.camera?.position) {
+    const [x, y, z] = params.camera.position;
+    camera.position.x = x;
+    camera.position.y = y;
+    camera.position.z = z;
+  } else {
+    camera.position.z = 15;
+    camera.position.y = 5;
+    camera.position.x = 0;
+  }
+
+  let controlsCenter: Triplet;
+  if (params?.camera?.lookAt) {
+    const [x, y, z] = params.camera.lookAt;
+    controlsCenter = [x, y, z];
+    camera.lookAt(x, y, z);
+  } else {
+    controlsCenter = [0, -1, 0];
+    camera.lookAt(0, -1, 0);
+  }
+
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.center = new Vector3(...controlsCenter);
 
   const onResize = () => {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -43,34 +70,36 @@ loop: ((now: number) => void)[]
   const ambientLight = new AmbientLight(0xffffff, 0.5);
   scene.add(ambientLight);
 
-  const physics = new CannonPhysics({
-    delta: params?.delta || 1 / 60,
+  const physics = new CannonWorker({
+    delta: 1 / 60,
     gravity: [0, -10, 0],
+    ...(params?.cannonWorkerProps || {}),
   });
 
-  const debug = new CannonPhysicsDebugger(physics, { scene, color: 'white' });
+  const debug = new CannonWorkerDebugger(physics, { scene, color: 'white' });
   physics.debugger = debug;
 
+  // create a simple render loop
   let lastCallTime = 0;
-
   const loop: ((elapsed: number) => void)[] = [
-    (elapsed) => { 
+    (elapsed) => {
       physics.step(elapsed);
+      renderer.render(scene, camera);
+      debug.update();
     },
-    (_elapsed) => renderer.render(scene, camera),
   ];
 
-  const renderLoop = (now: number) => {
+  const demoLoop = (now: number) => {
     now = now / 1000;
     const elapsed = now - lastCallTime;
-    loop.forEach(l => l(elapsed));
-    requestAnimationFrame(renderLoop);
+    loop.forEach((l) => l(elapsed));
+    requestAnimationFrame(demoLoop);
     lastCallTime = now;
   };
 
   const start = (): void => {
-    requestAnimationFrame(renderLoop);
-  }
+    requestAnimationFrame(demoLoop);
+  };
 
   const destroy = () => {
     physics.terminate();
@@ -87,5 +116,5 @@ loop: ((now: number) => void)[]
     debug,
     start,
     destroy,
-  }
+  };
 };
