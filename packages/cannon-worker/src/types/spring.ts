@@ -1,6 +1,7 @@
-import { Triplet } from './atomic';
+import { Object3D } from 'three';
+import { Triplet } from './vec';
 
-export interface SpringOptns {
+export interface SpringProps {
   restLength?: number;
   stiffness?: number;
   damping?: number;
@@ -9,3 +10,14 @@ export interface SpringOptns {
   localAnchorA?: Triplet;
   localAnchorB?: Triplet;
 }
+
+export type SpringApi = {
+  uuid: string; // uuid
+  bodyA: Object3D;
+  bodyB: Object3D;
+  api: {
+    setStiffness: (value: number) => void;
+    setRestLength: (value: number) => void;
+    setDamping: (value: number) => void;
+  };
+};

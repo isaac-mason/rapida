@@ -1,5 +1,5 @@
 import { Quaternion as CQuaternion, Vec3 } from 'cannon-es';
-import { BodyParams, ShapeType } from '../types';
+import { BodyProps, ShapeType } from '../types';
 
 /**
  * Shape type options for three to cannon conversion
@@ -33,7 +33,7 @@ export interface ThreeToCannonShapeOptions {
   sphereRadius?: number;
 }
 
-export interface ThreeToCannonShapeResult<T extends BodyParams = BodyParams> {
+export interface ThreeToCannonShapeResult<T extends BodyProps = BodyProps> {
   params: T;
   type: ShapeType;
   offset?: Vec3;

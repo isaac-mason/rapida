@@ -1,6 +1,5 @@
-import {
-  CannonPhysics,
-  CannonPhysicsDebugger,
+import CannonWorker, {
+  CannonWorkerDebugger,
   ThreeToCannonShapeType
 } from '@rapidajs/cannon-worker';
 import { useEffect } from '@storybook/client-api';
@@ -18,10 +17,10 @@ export default {
 
 class Diamonds extends Component {
   gltf!: GLTF;
-  physics!: CannonPhysics;
+  physics!: CannonWorker;
   mesh!: Mesh;
 
-  construct = (physics: CannonPhysics, gltf: GLTF) => {
+  construct = (physics: CannonWorker, gltf: GLTF) => {
     this.physics = physics;
     this.mesh = gltf.scene.children[0] as Mesh;
     this.mesh.position.set(0, -5, -10);
@@ -40,7 +39,7 @@ class Diamonds extends Component {
     geo.mergeVertices();
 
     // create the convex polyhedron from the geometry vertices and faces
-    this.physics.create.convexPolyhedron({
+    this.physics.create.convexPolyhedron(() => ({
       position: [-6, 0, 0],
       mass: 10,
       args: [
@@ -49,7 +48,7 @@ class Diamonds extends Component {
         [],
       ],
       angularVelocity: [0, -1, -1],
-    });
+    }));
 
     // also create a diamond physics object by calculating its convex hull cannon-worker
     this.physics.create.three(
@@ -99,11 +98,11 @@ export const GLTFConvexPolyhedronPhysics = () => {
         gravity: [0, -10, 0],
       });
 
-      physics.debugger = new CannonPhysicsDebugger(physics, {
+      physics.debugger = new CannonWorkerDebugger(physics, {
         scene: scene.three,
       });
 
-      physics.create.plane({
+      physics.create.plane(() => ({
         position: [0, -1, 0],
         rotation: [-Math.PI / 2, 0, 0],
         mass: 0,
@@ -111,7 +110,7 @@ export const GLTFConvexPolyhedronPhysics = () => {
           friction: 0.0,
           restitution: 0.3,
         },
-      });
+      }));
 
       const space = world.create.space();
 

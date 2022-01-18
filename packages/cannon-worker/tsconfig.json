@@ -17,12 +17,9 @@
     "emitDeclarationOnly": true,
     "baseUrl": ".",
     "skipLibCheck": true,
-    "incremental": true,
-    "typeRoots": [
-      "types",
-      "node_modules/@types",
-    ]
+    "incremental": true
   },
+  "include": ["./src"],
   "exclude": [
     "lib",
     "node_modules"

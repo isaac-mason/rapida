@@ -1,24 +1,14 @@
-import { Triplet } from './vec';
-
-export enum Broadphase {
-  NAIVE = 'Naive',
-  SAP = 'SAP',
-}
-
-export enum Solver {
-  GS = 'GS',
-  SPLIT = 'Split',
-}
+import { Broadphase, Solver, Triplet } from '../types';
 
 export type PhysicsWorldConfig = {
   tolerance: number;
   iterations: number;
   allowSleep: boolean;
-  broadphase: Broadphase;
+  broadphase: `${Broadphase}`;
   gravity: Triplet;
   quatNormalizeFast: boolean;
   quatNormalizeSkip: number;
-  solver: 'GS' | 'Split';
+  solver: `${Solver}`;
   axisIndex: number;
   defaultContactMaterial: {
     friction?: number;
@@ -32,5 +22,3 @@ export type PhysicsWorldConfig = {
   maxSubSteps: number;
   delta: number;
 };
-
-export type WorldPropName = 'axisIndex' | 'broadphase' | 'gravity' | 'iterations' | 'tolerance';

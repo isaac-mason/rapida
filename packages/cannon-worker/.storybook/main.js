@@ -4,15 +4,6 @@ const webpack = require('webpack');
 module.exports = {
   stories: ['./stories/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
   addons: [
-    {
-      name: '@storybook/addon-docs',
-      options: {
-        configureJSX: true,
-        babelOptions: {},
-        sourceLoaderOptions: null,
-        transcludeMarkdown: true,
-      },
-    },
     '@storybook/addon-essentials',
     '@storybook/addon-controls',
     '@storybook/addon-storysource',

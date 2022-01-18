@@ -1,4 +1,4 @@
-import { CannonPhysics, CannonPhysicsParams } from '@rapidajs/cannon-worker';
+import { CannonWorker, CannonWorkerProps } from '@rapidajs/cannon-worker';
 import {
   uuid,
   Event,
@@ -30,12 +30,12 @@ export const WORLD_ALL_EVENT_NAMES: string[] = [
 
 export interface WorldAddPhysicsEvent {
   topic: WorldEventName.ADD_PHYSICS;
-  data: CannonPhysics;
+  data: CannonWorker;
 }
 
 export interface WorldRemovePhysicsEvent {
   topic: WorldEventName.REMOVE_PHYSICS;
-  data: CannonPhysics;
+  data: CannonWorker;
 }
 
 export interface WorldEventMap {
@@ -85,7 +85,7 @@ export class World {
   /**
    * Physics worlds within the world
    */
-  physics: Map<string, CannonPhysics> = new Map();
+  physics: Map<string, CannonWorker> = new Map();
 
   /**
    * Cameras for the world
@@ -154,7 +154,7 @@ export class World {
      * @param params the params for the new physics instance
      * @returns the new physics instance
      */
-    physics: (params: CannonPhysicsParams) => CannonPhysics;
+    physics: (params: CannonWorkerProps) => CannonWorker;
     /**
      * Factories for creating a renderer in the world
      */
@@ -193,8 +193,8 @@ export class World {
         this.scenes.set(scene.id, scene);
         return scene;
       },
-      physics: (params: CannonPhysicsParams): CannonPhysics => {
-        const physics = new CannonPhysics({
+      physics: (params: CannonWorkerProps): CannonWorker => {
+        const physics = new CannonWorker({
           ...params,
         });
 
@@ -273,14 +273,14 @@ export class World {
    * Removes from the scene
    * @param value the value to remove
    */
-  remove(value: System | Space | Scene | CannonPhysics | Camera): void {
+  remove(value: System | Space | Scene | CannonWorker | Camera): void {
     if (value instanceof System) {
       this.recs.remove(value);
     } else if (value instanceof Space) {
       this.recs.remove(value);
     } else if (value instanceof Scene) {
       this.scenes.delete(value.id);
-    } else if (value instanceof CannonPhysics) {
+    } else if (value instanceof CannonWorker) {
       this.physics.delete(value.id);
       value.terminate();
       this.events.emit({
