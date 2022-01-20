@@ -24,32 +24,17 @@ const packages = [
     ],
   },
   {
-    name: '@rapidajs/cannon-worker',
-    description:
-      'cannon-worker is a javascript package that makes adding physics to your three.js scenes easy!',
-    links: [
-      {
-        name: 'Docs',
-        href: '/docs/cannon-worker/README',
-      },
-      {
-        name: 'Examples',
-        href: '/storybooks/cannon-worker/index.html',
-      },
-      {
-        name: 'GitLab',
-        href: 'https://gitlab.com/rapidajs/rapida/-/tree/main/packages/cannon-worker',
-      },
-    ],
-  },
-  {
     name: '@rapidajs/recs',
     description:
-      'recs is Reminiscent [of an] Entity Component System. It is the entity component system used in rapida, and it can also be used standalone.',
+      'recs is Reminiscent [of an] Entity Component System. It is part of the the core of rapida, and it can also be used as a standalone Entity Component System.',
     links: [
       {
         name: 'Docs',
         href: '/docs/recs/README',
+      },
+      {
+        name: 'Examples',
+        href: '/storybooks/recs/index.html',
       },
       {
         name: 'GitLab',
@@ -69,6 +54,25 @@ const packages = [
       {
         name: 'GitLab',
         href: 'https://gitlab.com/rapidajs/rapida/-/tree/main/packages/postprocessing',
+      },
+    ],
+  },
+  {
+    name: '@rapidajs/cannon-worker',
+    description:
+      'cannon-worker is a javascript package that makes adding physics to your three.js scenes easy!',
+    links: [
+      {
+        name: 'Docs',
+        href: '/docs/cannon-worker/README',
+      },
+      {
+        name: 'Examples',
+        href: '/storybooks/cannon-worker/index.html',
+      },
+      {
+        name: 'GitLab',
+        href: 'https://gitlab.com/rapidajs/rapida/-/tree/main/packages/cannon-worker',
       },
     ],
   },

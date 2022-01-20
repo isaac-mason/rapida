@@ -8,6 +8,8 @@ import React, { useState } from 'react';
 import rehypeSlug from 'rehype-slug';
 import { up } from 'styled-breakpoints';
 import styled from 'styled-components';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+// import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { DocsSidebar } from '../../../components/docs/DocsSidebar';
 import { DocsTopNav } from '../../../components/docs/DocsTopNav';
 import { allPackages } from '../../../constants/all-packages';
@@ -91,13 +93,33 @@ const hr = styled.hr`
   margin: 2em 0;
 `;
 
-const code = styled.code`
+const Code = styled.code`
   display: block;
   background-color: #333;
   color: #fefefe;
   border-radius: 0.5em;
   padding: 1.5em;
 `;
+
+const code = (props: { children: JSX.Element, className: string }) => {
+  let lang;
+
+  if (props.className?.includes('language-js')) {
+    lang = 'javascript';
+  }
+
+  return (
+    lang ? (
+      <SyntaxHighlighter language={lang}>
+        {props.children}
+      </SyntaxHighlighter>
+    ) : (
+      <Code>
+        {props.children}
+      </Code>
+    )
+  );
+};
 
 const TableWrapper = styled.div`  
   overflow-y: scroll;

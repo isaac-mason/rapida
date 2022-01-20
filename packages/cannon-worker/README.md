@@ -1,21 +1,27 @@
-![Imgur](https://imgur.com/FpBsJPL.jpg)
-
 # cannon-worker
 
 **Note: See this issue to track progress of the creation of an "official" `cannon-worker` package - https://github.com/pmndrs/use-cannon/issues/327**
 
+**Development on this package is paused in favour of contributing over at **pmndrs**.
+
+**rapida is under active alpha development and is not yet battle-tested and stable. We don't recommend using rapida in production just yet, but watch this space!**
+
 `cannon-worker` makes adding physics to your three.js scenes easy!
 
-- [x] Doesn't block the main thread, runs in a web worker
-- [x] Supports instancing out of the box
-- [x] Least amount of friction you'll ever experience with a physics rig ... 🙈
+- [x] Runs in a web worker
+- [x] Supports instancing
+- [x] Easy integration with three.js 
+
+```
+> yarn add @rapidajs/rapida-physics
+```
 
 ## How it works
 
 1. Get all the imports that you need.
 
 ```js
-import { CannonWorker } from 'use-cannon'
+import { CannonWorker } from '@rapidajs/cannon-worker'
 import { Mesh, BoxGeometry, MeshBasicMaterial, ... } from 'three'
 ```
 
