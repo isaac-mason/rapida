@@ -10,7 +10,7 @@ workflow:
     - merge_requests
   script:
     # build npm packages
-    - yarn workspaces focus @rapidajs/rapida-website
+    - yarn install
     - (cd packages/rapida-common && yarn run build)
     - (cd packages/postprocessing && yarn run build)
     - (cd packages/recs && yarn run build)
@@ -38,8 +38,7 @@ pages:
     name: Production
     url: "https://rapidajs.dev/"
   script:
-    # includes @rapidajs/rapida-website, @rapidajs/rapida, @rapidajs/postprocessing, @rapidajs/recs, @rapidajs/cannon-worker and @rapidajs/rapida-common
-    - yarn workspaces focus @rapidajs/rapida-website
+    - yarn install
     # build storybooks, generate docs, then build the nextjs static website
     - yarn website:build 
     - |- 
