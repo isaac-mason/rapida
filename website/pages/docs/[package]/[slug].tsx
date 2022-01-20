@@ -111,8 +111,6 @@ const SyntaxHighlighterWrapper = styled.code`
 const code = (props: { children: JSX.Element; className: string }) => {
   let lang;
 
-  console.log(props.className);
-
   if (
     props.className?.includes(
       'language-ts' || props.className?.includes('language-typescript')
