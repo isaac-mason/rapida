@@ -3,12 +3,14 @@ import { RECS } from './recs';
 import { System } from './system';
 
 /**
- * SystemManager that manages systems in a RECS and calls their lifecycle hooks.
+ * SystemManager is an internal class that manages systems in a RECS and calls their lifecycle hooks.
  *
  * Handles adding and removing systems and providing them with queries via the `QueryManager`.
  *
  * Maintains the usage of queries by systems and removes queries from the `QueryManager` if no systems are
  * using a query.
+ *
+ * @private internal class, do not use directly
  */
 export class SystemManager {
   /**
@@ -19,7 +21,7 @@ export class SystemManager {
   /**
    * Whether the system manager has been initialised
    */
-  initialised = false;
+  private initialised = false;
 
   /**
    * The RECS the system manager belongs in
@@ -91,16 +93,16 @@ export class SystemManager {
   /**
    * Initialises the system manager
    */
-  _init(): void {
-    this.systems.forEach((s) => this.initialiseSystem(s));
+  init(): void {
     this.initialised = true;
+    this.systems.forEach((s) => this.initialiseSystem(s));
   }
 
   /**
    * Updates systems in the system manager
-   * @param timeElapsed the time elapsed in milliseconds
+   * @param timeElapsed the time elapsed in seconds
    */
-  _update(timeElapsed: number): void {
+  update(timeElapsed: number): void {
     this.updatePool.forEach((system) => {
       if (system.enabled) {
         system._update(timeElapsed);
@@ -111,7 +113,7 @@ export class SystemManager {
   /**
    * Destroys all systems
    */
-  _destroy(): void {
+  destroy(): void {
     this.systems.forEach((s) => s._destroy());
   }
 

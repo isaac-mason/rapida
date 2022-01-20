@@ -6,7 +6,6 @@ import rapida, {
   Scene,
   Space,
   System,
-  World,
 } from '@rapidajs/rapida';
 import geckos, { ClientChannel } from '@geckos.io/client';
 import * as React from 'react';
@@ -272,58 +271,52 @@ const App = () => {
   const firstRender = useFirstRender();
 
   useEffect(() => {
-    const R = rapida({ debug: true });
+    const engine = rapida.engine({ debug: true });
 
-    R.run(({ engine }): World => {
-      const world = new World({
-        engine,
-      });
+    const world = rapida.world();
 
-      const renderer = world.create.renderer.webgl();
-      document
-        .getElementById('renderer-root')!
-        .appendChild(renderer.domElement);
+    const renderer = world.create.renderer.webgl();
+    document.getElementById('renderer-root')!.appendChild(renderer.domElement);
 
-      const camera = world.create.camera();
-      camera.position.set(0, 0, 500);
+    const camera = world.create.camera();
+    camera.position.set(0, 0, 500);
 
-      const scene = world.create.scene();
+    const scene = world.create.scene();
 
-      renderer.create.view({ scene, camera });
+    renderer.create.view({ scene, camera });
 
-      const space = world.create.space();
+    const space = world.create.space();
 
-      const directionalLight = new DirectionalLight(0xffffff, 1);
-      directionalLight.position.set(300, 0, 300);
-      directionalLight.lookAt(new Vector3(0, 0, 0));
-      scene.add(directionalLight);
+    const directionalLight = new DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(300, 0, 300);
+    directionalLight.lookAt(new Vector3(0, 0, 0));
+    scene.add(directionalLight);
 
-      const ambientLight = new AmbientLight(0xffffff, 0.5);
-      ambientLight.position.set(0, -200, 400);
-      ambientLight.lookAt(new Vector3(0, 0, 0));
-      scene.add(ambientLight);
+    const ambientLight = new AmbientLight(0xffffff, 0.5);
+    ambientLight.position.set(0, -200, 400);
+    ambientLight.lookAt(new Vector3(0, 0, 0));
+    scene.add(ambientLight);
 
-      const io = geckos({
-        port: 9208,
-      });
-
-      io.onConnect((error) => {
-        if (error) {
-          console.error(error);
-          return;
-        }
-
-        world.add.system(
-          new NetworkManager({
-            io,
-            space,
-            scene,
-          })
-        );
-      });
-
-      return world;
+    const io = geckos({
+      port: 9208,
     });
+
+    io.onConnect((error) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      world.add.system(
+        new NetworkManager({
+          io,
+          space,
+          scene,
+        })
+      );
+    });
+
+    engine.start(world);
   }, [firstRender]);
 
   return <div id="renderer-root"></div>;

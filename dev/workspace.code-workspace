@@ -11,14 +11,13 @@
       "path": "../packages/recs"
     },
     {
-      "path": "../packages/rapida-physics"
+      "path": "../packages/cannon-worker"
     },
     {
       "path": "../packages/rapida-common"
     },
     {
-      "name": "examples/multiplayer-example",
-      "path": "../examples/multiplayer-example"
+      "path": "../packages/postprocessing"
     },
     {
       "path": "../website"

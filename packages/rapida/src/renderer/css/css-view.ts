@@ -1,9 +1,12 @@
 import { uuid } from '@rapidajs/rapida-common';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
+import { Vector3 } from 'three';
 import { Camera } from '../../camera';
 import { Scene } from '../../scene';
 import { CSSRenderer } from './css-renderer';
 import { View, ViewRectangle, ViewRectangleParams, ViewSize } from '../view';
+
+const defaultWorldViewportTarget = new Vector3();
 
 /**
  * Params for creating a css view
@@ -57,14 +60,14 @@ export class CSSView extends View {
   scene: Scene;
 
   /**
-   * The zIndex for the view
+   * Bounds of the viewport in 3d units + factor (size/viewport)
    */
-  zIndex = 0;
+  worldViewport!: ReturnType<View['getWorldViewport']>;
 
   /**
    * The current size of the viewport in pixels
    */
-  viewportSize: ViewSize;
+  viewportSizePx: ViewSize;
 
   /**
    * The current size of the scissor in pixels
@@ -72,9 +75,9 @@ export class CSSView extends View {
   scissorSize: ViewSize;
 
   /**
-   * Parameters for the viewport that are used to recalculate the viewport on resize
+   * The css renderer for the view
    */
-  private _viewportParams: ViewRectangleParams;
+  css3DRenderer: CSS3DRenderer;
 
   /**
    * Getter for the viewport params
@@ -92,11 +95,6 @@ export class CSSView extends View {
   }
 
   /**
-   * Parameters for the scissor that are used to recalculate the scissor on resize
-   */
-  private _scissorParams: ViewRectangleParams;
-
-  /**
    * Getter for the scissor params
    */
   get scissor(): ViewRectangleParams {
@@ -112,16 +110,6 @@ export class CSSView extends View {
   }
 
   /**
-   * The viewport for the css view rectangle
-   */
-  _viewport: ViewRectangle;
-
-  /**
-   * The scissor for the css view rectangle
-   */
-  _scissor: ViewRectangle;
-
-  /**
    * Gets the dom element used by the renderer
    */
   get rendererDomElement(): HTMLElement {
@@ -134,6 +122,34 @@ export class CSSView extends View {
   domElement: HTMLElement;
 
   /**
+   * The zIndex for the view
+   * @private used internally, do not use or assign
+   */
+  _zIndex = 0;
+
+  /**
+   * The viewport for the css view rectangle
+   * @private used internally, do not use or assign
+   */
+  _viewport: ViewRectangle;
+
+  /**
+   * The scissor for the css view rectangle
+   * @private used internally, do not use or assign
+   */
+  _scissor: ViewRectangle;
+
+  /**
+   * Parameters for the viewport that are used to recalculate the viewport on resize
+   */
+  private _viewportParams: ViewRectangleParams;
+
+  /**
+   * Parameters for the scissor that are used to recalculate the scissor on resize
+   */
+  private _scissorParams: ViewRectangleParams;
+
+  /**
    * The dom element for the css view viewport
    */
   private viewportElement: HTMLElement;
@@ -142,11 +158,6 @@ export class CSSView extends View {
    * The dom element for the css view scissor
    */
   private scissorElement: HTMLElement;
-
-  /**
-   * The css renderer for the view
-   */
-  css3DRenderer: CSS3DRenderer;
 
   /**
    * The resize observer for the renderer dom element
@@ -158,6 +169,11 @@ export class CSSView extends View {
    */
   private renderer: CSSRenderer;
 
+  /**
+   * Constructor for a CSSView
+   * @param renderer the renderer the view is part of
+   * @param params params for the css view
+   */
   constructor(renderer: CSSRenderer, params: CSSViewParams) {
     super();
 
@@ -170,7 +186,7 @@ export class CSSView extends View {
     // set initial values for computed viewport and scissor properties
     this._viewport = { bottom: 0, left: 0, width: 0, height: 0 };
     this._scissor = { bottom: 0, left: 0, width: 0, height: 0 };
-    this.viewportSize = { left: 0, bottom: 0, width: 0, height: 0 };
+    this.viewportSizePx = { left: 0, bottom: 0, width: 0, height: 0 };
     this.scissorSize = { left: 0, bottom: 0, width: 0, height: 0 };
 
     // set viewport and scissor params
@@ -199,7 +215,7 @@ export class CSSView extends View {
 
     this.domElement.id = this.id;
     this.domElement.className = `view css-view ${this.id}`;
-    this.domElement.style.zIndex = `${this.zIndex}`;
+    this.domElement.style.zIndex = `${this._zIndex}`;
     this.scissorElement.appendChild(this.domElement);
     this.rendererDomElement.appendChild(this.scissorElement);
 
@@ -210,11 +226,13 @@ export class CSSView extends View {
   }
 
   /**
-   * Initialises the view
+   * Sets the camera for the view
+   * @param c the new camera for the view
    */
-  _init = (): void => {
+  setCamera(c: Camera): void {
+    this.camera = c;
     this._onResize();
-  };
+  }
 
   /**
    * Destroys the view and removes it from the renderer
@@ -224,13 +242,23 @@ export class CSSView extends View {
   };
 
   /**
+   * Initialises the view
+   * @private called internally, do not call directly
+   */
+  _init = (): void => {
+    this._onResize();
+  };
+
+  /**
    * Destroys the views resources
+   * @private called internally, do not call directly
    */
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   _destroy = (): void => {};
 
   /**
    * Handles resizing
+   * @private called internally, do not call directly
    */
   _onResize = (): void => {
     // get the new viewport and scissor view rectangles
@@ -239,7 +267,7 @@ export class CSSView extends View {
 
     // store the new size of the view
     const rendererDomRect = this.rendererDomElement.getBoundingClientRect();
-    this.viewportSize = {
+    this.viewportSizePx = {
       left: rendererDomRect.width * this._viewport.left,
       bottom: rendererDomRect.height * this._viewport.bottom,
       width: rendererDomRect.width * this._viewport.width,
@@ -260,19 +288,22 @@ export class CSSView extends View {
 
     // set the size of the css renderer for the view
     this.css3DRenderer.setSize(
-      this.viewportSize.width,
-      this.viewportSize.height
+      this.viewportSizePx.width,
+      this.viewportSizePx.height
     );
 
     // update the position of the viewport dom element
     this.viewportElement.style.bottom = `${
-      this.viewportSize.bottom - this.scissorSize.bottom
+      this.viewportSizePx.bottom - this.scissorSize.bottom
     }px`;
     this.viewportElement.style.left = `${
-      this.viewportSize.left - this.scissorSize.left
+      this.viewportSizePx.left - this.scissorSize.left
     }px`;
 
     // update the camera
     this.camera.three.updateProjectionMatrix();
+
+    // update the world viewport for the default target
+    this.worldViewport = this.getWorldViewport(defaultWorldViewportTarget);
   };
 }

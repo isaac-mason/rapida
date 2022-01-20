@@ -1,7 +1,7 @@
 import { useEffect } from '@storybook/client-api';
 import * as three from 'three';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
-import rapida, { Component, Scene, World, WorldProvider } from '../../../src';
+import rapida, { Component, Scene, World } from '../../../src';
 
 export default {
   title: 'Views / Two Views Side By Side',
@@ -23,7 +23,7 @@ class SpinningCube extends Component {
     });
     this.cube = new three.Mesh(geometry, material);
     this.cube.position.set(0, 0, 0);
-  }
+  };
 
   onInit = () => {
     this.scene.add(this.cube);
@@ -41,84 +41,79 @@ class SpinningCube extends Component {
 
 export const TwoViewsSideBySide = () => {
   useEffect(() => {
-    const R = rapida({ debug: true });
+    const engine = rapida.engine({ debug: true });
 
-    const worldProvider: WorldProvider = ({ engine }): World => {
-      const world = new World({
-        engine,
-      });
+    const world = rapida.world();
 
-      const renderer = world.create.renderer.webgl();
-      document.getElementById('renderer-root').appendChild(renderer.domElement);
+    const renderer = world.create.renderer.webgl();
 
-      const scene = world.create.scene();
+    document.getElementById('renderer-root').appendChild(renderer.domElement);
 
-      const cameraOne = world.create.camera({
-        camera: new three.PerspectiveCamera(50, 20, 1, 3500),
-      });
-      cameraOne.position.set(0, 0, 500);
+    const scene = world.create.scene();
 
-      const cameraTwo = world.create.camera();
-      cameraTwo.position.set(500, 0, 0);
+    const cameraOne = world.create.camera({
+      camera: new three.PerspectiveCamera(50, 20, 1, 3500),
+    });
+    cameraOne.position.set(0, 0, 500);
 
-      const viewOne = renderer.create.view({
-        camera: cameraOne,
-        scene,
-        viewport: {
-          left: 0,
-          bottom: 0,
-          width: 0.5,
-          height: 1,
-        },
-        scissor: {
-          left: 0,
-          bottom: 0,
-          width: 0.5,
-          height: 1,
-        },
-      });
+    const cameraTwo = world.create.camera();
+    cameraTwo.position.set(500, 0, 0);
 
-      const viewTwo = renderer.create.view({
-        camera: cameraTwo,
-        scene,
-        viewport: {
-          left: 0.5,
-          bottom: 0,
-          width: 0.5,
-          height: 1,
-        },
-        scissor: {
-          left: 0.5,
-          bottom: 0,
-          width: 0.5,
-          height: 1,
-        },
-      });
+    const viewOne = renderer.create.view({
+      camera: cameraOne,
+      scene,
+      viewport: {
+        left: 0,
+        bottom: 0,
+        width: 0.5,
+        height: 1,
+      },
+      scissor: {
+        left: 0,
+        bottom: 0,
+        width: 0.5,
+        height: 1,
+      },
+    });
 
-      new OrbitControls(cameraOne.three, viewOne.domElement);
+    const viewTwo = renderer.create.view({
+      camera: cameraTwo,
+      scene,
+      viewport: {
+        left: 0.5,
+        bottom: 0,
+        width: 0.5,
+        height: 1,
+      },
+      scissor: {
+        left: 0.5,
+        bottom: 0,
+        width: 0.5,
+        height: 1,
+      },
+    });
 
-      new OrbitControls(cameraTwo.three, viewTwo.domElement);
+    new OrbitControls(cameraOne.three, viewOne.domElement);
 
-      scene.add(new three.CameraHelper(cameraTwo.three));
+    new OrbitControls(cameraTwo.three, viewTwo.domElement);
 
-      const ambientLight = new three.AmbientLight(0xffffff, 0.5);
-      scene.add(ambientLight);
+    scene.add(new three.CameraHelper(cameraTwo.three));
 
-      const directionalLight = new three.DirectionalLight(0xffffff, 1.5);
-      directionalLight.position.set(0, -20, 40);
-      directionalLight.lookAt(new three.Vector3(0, 0, 0));
-      scene.add(directionalLight);
+    const ambientLight = new three.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
 
-      const space = world.create.space();
+    const directionalLight = new three.DirectionalLight(0xffffff, 1.5);
+    directionalLight.position.set(0, -20, 40);
+    directionalLight.lookAt(new three.Vector3(0, 0, 0));
+    scene.add(directionalLight);
 
-      space.create.entity().addComponent(SpinningCube, { scene });
+    const space = world.create.space();
 
-      return world;
-    };
+    space.create.entity().addComponent(SpinningCube, { scene });
 
-    R.run(worldProvider);
+    engine.start(world);
 
-    return () => R.destroy();
+    return () => engine.destroy();
   });
 
   return `

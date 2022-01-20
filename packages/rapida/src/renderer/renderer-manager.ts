@@ -3,6 +3,8 @@ import { Renderer } from './renderer';
 
 /**
  * RendererManager managers the render and update loop for renderers
+ *
+ * @private used internally, do not use directly
  */
 export class RendererManager {
   /**
@@ -23,24 +25,24 @@ export class RendererManager {
   /**
    * Initialises the renderer manager
    */
-  _init(): void {
-    this.renderers.forEach((renderer) => renderer.init && renderer.init());
+  init(): void {
     this.initialised = true;
+    this.renderers.forEach((renderer) => renderer._init && renderer._init());
   }
 
   /**
    * Updates the renderer manager to run renderer and view logic that isn't rendering
    */
-  _update(): void {
+  update(): void {
     this.renderersWithUpdate.forEach(
-      (renderer) => renderer instanceof WebGLRenderer && renderer.update()
+      (renderer) => renderer instanceof WebGLRenderer && renderer._update()
     );
   }
 
   /**
    * Destroys the renderer manager
    */
-  _destroy(): void {
+  destroy(): void {
     this.renderers.forEach(
       (renderer) => renderer._destroy && renderer._destroy()
     );
@@ -48,9 +50,12 @@ export class RendererManager {
 
   /**
    * Calls the render method for all renderers
+   * @param timeElapsed the time elapsed in seconds
    */
-  render(): void {
-    this.renderers.forEach((renderer) => renderer.render && renderer.render());
+  render(timeElapsed: number): void {
+    this.renderers.forEach(
+      (renderer) => renderer._render && renderer._render(timeElapsed)
+    );
   }
 
   /**
@@ -64,8 +69,8 @@ export class RendererManager {
       this.renderersWithUpdate.set(renderer.id, renderer);
     }
 
-    if (this.initialised && renderer.init) {
-      renderer.init();
+    if (this.initialised && renderer._init) {
+      renderer._init();
     }
   }
 

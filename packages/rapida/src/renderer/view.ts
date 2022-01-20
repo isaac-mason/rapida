@@ -1,5 +1,6 @@
 import { Event } from '@rapidajs/rapida-common';
 import { Camera, Scene } from 'src';
+import { OrthographicCamera, Vector3 } from 'three';
 import {
   decimalPercentageFromViewParam,
   convertViewParamInputToViewParam,
@@ -9,7 +10,7 @@ import {
 /**
  * Enum for all supported view interaction events
  */
-export enum ViewInteractionEvent {
+export enum ViewInteractionEventName {
   CLICK = 'click',
   MOUSE_MOVE = 'mousemove',
   MOUSE_DOWN = 'mousedown',
@@ -25,36 +26,36 @@ export enum ViewInteractionEvent {
 }
 
 export const VIEW_ALL_EVENT_NAMES: string[] = [
-  ViewInteractionEvent.CLICK,
-  ViewInteractionEvent.MOUSE_MOVE,
-  ViewInteractionEvent.MOUSE_DOWN,
-  ViewInteractionEvent.MOUSE_UP,
-  ViewInteractionEvent.MOUSE_ENTER,
-  ViewInteractionEvent.MOUSE_LEAVE,
-  ViewInteractionEvent.MOUSE_OUT,
-  ViewInteractionEvent.MOUSE_OVER,
-  ViewInteractionEvent.TOUCH_START,
-  ViewInteractionEvent.TOUCH_END,
-  ViewInteractionEvent.TOUCH_MOVE,
-  ViewInteractionEvent.TOUCH_CANCEL,
+  ViewInteractionEventName.CLICK,
+  ViewInteractionEventName.MOUSE_MOVE,
+  ViewInteractionEventName.MOUSE_DOWN,
+  ViewInteractionEventName.MOUSE_UP,
+  ViewInteractionEventName.MOUSE_ENTER,
+  ViewInteractionEventName.MOUSE_LEAVE,
+  ViewInteractionEventName.MOUSE_OUT,
+  ViewInteractionEventName.MOUSE_OVER,
+  ViewInteractionEventName.TOUCH_START,
+  ViewInteractionEventName.TOUCH_END,
+  ViewInteractionEventName.TOUCH_MOVE,
+  ViewInteractionEventName.TOUCH_CANCEL,
 ];
 
 export const VIEW_MOUSE_EVENTS: string[] = [
-  ViewInteractionEvent.CLICK,
-  ViewInteractionEvent.MOUSE_DOWN,
-  ViewInteractionEvent.MOUSE_UP,
-  ViewInteractionEvent.MOUSE_MOVE,
-  ViewInteractionEvent.MOUSE_OVER,
-  ViewInteractionEvent.MOUSE_OUT,
-  ViewInteractionEvent.MOUSE_ENTER,
-  ViewInteractionEvent.MOUSE_LEAVE,
+  ViewInteractionEventName.CLICK,
+  ViewInteractionEventName.MOUSE_DOWN,
+  ViewInteractionEventName.MOUSE_UP,
+  ViewInteractionEventName.MOUSE_MOVE,
+  ViewInteractionEventName.MOUSE_OVER,
+  ViewInteractionEventName.MOUSE_OUT,
+  ViewInteractionEventName.MOUSE_ENTER,
+  ViewInteractionEventName.MOUSE_LEAVE,
 ];
 
 export const VIEW_TOUCH_EVENTS: string[] = [
-  ViewInteractionEvent.TOUCH_START,
-  ViewInteractionEvent.TOUCH_END,
-  ViewInteractionEvent.TOUCH_MOVE,
-  ViewInteractionEvent.TOUCH_CANCEL,
+  ViewInteractionEventName.TOUCH_START,
+  ViewInteractionEventName.TOUCH_END,
+  ViewInteractionEventName.TOUCH_MOVE,
+  ViewInteractionEventName.TOUCH_CANCEL,
 ];
 
 /**
@@ -160,7 +161,7 @@ export interface ViewInteractionEventMap {
 /**
  * Type for a view event name
  */
-export type ViewEventName<T extends string> =
+export type ViewEventByName<T extends string> =
   T extends keyof ViewInteractionEventMap ? ViewInteractionEventMap[T] : Event;
 
 /**
@@ -185,9 +186,9 @@ export type ViewRectangleParam = {
 /**
  * A ViewParam, which can either be a:
  * - decimal percentage (passthrough)
- * - number of pixels given by a string '<n>px'
- * - percentage of the dom container given by a string '<n>%'
- * - percentage of the screen size given by '<n>vw' or '<n>vh'
+ * - number of pixels given by a string '[n]px'
+ * - percentage of the dom container given by a string '[n]%'
+ * - percentage of the screen size given by '[n]vw' or '[n]vh'
  */
 export type ViewRectangleParamInput = (string | number) | ViewRectangleParam;
 
@@ -253,7 +254,7 @@ export abstract class View {
   /**
    * The z index for the view. Determines what order the views are rendered in, therefore what layer the view is on.
    */
-  abstract zIndex: number;
+  abstract _zIndex: number;
 
   /**
    * The renderers dom element
@@ -268,7 +269,48 @@ export abstract class View {
   /**
    * The size of the view in pixels
    */
-  abstract viewportSize: ViewSize;
+  abstract viewportSizePx: ViewSize;
+
+  /**
+   * Gets the world viewport for a given target
+   * @param target the target to calculate the viewport for
+   * @returns the world viewport for a given target
+   */
+  getWorldViewport(target: Vector3): {
+    width: number;
+    height: number;
+    factor: number;
+    distance: number;
+    aspect: number;
+  } {
+    const { width, height } = this.viewportSizePx;
+
+    const aspect = width / height;
+
+    const tempTarget = new Vector3();
+    tempTarget.copy(target);
+
+    const position = new Vector3();
+
+    const distance = this.camera.three
+      .getWorldPosition(position)
+      .distanceTo(tempTarget);
+
+    if (this.camera.three instanceof OrthographicCamera) {
+      return {
+        width: width / this.camera.three.zoom,
+        height: height / this.camera.three.zoom,
+        factor: 1,
+        distance,
+        aspect,
+      };
+    }
+    const fov = (this.camera.three.fov * Math.PI) / 180; // convert vertical fov to radians
+    const h = 2 * Math.tan(fov / 2) * distance; // visible height
+    const w = h * (width / height);
+
+    return { width: w, height: h, factor: width / w, distance, aspect };
+  }
 
   /**
    * Calculates a view rectangle from given view rectangle params

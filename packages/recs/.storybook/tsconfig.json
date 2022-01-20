@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@rapidajs/rapida": ["../src/index.ts"],
+    },
+    "lib": ["dom"]
+  },
+  "extends": "../tsconfig",
+  "exclude": [],
+  "include": ["./stories/*"]
+}

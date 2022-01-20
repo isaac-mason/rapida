@@ -2,7 +2,81 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { Tooltip } from 'reactstrap';
-import styles from '../styles/Home.module.css';
+import { up } from 'styled-breakpoints';
+import styled from 'styled-components';
+import { FindUs } from '../components/homepage/FindUs';
+import { Packages } from '../components/homepage/Packages';
+import { PageContainer, PageMain } from '../components/homepage/Page';
+
+const CodeBlock = styled.code`
+  background-color: #333;
+  color: #fafafa;
+  border-radius: 5px;
+  padding: 2rem;
+  font-family: $rapida-font;
+  margin-bottom: 3em;
+
+  font-size: 1rem;
+  font-family: $rapida-font;
+
+  a {
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
+const Title = styled.h1`
+  margin: 0;
+  line-height: 1.15;
+
+  font-size: 3rem;
+  font-weight: 300;
+  font-family: ${(p) => p.theme.fonts.rapida};
+  text-align: center;
+
+  ${up('md')} {
+    font-size: 4rem;
+  }
+`;
+
+const Description = styled.p`
+  margin: 1.5em 0;
+  max-width: 800px;
+  font-family: ${(p) => p.theme.fonts.rapida};
+  font-size: 1.3rem;
+  text-align: center;
+  line-height: 1.5;
+
+  ${up('md')} {
+    font-size: 1.5rem;
+  }
+`;
+
+const Warning = styled.div`
+  background-color: #fff399;
+  border-radius: 5px;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  max-width: 700px;
+  text-align: center;
+  margin-bottom: 3em;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  ${up('md')} {
+    font-size: 1.2rem;
+    padding: 2rem;
+  }
+`;
 
 const Home: NextPage = () => {
   const [copied, setCopied] = useState(false);
@@ -14,55 +88,59 @@ const Home: NextPage = () => {
   }, [copied]);
 
   return (
-    <div className={styles.container}>
+    <PageContainer>
       <Head>
-        <title>rapida - 3D for the Web</title>
+        <title>rápida - 3D for the Web</title>
         <meta
           name="description"
-          content="rapida makes creating interactive 3d content for the web with three.js easy!"
+          content="rapida helps you creat interactive 3d content for the web"
         />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>rapida</h1>
+      <PageMain>
+        <Title>rápida</Title>
 
-        <p className={styles.description}>
-          rapida helps you create interactive 3d content for the web
-          &#x1f919;
-        </p>
+        <Description>
+          rapida helps you create interactive 3d content for the web &#x1f919;
+        </Description>
 
-        <code className={styles.codeBlock}>
-          <div>
-            <a
-              href="#"
-              id={'copyInstallCommand'}
-              className={styles.copyInstallCommand}
-              onClick={(e) => {
-                window.navigator.clipboard.writeText(
-                  'yarn add @rapidajs/rapida three'
-                );
-                setCopied(true);
-              }}
-            >
-              &gt; yarn add @rapidajs/rapida three
-            </a>
-            <Tooltip
-              flip
-              target="copyInstallCommand"
-              placement="bottom"
-              isOpen={copied}
-            >
-              Copied to clipboard!
-            </Tooltip>
-          </div>
-        </code>
+        <CodeBlock>
+          <a
+            href="#"
+            id="copyInstallCommand"
+            onClick={(e) => {
+              window.navigator.clipboard.writeText(
+                'yarn add @rapidajs/rapida three'
+              );
+              setCopied(true);
+            }}
+          >
+            &gt; yarn add @rapidajs/rapida three
+          </a>
+          <Tooltip
+            flip
+            target="copyInstallCommand"
+            placement="bottom"
+            isOpen={copied}
+          >
+            Copied to clipboard!
+          </Tooltip>
+        </CodeBlock>
 
-        <div className={styles.warning}>
+        <Warning>
           <p>&#9888; &#9888; &#9888;</p>
           <p>
-            <strong>This project is under active alpha development.</strong>
+            <strong>
+              This project is under active alpha development. We do not
+              recommend using rapida in production just yet, but watch this
+              space!
+            </strong>
           </p>
-
+          <p>
+            Docs are currently WIP - there are only auto-generated docs here
+            right now. Getting started docs and worked examples will be added
+            soon.
+          </p>
           <p>
             Things will{' '}
             <em>
@@ -71,42 +149,14 @@ const Home: NextPage = () => {
             . We are still experimenting, so you can expect usage to change with
             each release right now.
           </p>
-          <p>
-            Docs & Storybooks with examples will be coming to this website soon.
-          </p>
-          <p>
-            <strong>
-              We do not recommend using rapida in production just yet, but watch
-              this space!
-            </strong>
-          </p>
           <p>&#9888; &#9888; &#9888;</p>
-        </div>
+        </Warning>
 
-        <div className={styles.findUs}>
-          <div className={styles.links}>
-            <a
-              href="https://gitlab.com/rapidajs/rapida"
-              className={styles.code}
-            >
-              GitLab
-            </a>
-            <a
-              href="https://github.com/rapidajs/rapida"
-              className={styles.code}
-            >
-              GitHub (mirror)
-            </a>
-            <a
-              href="https://www.npmjs.com/package/@rapidajs/rapida"
-              className={styles.code}
-            >
-              NPM
-            </a>
-          </div>
-        </div>
-      </main>
-    </div>
+        <Packages />
+
+        <FindUs />
+      </PageMain>
+    </PageContainer>
   );
 };
 

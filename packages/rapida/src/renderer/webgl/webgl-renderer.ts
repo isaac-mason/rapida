@@ -5,13 +5,6 @@ import { Renderer } from '../renderer';
 import { WebGLView, WebGLViewParams } from './webgl-view';
 
 /**
- * Factories for creating something within the WebGLRenderer
- */
-type WebGLRendererFactories = {
-  view: (params: WebGLViewParams) => WebGLView;
-};
-
-/**
  * Params for creating a WebGLRenderer
  */
 export type WebGLRendererParams = {
@@ -104,21 +97,24 @@ export class WebGLRenderer implements Renderer {
   }
 
   /**
-   * Initialises views
+   * Retrieves renderer factories
    */
-  init(): void {
-    this.views.forEach((v) => {
-      v._init();
-    });
+  public get create(): {
+    /**
+     * Creates a new webgl view
+     * @param params params for creating a new webgl view
+     * @returns
+     */
+    view: (params: WebGLViewParams) => WebGLView;
+  } {
+    return {
+      view: (params: WebGLViewParams): WebGLView => {
+        const view = new WebGLView(this, params);
+        this.addView(view);
 
-    this.initialised = true;
-  }
-
-  /**
-   * Updates views to process interaction events
-   */
-  update(): void {
-    this.views.forEach((v) => v._update());
+        return view;
+      },
+    };
   }
 
   /**
@@ -126,48 +122,6 @@ export class WebGLRenderer implements Renderer {
    */
   destroy(): void {
     this.rendererManager.removeRenderer(this);
-  }
-
-  /**
-   * Destroys the renderer and all views
-   */
-  _destroy(): void {
-    this.views.forEach((v) => {
-      v._destroy();
-    });
-    this.resizeObserver.disconnect();
-    this.three.forceContextLoss();
-    this.three.dispose();
-  }
-
-  /**
-   * Handles resizing
-   */
-  _onResize(): void {
-    this.three.setSize(
-      this.domElement.clientWidth,
-      this.domElement.clientHeight
-    );
-
-    this.views.forEach((v) => v._onResize());
-  }
-
-  /**
-   * Adds a view to the renderer
-   * @param view the view to add
-   */
-  addView(view: WebGLView): void {
-    this.views.set(view.id, view);
-
-    if (this.initialised) {
-      view._init();
-    }
-
-    if (this.orderedViews.length === 0) {
-      this.orderedViews.push(view);
-    }
-
-    this.sortViews();
   }
 
   /**
@@ -182,24 +136,70 @@ export class WebGLRenderer implements Renderer {
   }
 
   /**
-   * Renders all views for the renderer
+   * Initialises views
+   * @private called internally, do not call directly
    */
-  render(): void {
+  _init(): void {
+    this.initialised = true;
+    this.views.forEach((v) => {
+      v._init();
+    });
+  }
+
+  /**
+   * Updates views to process interaction events
+   * @private called internally, do not call directly
+   */
+  _update(): void {
+    this.views.forEach((v) => v._update());
+  }
+
+  /**
+   * Destroys the renderer and all views
+   * @private called internally, do not call directly
+   */
+  _destroy(): void {
+    this.views.forEach((v) => {
+      v._destroy();
+    });
+    this.resizeObserver.disconnect();
+    this.three.forceContextLoss();
+    this.three.dispose();
+  }
+
+  /**
+   * Handles resizing
+   * @private called internally, do not call directly
+   */
+  _onResize(): void {
+    this.three.setSize(
+      this.domElement.clientWidth,
+      this.domElement.clientHeight
+    );
+
+    this.views.forEach((v) => v._onResize());
+  }
+
+  /**
+   * Renders all views for the renderer
+   * @private called internally, do not call directly
+   */
+  _render(timeElapsed: number): void {
     const rect = this.three.domElement.getBoundingClientRect();
 
     this.views.forEach((view: WebGLView) => {
       this.three.setScissorTest(true);
       this.three.setScissor(
-        view._scissor.left * rect.width,
-        view._scissor.bottom * rect.height,
-        view._scissor.width * rect.width,
-        view._scissor.height * rect.height
+        view._scissorViewRectangle.left * rect.width,
+        view._scissorViewRectangle.bottom * rect.height,
+        view._scissorViewRectangle.width * rect.width,
+        view._scissorViewRectangle.height * rect.height
       );
       this.three.setViewport(
-        view._viewport.left * rect.width,
-        view._viewport.bottom * rect.height,
-        view._viewport.width * rect.width,
-        view._viewport.height * rect.height
+        view._viewportViewRetangle.left * rect.width,
+        view._viewportViewRetangle.bottom * rect.height,
+        view._viewportViewRetangle.width * rect.width,
+        view._viewportViewRetangle.height * rect.height
       );
 
       if (view.clearColor) {
@@ -210,33 +210,32 @@ export class WebGLRenderer implements Renderer {
         this.three.clearDepth();
       }
 
-      view.effectComposer.render();
+      view._renderMethod(timeElapsed);
     });
+  }
+
+  /**
+   * Adds a view to the renderer
+   * @param view the view to add
+   */
+  private addView(view: WebGLView): void {
+    this.views.set(view.id, view);
+
+    if (this.initialised) {
+      view._init();
+    }
+
+    if (this.orderedViews.length === 0) {
+      this.orderedViews.push(view);
+    }
+
+    this.sortViews();
   }
 
   /**
    * Sorts the views in the renderer by their z index
    */
   private sortViews(): void {
-    this.orderedViews.sort((a, b) => a.zIndex - b.zIndex);
-  }
-
-  /**
-   * Factories for creating new objects within the renderer
-   */
-  private _factories: WebGLRendererFactories = {
-    view: (params: WebGLViewParams): WebGLView => {
-      const view = new WebGLView(this, params);
-      this.addView(view);
-
-      return view;
-    },
-  };
-
-  /**
-   * Retrieves renderer factories
-   */
-  public get create(): WebGLRendererFactories {
-    return this._factories;
+    this.orderedViews.sort((a, b) => a._zIndex - b._zIndex);
   }
 }

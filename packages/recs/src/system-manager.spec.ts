@@ -53,7 +53,7 @@ describe('SystemManager', () => {
     it('should initialise all systems', () => {
       manager.addSystem(basicSystem);
 
-      manager._init();
+      manager.init();
 
       expect(basicSystemInit).toBeCalledTimes(1);
     });
@@ -63,17 +63,17 @@ describe('SystemManager', () => {
     it('should update the system if it is enabled', () => {
       manager.addSystem(basicSystem);
 
-      manager._init();
+      manager.init();
 
       basicSystem.enabled = false;
 
-      manager._update(0);
+      manager.update(0);
 
       expect(basicSystemOnUpdate).toBeCalledTimes(0);
 
       basicSystem.enabled = true;
 
-      manager._update(0);
+      manager.update(0);
 
       expect(basicSystemOnUpdate).toBeCalledTimes(1);
     });

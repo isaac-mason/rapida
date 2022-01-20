@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "target": "es6",
+    "lib": ["es2019", "dom"],
+    "outDir": "lib",
+    "strict": true,
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "downlevelIteration": true,
+    "removeComments": false,
+    "isolatedModules": true,
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "baseUrl": ".",
+    "skipLibCheck": true,
+    "incremental": true
+  },
+  "include": ["./src"],
+  "exclude": [
+    "lib",
+    "node_modules"
+  ]
+}
+   

@@ -1,10 +1,5 @@
-import { Component } from './component';
+import { ComponentClass } from './component';
 import { Entity } from './entity';
-
-/**
- * Type for a component constructor
- */
-type ComponentConstructor = new (...args: never[]) => Component;
 
 /**
  * Enum for query condition types
@@ -19,9 +14,9 @@ export enum QueryConditionType {
  * Type for query conditions
  */
 export type QueryDescription = {
-  [QueryConditionType.ALL]?: ComponentConstructor[];
-  [QueryConditionType.ONE]?: ComponentConstructor[];
-  [QueryConditionType.NOT]?: ComponentConstructor[];
+  [QueryConditionType.ALL]?: ComponentClass[];
+  [QueryConditionType.ONE]?: ComponentClass[];
+  [QueryConditionType.NOT]?: ComponentClass[];
 };
 
 /**
@@ -51,9 +46,9 @@ export class Query {
   removed: Set<Entity> = new Set();
 
   /**
-   * A list of all component names that are involved in the conditions for this query
+   * A list of all component classes that are involved in the conditions for this query
    */
-  componentNames: string[];
+  components: ComponentClass[];
 
   /**
    * The query description for this query
@@ -75,20 +70,19 @@ export class Query {
 
     this.key = Query.getDescriptionDedupeString(queryDescription);
     this.description = queryDescription;
-    this.componentNames = Array.from(
-      new Set<string>(
-        [
-          ...(queryDescription.all ? queryDescription.all : []),
-          ...(queryDescription.one ? queryDescription.one : []),
-          ...(queryDescription.not ? queryDescription.not : []),
-        ].map((c) => c.name)
-      )
+    this.components = Array.from(
+      new Set<ComponentClass>([
+        ...(queryDescription.all ? queryDescription.all : []),
+        ...(queryDescription.one ? queryDescription.one : []),
+        ...(queryDescription.not ? queryDescription.not : []),
+      ])
     );
   }
 
   /**
    * Adds an entity to the query
    * @param e the entity to add
+   * @private called internally, do not call directly
    */
   _addEntity(e: Entity): void {
     this.all.add(e);
@@ -98,6 +92,7 @@ export class Query {
   /**
    * Removes an entity from the query
    * @param e the entity to remove
+   * @private called internally, do not call directly
    */
   _removeEntity(e: Entity): void {
     this.all.delete(e);
@@ -106,6 +101,7 @@ export class Query {
 
   /**
    * Prepares the query for the next update
+   * @private called internally, do not call directly
    */
   _preUpdate(): void {
     this.added.clear();
@@ -116,6 +112,7 @@ export class Query {
    * Returns whether an entity matches the conditions of the query description
    * @param e the entity to check
    * @returns whether an entity matches the conditions of the query description
+   * @private called internally, do not call directly
    */
   _match(e: Entity): boolean {
     if (this.description.not && this.description.not.some((c) => e.has(c))) {
@@ -136,6 +133,7 @@ export class Query {
    * Returns a string that identifies a query description
    * @param query the query description
    * @returns a string that identifies a query description
+   * @private called internally, do not call directly
    */
   public static getDescriptionDedupeString(query: QueryDescription): string {
     return Object.entries(query)

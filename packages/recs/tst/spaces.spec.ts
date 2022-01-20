@@ -2,14 +2,14 @@
 import { describe, it, expect } from '@jest/globals';
 import { recs, RECS } from '../src';
 
-describe('Spaces Integration Tests', () => {
+describe('Spaces', () => {
   let R: RECS;
 
   beforeEach(() => {
     R = recs();
   });
 
-  it('spaces should be able to register event handlers and emit events', () => {
+  it('should be able to register event handlers and emit events', () => {
     const space = R.create.space();
 
     R.init();
@@ -39,7 +39,7 @@ describe('Spaces Integration Tests', () => {
     expect(mockFn).toBeCalledTimes(1);
   });
 
-  it('spaces should remove dead entities on update', () => {
+  it('should should remove dead entities on update', () => {
     const space = R.create.space();
 
     const entity = space.create.entity();
@@ -50,14 +50,14 @@ describe('Spaces Integration Tests', () => {
 
     expect(space.entities.size).toBe(1);
 
-    entity.destroy();
+    entity.alive = false;
 
     R.update(1);
 
     expect(space.entities.size).toBe(0);
   });
 
-  it('spaces should destroy contained entities when destroying the space', () => {
+  it('should destroy contained entities when destroying the space', () => {
     const space = R.create.space();
     expect(space.recs).toBe(R);
 

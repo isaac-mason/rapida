@@ -49,7 +49,6 @@ describe('Entities And Components Integration Tests', () => {
     entity.addComponent(TestComponentOne);
 
     expect(entity.has(TestComponentOne)).toBeTruthy();
-    expect(entity.has(TestComponentOne.name)).toBeTruthy();
     expect(entity.has(TestComponentTwo)).toBeFalsy();
 
     entity.removeComponent(TestComponentOne);
@@ -73,16 +72,12 @@ describe('Entities And Components Integration Tests', () => {
     entity.addComponent(TestComponentWithConstructParams, 1, 2);
 
     expect(entity.has(TestComponentWithConstructParams)).toBeTruthy();
-    expect(entity.has(TestComponentWithConstructParams.name)).toBeTruthy();
 
     const component = entity.get(TestComponentWithConstructParams);
     expect(component.position.x).toBe(1);
     expect(component.position.y).toBe(2);
 
     entity.removeComponent(TestComponentWithConstructParams);
-
-    expect(entity.has(TestComponentWithConstructParams)).toBeFalsy();
-    expect(entity.has(TestComponentWithConstructParams.name)).toBeFalsy();
   });
 
   it('on re-adding a component to an entity, it will be newly constructed properly', () => {
@@ -100,7 +95,6 @@ describe('Entities And Components Integration Tests', () => {
     entity.addComponent(TestComponentWithConstructParams, 1, 2);
 
     expect(entity.has(TestComponentWithConstructParams)).toBeTruthy();
-    expect(entity.has(TestComponentWithConstructParams.name)).toBeTruthy();
 
     const componentOne = entity.get(TestComponentWithConstructParams);
     expect(componentOne.position.x).toBe(1);
@@ -109,7 +103,6 @@ describe('Entities And Components Integration Tests', () => {
     entity.removeComponent(TestComponentWithConstructParams);
 
     expect(entity.has(TestComponentWithConstructParams)).toBeFalsy();
-    expect(entity.has(TestComponentWithConstructParams.name)).toBeFalsy();
 
     entity.addComponent(TestComponentWithConstructParams, 3, 4);
     const componentTwo = entity.get(TestComponentWithConstructParams);
@@ -148,8 +141,121 @@ describe('Entities And Components Integration Tests', () => {
 
     expect(componentUpdateJestFn.mock.calls[0][0]).toBe(timeElapsed);
 
+    entity.destroy();
+
+    R.update(timeElapsed);
+
+    expect(componentUpdateJestFn).toHaveBeenCalledTimes(1);
+
     R.destroy();
 
     expect(componentDestroyJestFn).toHaveBeenCalledTimes(1);
+  });
+
+  it('components should have a getter for the space the component is in', () => {
+    class TestComponentOne extends Component {}
+
+    R.init();
+
+    const space = R.create.space();
+
+    const entity = space.create.entity();
+
+    const component = entity.addComponent(TestComponentOne);
+
+    expect(component.space).toBe(space);
+  });
+
+  describe('get', () => {
+    class TestComponentOne extends Component {}
+
+    it('should throw an error if the component is not in the entity', () => {
+      const space = R.create.space();
+      const entity = space.create.entity();
+
+      expect(() => entity.get(TestComponentOne)).toThrow();
+    });
+
+    it('should return the component instance if the component is in the entity', () => {
+      const space = R.create.space();
+      const entity = space.create.entity();
+
+      entity.addComponent(TestComponentOne);
+
+      expect(entity.get(TestComponentOne)).toBeInstanceOf(TestComponentOne);
+    });
+  });
+
+  describe('find', () => {
+    class TestComponentOne extends Component {}
+
+    it('should return undefined if the component is not in the entity', () => {
+      const space = R.create.space();
+      const entity = space.create.entity();
+
+      expect(entity.find(TestComponentOne)).toBeUndefined();
+    });
+
+    it('should return the component instance if the component is in the entity', () => {
+      const space = R.create.space();
+      const entity = space.create.entity();
+
+      entity.addComponent(TestComponentOne);
+
+      expect(entity.find(TestComponentOne)).toBeInstanceOf(TestComponentOne);
+    });
+  });
+
+  describe('removeComponent', () => {
+    class TestComponentOne extends Component {}
+
+    it('should throw an error if the component does not exist in the entity', () => {
+      const space = R.create.space();
+      const entity = space.create.entity();
+
+      expect(() => entity.removeComponent(TestComponentOne)).toThrowError();
+      expect(() =>
+        entity.removeComponent(new TestComponentOne())
+      ).toThrowError();
+    });
+  });
+
+  describe('has', () => {
+    class TestComponentOne extends Component {}
+    class TestComponentTwo extends Component {}
+
+    it('should return true if the entity has the given component', () => {
+      const space = R.create.space();
+      const entity = space.create.entity();
+
+      entity.addComponent(TestComponentOne);
+
+      expect(entity.has(TestComponentOne)).toBe(true);
+    });
+
+    it('should return false if the entity does not have the given component', () => {
+      const space = R.create.space();
+      const entity = space.create.entity();
+
+      entity.addComponent(TestComponentOne);
+
+      expect(entity.has(TestComponentOne)).toBe(true);
+      expect(entity.has(TestComponentTwo)).toBe(false);
+
+      const componentTwo = entity.addComponent(TestComponentTwo);
+
+      expect(entity.has(TestComponentOne)).toBe(true);
+      expect(entity.has(TestComponentTwo)).toBe(true);
+
+      entity.removeComponent(TestComponentOne);
+
+      expect(entity.has(TestComponentOne)).toBe(false);
+      expect(entity.has(TestComponentTwo)).toBe(true);
+
+      entity.removeComponent(componentTwo);
+
+      expect(entity.has(TestComponentOne)).toBe(false);
+      expect(entity.has(TestComponentTwo)).toBe(false);
+    });
   });
 });

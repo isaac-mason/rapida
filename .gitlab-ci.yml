@@ -15,12 +15,15 @@ workflow:
     - merge_requests
   script:
     # build npm packages
-    - yarn workspaces focus @rapidajs/rapida
+    - yarn workspaces focus @rapidajs/rapida-website
     - (cd packages/rapida-common && yarn run build)
+    - (cd packages/postprocessing && yarn run build)
     - (cd packages/recs && yarn run build)
-    - (cd packages/rapida-physics && yarn run build)
+    - (cd packages/cannon-worker && yarn run build)
     - (cd packages/rapida && yarn run build)
+    # will build and test all packages and build website
     - yarn run release
+    # release if we are on the main branch
     - |- 
       if [[ $CI_COMMIT_BRANCH == "main" ]]; then
         # publish npm packages if on the main branch
@@ -38,11 +41,13 @@ workflow:
     paths:
       - node_modules/
       - packages/rapida-common/node_modules/
-      - packages/rapida-physics/node_modules/
+      - packages/postprocessing/node_modules/
+      - packages/cannon-worker/node_modules/
       - packages/recs/node_modules/
       - packages/rapida/node_modules/
       - packages/rapida-common/lib/
-      - packages/rapida-physics/lib/
+      - packages/postprocessing/lib/
+      - packages/cannon-worker/lib/
       - packages/recs/lib/
       - packages/rapida/lib/
     expire_in: 1 day
@@ -57,10 +62,10 @@ pages:
     name: Production
     url: "https://rapidajs.dev/"
   script:
+    # includes @rapidajs/rapida-website, @rapidajs/rapida, @rapidajs/postprocessing, @rapidajs/recs, @rapidajs/cannon-worker and @rapidajs/rapida-common
     - yarn workspaces focus @rapidajs/rapida-website
-    # the above ^ will include @rapidajs/rapida-website build, @rapidajs/rapida, @rapidajs/rapida-physics and @rapidajs/rapida-common
-    # build @rapidajs/rapida-website
-    - (cd website && NODE_ENV=development yarn run build) 
+    # build storybooks, generate docs, then build the nextjs static website
+    - yarn website:build 
     - |- 
       if [[ $CI_COMMIT_BRANCH == "main" ]]; then
         # copy @rapidajs/rapida-website files in place for gitlab pages

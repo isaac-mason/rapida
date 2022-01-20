@@ -68,9 +68,9 @@ describe('Query', () => {
 
     query._addEntity(entity);
 
-    expect(query.componentNames).toHaveLength(2);
-    expect(query.componentNames).toContain(TestComponentOne.name);
-    expect(query.componentNames).toContain(TestComponentTwo.name);
+    expect(query.components).toHaveLength(2);
+    expect(query.components).toContain(TestComponentOne);
+    expect(query.components).toContain(TestComponentTwo);
   });
 
   describe('match', () => {

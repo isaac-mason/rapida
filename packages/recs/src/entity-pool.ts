@@ -3,6 +3,8 @@ import { ObjectPool } from './object-pool';
 
 /**
  * EntityPool that manages reuse of entity objects
+ * 
+ * @private internal class, do not use directly
  */
 export class EntityPool {
   /**

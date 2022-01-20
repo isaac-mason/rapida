@@ -1,7 +1,7 @@
 {
   "name": "@rapidajs/rapida",
-  "version": "0.0.8",
-  "description": "A library that helps you create 3D experiences for the web",
+  "version": "0.0.9",
+  "description": "A library that helps you create 3D content for the web",
   "homepage": "https://gitlab.com/rapidajs/rapida/-/tree/main/packages/rapida",
   "bugs": {
     "url": "https://gitlab.com/rapidajs/rapida/issues"
@@ -18,7 +18,7 @@
     "storybook": "start-storybook -p 6006",
     "storybook:https": "start-storybook -p 6006 --https --ssl-cert ../../dev/ca.crt --ssl-key ../../dev/ca.key",
     "build-storybook": "build-storybook",
-    "docs": "typedoc --hideBreadcrumbs --out docs src/index.ts && rm docs/README.md && mv docs/modules.md docs/README.md"
+    "docs": "typedoc"
   },
   "author": "Isaac Mason",
   "license": "MIT",
@@ -65,9 +65,10 @@
   },
   "dependencies": {
     "@jest/globals": "^27.2.0",
-    "@rapidajs/rapida-common": "0.0.7",
-    "@rapidajs/rapida-physics": "0.0.8",
-    "@rapidajs/recs": "0.0.7",
+    "@rapidajs/cannon-worker": "0.0.9",
+    "@rapidajs/postprocessing": "0.0.2",
+    "@rapidajs/rapida-common": "0.0.9",
+    "@rapidajs/recs": "0.0.9",
     "@types/stats.js": "^0.17.0",
     "@types/three": "^0.133.0",
     "jest-mock": "^27.1.1",
@@ -79,6 +80,8 @@
     "typedoc-plugin-markdown": "^3.11.7"
   },
   "peerDependencies": {
+    "@rapidajs/cannon-worker": "0.0.9",
+    "postprocessing": "^6.23.3",
     "three": "^0.133.0"
   }
 }

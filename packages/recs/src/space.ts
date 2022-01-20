@@ -8,10 +8,6 @@ import {
 import { Entity } from './entity';
 import { RECS } from './recs';
 
-type SpaceFactories = {
-  entity: () => Entity;
-};
-
 /**
  * Params for creating a new Space
  */
@@ -46,12 +42,12 @@ export class Space {
   /**
    * Whether the space has been initialised
    */
-  initialised = false;
+  private initialised = false;
 
   /**
    * The spaces event system
    */
-  private events = new EventSystem();
+  private events = new EventSystem({ queued: true });
 
   /**
    * Constructor for the Space
@@ -63,94 +59,28 @@ export class Space {
   }
 
   /**
-   * Initialise the space
+   * Retrieves space factories
    */
-  _init(): void {
-    this.entities.forEach((e) => e._init());
-
-    this.initialised = true;
-  }
-
-  /**
-   * Updates the space by stepping the spaces event system
-   * @param timeElapsed the time since the last update in milliseconds
-   */
-  _update(_timeElapsed: number): void {
-    this.events.tick();
-  }
-
-  /**
-   * Updates all entities within the space
-   * @param timeElapsed the time since the last update in milliseconds
-   */
-  _updateEntities(_timeElapsed: number): void {
-    const dead: Entity[] = [];
-    const alive: Entity[] = [];
-
-    this.entities.forEach((e) => {
-      if (e.alive) {
-        alive.push(e);
-      } else {
-        dead.push(e);
-      }
-    });
-
-    dead.forEach((d) => {
-      this.remove(d);
-    });
-  }
-
-  /**
-   * Destroys the space and removes it from the RECS
-   */
-  destroy(): void {
-    this.recs.remove(this);
-  }
-
-  /**
-   * Destroys all entities from the space
-   */
-  _destroy(): void {
-    this.entities.forEach((e) => this.remove(e));
-  }
-
-  /**
-   * Adds an entity to the space
-   * @param value the entity to add
-   */
-  add(entity: Entity): Space {
-    this.entities.set(entity.id, entity);
-
-    if (this.initialised) {
-      entity._init();
-    }
-
-    return this;
+  public get create(): {
+    /**
+     * Creates a new entity in the space
+     * @returns a new entity
+     */
+    entity: () => Entity;
+  } {
+    return {
+      entity: (): Entity => {
+        return this.recs.entityManager.createEntityInSpace(this);
+      },
+    };
   }
 
   /**
    * Removes an entity from the space
-   * @param value the entity to remove
+   * @param entity the entity to remove
    */
-  remove(value: Entity): Space {
-    // remove the entity from the entities map
-    this.entities.delete(value.id);
-
-    // remove entity update from the RECS update pool
-    this.recs._entityUpdatePool.delete(this.id);
-
-    // emit the entity destroy event to the space
-    this.recs.queryManager.onEntityRemoved(value);
-
-    // destroy the entity
-    value.destroy();
-
-    // reset the entity for object reuse
-    value._reset();
-
-    // release the entity back into the entity pool
-    this.recs.entityPool.release(value);
-
+  remove(entity: Entity): Space {
+    this.recs.entityManager.removeEntityFromSpace(entity, this);
     return this;
   }
 
@@ -177,21 +107,80 @@ export class Space {
   }
 
   /**
-   * Factories for creating something new in a space
+   * Destroys the space and removes it from the RECS
    */
-  private _factories: SpaceFactories = {
-    entity: (): Entity => {
-      const entity = this.recs.entityPool.request();
-      entity.space = this;
-      this.add(entity);
-      return entity;
-    },
-  };
+  destroy(): void {
+    this.recs.remove(this);
+  }
 
   /**
-   * Retrieves space factories
+   * Adds an entity to the space
+   * @param value the entity to add
+   * @private called internally, do not call directly
    */
-  public get create(): SpaceFactories {
-    return this._factories;
+  _add(entity: Entity): Space {
+    this.entities.set(entity.id, entity);
+
+    if (this.initialised) {
+      this.recs.entityManager.initialiseEntity(entity);
+    }
+
+    return this;
+  }
+
+  /**
+   * Initialise the space
+   * @private called internally, do not call directly
+   */
+  _init(): void {
+    this.initialised = true;
+    this.entities.forEach((e) => this.initialiseEntity(e));
+  }
+
+  /**
+   * Updates the space by stepping the spaces event system
+   * @param timeElapsed the time since the last update in seconds
+   * @private called internally, do not call directly
+   */
+  _updateEvents(): void {
+    this.events.tick();
+  }
+
+  /**
+   * Updates all entities within the space
+   * @param timeElapsed the time since the last update in seconds
+   * @private called internally, do not call directly
+   */
+  _updateEntities(): void {
+    const dead: Entity[] = [];
+    const alive: Entity[] = [];
+
+    this.entities.forEach((e) => {
+      if (e.alive) {
+        alive.push(e);
+      } else {
+        dead.push(e);
+      }
+    });
+
+    dead.forEach((d) => {
+      this.remove(d);
+    });
+  }
+
+  /**
+   * Destroys all entities from the space
+   * @private called internally, do not call directly
+   */
+  _destroy(): void {
+    this.entities.forEach((e) => this.remove(e));
+  }
+
+  /**
+   * Initialises an entity in a space
+   * @param e the entity to initialise
+   */
+  private initialiseEntity(e: Entity): void {
+    this.recs.entityManager.initialiseEntity(e);
   }
 }

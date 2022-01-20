@@ -7,26 +7,26 @@
 **rapida is under active alpha development and is not yet battle-tested and stable. We don't recommend using rapida in production just yet, but watch this space!**
 
 - [x] Build out your 3D scenes with [three.js](https://threejs.org/)
-- [x] Add physics to your world with `@rapidajs/rapida-physics`, which runs [cannon-es](https://github.com/pmndrs/cannon-es) in a web worker
+- [x] Add physics to your world with `@rapidajs/cannon-worker`, which runs [cannon-es](https://github.com/pmndrs/cannon-es) in a web worker
 - [x] Add complex logic to your world with the Entity Component System `@rapidajs/recs`
 - [x] Simple API for handling multiple renderers and multiple views
 
 ```bash
-> npm install @rapidajs/rapida three@^0.133.0
+> npm install @rapidajs/rapida @rapidajs/cannon-worker three@^0.133.0
 
 # or yarn
 
-> yarn add @rapidajs/rapida three@^0.133.0
+> yarn add @rapidajs/rapida @rapidajs/cannon-worker three@^0.133.0
 ```
 
-The package `@rapidajs/rapida-physics` can also be used independently to add physics into your three scene!
+The package `@rapidajs/cannon-worker` can also be used independently to add physics into your three scene!
 
 ```bash
-> npm install @rapidajs/rapida-physics
+> npm install @rapidajs/cannon-worker
 
 # or yarn
 
-> yarn add @rapidajs/rapida-physics
+> yarn add @rapidajs/cannon-worker
 ```
 
 See the rapida website for documentation and examples - [rapidajs.dev](https://rapidajs.dev/)
@@ -51,6 +51,9 @@ The below commands can be used to help with development:
 
 # Start storybook for all packages
 > yarn run storybook
+
+# Build the rapida website
+> yarn run website:build
 
 # Create a new changeset
 > yarn run change
