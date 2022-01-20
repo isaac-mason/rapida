@@ -41,7 +41,7 @@ http://rapidajs.dev/storybooks/recs/index.html?path=/story/random-walkers--rando
 
 **1. Import everything you need**
 
-```typescript
+```ts
 import RECS, { Component, System } from 'recs';
 ```
 
@@ -49,7 +49,7 @@ import RECS, { Component, System } from 'recs';
 
 First, let's create a component that can store a position, and a component that can store a color.
 
-```typescript
+```ts
 class Position extends Component {
   // * note the not null `!:` syntax! *
   // It is recommended that components use this to indicate those properties
@@ -77,7 +77,7 @@ class Color extends Component {
 
 **3. Create a `System` that looks for entities with the `Position` and `Color` components and draws them!**
 
-```typescript
+```ts
 const BOX_SIZE = 2;
 
 class DrawSystem extends System {
@@ -127,7 +127,7 @@ class DrawSystem extends System {
 
 **4. Create a system that makes our random walkers walk**
 
-```typescript
+```ts
 class WalkSystem extends System {
   queries = {
     walkers: {
@@ -161,20 +161,20 @@ class WalkSystem extends System {
 
 First, create a new recs instance:
 
-```typescript
+```ts
 const recs = RECS();
 ```
 
 Next, let's add the systems we created:
 
-```typescript
+```ts
 recs.add.system(new WalkSystem());
 recs.add.system(new DrawSystem());
 ```
 
 Now let's create some entities for our random walkers and add `Position` and `Color` components.
 
-```typescript
+```ts
 // create a space for our entities
 const space = recs.create.space();
 
@@ -197,7 +197,7 @@ for (let i = 0; i < n; i++) {
 
 Finally, lets start our simulation!
 
-```typescript
+```ts
 recs.init();
 
 let lastCall = 0;

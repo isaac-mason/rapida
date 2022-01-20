@@ -93,7 +93,7 @@ const Home: NextPage = () => {
         <title>rápida - 3D for the Web</title>
         <meta
           name="description"
-          content="rapida makes creating interactive 3d content for the web with three.js easy!"
+          content="rapida helps you creat interactive 3d content for the web"
         />
       </Head>
 

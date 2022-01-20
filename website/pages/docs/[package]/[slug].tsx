@@ -5,11 +5,11 @@ import { serialize } from 'next-mdx-remote/serialize';
 import Link from 'next/link';
 import path from 'path';
 import React, { useState } from 'react';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { vs2015 as SyntaxHighlighterStyle } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import rehypeSlug from 'rehype-slug';
 import { up } from 'styled-breakpoints';
 import styled from 'styled-components';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-// import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { DocsSidebar } from '../../../components/docs/DocsSidebar';
 import { DocsTopNav } from '../../../components/docs/DocsTopNav';
 import { allPackages } from '../../../constants/all-packages';
@@ -66,7 +66,7 @@ const h2 = styled.h2`
   font-size: 1.4rem;
 
   ${up('md')} {
-    font-size: 1.4rem
+    font-size: 1.4rem;
   }
 `;
 
@@ -75,7 +75,7 @@ const h3 = styled.h3`
   font-size: 1.2rem;
 
   ${up('md')} {
-    font-size: 1.2rem
+    font-size: 1.2rem;
   }
 `;
 
@@ -85,7 +85,7 @@ const h4 = styled.h4`
   font-size: 1.1rem;
 
   ${up('md')} {
-    font-size: 1.1rem
+    font-size: 1.1rem;
   }
 `;
 
@@ -95,33 +95,44 @@ const hr = styled.hr`
 
 const Code = styled.code`
   display: block;
-  background-color: #333;
+  background-color: rgb(30, 30, 30);
   color: #fefefe;
   border-radius: 0.5em;
   padding: 1.5em;
 `;
 
-const code = (props: { children: JSX.Element, className: string }) => {
+const SyntaxHighlighterWrapper = styled.code`
+  pre {
+    border-radius: 0.5em;
+    padding: 1.5em !important;
+  }
+`;
+
+const code = (props: { children: JSX.Element; className: string }) => {
   let lang;
 
-  if (props.className?.includes('language-js')) {
-    lang = 'javascript';
+  console.log(props.className);
+
+  if (
+    props.className?.includes(
+      'language-ts' || props.className?.includes('language-typescript')
+    )
+  ) {
+    lang = 'typescript';
   }
 
-  return (
-    lang ? (
-      <SyntaxHighlighter language={lang}>
+  return lang ? (
+    <SyntaxHighlighterWrapper>
+      <SyntaxHighlighter style={SyntaxHighlighterStyle} language={lang}>
         {props.children}
       </SyntaxHighlighter>
-    ) : (
-      <Code>
-        {props.children}
-      </Code>
-    )
+    </SyntaxHighlighterWrapper>
+  ) : (
+    <Code>{props.children}</Code>
   );
 };
 
-const TableWrapper = styled.div`  
+const TableWrapper = styled.div`
   overflow-y: scroll;
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   margin-top: 1em;
@@ -305,8 +316,7 @@ const rewriteLinks = (
           .replace(')', '')
           .replace('.md', '');
 
-          
-          // change relative link to absolute link
+        // change relative link to absolute link
         const splitHref = hrefPart.split('/');
         const splitCurrentPath = currentPage.relativePath.split('/');
 

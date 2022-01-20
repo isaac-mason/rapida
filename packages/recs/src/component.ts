@@ -65,7 +65,7 @@ export abstract class Component {
    * This is safe as the `construct` method will always be run before `onUpdate` and `onDestroy`, and the component will not be accessible by system queries until `construct` has run.
    * For example:
    *
-   * ```typescript
+   * ```ts
    * class MyComponent extends Component {
    *   exampleProperty!: number;
    *
