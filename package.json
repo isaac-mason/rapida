@@ -24,7 +24,6 @@
   },
   "workspaces": [
     "packages/*",
-    "examples/*",
     "website"
   ],
   "repository": {
