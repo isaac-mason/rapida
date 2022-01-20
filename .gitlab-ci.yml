@@ -39,7 +39,7 @@ pages:
     url: "https://rapidajs.dev/"
   script:
     - yarn install
-    # build storybooks, generate docs, then build the nextjs static website
+    - yarn build
     - yarn website:build 
     - |- 
       if [[ $CI_COMMIT_BRANCH == "main" ]]; then
