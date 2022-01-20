@@ -1,5 +1,13 @@
 # @rapidajs/rapida
 
+## 0.0.10
+
+### Patch Changes
+
+- Change version of three
+- Updated dependencies
+  - @rapidajs/cannon-worker@0.0.10
+
 ## 0.0.9
 
 ### Patch Changes

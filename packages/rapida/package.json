@@ -1,6 +1,6 @@
 {
   "name": "@rapidajs/rapida",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A library that helps you create 3D content for the web",
   "homepage": "https://gitlab.com/rapidajs/rapida/-/tree/main/packages/rapida",
   "bugs": {
@@ -65,7 +65,7 @@
   },
   "dependencies": {
     "@jest/globals": "^27.2.0",
-    "@rapidajs/cannon-worker": "0.0.9",
+    "@rapidajs/cannon-worker": "0.0.10",
     "@rapidajs/postprocessing": "0.0.2",
     "@rapidajs/rapida-common": "0.0.9",
     "@rapidajs/recs": "0.0.9",
@@ -80,7 +80,7 @@
     "typedoc-plugin-markdown": "^3.11.7"
   },
   "peerDependencies": {
-    "@rapidajs/cannon-worker": "0.0.9",
+    "@rapidajs/cannon-worker": "0.0.10",
     "postprocessing": "^6.23.3",
     "three": "^0.133.0"
   }

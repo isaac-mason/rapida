@@ -8,11 +8,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@rapidajs/cannon-worker": "0.0.9",
-    "@rapidajs/rapida": "0.0.9",
-    "@rapidajs/recs": "0.0.9",
-    "@rapidajs/rapida-common": "0.0.9",
+    "@rapidajs/cannon-worker": "0.0.10",
     "@rapidajs/postprocessing": "0.0.2",
+    "@rapidajs/rapida": "0.0.10",
+    "@rapidajs/rapida-common": "0.0.9",
+    "@rapidajs/recs": "0.0.9",
     "@styled-icons/material": "^10.34.0",
     "bootstrap": "^5.1.3",
     "next": "12.0.7",

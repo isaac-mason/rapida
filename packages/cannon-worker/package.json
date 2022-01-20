@@ -1,6 +1,6 @@
 {
   "name": "@rapidajs/cannon-worker",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "entry": "src/index.ts",
   "main": "lib/index.js",
   "module": "lib/index.js",
