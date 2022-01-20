@@ -3,11 +3,6 @@ image: node:14
 stages:
 - workflow
 
-cache:
-  key: $CI_PROJECT_ID
-  policy: pull
-  untracked: true
-
 workflow:
   stage: workflow
   only:
@@ -32,25 +27,6 @@ workflow:
         yarn dlx @changesets/cli@^2.18.1 publish --otp=$NPM_TOKEN
       fi
   coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
-  cache:
-    key: $CI_PROJECT_ID
-    policy: pull-push
-    paths:
-      - .yarn/cache
-  artifacts:
-    paths:
-      - node_modules/
-      - packages/rapida-common/node_modules/
-      - packages/postprocessing/node_modules/
-      - packages/cannon-worker/node_modules/
-      - packages/recs/node_modules/
-      - packages/rapida/node_modules/
-      - packages/rapida-common/lib/
-      - packages/postprocessing/lib/
-      - packages/cannon-worker/lib/
-      - packages/recs/lib/
-      - packages/rapida/lib/
-    expire_in: 1 day
 
 pages:
   stage: workflow
@@ -72,11 +48,6 @@ pages:
         mkdir public
         cp -r website/out/* public/
       fi
-  cache:
-    key: $CI_PROJECT_ID
-    policy: pull-push
-    paths:
-      - .yarn/cache
   artifacts:
     paths:
       - public
