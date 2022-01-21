@@ -77,7 +77,6 @@ export const createDebuggerSetup = (params?: {
   });
 
   const debug = new CannonWorkerDebugger(physics, { scene, color: 'white' });
-  physics.debugger = debug;
 
   // create a simple render loop
   let lastCallTime = 0;

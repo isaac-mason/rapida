@@ -5,7 +5,7 @@ import { BodyType } from '../../lib';
 import { createDebuggerSetup } from './utils/create-debugger-setup';
 
 export default {
-  title: 'Examples / Three Object Conversion',
+  title: 'Three Object Conversion',
 };
 
 export const ThreeObjectConversion = () => {
@@ -19,44 +19,50 @@ export const ThreeObjectConversion = () => {
     camera.lookAt(0, 1, 0);
 
     new OrbitControls(camera, renderer.domElement);
-    
-    physics.gravity = [0, -10, 0];    
 
-    physics.create.three({
-      three: (() => {
+    physics.gravity = [0, -10, 0];
+
+    physics.create.three(
+      (() => {
         const geo = new three.BoxGeometry(1, 1, 1);
         const mat = new three.MeshBasicMaterial();
         return new three.Mesh(geo, mat);
       })(),
-      mass: 1,
-      position: [1, 0, 0],
-      velocity: [Math.random() * 1 - 0.5, 5, Math.random() * 1 - 0.5],
-      angularVelocity: [Math.random() * 5 - 2.5, Math.random() * 5 - 2.5, Math.random() * 5 - 2.5],
-    });
+      () => ({
+        mass: 1,
+        position: [1, 0, 0],
+        velocity: [Math.random() * 1 - 0.5, 5, Math.random() * 1 - 0.5],
+        angularVelocity: [Math.random() * 5 - 2.5, Math.random() * 5 - 2.5, Math.random() * 5 - 2.5],
+      }),
+    );
 
-    physics.create.three({
-      three: (() => {
-        const geo = new three.SphereGeometry(.3);
+    physics.create.three(
+      (() => {
+        const geo = new three.SphereGeometry(0.3);
         const mat = new three.MeshBasicMaterial();
         return new three.Mesh(geo, mat);
       })(),
-      mass: 1,
-      position: [0, 0, 0],
-      velocity: [Math.random() * 1 - 0.5, 5, Math.random() * 1 - 0.5],
-      angularVelocity: [Math.random() * 5 - 2.5, Math.random() * 5 - 2.5, Math.random() * 5 - 2.5],
-    });
+      () => ({
+        mass: 1,
+        position: [0, 0, 0],
+        velocity: [Math.random() * 1 - 0.5, 5, Math.random() * 1 - 0.5],
+        angularVelocity: [Math.random() * 5 - 2.5, Math.random() * 5 - 2.5, Math.random() * 5 - 2.5],
+      }),
+    );
 
-    physics.create.three({
-      three: (() => {
-        const geo = new three.CylinderGeometry(.3, .3, 0.5);
+    physics.create.three(
+      (() => {
+        const geo = new three.CylinderGeometry(0.3, 0.3, 0.5);
         const mat = new three.MeshBasicMaterial();
         return new three.Mesh(geo, mat);
       })(),
-      mass: 1,
-      position: [-1, 0, 0],
-      velocity: [Math.random() * 1 - 0.5, 5, Math.random() * 1 - 0.5],
-      angularVelocity: [Math.random() * 5 - 2.5, Math.random() * 5 - 2.5, Math.random() * 5 - 2.5],
-    });
+      () => ({
+        mass: 1,
+        position: [-1, 0, 0],
+        velocity: [Math.random() * 1 - 0.5, 5, Math.random() * 1 - 0.5],
+        angularVelocity: [Math.random() * 5 - 2.5, Math.random() * 5 - 2.5, Math.random() * 5 - 2.5],
+      }),
+    );
 
     physics.create.plane(() => ({
       type: BodyType.STATIC,

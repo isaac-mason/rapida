@@ -30,11 +30,11 @@ class Model extends Component {
     this.scene.add(this.object);
 
     this.physics.create.three(
-      {
-        three: this.object,
+      this.object,
+      () => ({ 
         position: [0, 2, 0],
         mass: 1,
-      },
+      }),
       {
         conversion: {
           type: ThreeToCannonShapeType.HULL,

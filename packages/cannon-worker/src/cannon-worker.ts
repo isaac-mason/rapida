@@ -113,7 +113,8 @@ export type CannonWorldFactories = {
    * @returns the converted cannon shape
    */
   three: (
-    params: BodyProps & { three: Mesh | Object3D },
+    three: Mesh | Object3D,
+    fn: GetPropsByIndex<BodyProps>,
     options?: {
       conversion?: ThreeToCannonShapeOptions;
       ref?: Object3D | undefined;
@@ -391,15 +392,7 @@ export class CannonWorker {
    */
   get create(): CannonWorldFactories {
     return {
-      three: (
-        params: BodyProps & { three: Mesh | Object3D },
-        options?: {
-          conversion?: ThreeToCannonShapeOptions;
-          ref?: Object3D | undefined;
-        },
-      ): { object: Object3D; api: BodyApi } => {
-        const { three, ...bodyParams } = params;
-
+      three: (three, fn, options): { object: Object3D; api: BodyApi } => {
         const ref = options?.ref !== undefined ? options.ref : new Object3D();
 
         const conversionResult = threeToCannon(three, options?.conversion);
@@ -408,17 +401,12 @@ export class CannonWorker {
           throw new Error('Three Mesh or Object3D could not be converted to a cannon body');
         }
 
-        const result = {
+        const resultFn = (index?: number) => ({
           ...conversionResult.params,
-          ...bodyParams,
-        };
+          ...fn(index),
+        });
 
-        return this.createBody(
-          conversionResult.type,
-          () => result,
-          (p) => p,
-          ref,
-        );
+        return this.createBody(conversionResult.type, resultFn, (p) => p, ref);
       },
       box: (fn, object) => {
         const defaultBoxArgs: Triplet = [1, 1, 1];

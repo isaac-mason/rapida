@@ -69,6 +69,7 @@ export class CannonWorkerDebugger {
    */
   constructor(physics: CannonWorker, params?: CannonWorkerDebuggerParams) {
     this.physics = physics;
+    this.physics.debugger = this;
 
     this.scene = params?.scene ? params.scene : new Scene();
     this.color = params?.color ? params.color : 'white';

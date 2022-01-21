@@ -1,6 +1,6 @@
 import CannonWorker, {
   CannonWorkerDebugger,
-  ThreeToCannonShapeType
+  ThreeToCannonShapeType,
 } from '@rapidajs/cannon-worker';
 import { useEffect } from '@storybook/client-api';
 import { AmbientLight, BufferGeometry, Color, Mesh } from 'three';
@@ -52,16 +52,16 @@ class Diamonds extends Component {
 
     // also create a diamond physics object by calculating its convex hull cannon-worker
     this.physics.create.three(
-      {
-        three: this.mesh,
+      this.mesh,
+      () => ({
         position: [6, 0, 0],
         mass: 10,
         angularVelocity: [0, -1, -1],
-      },
+      }),
       {
         conversion: {
           type: ThreeToCannonShapeType.HULL,
-        }
+        },
       }
     );
   };

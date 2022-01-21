@@ -74,7 +74,7 @@
     "jest-mock": "^27.1.1",
     "stats.js": "^0.17.0",
     "three": "^0.133.0",
-    "three-stdlib": "^2.5.4",
+    "three-stdlib": "^2.7.0",
     "ts-jest": "^27.0.5",
     "typedoc": "^0.22.10",
     "typedoc-plugin-markdown": "^3.11.7"
