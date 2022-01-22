@@ -162,13 +162,6 @@ export class World {
        * @returns the new cannon physics instance
        */
       cannon: (params: CannonWorkerProps) => CannonWorker;
-
-      /**
-       * Creates an ammo physics instance in the world
-       * @param params the params for the new physics instance
-       * @returns the new ammo physics instance
-       */
-      ammo: (params: never) => void;
     };
 
     /**
@@ -225,9 +218,6 @@ export class World {
           } as WorldAddPhysicsEvent);
 
           return physics;
-        },
-        ammo: (_params: never) => {
-          throw new Error('not yet implemented');
         },
       },
       renderer: {
