@@ -85,12 +85,12 @@ export class WebGLView extends View {
   id: string;
 
   /**
-   * Whether clearDepth should be called after rendering this view
+   * Whether the depth buffer should be cleared after rendering this view
    */
   clearDepth: boolean;
 
   /**
-   * The clear color the renderer should use for this view. Defaults to black - 0x000000
+   * The clear color the renderer should use for this view. If undefined, the view will be transparent.
    */
   clearColor?: Color;
 

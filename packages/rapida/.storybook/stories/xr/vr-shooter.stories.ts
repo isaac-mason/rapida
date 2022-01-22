@@ -58,7 +58,7 @@ export const VRShooter = () => {
     scene.add(ambientLight);
 
     // create physics instance
-    const physics = world.create.physics({
+    const physics = world.create.physics.cannon({
       gravity: [0, -10, 0],
     });
 

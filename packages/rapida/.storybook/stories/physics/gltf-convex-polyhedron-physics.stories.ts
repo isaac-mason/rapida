@@ -94,7 +94,7 @@ export const GLTFConvexPolyhedronPhysics = () => {
 
       new OrbitControls(camera.three, view.domElement);
 
-      const physics = world.create.physics({
+      const physics = world.create.physics.cannon({
         gravity: [0, -10, 0],
       });
 

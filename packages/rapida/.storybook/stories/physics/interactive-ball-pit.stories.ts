@@ -269,7 +269,7 @@ export const InteractiveBallPit = ({ count }) => {
 
     document.getElementById('renderer-root').appendChild(renderer.domElement);
 
-    const physics = world.create.physics({
+    const physics = world.create.physics.cannon({
       gravity: [0, -10, 0],
       defaultContactMaterial: {
         restitution: 0.5,

@@ -144,10 +144,6 @@ export class Engine {
 
     this.world?._update(timeElapsed);
 
-    if (this.physicsLoopRunning) {
-      this.world?._updatePhysics(timeElapsed);
-    }
-
     this.world?._render(timeElapsed);
 
     this.stats?.update();

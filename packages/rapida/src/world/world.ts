@@ -137,24 +137,40 @@ export class World {
      * @returns the new space
      */
     space: (params?: SpaceParams) => Space;
+
     /**
      * Creates a camera in the world
      * @param params the params for the camera
      * @returns the new camera
      */
     camera: (params?: CameraParams) => Camera;
+
     /**
      * Creates a scene in the world
      * @param params the params for the scene
      * @returns the new scene
      */
     scene: (params?: SceneParams) => Scene;
+
     /**
-     * Creates a physics instance in the world
-     * @param params the params for the new physics instance
-     * @returns the new physics instance
+     * Factories for adding physics to the world
      */
-    physics: (params: CannonWorkerProps) => CannonWorker;
+    physics: {
+      /**
+       * Creates a cannon physics instance in the world
+       * @param params the params for the new physics instance
+       * @returns the new cannon physics instance
+       */
+      cannon: (params: CannonWorkerProps) => CannonWorker;
+
+      /**
+       * Creates an ammo physics instance in the world
+       * @param params the params for the new physics instance
+       * @returns the new ammo physics instance
+       */
+      ammo: (params: never) => void;
+    };
+
     /**
      * Factories for creating a renderer in the world
      */
@@ -165,12 +181,14 @@ export class World {
        * @returns the new webgl renderer
        */
       webgl: (params?: WebGLRendererParams) => WebGLRenderer;
+
       /**
        * Creates a new css renderer
        * @param params the params for the css renderer
        * @returns the new css renderer
        */
       css: () => CSSRenderer;
+
       /**
        * Creates a new xr renderer
        * @param params the params for the xr renderer
@@ -193,19 +211,24 @@ export class World {
         this.scenes.set(scene.id, scene);
         return scene;
       },
-      physics: (params: CannonWorkerProps): CannonWorker => {
-        const physics = new CannonWorker({
-          ...params,
-        });
+      physics: {
+        cannon: (params: CannonWorkerProps): CannonWorker => {
+          const physics = new CannonWorker({
+            ...params,
+          });
 
-        this.physics.set(physics.id, physics);
+          this.physics.set(physics.id, physics);
 
-        this.events.emit({
-          topic: WorldEventName.ADD_PHYSICS,
-          data: physics,
-        } as WorldAddPhysicsEvent);
+          this.events.emit({
+            topic: WorldEventName.ADD_PHYSICS,
+            data: physics,
+          } as WorldAddPhysicsEvent);
 
-        return physics;
+          return physics;
+        },
+        ammo: (_params: never) => {
+          throw new Error('not yet implemented');
+        },
       },
       renderer: {
         webgl: (params?: WebGLRendererParams): WebGLRenderer => {
@@ -326,6 +349,11 @@ export class World {
 
     // update spaces and systems in the ecs
     this.recs.update(timeElapsed);
+
+    // update physics
+    if (this.physics.size !== 0) {
+      this._updatePhysics(timeElapsed);
+    }
   }
 
   /**

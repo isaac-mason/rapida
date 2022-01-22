@@ -6,14 +6,14 @@
 
 **rapida is under active alpha development and is not yet battle-tested and stable. We don't recommend using rapida in production just yet, but watch this space!**
 
-`cannon-worker` makes adding physics to your three.js scenes easy!
+`cannon-worker` makes adding cannon physics to your three.js scenes easy!
 
 - [x] Runs in a web worker
 - [x] Supports instancing
 - [x] Easy integration with three.js 
 
 ```
-> yarn add @rapidajs/rapida-physics
+> yarn add @rapidajs/cannon-worker
 ```
 
 ## How it works

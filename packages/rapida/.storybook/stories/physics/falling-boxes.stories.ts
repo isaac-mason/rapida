@@ -156,7 +156,7 @@ export const FallingBoxes = ({
     
     document.getElementById('renderer-root').appendChild(renderer.domElement);
     
-    const physics = world.create.physics({
+    const physics = world.create.physics.cannon({
       allowSleep: true,
       gravity: [gravity.x, gravity.y, gravity.z],
       size: 10000,
