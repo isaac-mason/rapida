@@ -12,10 +12,10 @@ import {
 } from 'three';
 import { Effects } from '@rapidajs/postprocessing';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
-import rapida, { Component, Entity, Scene, System, World } from '../../../src';
+import rapida, { Component, Entity, Scene, System } from '../../../src';
 
 export default {
-  title: 'ECS / Random Walkers',
+  title: 'RECS / Random Walkers',
 };
 
 const DARK_BLUE = '#003366';
