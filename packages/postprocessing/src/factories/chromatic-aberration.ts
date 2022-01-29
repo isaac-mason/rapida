@@ -1,11 +1,6 @@
 import { ChromaticAberrationEffect as ChromaticAberrationEffectImpl } from 'postprocessing';
+import { wrapBasicEffect } from '../utils';
 
-export type ChromaticAberrationEffectParams = ConstructorParameters<
-  typeof ChromaticAberrationEffectImpl
->[0];
-
-export const ChromaticAberrationEffect = (
-  params: ChromaticAberrationEffectParams
-): ChromaticAberrationEffectImpl => {
-  return new ChromaticAberrationEffectImpl(params);
-};
+export const ChromaticAberrationEffect = wrapBasicEffect(
+  ChromaticAberrationEffectImpl
+);
