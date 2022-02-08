@@ -2701,7 +2701,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@rapidajs/postprocessing@0.0.2, @rapidajs/postprocessing@workspace:packages/postprocessing":
+"@rapidajs/postprocessing@0.0.3, @rapidajs/postprocessing@workspace:packages/postprocessing":
   version: 0.0.0-use.local
   resolution: "@rapidajs/postprocessing@workspace:packages/postprocessing"
   dependencies:
@@ -2773,8 +2773,8 @@ __metadata:
   resolution: "@rapidajs/rapida-website@workspace:website"
   dependencies:
     "@rapidajs/cannon-worker": 0.0.10
-    "@rapidajs/postprocessing": 0.0.2
-    "@rapidajs/rapida": 0.0.10
+    "@rapidajs/postprocessing": 0.0.3
+    "@rapidajs/rapida": 0.0.11
     "@rapidajs/rapida-common": 0.0.9
     "@rapidajs/recs": 0.0.9
     "@styled-icons/material": ^10.34.0
@@ -2798,7 +2798,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@rapidajs/rapida@0.0.10, @rapidajs/rapida@workspace:packages/rapida":
+"@rapidajs/rapida@0.0.11, @rapidajs/rapida@workspace:packages/rapida":
   version: 0.0.0-use.local
   resolution: "@rapidajs/rapida@workspace:packages/rapida"
   dependencies:
@@ -2812,7 +2812,7 @@ __metadata:
     "@babel/preset-typescript": ^7.16.0
     "@jest/globals": ^27.2.0
     "@rapidajs/cannon-worker": 0.0.10
-    "@rapidajs/postprocessing": 0.0.2
+    "@rapidajs/postprocessing": 0.0.3
     "@rapidajs/rapida-common": 0.0.9
     "@rapidajs/recs": 0.0.9
     "@storybook/addon-actions": ^6.4.1
