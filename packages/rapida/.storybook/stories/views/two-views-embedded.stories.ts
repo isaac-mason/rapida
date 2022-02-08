@@ -69,6 +69,7 @@ export const TwoViewsEmbedded = () => {
       camera: cameraTwo,
       scene,
       zIndex: 2,
+      clearDepth: true,
       viewport: {
         right: 0,
         top: 0,

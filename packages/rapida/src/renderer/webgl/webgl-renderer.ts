@@ -17,7 +17,7 @@ export type WebGLRendererParams = {
 /**
  * WebGLRenderer is a wrapper around the three js WebGLRenderer class that also supports view functionality.
  *
- * After construction, the domElement property, which contains a div dom element, should be added to the dom.
+ * After construction the domElement property should be added to the dom.
  */
 export class WebGLRenderer implements Renderer {
   /**
@@ -187,24 +187,20 @@ export class WebGLRenderer implements Renderer {
   _render(timeElapsed: number): void {
     const rect = this.three.domElement.getBoundingClientRect();
 
-    this.views.forEach((view: WebGLView) => {
-      this.three.setScissorTest(true);
-      this.three.setScissor(
-        view._scissorViewRectangle.left * rect.width,
-        view._scissorViewRectangle.bottom * rect.height,
-        view._scissorViewRectangle.width * rect.width,
-        view._scissorViewRectangle.height * rect.height
-      );
+    this.orderedViews.forEach((view: WebGLView) => {
       this.three.setViewport(
         view._viewportViewRetangle.left * rect.width,
         view._viewportViewRetangle.bottom * rect.height,
         view._viewportViewRetangle.width * rect.width,
         view._viewportViewRetangle.height * rect.height
       );
-
-      if (view.clearColor) {
-        this.three.setClearColor(view.clearColor);
-      }
+      this.three.setScissor(
+        view._scissorViewRectangle.left * rect.width,
+        view._scissorViewRectangle.bottom * rect.height,
+        view._scissorViewRectangle.width * rect.width,
+        view._scissorViewRectangle.height * rect.height
+      );
+      this.three.setScissorTest(true);
 
       if (view.clearDepth) {
         this.three.clearDepth();
@@ -225,9 +221,7 @@ export class WebGLRenderer implements Renderer {
       view._init();
     }
 
-    if (this.orderedViews.length === 0) {
-      this.orderedViews.push(view);
-    }
+    this.orderedViews.push(view);
 
     this.sortViews();
   }
@@ -236,6 +230,8 @@ export class WebGLRenderer implements Renderer {
    * Sorts the views in the renderer by their z index
    */
   private sortViews(): void {
-    this.orderedViews.sort((a, b) => a._zIndex - b._zIndex);
+    this.orderedViews.sort((a, b) => {
+      return a._zIndex - b._zIndex;
+    });
   }
 }

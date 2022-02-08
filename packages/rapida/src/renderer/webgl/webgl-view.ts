@@ -1,6 +1,6 @@
 import { EventHandler, EventSystem, uuid } from '@rapidajs/rapida-common';
 import { EffectComposer, EffectComposerParams } from '@rapidajs/postprocessing';
-import { Color, PerspectiveCamera, Vector3 } from 'three';
+import { PerspectiveCamera, Vector3 } from 'three';
 import { Camera } from '../../camera';
 import { Scene } from '../../scene';
 import { View } from '../view';
@@ -60,11 +60,6 @@ export type WebGLViewParams = {
   clearDepth?: boolean;
 
   /**
-   * The clear color for the view
-   */
-  clearColor?: Color | string;
-
-  /**
    * Whether the view should use an effect composer
    */
   useEffectComposer?: boolean;
@@ -88,11 +83,6 @@ export class WebGLView extends View {
    * Whether the depth buffer should be cleared after rendering this view
    */
   clearDepth: boolean;
-
-  /**
-   * The clear color the renderer should use for this view. If undefined, the view will be transparent.
-   */
-  clearColor?: Color;
 
   /**
    * The dom element for the view
@@ -195,7 +185,7 @@ export class WebGLView extends View {
    * @private used internally, do not use or assign
    * @see WebGLViewParams.zIndex
    */
-  _zIndex = 0;
+  _zIndex: number;
 
   /**
    * The current size of the viewport for the view. Sets how to convert from a shader's clip space to some portion of the canvas's pixel space
@@ -267,9 +257,9 @@ export class WebGLView extends View {
       viewport,
       scissor,
       clearDepth,
-      clearColor,
       useEffectComposer,
       effectComposer,
+      zIndex,
     }: WebGLViewParams
   ) {
     super();
@@ -279,11 +269,7 @@ export class WebGLView extends View {
     this.camera = camera;
     this.scene = scene;
     this.clearDepth = clearDepth || false;
-
-    if (clearColor) {
-      this.clearColor =
-        clearColor instanceof Color ? clearColor : new Color(clearColor);
-    }
+    this._zIndex = zIndex !== undefined ? zIndex : 0;
 
     // set effect composer enabled for the view if enableEffectComposer is true
     this.effectComposerEnabled = !!useEffectComposer;
