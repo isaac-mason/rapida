@@ -3,8 +3,8 @@ import { EffectComposer, EffectComposerParams } from '@rapidajs/postprocessing';
 import { Color, PerspectiveCamera, Vector3 } from 'three';
 import { Camera } from '../../camera';
 import { Scene } from '../../scene';
+import { View } from '../view';
 import {
-  View,
   ViewEventByName,
   ViewInteractionEventSubscription,
   ViewMouseEvent,
@@ -15,7 +15,7 @@ import {
   VIEW_ALL_EVENT_NAMES,
   VIEW_MOUSE_EVENTS,
   VIEW_TOUCH_EVENTS,
-} from '../view';
+} from '../view-types';
 import { WebGLRenderer } from './webgl-renderer';
 
 const defaultWorldViewportTarget = new Vector3();

@@ -4,7 +4,7 @@ import {
   ViewRectangleParamInput,
   ViewRectangleParamPlane,
   ViewRectangleParamType,
-} from './view';
+} from './view-types';
 
 /**
  * Converts a view param input to a view param

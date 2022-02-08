@@ -4,7 +4,8 @@ import { Vector3 } from 'three';
 import { Camera } from '../../camera';
 import { Scene } from '../../scene';
 import { CSSRenderer } from './css-renderer';
-import { View, ViewRectangle, ViewRectangleParams, ViewSize } from '../view';
+import { View } from '../view';
+import { ViewRectangle, ViewRectangleParams, ViewSize } from '../view-types';
 
 const defaultWorldViewportTarget = new Vector3();
 

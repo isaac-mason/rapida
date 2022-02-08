@@ -4,7 +4,7 @@ import {
   decimalPercentageFromViewParam,
   viewParamDecimalsToViewRectangle,
 } from './view-utils';
-import { ViewRectangleParamPlane, ViewRectangleParamType } from './view';
+import { ViewRectangleParamPlane, ViewRectangleParamType } from './view-types';
 
 const ctx = {
   rendererWidth: 200,
