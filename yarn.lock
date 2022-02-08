@@ -2774,7 +2774,7 @@ __metadata:
   dependencies:
     "@rapidajs/cannon-worker": 0.0.10
     "@rapidajs/postprocessing": 0.0.3
-    "@rapidajs/rapida": 0.0.11
+    "@rapidajs/rapida": 0.0.12
     "@rapidajs/rapida-common": 0.0.9
     "@rapidajs/recs": 0.0.9
     "@styled-icons/material": ^10.34.0
@@ -2798,7 +2798,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@rapidajs/rapida@0.0.11, @rapidajs/rapida@workspace:packages/rapida":
+"@rapidajs/rapida@0.0.12, @rapidajs/rapida@workspace:packages/rapida":
   version: 0.0.0-use.local
   resolution: "@rapidajs/rapida@workspace:packages/rapida"
   dependencies:

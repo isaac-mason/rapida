@@ -1,6 +1,6 @@
 {
   "name": "@rapidajs/rapida",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "A library that helps you create 3D content for the web",
   "homepage": "https://gitlab.com/rapidajs/rapida/-/tree/main/packages/rapida",
   "bugs": {

@@ -1,5 +1,11 @@
 # @rapidajs/rapida
 
+## 0.0.12
+
+### Patch Changes
+
+- ae12b56: Finish implementation for view zIndex support, remove clearColor for now in favour of using scene.background
+
 ## 0.0.11
 
 ### Patch Changes
