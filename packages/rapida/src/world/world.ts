@@ -14,8 +14,9 @@ import {
   WebGLRenderer,
   WebGLRendererParams,
   CSSRenderer,
+  XRRenderer,
+  XRRendererParams,
 } from '../renderer';
-import { XRRenderer, XRRendererParams } from '../renderer/xr/xr-renderer';
 import { Loaders } from '../loaders';
 
 export enum WorldEventName {
