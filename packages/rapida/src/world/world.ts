@@ -1,11 +1,5 @@
 import { CannonWorker, CannonWorkerProps } from '@rapidajs/cannon-worker';
-import {
-  uuid,
-  Event,
-  EventHandler,
-  EventSystem,
-  EventSubscription,
-} from '@rapidajs/rapida-common';
+import { uuid } from '@rapidajs/rapida-common';
 import recs, { RECS, Space, SpaceParams, System } from '@rapidajs/recs';
 import { Scene, SceneParams } from '../scene';
 import { Camera, CameraParams } from '../camera';
@@ -18,35 +12,6 @@ import {
   XRRendererParams,
 } from '../renderer';
 import { Loaders } from '../loaders';
-
-export enum WorldEventName {
-  ADD_PHYSICS = 'addphysics',
-  REMOVE_PHYSICS = 'removephysics',
-}
-
-export const WORLD_ALL_EVENT_NAMES: string[] = [
-  WorldEventName.ADD_PHYSICS,
-  WorldEventName.REMOVE_PHYSICS,
-];
-
-export interface WorldAddPhysicsEvent {
-  topic: WorldEventName.ADD_PHYSICS;
-  data: CannonWorker;
-}
-
-export interface WorldRemovePhysicsEvent {
-  topic: WorldEventName.REMOVE_PHYSICS;
-  data: CannonWorker;
-}
-
-export interface WorldEventMap {
-  addphysics: WorldAddPhysicsEvent;
-  removephysics: WorldRemovePhysicsEvent;
-}
-
-type WorldEventFromName<T extends string> = T extends keyof WorldEventMap
-  ? WorldEventMap[T]
-  : Event;
 
 /**
  * Params for creating a world
@@ -112,11 +77,6 @@ export class World {
    * Loaders for various asset types
    */
   private loaders = new Loaders();
-
-  /**
-   * Event system for the rapida world
-   */
-  private events = new EventSystem({ queued: false });
 
   /**
    * Constructor for a World
@@ -213,11 +173,6 @@ export class World {
 
           this.physics.set(physics.id, physics);
 
-          this.events.emit({
-            topic: WorldEventName.ADD_PHYSICS,
-            data: physics,
-          } as WorldAddPhysicsEvent);
-
           return physics;
         },
       },
@@ -267,23 +222,6 @@ export class World {
   }
 
   /**
-   * Registers events for world methods
-   * @param eventName the event name
-   * @param eventHandler the handler for the event
-   * @returns the event subscription
-   */
-  on<T extends typeof WORLD_ALL_EVENT_NAMES[number]>(
-    eventName: T,
-    eventHandler: EventHandler<WorldEventFromName<T>>
-  ): EventSubscription {
-    if (!WORLD_ALL_EVENT_NAMES.includes(eventName)) {
-      throw new Error(`${eventName} is not a supported view event`);
-    }
-
-    return this.events.on(eventName, eventHandler);
-  }
-
-  /**
    * Removes from the scene
    * @param value the value to remove
    */
@@ -297,10 +235,6 @@ export class World {
     } else if (value instanceof CannonWorker) {
       this.physics.delete(value.id);
       value.terminate();
-      this.events.emit({
-        topic: WorldEventName.REMOVE_PHYSICS,
-        data: value,
-      } as WorldRemovePhysicsEvent);
     } else if (value instanceof Camera) {
       this.cameras.delete(value.id);
     }
@@ -343,19 +277,8 @@ export class World {
 
     // update physics
     if (this.physics.size !== 0) {
-      this._updatePhysics(timeElapsed);
+      this.updatePhysics(timeElapsed);
     }
-  }
-
-  /**
-   * Steps the physics world
-   * @param timeElapsed the time elapsed in seconds
-   * @private called internally, do not call directly
-   */
-  _updatePhysics(timeElapsed: number): void {
-    this.physics.forEach((p) => {
-      p.step(timeElapsed);
-    });
   }
 
   /**
@@ -366,5 +289,15 @@ export class World {
     this.rendererManager.destroy();
     this.recs.destroy();
     this.physics.forEach((p) => p.terminate());
+  }
+
+  /**
+   * Steps the physics world
+   * @param timeElapsed the time elapsed in seconds
+   */
+  private updatePhysics(timeElapsed: number): void {
+    this.physics.forEach((p) => {
+      p.step(timeElapsed);
+    });
   }
 }

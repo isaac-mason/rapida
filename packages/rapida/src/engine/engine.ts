@@ -34,11 +34,6 @@ export class Engine {
   private previousFrame: number | undefined;
 
   /**
-   * Whether there is a physics loop running
-   */
-  private physicsLoopRunning = false;
-
-  /**
    * Stats instance for the render loop
    */
   private stats?: Stats;
@@ -102,19 +97,6 @@ export class Engine {
     // start the loop
     this.previousFrame = 0;
     requestAnimationFrame(this.loop);
-
-    if (this.world.physics.size > 0) {
-      this.physicsLoopRunning = true;
-    }
-
-    this.world.on('addphysics', () => {
-      this.physicsLoopRunning = true;
-    });
-
-    this.world.on('removephysics', () => {
-      // kills physics loop on the next iteration
-      this.physicsLoopRunning = false;
-    });
 
     return this;
   }
