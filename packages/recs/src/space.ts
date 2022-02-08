@@ -153,12 +153,9 @@ export class Space {
    */
   _updateEntities(): void {
     const dead: Entity[] = [];
-    const alive: Entity[] = [];
 
     this.entities.forEach((e) => {
-      if (e.alive) {
-        alive.push(e);
-      } else {
+      if (!e.alive) {
         dead.push(e);
       }
     });
