@@ -9,8 +9,8 @@ import {
   ViewSize,
 } from './view-types';
 import {
-  decimalPercentageFromViewParam,
   convertViewParamInputToViewParam,
+  decimalPercentageFromViewParam,
   viewParamDecimalsToViewRectangle,
 } from './view-utils';
 

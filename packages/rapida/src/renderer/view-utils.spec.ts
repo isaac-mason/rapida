@@ -1,10 +1,10 @@
-import { describe, it, expect } from '@jest/globals';
+import { describe, expect, it } from '@jest/globals';
+import { ViewRectangleParamPlane, ViewRectangleParamType } from './view-types';
 import {
   convertViewParamInputToViewParam,
   decimalPercentageFromViewParam,
   viewParamDecimalsToViewRectangle,
 } from './view-utils';
-import { ViewRectangleParamPlane, ViewRectangleParamType } from './view-types';
 
 const ctx = {
   rendererWidth: 200,

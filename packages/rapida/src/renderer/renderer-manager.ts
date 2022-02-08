@@ -1,5 +1,5 @@
-import { WebGLRenderer } from './webgl/webgl-renderer';
 import { Renderer } from './renderer';
+import { WebGLRenderer } from './webgl/webgl-renderer';
 
 /**
  * RendererManager managers the render and update loop for renderers

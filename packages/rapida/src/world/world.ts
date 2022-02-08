@@ -1,17 +1,17 @@
 import { CannonWorker, CannonWorkerProps } from '@rapidajs/cannon-worker';
 import { uuid } from '@rapidajs/rapida-common';
 import recs, { RECS, Space, SpaceParams, System } from '@rapidajs/recs';
-import { Scene, SceneParams } from '../scene';
 import { Camera, CameraParams } from '../camera';
+import { Loaders } from '../loaders';
 import {
+  CSSRenderer,
   RendererManager,
   WebGLRenderer,
   WebGLRendererParams,
-  CSSRenderer,
   XRRenderer,
   XRRendererParams,
 } from '../renderer';
-import { Loaders } from '../loaders';
+import { Scene, SceneParams } from '../scene';
 
 /**
  * Params for creating a world

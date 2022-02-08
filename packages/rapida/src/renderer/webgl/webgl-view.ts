@@ -1,5 +1,5 @@
-import { EventHandler, EventSystem, uuid } from '@rapidajs/rapida-common';
 import { EffectComposer, EffectComposerParams } from '@rapidajs/postprocessing';
+import { EventHandler, EventSystem, uuid } from '@rapidajs/rapida-common';
 import { PerspectiveCamera, Vector3 } from 'three';
 import { Camera } from '../../camera';
 import { Scene } from '../../scene';
