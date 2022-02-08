@@ -91,7 +91,7 @@ export class World {
   /**
    * Retrieves world factories
    */
-  public get create(): {
+  get create(): {
     /**
      * Creates a space in the world
      * @param params the params for the space
@@ -199,7 +199,7 @@ export class World {
   /**
    * Retrieves methods for adding to the world
    */
-  public get add(): {
+  get add(): {
     /**
      * Adds a system to the World
      * @param system the system to add to the world
@@ -217,7 +217,7 @@ export class World {
   /**
    * Retrieves methods for loading assets into the world
    */
-  public get load(): Loaders {
+  get load(): Loaders {
     return this.loaders;
   }
 

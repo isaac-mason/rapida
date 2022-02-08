@@ -61,7 +61,7 @@ export class Space {
   /**
    * Retrieves space factories
    */
-  public get create(): {
+  get create(): {
     /**
      * Creates a new entity in the space
      * @returns a new entity

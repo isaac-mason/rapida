@@ -56,7 +56,7 @@ export class RECS {
   /**
    * Retrieves RECS factories
    */
-  public get create(): {
+  get create(): {
     /**
      * Creates a space in the RECS
      * @param params the params for the space
@@ -81,7 +81,7 @@ export class RECS {
   /**
    * Retrieves RECS add methods
    */
-  public get add(): {
+  get add(): {
     /**
      * Adds a system to the RECS
      * @param system the system to add to the RECS

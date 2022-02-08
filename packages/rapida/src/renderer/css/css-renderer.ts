@@ -52,7 +52,7 @@ export class CSSRenderer implements Renderer {
   /**
    * Retrieves renderer factories
    */
-  public get create(): {
+  get create(): {
     /**
      * Creates a new css view
      * @param params the params for the css view
