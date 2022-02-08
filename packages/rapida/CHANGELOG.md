@@ -1,5 +1,14 @@
 # @rapidajs/rapida
 
+## 0.0.11
+
+### Patch Changes
+
+- 9581402: Change api in rapida for creating a new cannon physics instance to allow for other physics engines
+- fb55b36: Move view types into a separate file
+- Updated dependencies [dbd4454]
+  - @rapidajs/postprocessing@0.0.3
+
 ## 0.0.10
 
 ### Patch Changes

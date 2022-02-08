@@ -1,6 +1,6 @@
 {
   "name": "@rapidajs/postprocessing",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "simple postprocessing effects for three js - powered by vanruesc/postprocessing",
   "homepage": "https://gitlab.com/rapidajs/rapida/-/tree/main/packages/postprocessing",
   "bugs": {
