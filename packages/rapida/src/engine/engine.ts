@@ -123,14 +123,13 @@ export class Engine {
     const now = time / 1000;
 
     const timeElapsed = now - (this.previousFrame as number);
+    this.previousFrame = now;
 
-    this.world?._update(timeElapsed);
+    this.world?._update(timeElapsed, now);
 
     this.world?._render(timeElapsed);
 
     this.stats?.update();
-
-    this.previousFrame = now;
 
     requestAnimationFrame(this.loop);
   };

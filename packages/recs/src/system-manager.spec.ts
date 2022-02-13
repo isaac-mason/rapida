@@ -67,13 +67,13 @@ describe('SystemManager', () => {
 
       basicSystem.enabled = false;
 
-      manager.update(0);
+      manager.update(1, 1);
 
       expect(basicSystemOnUpdate).toBeCalledTimes(0);
 
       basicSystem.enabled = true;
 
-      manager.update(0);
+      manager.update(1, 2);
 
       expect(basicSystemOnUpdate).toBeCalledTimes(1);
     });

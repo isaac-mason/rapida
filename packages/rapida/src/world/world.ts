@@ -266,14 +266,15 @@ export class World {
   /**
    * Updates the world
    * @param timeElapsed the time elapsed in seconds
+   * @param time the current time in seconds
    * @private called internally, do not call directly
    */
-  _update(timeElapsed: number): void {
+  _update(timeElapsed: number, time: number): void {
     // update the renderer manager
     this.rendererManager.update();
 
     // update spaces and systems in the ecs
-    this.recs.update(timeElapsed);
+    this.recs.update(timeElapsed, time);
 
     // update physics
     if (this.physics.size !== 0) {

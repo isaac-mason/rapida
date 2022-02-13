@@ -42,7 +42,8 @@ export class RECS {
   /**
    * A map of ids to update functions for all systems in the RECS instance
    */
-  _systemsUpdatePool: Map<string, (timeElapsed: number) => void> = new Map();
+  _systemsUpdatePool: Map<string, (timeElapsed: number, time: number) => void> =
+    new Map();
 
   /**
    * Constructor for a RECS instance
@@ -128,10 +129,11 @@ export class RECS {
   /**
    * Updates the RECS instance
    * @param timeElapsed the time elapsed in seconds
+   * @param time the current time in seconds
    */
-  update(timeElapsed: number): void {
+  update(timeElapsed: number, time: number): void {
     // update components - runs update methods for all components that have them
-    this.entityManager.updateComponents(timeElapsed);
+    this.entityManager.updateComponents(timeElapsed, time);
 
     // update entities - steps entity event system
     this.entityManager.updateEntities();
@@ -149,7 +151,7 @@ export class RECS {
     this.spaces.forEach((s) => s._updateEntities());
 
     // update systems
-    this.systemManager.update(timeElapsed);
+    this.systemManager.update(timeElapsed, time);
   }
 
   /**

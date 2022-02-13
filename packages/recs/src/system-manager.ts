@@ -101,11 +101,12 @@ export class SystemManager {
   /**
    * Updates systems in the system manager
    * @param timeElapsed the time elapsed in seconds
+   * @param time the current time in seconds
    */
-  update(timeElapsed: number): void {
+  update(timeElapsed: number, time: number): void {
     this.updatePool.forEach((system) => {
       if (system.enabled) {
-        system._update(timeElapsed);
+        system._update(timeElapsed, time);
       }
     });
   }

@@ -36,7 +36,7 @@ describe('Systems and Queries Integration Tests', () => {
     expect(system.results.testQueryName.added.size).toBe(0);
     expect(system.results.testQueryName.removed.size).toBe(0);
 
-    R.update(1);
+    R.update(1, 1);
 
     expect(system.results.testQueryName.added.size).toBe(1);
     expect(system.results.testQueryName.removed.size).toBe(0);
@@ -48,7 +48,7 @@ describe('Systems and Queries Integration Tests', () => {
     expect(system.results.testQueryName.removed.size).toBe(0);
     expect(system.results.testQueryName.all.size).toBe(1);
 
-    R.update(1);
+    R.update(1, 2);
 
     expect(system.results.testQueryName.all.size).toBe(0);
     expect(system.results.testQueryName.removed.size).toBe(1);
@@ -74,7 +74,7 @@ describe('Systems and Queries Integration Tests', () => {
     expect(systemInitJestFn).toHaveBeenCalledTimes(1);
 
     const timeElapsed = 1001;
-    R.update(timeElapsed);
+    R.update(timeElapsed, timeElapsed);
 
     expect(systemUpdateJestFn).toHaveBeenCalledTimes(1);
 
@@ -213,7 +213,7 @@ describe('Systems and Queries Integration Tests', () => {
 
       query = R.queryManager.getQuery(description);
 
-      R.update(0.1);
+      R.update(1, 1);
 
       expect(query.all.size).toBe(1);
       expect(query.all).toContain(entityOne);
@@ -248,7 +248,7 @@ describe('Systems and Queries Integration Tests', () => {
       entityTwo.addComponent(TestComponentOne);
       entityTwo.addComponent(TestComponentTwo);
 
-      R.update(0.1);
+      R.update(1, 1);
 
       expect(query.all.size).toBe(2);
       expect(query.all).toContain(entityOne);
@@ -260,7 +260,7 @@ describe('Systems and Queries Integration Tests', () => {
       const entityTwoComponentTwo = entityTwo.get(TestComponentTwo);
       entityTwo.removeComponent(entityTwoComponentTwo);
 
-      R.update(0.1);
+      R.update(1, 2);
 
       query = R.queryManager.getQuery(description);
 
@@ -299,7 +299,7 @@ describe('Systems and Queries Integration Tests', () => {
       entityTwo.addComponent(TestComponentOne);
       entityTwo.addComponent(TestComponentTwo);
 
-      R.update(0.1);
+      R.update(1, 1);
 
       expect(query.all.size).toBe(2);
       expect(query.all).toContain(entityOne);
@@ -307,7 +307,7 @@ describe('Systems and Queries Integration Tests', () => {
 
       entityOne.destroy();
 
-      R.update(0.1);
+      R.update(1, 2);
 
       query = R.queryManager.getQuery(description);
 

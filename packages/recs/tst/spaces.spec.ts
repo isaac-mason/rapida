@@ -24,7 +24,7 @@ describe('Spaces', () => {
       topic: 'event-name',
     });
 
-    R.update(1);
+    R.update(1, 1);
 
     expect(mockFn).toBeCalledTimes(1);
 
@@ -34,7 +34,7 @@ describe('Spaces', () => {
       topic: 'event-name',
     });
 
-    R.update(1);
+    R.update(1, 2);
 
     expect(mockFn).toBeCalledTimes(1);
   });
@@ -46,13 +46,13 @@ describe('Spaces', () => {
 
     R.init();
 
-    R.update(1);
+    R.update(1, 1);
 
     expect(space.entities.size).toBe(1);
 
     entity.alive = false;
 
-    R.update(1);
+    R.update(1, 2);
 
     expect(space.entities.size).toBe(0);
   });

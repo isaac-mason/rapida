@@ -114,8 +114,9 @@ export abstract class System {
   /**
    * Logic for a systems update loop
    * @param timeElapsed the time since the last update in seconds
+   * @param time the current time in seconds
    */
-  onUpdate?: (timeElapsed: number) => void = undefined;
+  onUpdate?: (timeElapsed: number, time: number) => void = undefined;
 
   /**
    * Initialises the system
@@ -130,11 +131,12 @@ export abstract class System {
   /**
    * Updates the system
    * @param timeElapsed the time elapsed in seconds
+   * @param time the current time in seconds
    * @private called internally, do not call directly
    */
-  _update(timeElapsed: number): void {
+  _update(timeElapsed: number, time: number): void {
     if (this.onUpdate) {
-      this.onUpdate(timeElapsed);
+      this.onUpdate(timeElapsed, time);
     }
   }
 

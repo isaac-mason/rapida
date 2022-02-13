@@ -24,7 +24,7 @@ describe('Entities And Components Integration Tests', () => {
       topic: 'event-name',
     });
 
-    R.update(1);
+    R.update(1, 1);
 
     expect(mockFn).toBeCalledTimes(1);
 
@@ -34,7 +34,7 @@ describe('Entities And Components Integration Tests', () => {
       topic: 'event-name',
     });
 
-    R.update(1);
+    R.update(1, 2);
 
     expect(mockFn).toBeCalledTimes(1);
   });
@@ -135,7 +135,7 @@ describe('Entities And Components Integration Tests', () => {
     expect(componentInitJestFn).toHaveBeenCalledTimes(1);
 
     const timeElapsed = 1001;
-    R.update(timeElapsed);
+    R.update(timeElapsed, timeElapsed);
 
     expect(componentUpdateJestFn).toHaveBeenCalledTimes(1);
 
@@ -143,7 +143,7 @@ describe('Entities And Components Integration Tests', () => {
 
     entity.destroy();
 
-    R.update(timeElapsed);
+    R.update(timeElapsed, timeElapsed * 2);
 
     expect(componentUpdateJestFn).toHaveBeenCalledTimes(1);
 

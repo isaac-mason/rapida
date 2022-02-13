@@ -129,10 +129,10 @@ export const RandomWalkers = () => {
     recs.init();
 
     let lastCall = 0;
-    const loop = (timeElapsed: number) => {
-      const elapsed = timeElapsed - lastCall;
-      recs.update(elapsed);
-      lastCall = timeElapsed;
+    const loop = (now: number) => {
+      const elapsed = now - lastCall;
+      recs.update(elapsed, now);
+      lastCall = now;
 
       requestAnimationFrame((elapsedMs) => loop(elapsedMs / 1000));
     };

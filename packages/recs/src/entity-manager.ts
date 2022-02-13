@@ -68,10 +68,11 @@ export class EntityManager {
    * Run update `onUpdate` methods for all components that have them defined
    *
    * @param timeElapsed the time elapsed in seconds
+   * @param time the current time in seconds
    */
-  updateComponents(timeElapsed: number): void {
+  updateComponents(timeElapsed: number, time: number): void {
     this.componentsToUpdate.forEach(
-      (c) => c.onUpdate && c.onUpdate(timeElapsed)
+      (c) => c.onUpdate && c.onUpdate(timeElapsed, time)
     );
   }
 
