@@ -3,6 +3,7 @@ import { uuid } from '@rapidajs/rapida-common';
 import recs, { RECS, Space, SpaceParams, System } from '@rapidajs/recs';
 import { Camera, CameraParams } from '../camera';
 import { Loaders } from '../loaders';
+import { CannonSystem } from '../physics';
 import {
   CSSRenderer,
   RendererManager,
@@ -51,7 +52,8 @@ export class World {
   /**
    * Physics worlds within the world
    */
-  physics: Map<string, CannonWorker> = new Map();
+  physics: Map<string, { cannon: CannonWorker; system: CannonSystem }> =
+    new Map();
 
   /**
    * Cameras for the world
@@ -167,13 +169,15 @@ export class World {
       },
       physics: {
         cannon: (params: CannonWorkerProps): CannonWorker => {
-          const physics = new CannonWorker({
+          const cannon = new CannonWorker({
             ...params,
           });
+          const system = new CannonSystem(cannon);
 
-          this.physics.set(physics.id, physics);
+          this.physics.set(cannon.id, { cannon, system });
+          this.add.system(system);
 
-          return physics;
+          return cannon;
         },
       },
       renderer: {
@@ -233,8 +237,11 @@ export class World {
     } else if (value instanceof Scene) {
       this.scenes.delete(value.id);
     } else if (value instanceof CannonWorker) {
-      this.physics.delete(value.id);
-      value.terminate();
+      const cannon = this.physics.get(value.id);
+      if (cannon !== undefined) {
+        this.physics.delete(value.id);
+        this.remove(cannon.system);
+      }
     } else if (value instanceof Camera) {
       this.cameras.delete(value.id);
     }
@@ -275,11 +282,6 @@ export class World {
 
     // update spaces and systems in the ecs
     this.recs.update(timeElapsed, time);
-
-    // update physics
-    if (this.physics.size !== 0) {
-      this.updatePhysics(timeElapsed);
-    }
   }
 
   /**
@@ -289,16 +291,5 @@ export class World {
   _destroy(): void {
     this.rendererManager.destroy();
     this.recs.destroy();
-    this.physics.forEach((p) => p.terminate());
-  }
-
-  /**
-   * Steps the physics world
-   * @param timeElapsed the time elapsed in seconds
-   */
-  private updatePhysics(timeElapsed: number): void {
-    this.physics.forEach((p) => {
-      p.step(timeElapsed);
-    });
   }
 }
