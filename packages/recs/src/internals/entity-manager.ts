@@ -1,9 +1,9 @@
-import { Component } from './component';
+import { Component } from '../component';
 import { ComponentPool } from './component-pool';
-import { Entity } from './entity';
+import { Entity } from '../entity';
 import { EntityPool } from './entity-pool';
-import { RECS } from './recs';
-import { Space } from './space';
+import { RECS } from '../recs';
+import { Space } from '../space';
 
 /**
  * EntityManager that manages Spaces that contain Entities, Entities themselves, and Components

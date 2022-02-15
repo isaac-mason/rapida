@@ -1,5 +1,5 @@
 import { describe, it, expect } from '@jest/globals';
-import { Entity } from './entity';
+import { Entity } from '../entity';
 import { EntityPool } from './entity-pool';
 
 describe('EntityPool', () => {

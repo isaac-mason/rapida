@@ -1,5 +1,4 @@
-import { ComponentClass } from '.';
-import { Component } from './component';
+import { Component, ComponentClass } from '../component';
 import { ObjectPool } from './object-pool';
 
 /**

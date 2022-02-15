@@ -1,6 +1,6 @@
-import { Query, QueryDescription } from './query';
-import { RECS } from './recs';
-import { System } from './system';
+import { Query, QueryDescription } from '../query';
+import { RECS } from '../recs';
+import { System } from '../system';
 
 /**
  * SystemManager is an internal class that manages systems in a RECS and calls their lifecycle hooks.

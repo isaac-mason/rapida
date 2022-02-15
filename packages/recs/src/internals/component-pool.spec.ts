@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { describe, it, expect } from '@jest/globals';
-import { Component } from './component';
+import { Component } from '../component';
 import { ComponentPool } from './component-pool';
 
 describe('ComponentPool', () => {

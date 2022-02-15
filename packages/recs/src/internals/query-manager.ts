@@ -1,7 +1,7 @@
-import { Component } from './component';
-import { Entity } from './entity';
-import { Query, QueryDescription } from './query';
-import { RECS } from './recs';
+import { Component } from '../component';
+import { Entity } from '../entity';
+import { Query, QueryDescription } from '../query';
+import { RECS } from '../recs';
 
 enum QueryManagerEventType {
   ENTITY_COMPONENT_ADDED_EVENT = 'ENTITY_COMPONENT_ADDED_EVENT',

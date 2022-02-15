@@ -10,7 +10,17 @@ import { Component } from './component';
 import { Space } from './space';
 
 /**
- * Entity with a unique id that contains Components, which contain data and behavior
+ * Entity is a class that has an id and contains Components.
+ *
+ * Entities can be created inside a Space.
+ *
+ * ```ts
+ * import recs from '@rapidajs/recs';
+ *
+ * const world = recs();
+ * const space = world.create.space();
+ * const entity = world.create.entity();
+ * ```
  */
 export class Entity {
   /**

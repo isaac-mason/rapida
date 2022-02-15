@@ -1,9 +1,9 @@
 import { uuid } from '@rapidajs/rapida-common';
 import { System } from './system';
 import { Space, SpaceParams } from './space';
-import { SystemManager } from './system-manager';
-import { QueryManager } from './query-manager';
-import { EntityManager } from './entity-manager';
+import { SystemManager } from './internals/system-manager';
+import { QueryManager } from './internals/query-manager';
+import { EntityManager } from './internals/entity-manager';
 
 /**
  * RECS Entity Component System that contains systems and spaces
