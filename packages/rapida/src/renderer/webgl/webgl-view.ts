@@ -1,10 +1,10 @@
 import { EffectComposer, EffectComposerParams } from '@rapidajs/postprocessing';
 import { EventHandler, EventSystem, uuid } from '@rapidajs/rapida-common';
 import { PerspectiveCamera, Vector3 } from 'three';
-import { Camera } from '../../camera';
-import { Scene } from '../../scene';
+import type { Camera } from '../../camera';
+import type { Scene } from '../../scene';
 import { View } from '../view';
-import {
+import type {
   ViewEventByName,
   ViewInteractionEventSubscription,
   ViewMouseEvent,
@@ -12,11 +12,13 @@ import {
   ViewRectangleParams,
   ViewTouch,
   ViewTouchEvent,
+} from '../view-types';
+import {
   VIEW_ALL_EVENT_NAMES,
   VIEW_MOUSE_EVENTS,
   VIEW_TOUCH_EVENTS,
 } from '../view-types';
-import { WebGLRenderer } from './webgl-renderer';
+import type { WebGLRenderer } from './webgl-renderer';
 
 const defaultWorldViewportTarget = new Vector3();
 

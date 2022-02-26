@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { ViewRectangleParamPlane, ViewRectangleParamType } from './view-types';
+import type { ViewRectangleParamType } from './view-types';
 import {
   convertViewParamInputToViewParam,
   decimalPercentageFromViewParam,
@@ -19,46 +19,46 @@ describe('View Utils', () => {
       expect(
         convertViewParamInputToViewParam({
           value: 1,
-          type: ViewRectangleParamType.PIXELS,
+          type: 'PIXELS',
         })
       ).toEqual({
         value: 1,
-        type: ViewRectangleParamType.PIXELS,
+        type: 'PIXELS',
       });
     });
 
     it('should convert a decimal percentage', () => {
       expect(convertViewParamInputToViewParam(0.5)).toEqual({
         value: 0.5,
-        type: ViewRectangleParamType.DECIMAL_PERCENTAGE,
+        type: 'DECIMAL_PERCENTAGE',
       });
     });
 
     it('should convert pixels', () => {
       expect(convertViewParamInputToViewParam('20px')).toEqual({
         value: 20,
-        type: ViewRectangleParamType.PIXELS,
+        type: 'PIXELS',
       });
     });
 
     it('should convert percentages', () => {
       expect(convertViewParamInputToViewParam('20%')).toEqual({
         value: 20,
-        type: ViewRectangleParamType.PERCENTAGE,
+        type: 'PERCENTAGE',
       });
     });
 
     it('should convert viewport width', () => {
       expect(convertViewParamInputToViewParam('20vw')).toEqual({
         value: 20,
-        type: ViewRectangleParamType.VIEWPORT_WIDTH,
+        type: 'VIEWPORT_WIDTH',
       });
     });
 
     it('should convert viewport height', () => {
       expect(convertViewParamInputToViewParam('20vh')).toEqual({
         value: 20,
-        type: ViewRectangleParamType.VIEWPORT_HEIGHT,
+        type: 'VIEWPORT_HEIGHT',
       });
     });
 
@@ -75,9 +75,9 @@ describe('View Utils', () => {
         decimalPercentageFromViewParam(
           {
             value: 0.5,
-            type: ViewRectangleParamType.DECIMAL_PERCENTAGE,
+            type: 'DECIMAL_PERCENTAGE',
           },
-          ViewRectangleParamPlane.HORIZONTAL,
+          'HORIZONTAL',
           ctx
         )
       ).toEqual(0.5);
@@ -88,9 +88,9 @@ describe('View Utils', () => {
         decimalPercentageFromViewParam(
           {
             value: 50,
-            type: ViewRectangleParamType.PIXELS,
+            type: 'PIXELS',
           },
-          ViewRectangleParamPlane.HORIZONTAL,
+          'HORIZONTAL',
           ctx
         )
       ).toEqual(0.25);
@@ -101,9 +101,9 @@ describe('View Utils', () => {
         decimalPercentageFromViewParam(
           {
             value: 50,
-            type: ViewRectangleParamType.PERCENTAGE,
+            type: 'PERCENTAGE',
           },
-          ViewRectangleParamPlane.HORIZONTAL,
+          'HORIZONTAL',
           ctx
         )
       ).toEqual(0.5);
@@ -114,9 +114,9 @@ describe('View Utils', () => {
         decimalPercentageFromViewParam(
           {
             value: 25,
-            type: ViewRectangleParamType.VIEWPORT_WIDTH,
+            type: 'VIEWPORT_WIDTH',
           },
-          ViewRectangleParamPlane.HORIZONTAL,
+          'HORIZONTAL',
           ctx
         )
       ).toEqual(0.5);
@@ -125,9 +125,9 @@ describe('View Utils', () => {
         decimalPercentageFromViewParam(
           {
             value: 25,
-            type: ViewRectangleParamType.VIEWPORT_WIDTH,
+            type: 'VIEWPORT_WIDTH',
           },
-          ViewRectangleParamPlane.HORIZONTAL,
+          'HORIZONTAL',
           ctx
         )
       ).toEqual(0.5);
@@ -138,9 +138,9 @@ describe('View Utils', () => {
         decimalPercentageFromViewParam(
           {
             value: 25,
-            type: ViewRectangleParamType.VIEWPORT_HEIGHT,
+            type: 'VIEWPORT_HEIGHT',
           },
-          ViewRectangleParamPlane.VERTICAL,
+          'VERTICAL',
           ctx
         )
       ).toEqual(0.5);
@@ -153,7 +153,7 @@ describe('View Utils', () => {
             value: 25,
             type: 'malformed' as ViewRectangleParamType,
           },
-          ViewRectangleParamPlane.VERTICAL,
+          'VERTICAL',
           ctx
         )
       ).toThrowError();

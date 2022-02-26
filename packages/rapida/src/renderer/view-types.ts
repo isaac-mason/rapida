@@ -1,54 +1,53 @@
 import { Event } from '@rapidajs/rapida-common';
 
 /**
- * Enum for all supported view interaction events
+ * All supported view interaction events
  */
-export enum ViewInteractionEventName {
-  CLICK = 'click',
-  MOUSE_MOVE = 'mousemove',
-  MOUSE_DOWN = 'mousedown',
-  MOUSE_UP = 'mouseup',
-  MOUSE_ENTER = 'mouseenter',
-  MOUSE_LEAVE = 'mouseleave',
-  MOUSE_OUT = 'mouseout',
-  MOUSE_OVER = 'mouseover',
-  TOUCH_START = 'touchstart',
-  TOUCH_END = 'touchend',
-  TOUCH_MOVE = 'touchmove',
-  TOUCH_CANCEL = 'touchcancel',
-}
+export type ViewInteractionEventName =
+  | 'click'
+  | 'mousemove'
+  | 'mousedown'
+  | 'mouseup'
+  | 'mouseenter'
+  | 'mouseleave'
+  | 'mouseout'
+  | 'mouseover'
+  | 'touchstart'
+  | 'touchend'
+  | 'touchmove'
+  | 'touchcancel';
 
-export const VIEW_ALL_EVENT_NAMES: string[] = [
-  ViewInteractionEventName.CLICK,
-  ViewInteractionEventName.MOUSE_MOVE,
-  ViewInteractionEventName.MOUSE_DOWN,
-  ViewInteractionEventName.MOUSE_UP,
-  ViewInteractionEventName.MOUSE_ENTER,
-  ViewInteractionEventName.MOUSE_LEAVE,
-  ViewInteractionEventName.MOUSE_OUT,
-  ViewInteractionEventName.MOUSE_OVER,
-  ViewInteractionEventName.TOUCH_START,
-  ViewInteractionEventName.TOUCH_END,
-  ViewInteractionEventName.TOUCH_MOVE,
-  ViewInteractionEventName.TOUCH_CANCEL,
+export const VIEW_ALL_EVENT_NAMES: ViewInteractionEventName[] = [
+  'click',
+  'mousemove',
+  'mousedown',
+  'mouseup',
+  'mouseenter',
+  'mouseleave',
+  'mouseout',
+  'mouseover',
+  'touchstart',
+  'touchend',
+  'touchmove',
+  'touchcancel',
 ];
 
 export const VIEW_MOUSE_EVENTS: string[] = [
-  ViewInteractionEventName.CLICK,
-  ViewInteractionEventName.MOUSE_DOWN,
-  ViewInteractionEventName.MOUSE_UP,
-  ViewInteractionEventName.MOUSE_MOVE,
-  ViewInteractionEventName.MOUSE_OVER,
-  ViewInteractionEventName.MOUSE_OUT,
-  ViewInteractionEventName.MOUSE_ENTER,
-  ViewInteractionEventName.MOUSE_LEAVE,
+  'click',
+  'mousemove',
+  'mousedown',
+  'mouseup',
+  'mouseenter',
+  'mouseleave',
+  'mouseout',
+  'mouseover',
 ];
 
 export const VIEW_TOUCH_EVENTS: string[] = [
-  ViewInteractionEventName.TOUCH_START,
-  ViewInteractionEventName.TOUCH_END,
-  ViewInteractionEventName.TOUCH_MOVE,
-  ViewInteractionEventName.TOUCH_CANCEL,
+  'touchstart',
+  'touchend',
+  'touchmove',
+  'touchcancel',
 ];
 
 /**
@@ -158,15 +157,14 @@ export type ViewEventByName<T extends string> =
   T extends keyof ViewInteractionEventMap ? ViewInteractionEventMap[T] : Event;
 
 /**
- * Enum of supported types for a view rectangle param
+ * Supported types for a view rectangle param
  */
-export enum ViewRectangleParamType {
-  DECIMAL_PERCENTAGE = 'DECIMAL_PERCENTAGE',
-  PIXELS = 'PIXELS',
-  PERCENTAGE = 'PERCENTAGE',
-  VIEWPORT_WIDTH = 'VIEWPORT_WIDTH',
-  VIEWPORT_HEIGHT = 'VIEWPORT_HEIGHT',
-}
+export type ViewRectangleParamType =
+  | 'DECIMAL_PERCENTAGE'
+  | 'PIXELS'
+  | 'PERCENTAGE'
+  | 'VIEWPORT_WIDTH'
+  | 'VIEWPORT_HEIGHT';
 
 /**
  * A view rectangle parameter with a type and value
@@ -188,10 +186,7 @@ export type ViewRectangleParamInput = (string | number) | ViewRectangleParam;
 /**
  * Planes that a view rectangle param can be on
  */
-export enum ViewRectangleParamPlane {
-  HORIZONTAL = 'HORIZONTAL',
-  VERTICAL = 'VERTICAL',
-}
+export type ViewRectangleParamPlane = 'HORIZONTAL' | 'VERTICAL';
 
 /**
  * ViewRectangleParams provides parameters for a view rectangle

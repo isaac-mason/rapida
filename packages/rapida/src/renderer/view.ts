@@ -125,27 +125,12 @@ export abstract class View {
     };
 
     const decimalViewParams = {
-      top: getDecimalPercentage(params.top, ViewRectangleParamPlane.VERTICAL),
-      bottom: getDecimalPercentage(
-        params.bottom,
-        ViewRectangleParamPlane.VERTICAL
-      ),
-      height: getDecimalPercentage(
-        params.height,
-        ViewRectangleParamPlane.VERTICAL
-      ),
-      left: getDecimalPercentage(
-        params.left,
-        ViewRectangleParamPlane.HORIZONTAL
-      ),
-      right: getDecimalPercentage(
-        params.right,
-        ViewRectangleParamPlane.HORIZONTAL
-      ),
-      width: getDecimalPercentage(
-        params.width,
-        ViewRectangleParamPlane.HORIZONTAL
-      ),
+      top: getDecimalPercentage(params.top, 'VERTICAL'),
+      bottom: getDecimalPercentage(params.bottom, 'VERTICAL'),
+      height: getDecimalPercentage(params.height, 'VERTICAL'),
+      left: getDecimalPercentage(params.left, 'HORIZONTAL'),
+      right: getDecimalPercentage(params.right, 'HORIZONTAL'),
+      width: getDecimalPercentage(params.width, 'HORIZONTAL'),
     };
 
     return viewParamDecimalsToViewRectangle(decimalViewParams);

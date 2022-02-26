@@ -1,8 +1,9 @@
 import { uuid } from '@rapidajs/rapida-common';
 import { WebGLRenderer as ThreeWebGLRenderer } from 'three';
-import { Renderer } from '../renderer';
-import { RendererManager } from '../renderer-manager';
-import { WebGLView, WebGLViewParams } from './webgl-view';
+import type { Renderer } from '../renderer';
+import type { RendererManager } from '../renderer-manager';
+import { WebGLView } from './webgl-view';
+import type { WebGLViewParams } from './webgl-view';
 
 /**
  * Params for creating a WebGLRenderer

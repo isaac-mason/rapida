@@ -23,7 +23,7 @@ export const convertViewParamInputToViewParam = (
   if (typeof value === 'number') {
     return {
       value,
-      type: ViewRectangleParamType.DECIMAL_PERCENTAGE,
+      type: 'DECIMAL_PERCENTAGE',
     };
   }
   // string
@@ -33,7 +33,7 @@ export const convertViewParamInputToViewParam = (
       // extract the pixels value and return the number
       return {
         value: Number(value.replace('px', '')),
-        type: ViewRectangleParamType.PIXELS,
+        type: 'PIXELS',
       };
     }
 
@@ -41,7 +41,7 @@ export const convertViewParamInputToViewParam = (
     if (/[0-9]*\.?[0-9]+(%)/.test(value)) {
       return {
         value: Number(value.replace('%', '')),
-        type: ViewRectangleParamType.PERCENTAGE,
+        type: 'PERCENTAGE',
       };
     }
 
@@ -49,7 +49,7 @@ export const convertViewParamInputToViewParam = (
     if (/[0-9]*\.?[0-9]+(vw)/.test(value)) {
       return {
         value: Number(value.replace('vw', '')),
-        type: ViewRectangleParamType.VIEWPORT_WIDTH,
+        type: 'VIEWPORT_WIDTH',
       };
     }
 
@@ -57,7 +57,7 @@ export const convertViewParamInputToViewParam = (
     if (/[0-9]*\.?[0-9]+(vh)/.test(value)) {
       return {
         value: Number(value.replace('vh', '')),
-        type: ViewRectangleParamType.VIEWPORT_HEIGHT,
+        type: 'VIEWPORT_HEIGHT',
       };
     }
   }
@@ -85,34 +85,34 @@ export const decimalPercentageFromViewParam = (
   }
 ): number => {
   const rendererLength =
-    plane === ViewRectangleParamPlane.HORIZONTAL
+    plane === 'HORIZONTAL'
       ? ctx.rendererWidth
       : ctx.rendererHeight;
 
   // decimal percentage
-  if (value.type === ViewRectangleParamType.DECIMAL_PERCENTAGE) {
+  if (value.type === 'DECIMAL_PERCENTAGE') {
     return value.value;
   }
 
   // pixels
-  if (value.type === ViewRectangleParamType.PIXELS) {
+  if (value.type === 'PIXELS') {
     // extract the pixels value and return the number
     return value.value / rendererLength;
   }
 
   // percentage of dom container
-  if (value.type === ViewRectangleParamType.PERCENTAGE) {
+  if (value.type === 'PERCENTAGE') {
     return value.value / 100;
   }
 
   // percentage of viewport width
-  if (value.type === ViewRectangleParamType.VIEWPORT_WIDTH) {
+  if (value.type === 'VIEWPORT_WIDTH') {
     const decimalPercentage = value.value / 100;
     return (decimalPercentage * ctx.viewportWidth) / ctx.rendererWidth;
   }
 
   // percentage of viewport height
-  if (value.type === ViewRectangleParamType.VIEWPORT_HEIGHT) {
+  if (value.type === 'VIEWPORT_HEIGHT') {
     const decimalPercentage = value.value / 100;
     return (decimalPercentage * ctx.viewportHeight) / ctx.rendererHeight;
   }
