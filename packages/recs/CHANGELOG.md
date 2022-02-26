@@ -1,5 +1,14 @@
 # @rapidajs/recs
 
+## 0.0.13
+
+### Patch Changes
+
+- 6b6dde2: Refactor recs package file structure
+- 1a1855d: Add 'time' parameter to recs update and onUpdate methods
+- 9092567: Remove 'public' from getters in recs and rapida
+- cae1ac7: Clean up recs Space logic for removing dead entities
+
 ## 0.0.9
 
 ### Patch Changes

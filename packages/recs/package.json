@@ -1,6 +1,6 @@
 {
   "name": "@rapidajs/recs",
-  "version": "0.0.9",
+  "version": "0.0.13",
   "description": "A flexible entity component system for rapida",
   "homepage": "https://gitlab.com/rapidajs/rapida/-/tree/main/packages/recs",
   "bugs": {
