@@ -1,5 +1,21 @@
 # @rapidajs/rapida
 
+## 0.0.13
+
+### Patch Changes
+
+- 4552e1e: Remove unused World event system for physics world add and remove events
+- 1a1855d: Add 'time' parameter to recs update and onUpdate methods
+- 9092567: Remove 'public' from getters in recs and rapida
+- a21bb8e: Refactor view utils not to use enums
+- cae1ac7: Clean up recs Space logic for removing dead entities
+- d394b20: Move cannon physics into a recs system
+- Updated dependencies [6b6dde2]
+- Updated dependencies [1a1855d]
+- Updated dependencies [9092567]
+- Updated dependencies [cae1ac7]
+  - @rapidajs/recs@0.0.13
+
 ## 0.0.12
 
 ### Patch Changes

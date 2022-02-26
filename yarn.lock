@@ -2774,9 +2774,9 @@ __metadata:
   dependencies:
     "@rapidajs/cannon-worker": 0.0.10
     "@rapidajs/postprocessing": 0.0.3
-    "@rapidajs/rapida": 0.0.12
+    "@rapidajs/rapida": 0.0.13
     "@rapidajs/rapida-common": 0.0.9
-    "@rapidajs/recs": 0.0.9
+    "@rapidajs/recs": 0.0.13
     "@styled-icons/material": ^10.34.0
     "@types/node": 17.0.0
     "@types/react": 17.0.37
@@ -2798,7 +2798,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@rapidajs/rapida@0.0.12, @rapidajs/rapida@workspace:packages/rapida":
+"@rapidajs/rapida@0.0.13, @rapidajs/rapida@workspace:packages/rapida":
   version: 0.0.0-use.local
   resolution: "@rapidajs/rapida@workspace:packages/rapida"
   dependencies:
@@ -2814,7 +2814,7 @@ __metadata:
     "@rapidajs/cannon-worker": 0.0.10
     "@rapidajs/postprocessing": 0.0.3
     "@rapidajs/rapida-common": 0.0.9
-    "@rapidajs/recs": 0.0.9
+    "@rapidajs/recs": 0.0.13
     "@storybook/addon-actions": ^6.4.1
     "@storybook/addon-docs": ^6.4.1
     "@storybook/addon-essentials": ^6.4.1
@@ -2862,7 +2862,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@rapidajs/recs@0.0.9, @rapidajs/recs@workspace:packages/recs":
+"@rapidajs/recs@0.0.13, @rapidajs/recs@workspace:packages/recs":
   version: 0.0.0-use.local
   resolution: "@rapidajs/recs@workspace:packages/recs"
   dependencies:
