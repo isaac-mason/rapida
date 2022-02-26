@@ -22,8 +22,6 @@ workflow:
     - |- 
       if [[ $CI_COMMIT_BRANCH == "main" ]]; then
         # publish npm packages if on the main branch
-        # FIXME: there isn't a clear way of installing the root workspaces dependencies without installing all package dependencies.
-        #        As a workaround, @changesets/cli is being run via yarn dlx with the same version as in the root package.json
         yarn dlx @changesets/cli@^2.18.1 publish --otp=$NPM_TOKEN
       fi
   coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
