@@ -6,13 +6,14 @@ import { useEffect } from '@storybook/client-api';
 import { AmbientLight, BufferGeometry, Color, Mesh } from 'three';
 import { Geometry } from 'three-stdlib';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import rapida, { Component, GLTF } from '../../../src';
+import rapida, { Component, GLTF } from '@rapidajs/rapida';
 
 // @ts-expect-error webpack import
 import diamondGlb from '../../resources/diamond.glb';
+import { CannonSystem } from './cannon-system';
 
 export default {
-  title: 'Physics / GLTF Convex Polyhedron Physics',
+  title: 'Rapida / GLTF Convex Polyhedron Physics',
 };
 
 class Diamonds extends Component {
@@ -94,9 +95,11 @@ export const GLTFConvexPolyhedronPhysics = () => {
 
       new OrbitControls(camera.three, view.domElement);
 
-      const physics = world.create.physics.cannon({
+      const physics = new CannonWorker({
         gravity: [0, -10, 0],
       });
+  
+      world.add.system(new CannonSystem(physics));
 
       physics.debugger = new CannonWorkerDebugger(physics, {
         scene: scene.three,

@@ -19,10 +19,10 @@ import {
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerModelFactory';
-import rapida, { XRRendererMode } from '../../../src';
+import rapida, { XRRendererMode } from '@rapidajs/rapida';
 
 export default {
-  title: 'XR / VR Shooter',
+  title: 'Rapida / VR Shooter',
 };
 
 export const VRShooter = () => {

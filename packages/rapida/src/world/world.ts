@@ -1,9 +1,7 @@
-import { CannonWorker, CannonWorkerProps } from '@rapidajs/cannon-worker';
 import { uuid } from '@rapidajs/rapida-common';
 import recs, { RECS, Space, SpaceParams, System } from '@rapidajs/recs';
 import { Camera, CameraParams } from '../camera';
 import { Loaders } from '../loaders';
-import { CannonSystem } from '../physics';
 import {
   CSSRenderer,
   RendererManager,
@@ -36,7 +34,7 @@ export type WorldParams = {
 };
 
 /**
- * A World that can contain systems, spaces containing entities, scenes, physics worlds, and renderers
+ * A World that can contain systems, spaces containing entities, scenes, and renderers
  */
 export class World {
   /**
@@ -48,12 +46,6 @@ export class World {
    * Scenes in the world
    */
   scenes: Map<string, Scene> = new Map();
-
-  /**
-   * Physics worlds within the world
-   */
-  physics: Map<string, { cannon: CannonWorker; system: CannonSystem }> =
-    new Map();
 
   /**
    * Cameras for the world
@@ -116,18 +108,6 @@ export class World {
     scene: (params?: SceneParams) => Scene;
 
     /**
-     * Factories for adding physics to the world
-     */
-    physics: {
-      /**
-       * Creates a cannon physics instance in the world
-       * @param params the params for the new physics instance
-       * @returns the new cannon physics instance
-       */
-      cannon: (params: CannonWorkerProps) => CannonWorker;
-    };
-
-    /**
      * Factories for creating a renderer in the world
      */
     renderer: {
@@ -166,19 +146,6 @@ export class World {
         const scene = new Scene(this, params);
         this.scenes.set(scene.id, scene);
         return scene;
-      },
-      physics: {
-        cannon: (params: CannonWorkerProps): CannonWorker => {
-          const cannon = new CannonWorker({
-            ...params,
-          });
-          const system = new CannonSystem(cannon);
-
-          this.physics.set(cannon.id, { cannon, system });
-          this.add.system(system);
-
-          return cannon;
-        },
       },
       renderer: {
         webgl: (params?: WebGLRendererParams): WebGLRenderer => {
@@ -229,19 +196,13 @@ export class World {
    * Removes from the scene
    * @param value the value to remove
    */
-  remove(value: System | Space | Scene | CannonWorker | Camera): void {
+  remove(value: System | Space | Scene | Camera): void {
     if (value instanceof System) {
       this.recs.remove(value);
     } else if (value instanceof Space) {
       this.recs.remove(value);
     } else if (value instanceof Scene) {
       this.scenes.delete(value.id);
-    } else if (value instanceof CannonWorker) {
-      const cannon = this.physics.get(value.id);
-      if (cannon !== undefined) {
-        this.physics.delete(value.id);
-        this.remove(cannon.system);
-      }
     } else if (value instanceof Camera) {
       this.cameras.delete(value.id);
     }

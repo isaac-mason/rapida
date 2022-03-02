@@ -1,7 +1,7 @@
 import { useEffect } from '@storybook/client-api';
 import * as three from 'three';
 import { DirectionalLight, InstancedBufferAttribute } from 'three';
-import rapida, { Component, Scene, View, Camera } from '../../../src';
+import rapida, { Component, Scene } from '../../../src';
 import { SmoothOrbitControls } from '../../utils/components/smooth-orbit-controls';
 
 export default {

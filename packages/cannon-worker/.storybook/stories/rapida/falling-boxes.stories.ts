@@ -1,4 +1,4 @@
-import CannonPhysics, { BodyApi, BodyType } from '@rapidajs/cannon-worker';
+import CannonPhysics, { BodyApi, BodyType, CannonWorker } from '@rapidajs/cannon-worker';
 import { useEffect } from '@storybook/client-api';
 import {
   AmbientLight,
@@ -14,10 +14,11 @@ import {
   WebGLRenderer
 } from 'three';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
-import rapida, { Component, Scene, Space, System } from '../../../src';
+import rapida, { Component, Scene, Space, System } from '@rapidajs/rapida';
+import { CannonSystem } from './cannon-system';
 
 export default {
-  title: 'Physics / Falling Boxes',
+  title: 'Rapida / Falling Boxes',
 };
 
 export const FallingBoxes = ({
@@ -156,11 +157,13 @@ export const FallingBoxes = ({
     
     document.getElementById('renderer-root').appendChild(renderer.domElement);
     
-    const physics = world.create.physics.cannon({
+    const physics = new CannonWorker({
       allowSleep: true,
       gravity: [gravity.x, gravity.y, gravity.z],
       size: 10000,
     });
+
+    world.add.system(new CannonSystem(physics));
 
     const scene = world.create.scene();
     scene.three.background = new Color(LIGHT_BLUE);

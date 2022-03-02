@@ -20,12 +20,13 @@ import rapida, {
   Scene,
   View,
   WebGLView,
-} from '../../../src';
+} from '@rapidajs/rapida';
 // @ts-expect-error webpack image import
 import cursorImage from '../../resources/cursor.png';
+import { CannonSystem } from './cannon-system';
 
 export default {
-  title: 'Physics / Interactive Ball Pit',
+  title: 'Rapida / Interactive Ball Pit',
 };
 
 class BallPitContainer extends Component {
@@ -269,12 +270,14 @@ export const InteractiveBallPit = ({ count }) => {
 
     document.getElementById('renderer-root').appendChild(renderer.domElement);
 
-    const physics = world.create.physics.cannon({
+    const physics = new CannonWorker({
       gravity: [0, -10, 0],
       defaultContactMaterial: {
         restitution: 0.5,
       },
     });
+
+    world.add.system(new CannonSystem(physics));
 
     const directionalLightOne = new DirectionalLight(0xffffff, 1);
     directionalLightOne.position.set(50, 50, 25);

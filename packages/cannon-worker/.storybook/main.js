@@ -4,6 +4,15 @@ const webpack = require('webpack');
 module.exports = {
   stories: ['./stories/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
   addons: [
+    {
+      name: '@storybook/addon-docs',
+      options: {
+        configureJSX: true,
+        babelOptions: {},
+        sourceLoaderOptions: null,
+        transcludeMarkdown: true,
+      },
+    },
     '@storybook/addon-essentials',
     '@storybook/addon-controls',
     '@storybook/addon-storysource',
@@ -25,7 +34,7 @@ module.exports = {
         rules: [
           ...config.module.rules,
           {
-            test: /\.(png|svg|jpg|jpeg|gif)$/i,
+            test: /\.(png|svg|jpg|jpeg|gif|glb)$/i,
             type: 'asset/resource',
           },
         ],
@@ -36,7 +45,7 @@ module.exports = {
           ...config.resolve.alias,
           three: path.resolve(
             path.join(__dirname, '../../../', 'node_modules', 'three')
-          ),
+          )
         },
       },
     };

@@ -1,7 +1,7 @@
 import { useEffect } from '@storybook/client-api';
 import * as three from 'three';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
-import rapida, { Component, Scene, World } from '../../../src';
+import rapida, { Component, Scene } from '../../../src';
 
 export default {
   title: 'Getting Started / Hello World',
