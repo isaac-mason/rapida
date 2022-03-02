@@ -457,6 +457,8 @@ export class WebGLView extends View {
    */
   private updateRenderMethod(): void {
     if (this.effectComposerEnabled) {
+      this.effectComposer.camera = this.camera.three;
+      this.effectComposer.scene = this.scene.three;
       this._renderMethod = (timeElapsed: number) =>
         this.effectComposer!.render(timeElapsed);
     } else {
