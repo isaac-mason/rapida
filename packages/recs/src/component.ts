@@ -15,6 +15,11 @@ export type ComponentClass<T extends Component | Component = Component> = {
  */
 export abstract class Component {
   /**
+   * The class the component was constructed from
+   */
+  class!: ComponentClass;
+
+  /**
    * This component instances unique id
    */
   id: string = uuid();
@@ -30,7 +35,7 @@ export abstract class Component {
    * Sets what entity the component belongs to
    * @param entity the entity
    */
-  set entity(entity: Entity | null) {
+  set entity(entity: Entity | undefined) {
     this._entity = entity;
   }
 
@@ -42,14 +47,28 @@ export abstract class Component {
   }
 
   /**
-   * The class the component was constructed from
+   * Destruction logic
    */
-  _class!: ComponentClass;
+  onDestroy: (() => void) | undefined = undefined;
+
+  /**
+   * Initialisation logic
+   */
+  onInit: (() => void) | undefined = undefined;
+
+  /**
+   * Update logic for the component
+   * If this method is not implemented in a component it will not be added to the update job pool
+   * @param timeElapsed the time since the last update for this component in seconds
+   * @param time the current time in seconds
+   */
+  onUpdate: ((timeElapsed: number, time: number) => void) | undefined =
+    undefined;
 
   /**
    * The entity this component belongs to. Set on adding to an Entity.
    */
-  private _entity: Entity | null = null;
+  private _entity?: Entity;
 
   /**
    * Method for "re-constructing" a component object instance.
@@ -82,23 +101,4 @@ export abstract class Component {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-function, class-methods-use-this
   construct: (..._args: any[]) => void = () => {};
-
-  /**
-   * Initialisation logic
-   */
-  onInit: (() => void) | undefined = undefined;
-
-  /**
-   * Update logic for the component
-   * If this method is not implemented in a component it will not be added to the update job pool
-   * @param timeElapsed the time since the last update for this component in seconds
-   * @param time the current time in seconds
-   */
-  onUpdate: ((timeElapsed: number, time: number) => void) | undefined =
-    undefined;
-
-  /**
-   * Destruction logic
-   */
-  onDestroy: (() => void) | undefined = undefined;
 }

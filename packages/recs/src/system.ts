@@ -52,33 +52,31 @@ export type SystemQueries = { [queryName: string]: QueryDescription };
  */
 export abstract class System {
   /**
-   * The id for the system
-   */
-  id = uuid();
-
-  /**
    * Whether the system is enabled and should update
    */
   enabled = true;
 
   /**
-   * The recs the system is in
+   * The id for the system
    */
-  private _recs?: RECS;
+  id = uuid();
 
   /**
-   * Gets the RECS for the system
+   * Logic for destruction of the system. Called on removing a System from the RECS.
    */
-  get recs(): RECS {
-    return this._recs as RECS;
-  }
+  onDestroy?: () => void = undefined;
 
   /**
-   * Sets the RECS for the system
+   * Logic for initialisation of the system. Called during System construction.
    */
-  set recs(recs: RECS) {
-    this._recs = recs;
-  }
+  onInit?: () => void = undefined;
+
+  /**
+   * Logic for a systems update loop
+   * @param timeElapsed the time since the last update in seconds
+   * @param time the current time in seconds
+   */
+  onUpdate?: (timeElapsed: number, time: number) => void = undefined;
 
   /**
    * A map of query names to query descriptions
@@ -86,6 +84,11 @@ export abstract class System {
    * This property should be overridden with desired System queries
    */
   queries: SystemQueries = {};
+
+  /**
+   * The recs the system is in
+   */
+  recs!: RECS;
 
   /**
    * A map of query names to queries
@@ -99,54 +102,5 @@ export abstract class System {
    */
   destroy(): void {
     this.recs.remove(this);
-  }
-
-  /**
-   * Logic for initialisation of the system. Called during System construction.
-   */
-  onInit?: () => void = undefined;
-
-  /**
-   * Logic for destruction of the system. Called on removing a System from the RECS.
-   */
-  onDestroy?: () => void = undefined;
-
-  /**
-   * Logic for a systems update loop
-   * @param timeElapsed the time since the last update in seconds
-   * @param time the current time in seconds
-   */
-  onUpdate?: (timeElapsed: number, time: number) => void = undefined;
-
-  /**
-   * Initialises the system
-   * @private called internally, do not call directly
-   */
-  _init(): void {
-    if (this.onInit) {
-      this.onInit();
-    }
-  }
-
-  /**
-   * Updates the system
-   * @param timeElapsed the time elapsed in seconds
-   * @param time the current time in seconds
-   * @private called internally, do not call directly
-   */
-  _update(timeElapsed: number, time: number): void {
-    if (this.onUpdate) {
-      this.onUpdate(timeElapsed, time);
-    }
-  }
-
-  /**
-   * Destroy logic for the system
-   * @private called internally, do not call directly
-   */
-  _destroy(): void {
-    if (this.onDestroy) {
-      this.onDestroy();
-    }
   }
 }

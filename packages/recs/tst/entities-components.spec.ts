@@ -116,11 +116,11 @@ describe('Entities And Components Integration Tests', () => {
     const componentDestroyJestFn = jest.fn();
 
     class TestComponentOne extends Component {
+      onDestroy = componentDestroyJestFn;
+
       onInit = componentInitJestFn;
 
       onUpdate = componentUpdateJestFn;
-
-      onDestroy = componentDestroyJestFn;
     }
 
     const space = R.create.space();

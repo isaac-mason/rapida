@@ -5,14 +5,14 @@
  */
 export class ObjectPool<T> {
   /**
-   * Factory method for creating a new object to add to the pool
-   */
-  factory: () => T;
-
-  /**
    * An array of available objects
    */
   availableObjects: T[] = [];
+
+  /**
+   * Factory method for creating a new object to add to the pool
+   */
+  factory: () => T;
 
   /**
    * Returns the total size of the object pool
@@ -52,16 +52,14 @@ export class ObjectPool<T> {
   }
 
   /**
-   * Requests an object from the object pool and returns it
-   * @returns an object from the object pool
+   * Expands the object pool by a given amount
+   * @param count the count of objects to expand the object pool by
    */
-  request(): T {
-    // grow the list by ~20% if there are no more available objects
-    if (this.availableObjects.length <= 0) {
-      this.expand(Math.round(this.count * 0.2) + 1);
+  expand(count: number): void {
+    for (let i = 0; i < count; i++) {
+      this.availableObjects.push(this.factory());
     }
-
-    return this.availableObjects.pop() as T;
+    this.count += count;
   }
 
   /**
@@ -74,13 +72,15 @@ export class ObjectPool<T> {
   }
 
   /**
-   * Expands the object pool by a given amount
-   * @param count the count of objects to expand the object pool by
+   * Requests an object from the object pool and returns it
+   * @returns an object from the object pool
    */
-  expand(count: number): void {
-    for (let i = 0; i < count; i++) {
-      this.availableObjects.push(this.factory());
+  request(): T {
+    // grow the list by ~20% if there are no more available objects
+    if (this.availableObjects.length <= 0) {
+      this.expand(Math.round(this.count * 0.2) + 1);
     }
-    this.count += count;
+
+    return this.availableObjects.pop() as T;
   }
 }

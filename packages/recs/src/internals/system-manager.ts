@@ -24,14 +24,14 @@ export class SystemManager {
   private initialised = false;
 
   /**
-   * The RECS the system manager belongs in
-   */
-  private recs: RECS;
-
-  /**
    * A map of query ids to systems using the query
    */
   private queryToSystems: Map<string, Set<System>> = new Map();
+
+  /**
+   * The RECS the system manager belongs in
+   */
+  private recs: RECS;
 
   /**
    * A map of ids to systems with update methods
@@ -71,6 +71,21 @@ export class SystemManager {
   }
 
   /**
+   * Destroys all systems
+   */
+  destroy(): void {
+    this.systems.forEach((s) => this.destroySystem(s));
+  }
+
+  /**
+   * Initialises the system manager
+   */
+  init(): void {
+    this.initialised = true;
+    this.systems.forEach((s) => this.initialiseSystem(s));
+  }
+
+  /**
    * Removes a system from the system manager
    * @param system the system to remove
    */
@@ -85,17 +100,9 @@ export class SystemManager {
       }
     );
 
-    system._destroy();
+    this.destroySystem(system);
 
     return this;
-  }
-
-  /**
-   * Initialises the system manager
-   */
-  init(): void {
-    this.initialised = true;
-    this.systems.forEach((s) => this.initialiseSystem(s));
   }
 
   /**
@@ -106,23 +113,13 @@ export class SystemManager {
   update(timeElapsed: number, time: number): void {
     this.updatePool.forEach((system) => {
       if (system.enabled) {
-        system._update(timeElapsed, time);
+        if (system.onUpdate) {
+          system.onUpdate(timeElapsed, time);
+        }
       }
     });
   }
 
-  /**
-   * Destroys all systems
-   */
-  destroy(): void {
-    this.systems.forEach((s) => s._destroy());
-  }
-
-  /**
-   * Adds a system to a query
-   * @param query the query
-   * @param system the system
-   */
   private addSystemToQuery(query: Query, system: System) {
     let systems: Set<System> | undefined = this.queryToSystems.get(query.key);
 
@@ -134,11 +131,22 @@ export class SystemManager {
     systems.add(system);
   }
 
-  /**
-   * Removes a system from a query
-   * @param query the query
-   * @param system the system
-   */
+  private destroySystem(system: System) {
+    if (system.onDestroy) {
+      system.onDestroy();
+    }
+  }
+
+  private initialiseSystem(s: System) {
+    if (s.onUpdate) {
+      this.updatePool.set(s.id, s);
+    }
+
+    if (s.onInit) {
+      s.onInit();
+    }
+  }
+
   private removeSystemFromQuery(query: Query, system: System) {
     const systems: Set<System> | undefined = this.queryToSystems.get(query.key);
 
@@ -150,17 +158,5 @@ export class SystemManager {
         this.recs.queryManager.removeQuery(query);
       }
     }
-  }
-
-  /**
-   * Initialises a system
-   * @param s the system to initialise
-   */
-  private initialiseSystem(s: System) {
-    if (s.onUpdate) {
-      this.updatePool.set(s.id, s);
-    }
-
-    s._init();
   }
 }

@@ -25,19 +25,19 @@ export type SpaceParams = {
  */
 export class Space {
   /**
-   * A unique ID for the space
-   */
-  id: string;
-
-  /**
-   * The RECS instance the space is in
-   */
-  recs: RECS;
-
-  /**
    * Entities in the space
    */
   entities: Map<string, Entity> = new Map();
+
+  /**
+   * The spaces event system
+   */
+  events = new EventSystem({ queued: true });
+
+  /**
+   * A unique ID for the space
+   */
+  id: string;
 
   /**
    * Whether the space has been initialised
@@ -45,9 +45,9 @@ export class Space {
   initialised = false;
 
   /**
-   * The spaces event system
+   * The RECS instance the space is in
    */
-  events = new EventSystem({ queued: true });
+  recs: RECS;
 
   /**
    * Constructor for the Space
@@ -76,12 +76,18 @@ export class Space {
   }
 
   /**
-   * Removes an entity from the space
-   * @param entity the entity to remove
+   * Destroys the space and removes it from the RECS
    */
-  remove(entity: Entity): Space {
-    this.recs.entityManager.removeEntity(entity, this);
-    return this;
+  destroy(): void {
+    this.recs.remove(this);
+  }
+
+  /**
+   * Broadcasts an event for handling by the space
+   * @param event the event to broadcast
+   */
+  emit<E extends Event | Event>(event: E): void {
+    return this.events.emit(event);
   }
 
   /**
@@ -99,17 +105,11 @@ export class Space {
   }
 
   /**
-   * Broadcasts an event for handling by the space
-   * @param event the event to broadcast
+   * Removes an entity from the space
+   * @param entity the entity to remove
    */
-  emit<E extends Event | Event>(event: E): void {
-    return this.events.emit(event);
-  }
-
-  /**
-   * Destroys the space and removes it from the RECS
-   */
-  destroy(): void {
-    this.recs.remove(this);
+  remove(entity: Entity): Space {
+    this.recs.entityManager.removeEntity(entity, this);
+    return this;
   }
 }

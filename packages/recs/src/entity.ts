@@ -24,9 +24,9 @@ import { Space } from './space';
  */
 export class Entity {
   /**
-   * The unique ID of the entity
+   * Whether the entity is alive. If false, the entity will be destroyed by the Space on the next update
    */
-  id = uuid();
+  alive = true;
 
   /**
    * Map of component classes to components
@@ -34,9 +34,19 @@ export class Entity {
   components: Map<{ new (...args: never[]): Component }, Component> = new Map();
 
   /**
-   * Whether the entity is alive. If false, the entity will be destroyed by the Space on the next update
+   * The event system for the entity
    */
-  alive = true;
+  events = new EventSystem({ queued: true });
+
+  /**
+   * The unique ID of the entity
+   */
+  id = uuid();
+
+  /**
+   * Whether the entity has been initialised
+   */
+  initialised = false;
 
   /**
    * The space the entity is in
@@ -48,23 +58,6 @@ export class Entity {
    */
   get recs(): RECS {
     return this.space.recs;
-  }
-
-  /**
-   * Whether the entity has been initialised
-   */
-  initialised = false;
-
-  /**
-   * The event system for the entity
-   */
-  events = new EventSystem({ queued: true });
-
-  /**
-   * Destroy the entities components and set the entity as dead immediately
-   */
-  destroy(): void {
-    this.space.remove(this);
   }
 
   /**
@@ -86,64 +79,18 @@ export class Entity {
   }
 
   /**
-   * Removes a component from the entity and destroys it
-   * The value can either be a Component constructor, or the component instance itself
-   * @param value the component to remove and destroy
+   * Destroy the entities components and set the entity as dead immediately
    */
-  removeComponent(
-    value:
-      | Component
-      | {
-          new (...args: never[]): Component;
-        }
-  ): Entity {
-    let component: Component;
-
-    // retrieve the component
-    if (value instanceof Component) {
-      if (!this.components.has(value._class)) {
-        throw new Error('Component does not exist in Entity');
-      }
-      component = value;
-    } else {
-      const c = this.find(value);
-      if (!c) {
-        throw new Error('Component does not exist in Entity');
-      }
-      component = c;
-    }
-
-    // remove the component from this entity
-    this.recs.entityManager.removeComponentFromEntity(this, component, true);
-
-    return this;
+  destroy(): void {
+    this.space.remove(this);
   }
 
   /**
-   * Returns whether the entity contains the given component
-   * @param constr the component constructor, a component instance, or the string name of the component
-   * @returns whether the entity contains the given component
+   * Broadcasts an event for handling by the entity
+   * @param event the event to broadcast
    */
-  has(value: { new (...args: never[]): Component }): boolean {
-    console.log(value)
-    return this.components.has(value);
-  }
-
-  /**
-   * Retrieves a component on an entity by type, throws an error if the component is not in the entity
-   * @param value a constructor for the component type to retrieve
-   * @returns the component
-   */
-  get<T extends Component | Component>(value: {
-    new (...args: never[]): T;
-  }): T {
-    const component: T | undefined = this.find(value);
-
-    if (component) {
-      return component;
-    }
-
-    throw new Error(`Component ${value}} not in entity ${this.id}`);
+  emit<E extends Event | Event>(event: E): void {
+    return this.events.emit(event);
   }
 
   /**
@@ -164,6 +111,32 @@ export class Entity {
   }
 
   /**
+   * Retrieves a component on an entity by type, throws an error if the component is not in the entity
+   * @param value a constructor for the component type to retrieve
+   * @returns the component
+   */
+  get<T extends Component | Component>(value: {
+    new (...args: never[]): T;
+  }): T {
+    const component: T | undefined = this.find(value);
+
+    if (component) {
+      return component;
+    }
+
+    throw new Error(`Component ${value}} not in entity ${this.id}`);
+  }
+
+  /**
+   * Returns whether the entity contains the given component
+   * @param constr the component constructor, a component instance, or the string name of the component
+   * @returns whether the entity contains the given component
+   */
+  has(value: { new (...args: never[]): Component }): boolean {
+    return this.components.has(value);
+  }
+
+  /**
    * Adds a handler for entity events
    * @param eventName the event name
    * @param handler the handler function
@@ -177,10 +150,36 @@ export class Entity {
   }
 
   /**
-   * Broadcasts an event for handling by the entity
-   * @param event the event to broadcast
+   * Removes a component from the entity and destroys it
+   * The value can either be a Component constructor, or the component instance itself
+   * @param value the component to remove and destroy
    */
-  emit<E extends Event | Event>(event: E): void {
-    return this.events.emit(event);
+  removeComponent(
+    value:
+      | Component
+      | {
+          new (...args: never[]): Component;
+        }
+  ): Entity {
+    let component: Component;
+
+    // retrieve the component
+    if (value instanceof Component) {
+      if (!this.components.has(value.class)) {
+        throw new Error('Component does not exist in Entity');
+      }
+      component = value;
+    } else {
+      const c = this.find(value);
+      if (!c) {
+        throw new Error('Component does not exist in Entity');
+      }
+      component = c;
+    }
+
+    // remove the component from this entity
+    this.recs.entityManager.removeComponentFromEntity(this, component, true);
+
+    return this;
   }
 }

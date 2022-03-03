@@ -15,8 +15,8 @@ export enum QueryConditionType {
  */
 export type QueryDescription = {
   [QueryConditionType.ALL]?: ComponentClass[];
-  [QueryConditionType.ONE]?: ComponentClass[];
   [QueryConditionType.NOT]?: ComponentClass[];
+  [QueryConditionType.ONE]?: ComponentClass[];
 };
 
 /**
@@ -26,24 +26,14 @@ export type QueryDescription = {
  */
 export class Query {
   /**
-   * The query dedupe string
-   */
-  key: string;
-
-  /**
-   * The current entities matched by the query
-   */
-  all: Set<Entity> = new Set();
-
-  /**
    * Entities added to the query on the latest update
    */
   added: Set<Entity> = new Set();
 
   /**
-   * Entities removed from the query on the latest update
+   * The current entities matched by the query
    */
-  removed: Set<Entity> = new Set();
+  all: Set<Entity> = new Set();
 
   /**
    * A list of all component classes that are involved in the conditions for this query
@@ -54,6 +44,16 @@ export class Query {
    * The query description for this query
    */
   description: QueryDescription;
+
+  /**
+   * The query dedupe string
+   */
+  key: string;
+
+  /**
+   * Entities removed from the query on the latest update
+   */
+  removed: Set<Entity> = new Set();
 
   /**
    * Constructor for a new query instance

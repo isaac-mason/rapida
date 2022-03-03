@@ -53,6 +53,18 @@ export class ComponentPool {
   }
 
   /**
+   * Releases a component from the component pool
+   * @param component the component to release
+   */
+  release(component: Component): void {
+    const pool = this._objectPools.get(component.class);
+
+    if (pool !== undefined) {
+      pool.release(component);
+    }
+  }
+
+  /**
    * Requests a component from the component pool
    */
   request<T extends Component>(clazz: ComponentClass<T>): T {
@@ -64,7 +76,7 @@ export class ComponentPool {
         const component = new clazz();
 
         // store a reference to the class in the component instance
-        component._class = clazz;
+        component.class = clazz;
 
         return component;
       });
@@ -72,17 +84,5 @@ export class ComponentPool {
     }
 
     return pool.request() as T;
-  }
-
-  /**
-   * Releases a component from the component pool
-   * @param component the component to release
-   */
-  release(component: Component): void {
-    const pool = this._objectPools.get(component._class);
-
-    if (pool !== undefined) {
-      pool.release(component);
-    }
   }
 }

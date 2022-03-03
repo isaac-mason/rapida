@@ -34,17 +34,17 @@ export class EntityPool {
   }
 
   /**
-   * Requests an entity from the entity pool
-   */
-  request(): Entity {
-    return this.objectPool.request();
-  }
-
-  /**
    * Releases an entity from the entity pool
    * @param e the entity to release
    */
   release(e: Entity): void {
     this.objectPool.release(e);
+  }
+
+  /**
+   * Requests an entity from the entity pool
+   */
+  request(): Entity {
+    return this.objectPool.request();
   }
 }

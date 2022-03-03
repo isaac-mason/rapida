@@ -11,29 +11,14 @@ import { Entity } from './entity';
  */
 export class RECS {
   /**
-   * A unique id for the RECS instance
-   */
-  id = uuid();
-
-  /**
-   * Spaces in the RECS instance
-   */
-  spaces: Map<string, Space> = new Map();
-
-  /**
    * The EntityManager for the RECS instance that manages entities and their components
    */
   entityManager: EntityManager;
 
   /**
-   * The system manager for the RECS instance
+   * A unique id for the RECS instance
    */
-  systemManager: SystemManager;
-
-  /**
-   * The query manager for the RECS instance
-   */
-  queryManager: QueryManager;
+  id = uuid();
 
   /**
    * Whether the RECS instance has been initialised
@@ -41,10 +26,19 @@ export class RECS {
   initialised = false;
 
   /**
-   * A map of ids to update functions for all systems in the RECS instance
+   * The query manager for the RECS instance
    */
-  _systemsUpdatePool: Map<string, (timeElapsed: number, time: number) => void> =
-    new Map();
+  queryManager: QueryManager;
+
+  /**
+   * Spaces in the RECS instance
+   */
+  spaces: Map<string, Space> = new Map();
+
+  /**
+   * The system manager for the RECS instance
+   */
+  systemManager: SystemManager;
 
   /**
    * Constructor for a RECS instance
@@ -96,6 +90,14 @@ export class RECS {
         return system;
       },
     };
+  }
+
+  /**
+   * Destroys the RECS instance
+   */
+  destroy(): void {
+    this.systemManager.destroy();
+    this.spaces.forEach((s) => this.entityManager.destroySpace(s));
   }
 
   /**
@@ -167,14 +169,6 @@ export class RECS {
 
     // update systems
     this.systemManager.update(timeElapsed, time);
-  }
-
-  /**
-   * Destroys the RECS instance
-   */
-  destroy(): void {
-    this.systemManager.destroy();
-    this.spaces.forEach((s) => this.entityManager.destroySpace(s));
   }
 }
 

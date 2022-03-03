@@ -12,11 +12,11 @@ describe('SystemManager', () => {
   const basicSystemOnUpdate = jest.fn();
 
   class BasicSystem extends System {
-    _init = () => basicSystemInit();
+    onDestroy = () => basicSystemDestroy();
+
+    onInit = () => basicSystemInit();
 
     onUpdate = () => basicSystemOnUpdate();
-
-    onDestroy = () => basicSystemDestroy();
   }
   const basicSystem = new BasicSystem();
 
