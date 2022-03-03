@@ -48,6 +48,12 @@ module.exports = {
       },
     ],
     'class-methods-use-this': 'off',
+    'no-restricted-syntax': [
+      'off',
+      'ForInStatement',
+      'LabeledStatement',
+      'WithStatement',
+    ],
     '@typescript-eslint/member-ordering': [
       'error',
       {

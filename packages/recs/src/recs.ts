@@ -97,7 +97,9 @@ export class RECS {
    */
   destroy(): void {
     this.systemManager.destroy();
-    this.spaces.forEach((s) => this.entityManager.destroySpace(s));
+    for (const [_, space] of this.spaces) {
+      this.entityManager.destroySpace(space);
+    }
   }
 
   /**
@@ -111,9 +113,9 @@ export class RECS {
     this.systemManager.init();
 
     // Initialise spaces
-    this.spaces.forEach((space) => {
+    for (const [_, space] of this.spaces) {
       this.entityManager.initialiseSpace(space);
-    });
+    }
   }
 
   /**
@@ -142,9 +144,9 @@ export class RECS {
     this.entityManager.updateEntities();
 
     // update spaces - steps space event system
-    this.spaces.forEach((s) => {
-      s.events.tick();
-    });
+    for (const [_, space] of this.spaces) {
+      space.events.tick();
+    }
 
     // update queries
     this.queryManager.update();
@@ -153,19 +155,19 @@ export class RECS {
     this.entityManager.recycle();
 
     // update entities in spaces - checks if entities are alive and releases them if they are dead
-    this.spaces.forEach((s) => {
+    for (const [_, space] of this.spaces) {
       const dead: Entity[] = [];
 
-      s.entities.forEach((e) => {
-        if (!e.alive) {
-          dead.push(e);
+      for (const [__, entity] of space.entities) {
+        if (!entity.alive) {
+          dead.push(entity);
         }
-      });
+      }
 
-      dead.forEach((d) => {
-        s.remove(d);
-      });
-    });
+      for (const d of dead) {
+        space.remove(d);
+      }
+    }
 
     // update systems
     this.systemManager.update(timeElapsed, time);

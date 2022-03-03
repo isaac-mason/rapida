@@ -58,7 +58,7 @@ export const GLTFAnimationExample = () => {
       scene.three.background = new Color('#bfe3dd');
 
       const camera = world.create.camera();
-      camera.position.set(0, 0, 5);
+      camera.three.position.set(0, 0, 5);
 
       const view = renderer.create.view({
         camera,

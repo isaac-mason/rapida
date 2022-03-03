@@ -115,7 +115,9 @@ export class EntityManager {
    * @param space the space to destroy
    */
   destroySpace(space: Space): void {
-    space.entities.forEach((e) => this.removeEntity(e, space));
+    for (const [_, entity] of space.entities) {
+      this.removeEntity(entity, space);
+    }
   }
 
   /**
@@ -148,7 +150,9 @@ export class EntityManager {
     entity.initialised = true;
 
     // initialise components
-    entity.components.forEach((c) => this.initialiseComponent(c));
+    for (const [_, component] of entity.components) {
+      this.initialiseComponent(component);
+    }
 
     // add entity update to the update pool
     this.entitiesToUpdate.set(entity.id, entity);
@@ -160,7 +164,9 @@ export class EntityManager {
    */
   initialiseSpace(space: Space): void {
     space.initialised = true;
-    space.entities.forEach((e) => this.initialiseEntity(e));
+    for (const [_, entity] of space.entities) {
+      this.initialiseEntity(entity);
+    }
   }
 
   /**
@@ -168,27 +174,33 @@ export class EntityManager {
    */
   recycle(): void {
     // recycle destroyed entities
-    this.entitiesToCleanup
-      .splice(0, this.entitiesToCleanup.length)
-      .forEach((e) => {
-        // reset the entity
-        e.id = uuid();
-        e.events.reset();
+    const entities = this.entitiesToCleanup.splice(
+      0,
+      this.entitiesToCleanup.length
+    );
 
-        // release the entity back into the entity pool
-        this.entityPool.release(e);
-      });
+    for (const entity of entities) {
+      // reset the entity
+      entity.id = uuid();
+      entity.events.reset();
+
+      // release the entity back into the entity pool
+      this.entityPool.release(entity);
+    }
 
     // recycle destroyed components
-    this.componentsToCleanup
-      .splice(0, this.componentsToCleanup.length)
-      .forEach((c) => {
-        // clear the components entity field
-        c.entity = undefined;
+    const components = this.componentsToCleanup.splice(
+      0,
+      this.componentsToCleanup.length
+    );
 
-        // release the component back into the update pool
-        this.componentPool.release(c);
-      });
+    for (const component of components) {
+      // clear the components entity field
+      component.entity = undefined;
+
+      // release the component back into the update pool
+      this.componentPool.release(component);
+    }
   }
 
   /**
@@ -241,9 +253,9 @@ export class EntityManager {
     this.recs.queryManager.onEntityRemoved(entity);
 
     // destroy components without notifying the query manager
-    entity.components.forEach((c) =>
-      this.removeComponentFromEntity(entity, c, false)
-    );
+    for (const [_, component] of entity.components) {
+      this.removeComponentFromEntity(entity, component, false);
+    }
 
     // mark the entity as dead
     entity.alive = false;
@@ -259,9 +271,11 @@ export class EntityManager {
    * @param time the current time in seconds
    */
   updateComponents(timeElapsed: number, time: number): void {
-    this.componentsToUpdate.forEach(
-      (c) => c.onUpdate && c.onUpdate(timeElapsed, time)
-    );
+    for (const [_, component] of this.componentsToUpdate) {
+      if (component.onUpdate) {
+        component.onUpdate(timeElapsed, time);
+      }
+    }
   }
 
   /**
@@ -270,7 +284,8 @@ export class EntityManager {
    * @param timeElapsed the time elapsed in seconds
    */
   updateEntities(): void {
-    // update entities
-    this.entitiesToUpdate.forEach((e) => e.events.tick());
+    for (const [_, entity] of this.entitiesToUpdate) {
+      entity.events.tick();
+    }
   }
 }

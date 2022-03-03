@@ -74,7 +74,9 @@ export class SystemManager {
    * Destroys all systems
    */
   destroy(): void {
-    this.systems.forEach((s) => this.destroySystem(s));
+    for (const [_, system] of this.systems) {
+      this.destroySystem(system);
+    }
   }
 
   /**
@@ -82,7 +84,9 @@ export class SystemManager {
    */
   init(): void {
     this.initialised = true;
-    this.systems.forEach((s) => this.initialiseSystem(s));
+    for (const [_, system] of this.systems) {
+      this.initialiseSystem(system);
+    }
   }
 
   /**
@@ -111,13 +115,11 @@ export class SystemManager {
    * @param time the current time in seconds
    */
   update(timeElapsed: number, time: number): void {
-    this.updatePool.forEach((system) => {
-      if (system.enabled) {
-        if (system.onUpdate) {
-          system.onUpdate(timeElapsed, time);
-        }
+    for (const [_, system] of this.systems) {
+      if (system.enabled && system.onUpdate) {
+        system.onUpdate(timeElapsed, time);
       }
-    });
+    }
   }
 
   private addSystemToQuery(query: Query, system: System) {

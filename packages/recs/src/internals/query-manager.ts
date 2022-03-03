@@ -73,24 +73,21 @@ export class QueryManager {
   getQuery(queryDescription: QueryDescription): Query {
     const dedupeString = Query.getDescriptionDedupeString(queryDescription);
 
-    // return the existing query if it exists
     const existingQuery = this.queries.get(dedupeString);
     if (existingQuery) {
       return existingQuery;
     }
 
-    // create the query
     const query = new Query(queryDescription);
     this.queries.set(dedupeString, query);
 
-    // populate the query with existing entities
-    this.recs.spaces.forEach((space) => {
-      space.entities.forEach((entity) => {
+    for (const [_, space] of this.recs.spaces) {
+      for (const [__, entity] of space.entities) {
         if (this.evaluateQuery(query, entity)) {
           this.addEntityToQuery(query, entity);
         }
-      });
-    });
+      }
+    }
 
     return query;
   }
@@ -154,40 +151,41 @@ export class QueryManager {
    */
   update(): void {
     // clear the `added` and `removed` sets for all queries in preparation for the next update
-    this.queries.forEach((q) => {
-      q.added.clear();
-      q.removed.clear();
-    });
+    for (const [_, query] of this.queries) {
+      query.added.clear();
+      query.removed.clear();
+    }
 
     // process all events
-    this.eventsBuffer.splice(0, this.eventsBuffer.length).forEach((event) => {
+    const events = this.eventsBuffer.splice(0, this.eventsBuffer.length);
+    for (const event of events) {
       if (event.type === QueryManagerEventType.ENTITY_COMPONENT_ADDED_EVENT) {
         // handle entity component added event
-        this.queries.forEach((query) => {
+        for (const [_, query] of this.queries) {
           if (this.queryShouldCheckComponent(query, event.component)) {
             this.updateQueryForEntity(query, event.entity);
           }
-        });
+        }
       } else if (
         event.type === QueryManagerEventType.ENTITY_COMPONENT_REMOVED_EVENT
       ) {
         // handle entity component removed event
-        this.queries.forEach((query) => {
+        for (const [_, query] of this.queries) {
           if (this.queryShouldCheckComponent(query, event.component)) {
             this.updateQueryForEntity(query, event.entity);
           }
-        });
+        }
       } else if (event.type === QueryManagerEventType.ENTITY_REMOVED_EVENT) {
         // handle entity removed event
         const queries = this.entityQueries.get(event.entity.id);
         if (queries === undefined) {
           return;
         }
-        queries.forEach((query) =>
-          this.removeEntityFromQuery(query, event.entity)
-        );
+        for (const [_, query] of this.queries) {
+          this.removeEntityFromQuery(query, event.entity);
+        }
       }
-    });
+    }
   }
 
   private addEntityToQuery(query: Query, entity: Entity): void {
@@ -244,12 +242,12 @@ export class QueryManager {
     }
 
     const match = this.evaluateQuery(query, entity);
-    const has = query.all.has(entity);
+    const currentlyHasEntity = query.all.has(entity);
 
-    if (match && !has) {
+    if (match && !currentlyHasEntity) {
       this.addEntityToQuery(query, entity);
       entityQueries.add(query);
-    } else if (!match && has) {
+    } else if (!match && currentlyHasEntity) {
       this.removeEntityFromQuery(query, entity);
       entityQueries.delete(query);
     }
