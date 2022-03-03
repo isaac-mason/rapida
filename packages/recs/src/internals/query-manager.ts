@@ -69,14 +69,17 @@ export class QueryManager {
    */
   update(): void {
     // clear the `added` and `removed` sets for all queries in preparation for the next update
-    this.queries.forEach((q) => q._preUpdate());
+    this.queries.forEach((q) => {
+      q.added.clear();
+      q.removed.clear();
+    });
 
     // process all events
     this.eventsBuffer.splice(0, this.eventsBuffer.length).forEach((event) => {
       if (event.type === QueryManagerEventType.ENTITY_COMPONENT_ADDED_EVENT) {
         // handle entity component added event
         this.queries.forEach((query) => {
-          if (query.components.includes(event.component._class)) {
+          if (this.queryShouldCheckComponent(query, event.component)) {
             this.updateQueryForEntity(query, event.entity);
           }
         });
@@ -85,7 +88,7 @@ export class QueryManager {
       ) {
         // handle entity component removed event
         this.queries.forEach((query) => {
-          if (query.components.includes(event.component._class)) {
+          if (this.queryShouldCheckComponent(query, event.component)) {
             this.updateQueryForEntity(query, event.entity);
           }
         });
@@ -95,7 +98,9 @@ export class QueryManager {
         if (queries === undefined) {
           return;
         }
-        queries.forEach((q) => q._removeEntity(event.entity));
+        queries.forEach((query) =>
+          this.removeEntityFromQuery(query, event.entity)
+        );
       }
     });
   }
@@ -122,8 +127,8 @@ export class QueryManager {
     // populate the query with existing entities
     this.recs.spaces.forEach((space) => {
       space.entities.forEach((entity) => {
-        if (query._match(entity)) {
-          query._addEntity(entity);
+        if (this.evaluateQuery(query, entity)) {
+          this.addEntityToQuery(query, entity);
         }
       });
     });
@@ -198,17 +203,62 @@ export class QueryManager {
       this.entityQueries.set(entity.id, entityQueries);
     }
 
-    const match = query._match(entity);
+    const match = this.evaluateQuery(query, entity);
     const has = query.all.has(entity);
 
     if (match && !has) {
-      query._addEntity(entity);
+      this.addEntityToQuery(query, entity);
       entityQueries.add(query);
     } else if (!match && has) {
-      query._removeEntity(entity);
+      this.removeEntityFromQuery(query, entity);
       entityQueries.delete(query);
     }
 
     this.entityQueries.set(entity.id, entityQueries);
+  }
+
+  private addEntityToQuery(query: Query, entity: Entity): void {
+    query.all.add(entity);
+    query.added.add(entity);
+  }
+
+  private removeEntityFromQuery(query: Query, entity: Entity): void {
+    query.all.delete(entity);
+    query.removed.add(entity);
+  }
+
+  private evaluateQuery(query: Query, entity: Entity): boolean {
+    if (
+      query.description.not &&
+      query.description.not.some((c) => entity.has(c))
+    ) {
+      return false;
+    }
+
+    if (
+      query.description.all &&
+      query.description.all.some((c) => !entity.has(c))
+    ) {
+      return false;
+    }
+    if (
+      query.description.one &&
+      query.description.one.every((c) => !entity.has(c))
+    ) {
+      return false;
+    }
+
+    return true;
+  }
+
+  private queryShouldCheckComponent(
+    query: Query,
+    component: Component
+  ): boolean {
+    if (query.description.not !== undefined) {
+      return true;
+    }
+
+    return query.components.includes(component._class);
   }
 }

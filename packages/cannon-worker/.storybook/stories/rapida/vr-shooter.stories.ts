@@ -1,4 +1,4 @@
-import { BodyType } from '@rapidajs/cannon-worker';
+import CannonWorker, { BodyType } from '../../../lib';
 import { useEffect } from '@storybook/client-api';
 import {
   AdditiveBlending,
@@ -34,7 +34,7 @@ export const VRShooter = () => {
     const scene = world.create.scene();
 
     const camera = world.create.camera();
-    camera.position.set(0, 20, 20);
+    camera.three.position.set(0, 20, 20);
     camera.three.lookAt(0, 0, 0);
 
     const renderer = world.create.renderer.xr({
@@ -58,7 +58,7 @@ export const VRShooter = () => {
     scene.add(ambientLight);
 
     // create physics instance
-    const physics = world.create.physics.cannon({
+    const physics = new CannonWorker({
       gravity: [0, -10, 0],
     });
 

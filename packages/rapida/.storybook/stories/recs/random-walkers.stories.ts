@@ -181,7 +181,7 @@ export const RandomWalkers = () => {
     const camera = world.create.camera({
       camera: new PerspectiveCamera(50, 1, 20, 1000),
     });
-    camera.position.set(0, 10, 60);
+    camera.three.position.set(0, 10, 60);
 
     const view = renderer.create.view({
       camera,

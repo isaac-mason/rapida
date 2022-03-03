@@ -54,10 +54,10 @@ export const TwoViewsEmbedded = () => {
     const cameraOne = world.create.camera({
       camera: new three.PerspectiveCamera(50, 20, 1, 3500),
     });
-    cameraOne.position.set(0, 0, 500);
+    cameraOne.three.position.set(0, 0, 500);
 
     const cameraTwo = world.create.camera();
-    cameraTwo.position.set(500, 0, 0);
+    cameraTwo.three.position.set(500, 0, 0);
 
     const viewOne = renderer.create.view({
       camera: cameraOne,

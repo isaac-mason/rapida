@@ -12,7 +12,7 @@ import {
   WebGLRenderer,
 } from 'three';
 import { ARButton } from 'three-stdlib/webxr/ARButton';
-import rapida, { Component, World, XRRendererMode } from '../../../src';
+import rapida, { Component, XRRendererMode } from '../../../src';
 
 export default {
   title: 'XR / AR Hit Test',
@@ -31,7 +31,7 @@ export const ARHitTest = () => {
     const camera = world.create.camera({
       camera: new PerspectiveCamera(70, 1, 0.01, 20),
     });
-    camera.position.set(0, 0, 500);
+    camera.three.position.set(0, 0, 500);
 
     const renderer = world.create.renderer.xr({
       mode: XRRendererMode.AR,

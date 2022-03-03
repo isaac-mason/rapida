@@ -27,34 +27,6 @@ export class Camera {
   world: World;
 
   /**
-   * Getter for the cameras position
-   */
-  get position(): three.Vector3 {
-    return this.three.position;
-  }
-
-  /**
-   * Setter for the cameras position
-   */
-  set position(vector3: three.Vector3) {
-    this.three.position.copy(vector3);
-  }
-
-  /**
-   * Getter for the cameras rotation quaternion
-   */
-  get quaternion(): three.Quaternion {
-    return this.three.quaternion;
-  }
-
-  /**
-   * Setter for the cameras rotation quaternion
-   */
-  set quaternion(quaternion: three.Quaternion) {
-    this.three.quaternion.copy(quaternion);
-  }
-
-  /**
    * Constructor for a camera
    * @param world the world the camera exists in
    * @param params params for creating the camera

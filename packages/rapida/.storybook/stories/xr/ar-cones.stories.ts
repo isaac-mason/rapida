@@ -22,7 +22,7 @@ export const ARCones = () => {
     const scene = world.create.scene();
 
     const camera = world.create.camera();
-    camera.position.set(0, 0, 500);
+    camera.three.position.set(0, 0, 500);
 
     const renderer = world.create.renderer.xr({
       mode: XRRendererMode.AR,

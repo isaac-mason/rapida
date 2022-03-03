@@ -26,7 +26,7 @@ export const TwoRenderers = () => {
     const scene = world.create.scene({ id: 'mainScene' });
 
     const camera = world.create.camera({ id: 'mainCamera' });
-    camera.position.set(0, 0, 500);
+    camera.three.position.set(0, 0, 500);
 
     rendererOne.create.view({
       camera,

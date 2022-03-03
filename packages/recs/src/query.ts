@@ -80,56 +80,6 @@ export class Query {
   }
 
   /**
-   * Adds an entity to the query
-   * @param e the entity to add
-   * @private called internally, do not call directly
-   */
-  _addEntity(e: Entity): void {
-    this.all.add(e);
-    this.added.add(e);
-  }
-
-  /**
-   * Removes an entity from the query
-   * @param e the entity to remove
-   * @private called internally, do not call directly
-   */
-  _removeEntity(e: Entity): void {
-    this.all.delete(e);
-    this.removed.add(e);
-  }
-
-  /**
-   * Prepares the query for the next update
-   * @private called internally, do not call directly
-   */
-  _preUpdate(): void {
-    this.added.clear();
-    this.removed.clear();
-  }
-
-  /**
-   * Returns whether an entity matches the conditions of the query description
-   * @param e the entity to check
-   * @returns whether an entity matches the conditions of the query description
-   * @private called internally, do not call directly
-   */
-  _match(e: Entity): boolean {
-    if (this.description.not && this.description.not.some((c) => e.has(c))) {
-      return false;
-    }
-
-    if (this.description.all && this.description.all.some((c) => !e.has(c))) {
-      return false;
-    }
-    if (this.description.one && this.description.one.every((c) => !e.has(c))) {
-      return false;
-    }
-
-    return true;
-  }
-
-  /**
    * Returns a string that identifies a query description
    * @param query the query description
    * @returns a string that identifies a query description

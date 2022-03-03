@@ -29,7 +29,7 @@ export class Entity {
   id = uuid();
 
   /**
-   * Map of component ids to components
+   * Map of component classes to components
    */
   components: Map<{ new (...args: never[]): Component }, Component> = new Map();
 
@@ -53,25 +53,18 @@ export class Entity {
   /**
    * Whether the entity has been initialised
    */
-  private initialised = false;
+  initialised = false;
 
   /**
    * The event system for the entity
    */
-  private events = new EventSystem({ queued: true });
+  events = new EventSystem({ queued: true });
 
   /**
    * Destroy the entities components and set the entity as dead immediately
    */
   destroy(): void {
     this.space.remove(this);
-  }
-
-  /**
-   * Destroy the entities components
-   */
-  _destroy(): void {
-    this.alive = false;
   }
 
   /**
@@ -88,11 +81,6 @@ export class Entity {
       constr,
       ...args
     );
-
-    // initialise the component if the entity is already initialised
-    if (this.initialised) {
-      this.initialiseComponent(component);
-    }
 
     return component;
   }
@@ -137,6 +125,7 @@ export class Entity {
    * @returns whether the entity contains the given component
    */
   has(value: { new (...args: never[]): Component }): boolean {
+    console.log(value)
     return this.components.has(value);
   }
 
@@ -193,43 +182,5 @@ export class Entity {
    */
   emit<E extends Event | Event>(event: E): void {
     return this.events.emit(event);
-  }
-
-  /**
-   * Initialise the entity
-   * @private called internally, do not call directly
-   */
-  _init(): Entity {
-    this.initialised = true;
-
-    // initialise components
-    this.components.forEach((c) => this.initialiseComponent(c));
-
-    return this;
-  }
-
-  /**
-   * Updates the event system for the entity
-   * @private called internally, do not call directly
-   */
-  _update(): void {
-    this.events.tick();
-  }
-
-  /**
-   * Resets the entity in preparation for object reuse
-   * @private called internally, do not call directly
-   */
-  _reset(): void {
-    this.id = uuid();
-    this.events.reset();
-  }
-
-  /**
-   * Initialises a component
-   * @param component the component to initialise
-   */
-  private initialiseComponent(component: Component): void {
-    this.recs.entityManager.initialiseComponent(component);
   }
 }

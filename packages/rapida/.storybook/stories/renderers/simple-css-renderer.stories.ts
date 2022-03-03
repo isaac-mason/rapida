@@ -31,7 +31,7 @@ export const SimpleCSSRenderer = () => {
     // create camera and scene
     const scene = world.create.scene();
     const camera = world.create.camera();
-    camera.position.set(-400, 250, 500);
+    camera.three.position.set(-400, 250, 500);
     camera.three.lookAt(0, 0, 0);
 
     // create views

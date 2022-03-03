@@ -75,7 +75,7 @@ export const Instancing = () => {
     const scene = world.create.scene();
 
     const camera = world.create.camera();
-    camera.position.set(0, 0, 0.1);
+    camera.three.position.set(0, 0, 0.1);
 
     const view = renderer.create.view({
       camera,

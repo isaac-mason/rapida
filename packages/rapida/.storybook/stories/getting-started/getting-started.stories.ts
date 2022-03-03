@@ -52,7 +52,7 @@ export const HelloWorld = () => {
     const scene = world.create.scene();
 
     const camera = world.create.camera();
-    camera.position.set(0, 0, 500);
+    camera.three.position.set(0, 0, 500);
 
     const view = renderer.create.view({
       camera,

@@ -71,7 +71,7 @@ const createSimpleCubesSetup = () => {
   const scene = world.create.scene();
 
   const camera = world.create.camera();
-  camera.position.set(0, 0, 3);
+  camera.three.position.set(0, 0, 3);
   scene.add(camera.three);
 
   const directionalLight = new three.DirectionalLight(0xffffff, 1.5);
@@ -315,7 +315,7 @@ export const DepthOfField = () => {
 
     new OrbitControls(camera.three, view.domElement);
 
-    camera.position.z = 6;
+    camera.three.position.z = 6;
 
     engine.start(world);
 
@@ -416,7 +416,7 @@ export const GodRays = () => {
       useEffectComposer: true,
     });
 
-    camera.position.z = 6;
+    camera.three.position.z = 6;
 
     const sun = new Mesh(new SphereBufferGeometry(3), new MeshBasicMaterial());
     sun.position.set(0, 0, -30);

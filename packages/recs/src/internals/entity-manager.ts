@@ -1,3 +1,4 @@
+import { uuid } from '@rapidajs/rapida-common';
 import { Component } from '../component';
 import { ComponentPool } from './component-pool';
 import { Entity } from '../entity';
@@ -61,7 +62,7 @@ export class EntityManager {
    */
   updateEntities(): void {
     // update entities
-    this.entitiesToUpdate.forEach((e) => e._update());
+    this.entitiesToUpdate.forEach((e) => e.events.tick());
   }
 
   /**
@@ -85,7 +86,8 @@ export class EntityManager {
       .splice(0, this.entitiesToCleanup.length)
       .forEach((e) => {
         // reset the entity
-        e._reset();
+        e.id = uuid();
+        e.events.reset();
 
         // release the entity back into the entity pool
         this.entityPool.release(e);
@@ -127,7 +129,10 @@ export class EntityManager {
    */
   initialiseEntity(entity: Entity): void {
     // initialise the entity
-    entity._init();
+    entity.initialised = true;
+
+    // initialise components
+    entity.components.forEach((c) => this.initialiseComponent(c));
 
     // add entity update to the update pool
     this.entitiesToUpdate.set(entity.id, entity);
@@ -174,8 +179,8 @@ export class EntityManager {
       this.removeComponentFromEntity(entity, c, false)
     );
 
-    // destroy the entity
-    entity._destroy();
+    // mark the entity as dead
+    entity.alive = false;
 
     // stage the entity for cleanup and reset on the next update
     this.entitiesToCleanup.push(entity);
@@ -207,6 +212,11 @@ export class EntityManager {
 
     // add the component to the entity components maps
     entity.components.set(constr, component);
+
+    // initialise the component if the entity is already initialised
+    if (entity.initialised) {
+      this.initialiseComponent(component);
+    }
 
     return component as T;
   }

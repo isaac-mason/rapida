@@ -3,10 +3,11 @@ import { describe, it, expect } from '@jest/globals';
 import { recs, Component, RECS, System, QueryDescription } from '../src';
 
 describe('Systems and Queries Integration Tests', () => {
-  let R: RECS;
+  let world: RECS;
 
   beforeEach(() => {
-    R = recs();
+    world = recs();
+    world.init();
   });
 
   it('systems can contain queries for components', () => {
@@ -21,11 +22,9 @@ describe('Systems and Queries Integration Tests', () => {
       };
     }
 
-    R.init();
+    const system = world.add.system(new TestSystem());
 
-    const system = R.add.system(new TestSystem());
-
-    const space = R.create.space();
+    const space = world.create.space();
 
     const entity = space.create.entity();
 
@@ -36,7 +35,7 @@ describe('Systems and Queries Integration Tests', () => {
     expect(system.results.testQueryName.added.size).toBe(0);
     expect(system.results.testQueryName.removed.size).toBe(0);
 
-    R.update(1, 1);
+    world.update(1, 1);
 
     expect(system.results.testQueryName.added.size).toBe(1);
     expect(system.results.testQueryName.removed.size).toBe(0);
@@ -48,7 +47,7 @@ describe('Systems and Queries Integration Tests', () => {
     expect(system.results.testQueryName.removed.size).toBe(0);
     expect(system.results.testQueryName.all.size).toBe(1);
 
-    R.update(1, 2);
+    world.update(1, 2);
 
     expect(system.results.testQueryName.all.size).toBe(0);
     expect(system.results.testQueryName.removed.size).toBe(1);
@@ -66,21 +65,19 @@ describe('Systems and Queries Integration Tests', () => {
 
       onDestroy = systemDestroyJestFn;
     }
-    R.add.system(new TestSystem());
+    world.add.system(new TestSystem());
 
-    R.init();
-
-    expect(R.initialised).toBe(true);
+    expect(world.initialised).toBe(true);
     expect(systemInitJestFn).toHaveBeenCalledTimes(1);
 
     const timeElapsed = 1001;
-    R.update(timeElapsed, timeElapsed);
+    world.update(timeElapsed, timeElapsed);
 
     expect(systemUpdateJestFn).toHaveBeenCalledTimes(1);
 
     expect(systemUpdateJestFn.mock.calls[0][0]).toBe(timeElapsed);
 
-    R.destroy();
+    world.destroy();
 
     expect(systemDestroyJestFn).toHaveBeenCalledTimes(1);
   });
@@ -104,15 +101,13 @@ describe('Systems and Queries Integration Tests', () => {
     }
 
     const systemOne = new TestSystemOne();
-    R.add.system(systemOne);
+    world.add.system(systemOne);
 
     const systemTwo = new TestSystemTwo();
-    R.add.system(systemTwo);
-
-    R.init();
+    world.add.system(systemTwo);
 
     expect(
-      R.queryManager.hasQuery({
+      world.queryManager.hasQuery({
         all: [TestComponentOne],
       })
     ).toBe(true);
@@ -120,7 +115,7 @@ describe('Systems and Queries Integration Tests', () => {
     systemOne.destroy();
 
     expect(
-      R.queryManager.hasQuery({
+      world.queryManager.hasQuery({
         all: [TestComponentOne],
       })
     ).toBe(true);
@@ -128,7 +123,7 @@ describe('Systems and Queries Integration Tests', () => {
     systemTwo.destroy();
 
     expect(
-      R.queryManager.hasQuery({
+      world.queryManager.hasQuery({
         all: [TestComponentOne],
       })
     ).toBe(false);
@@ -142,9 +137,7 @@ describe('Systems and Queries Integration Tests', () => {
         all: [TestComponent],
       };
 
-      R.init();
-
-      const query = R.queryManager.getQuery(description);
+      const query = world.queryManager.getQuery(description);
 
       expect(query).toBeTruthy();
     });
@@ -154,13 +147,11 @@ describe('Systems and Queries Integration Tests', () => {
         all: [TestComponent],
       };
 
-      const space = R.create.space();
+      const space = world.create.space();
       const entity = space.create.entity();
       entity.addComponent(TestComponent);
 
-      R.init();
-
-      const query = R.queryManager.getQuery(description);
+      const query = world.queryManager.getQuery(description);
 
       expect(query).toBeTruthy();
       expect(query.all.size).toBe(1);
@@ -172,11 +163,9 @@ describe('Systems and Queries Integration Tests', () => {
         all: [TestComponent],
       };
 
-      R.init();
+      const queryOne = world.queryManager.getQuery(description);
 
-      const queryOne = R.queryManager.getQuery(description);
-
-      const queryTwo = R.queryManager.getQuery(description);
+      const queryTwo = world.queryManager.getQuery(description);
 
       expect(queryOne).toBeTruthy();
       expect(queryTwo).toBeTruthy();
@@ -195,13 +184,11 @@ describe('Systems and Queries Integration Tests', () => {
         all: [TestComponentOne],
       };
 
-      R.init();
+      let query = world.queryManager.getQuery(description);
 
-      let query = R.queryManager.getQuery(description);
+      expect(world.queryManager.queries.size).toBe(1);
 
-      expect(R.queryManager.queries.size).toBe(1);
-
-      const space = R.create.space();
+      const space = world.create.space();
 
       const entityOne = space.create.entity();
 
@@ -211,9 +198,9 @@ describe('Systems and Queries Integration Tests', () => {
 
       entityTwo.addComponent(TestComponentTwo);
 
-      query = R.queryManager.getQuery(description);
+      query = world.queryManager.getQuery(description);
 
-      R.update(1, 1);
+      world.update(1, 1);
 
       expect(query.all.size).toBe(1);
       expect(query.all).toContain(entityOne);
@@ -231,13 +218,11 @@ describe('Systems and Queries Integration Tests', () => {
         all: [TestComponentOne],
       };
 
-      R.init();
-
-      let query = R.queryManager.getQuery(description);
-      expect(R.queryManager.queries.size).toBe(1);
+      let query = world.queryManager.getQuery(description);
+      expect(world.queryManager.queries.size).toBe(1);
       expect(query.all.size).toBe(0);
 
-      const space = R.create.space();
+      const space = world.create.space();
 
       const entityOne = space.create.entity();
 
@@ -248,7 +233,7 @@ describe('Systems and Queries Integration Tests', () => {
       entityTwo.addComponent(TestComponentOne);
       entityTwo.addComponent(TestComponentTwo);
 
-      R.update(1, 1);
+      world.update(1, 1);
 
       expect(query.all.size).toBe(2);
       expect(query.all).toContain(entityOne);
@@ -260,9 +245,9 @@ describe('Systems and Queries Integration Tests', () => {
       const entityTwoComponentTwo = entityTwo.get(TestComponentTwo);
       entityTwo.removeComponent(entityTwoComponentTwo);
 
-      R.update(1, 2);
+      world.update(1, 2);
 
-      query = R.queryManager.getQuery(description);
+      query = world.queryManager.getQuery(description);
 
       expect(query.all.size).toBe(1);
       expect(query.all).not.toContain(entityOne);
@@ -280,15 +265,13 @@ describe('Systems and Queries Integration Tests', () => {
         all: [TestComponentOne],
       };
 
-      R.init();
+      let query = world.queryManager.getQuery(description);
 
-      let query = R.queryManager.getQuery(description);
-
-      expect(R.queryManager.queries.size).toBe(1);
+      expect(world.queryManager.queries.size).toBe(1);
 
       expect(query.all.size).toBe(0);
 
-      const space = R.create.space();
+      const space = world.create.space();
 
       const entityOne = space.create.entity();
 
@@ -299,7 +282,7 @@ describe('Systems and Queries Integration Tests', () => {
       entityTwo.addComponent(TestComponentOne);
       entityTwo.addComponent(TestComponentTwo);
 
-      R.update(1, 1);
+      world.update(1, 1);
 
       expect(query.all.size).toBe(2);
       expect(query.all).toContain(entityOne);
@@ -307,13 +290,236 @@ describe('Systems and Queries Integration Tests', () => {
 
       entityOne.destroy();
 
-      R.update(1, 2);
+      world.update(1, 2);
 
-      query = R.queryManager.getQuery(description);
+      query = world.queryManager.getQuery(description);
 
       expect(query.all.size).toBe(1);
       expect(query.all).not.toContain(entityOne);
       expect(query.all).toContain(entityTwo);
+    });
+  });
+
+  describe('Advanced Query Tests', () => {
+    class TestComponentOne extends Component {}
+
+    class TestComponentTwo extends Component {}
+
+    class TestComponentThree extends Component {}
+
+    class TestComponentFour extends Component {}
+
+    class TestComponentFive extends Component {}
+
+    class TestComponentSix extends Component {}
+
+    it('updates system query results if an entity matches a query with the ONE condition', () => {
+      class TestSystem extends System {
+        queries = {
+          test: {
+            one: [TestComponentOne, TestComponentTwo],
+          },
+        };
+      }
+
+      const system = world.add.system(new TestSystem());
+
+      const space = world.create.space();
+
+      const entity = space.create.entity();
+      entity.addComponent(TestComponentOne);
+
+      world.update(1, 1);
+
+      expect(system.results.test.added.size).toBe(1);
+      expect(system.results.test.all.size).toBe(1);
+      expect(system.results.test.removed.size).toBe(0);
+
+      expect(system.results.test.all.has(entity)).toBeTruthy();
+      expect(system.results.test.added.has(entity)).toBeTruthy();
+      expect(system.results.test.removed.has(entity)).toBeFalsy();
+    });
+
+    it('does not update system query results an entity does not match a query with the ONE condition', () => {
+      class TestSystem extends System {
+        queries = {
+          test: {
+            one: [TestComponentOne, TestComponentTwo],
+          },
+        };
+      }
+
+      const system = world.add.system(new TestSystem());
+
+      const space = world.create.space();
+
+      const entity = space.create.entity();
+      entity.addComponent(TestComponentOne);
+
+      world.update(1, 1);
+
+      expect(system.results.test.added.size).toBe(1);
+      expect(system.results.test.all.size).toBe(1);
+      expect(system.results.test.removed.size).toBe(0);
+
+      expect(system.results.test.all.has(entity)).toBeTruthy();
+      expect(system.results.test.added.has(entity)).toBeTruthy();
+      expect(system.results.test.removed.has(entity)).toBeFalsy();
+
+      entity.removeComponent(TestComponentOne);
+
+      world.update(1, 2);
+
+      expect(system.results.test.added.size).toBe(0);
+      expect(system.results.test.all.size).toBe(0);
+      expect(system.results.test.removed.size).toBe(1);
+
+      expect(system.results.test.all.has(entity)).toBeFalsy();
+      expect(system.results.test.added.has(entity)).toBeFalsy();
+      expect(system.results.test.removed.has(entity)).toBeTruthy();
+    });
+
+    it('updates system query results if an entity matches a query with the NOT condition', () => {
+      class TestSystem extends System {
+        queries = {
+          test: {
+            not: [TestComponentOne],
+          },
+        };
+      }
+
+      const system = world.add.system(new TestSystem());
+
+      const space = world.create.space();
+
+      const entity = space.create.entity();
+      entity.addComponent(TestComponentTwo);
+
+      world.update(1, 1);
+
+      expect(system.results.test.added.size).toBe(1);
+      expect(system.results.test.all.size).toBe(1);
+      expect(system.results.test.removed.size).toBe(0);
+
+      expect(system.results.test.all.has(entity)).toBeTruthy();
+      expect(system.results.test.added.has(entity)).toBeTruthy();
+      expect(system.results.test.removed.has(entity)).toBeFalsy();
+    });
+
+    it('does not update system query results if an entity does not match a query with the NOT condition', () => {
+      class TestSystem extends System {
+        queries = {
+          test: {
+            not: [TestComponentOne],
+          },
+        };
+      }
+
+      const system = world.add.system(new TestSystem());
+
+      const space = world.create.space();
+
+      const entity = space.create.entity();
+      entity.addComponent(TestComponentOne);
+
+      world.update(1, 1);
+
+      expect(system.results.test.added.size).toBe(0);
+      expect(system.results.test.all.size).toBe(0);
+      expect(system.results.test.removed.size).toBe(0);
+
+      expect(system.results.test.all.has(entity)).toBeFalsy();
+      expect(system.results.test.added.has(entity)).toBeFalsy();
+      expect(system.results.test.removed.has(entity)).toBeFalsy();
+    });
+
+    it('updates system query results if an entity matches a query with the ALL condition', () => {
+      class TestSystem extends System {
+        queries = {
+          test: {
+            all: [TestComponentOne, TestComponentTwo, TestComponentThree],
+          },
+        };
+      }
+
+      const system = world.add.system(new TestSystem());
+
+      const space = world.create.space();
+
+      const entity = space.create.entity();
+      entity.addComponent(TestComponentOne);
+      entity.addComponent(TestComponentTwo);
+      entity.addComponent(TestComponentThree);
+
+      world.update(1, 1);
+
+      expect(system.results.test.added.size).toBe(1);
+      expect(system.results.test.all.size).toBe(1);
+      expect(system.results.test.removed.size).toBe(0);
+
+      expect(system.results.test.all.has(entity)).toBeTruthy();
+      expect(system.results.test.added.has(entity)).toBeTruthy();
+      expect(system.results.test.removed.has(entity)).toBeFalsy();
+    });
+
+    it('does not update system query results if an entity does not match a query with the ALL condition', () => {
+      class TestSystem extends System {
+        queries = {
+          test: {
+            all: [TestComponentOne, TestComponentTwo, TestComponentThree],
+          },
+        };
+      }
+
+      const system = world.add.system(new TestSystem());
+
+      const space = world.create.space();
+
+      const entity = space.create.entity();
+      entity.addComponent(TestComponentOne);
+      entity.addComponent(TestComponentTwo);
+      entity.addComponent(TestComponentFour);
+
+      world.update(1, 1);
+
+      expect(system.results.test.added.size).toBe(0);
+      expect(system.results.test.all.size).toBe(0);
+      expect(system.results.test.removed.size).toBe(0);
+
+      expect(system.results.test.all.has(entity)).toBeFalsy();
+      expect(system.results.test.added.has(entity)).toBeFalsy();
+      expect(system.results.test.removed.has(entity)).toBeFalsy();
+    });
+
+    it('updates system query results if an entity matches a query with multiple condition', () => {
+      class TestSystem extends System {
+        queries = {
+          test: {
+            all: [TestComponentOne, TestComponentTwo],
+            one: [TestComponentThree, TestComponentFour],
+            not: [TestComponentFive, TestComponentSix],
+          },
+        };
+      }
+
+      const system = world.add.system(new TestSystem());
+
+      const space = world.create.space();
+
+      const entity = space.create.entity();
+      entity.addComponent(TestComponentOne);
+      entity.addComponent(TestComponentTwo);
+      entity.addComponent(TestComponentFour);
+
+      world.update(1, 1);
+
+      expect(system.results.test.added.size).toBe(1);
+      expect(system.results.test.all.size).toBe(1);
+      expect(system.results.test.removed.size).toBe(0);
+
+      expect(system.results.test.all.has(entity)).toBeTruthy();
+      expect(system.results.test.added.has(entity)).toBeTruthy();
+      expect(system.results.test.removed.has(entity)).toBeFalsy();
     });
   });
 });
