@@ -4,6 +4,7 @@ import { Space, SpaceParams } from './space';
 import { SystemManager } from './internals/system-manager';
 import { QueryManager } from './internals/query-manager';
 import { EntityManager } from './internals/entity-manager';
+import { Entity } from './entity';
 
 /**
  * RECS Entity Component System that contains systems and spaces
@@ -71,7 +72,7 @@ export class RECS {
         this.spaces.set(space.id, space);
 
         if (this.initialised) {
-          space._init();
+          this.entityManager.initialiseSpace(space);
         }
 
         return space;
@@ -108,8 +109,8 @@ export class RECS {
     this.systemManager.init();
 
     // Initialise spaces
-    this.spaces.forEach((s) => {
-      s._init();
+    this.spaces.forEach((space) => {
+      this.entityManager.initialiseSpace(space);
     });
   }
 
@@ -122,7 +123,7 @@ export class RECS {
       this.systemManager.removeSystem(value);
     } else if (value instanceof Space) {
       this.spaces.delete(value.id);
-      value._destroy();
+      this.entityManager.destroySpace(value);
     }
   }
 
@@ -139,7 +140,9 @@ export class RECS {
     this.entityManager.updateEntities();
 
     // update spaces - steps space event system
-    this.spaces.forEach((s) => s._updateEvents());
+    this.spaces.forEach((s) => {
+      s.events.tick();
+    });
 
     // update queries
     this.queryManager.update();
@@ -148,7 +151,19 @@ export class RECS {
     this.entityManager.recycle();
 
     // update entities in spaces - checks if entities are alive and releases them if they are dead
-    this.spaces.forEach((s) => s._updateEntities());
+    this.spaces.forEach((s) => {
+      const dead: Entity[] = [];
+
+      s.entities.forEach((e) => {
+        if (!e.alive) {
+          dead.push(e);
+        }
+      });
+
+      dead.forEach((d) => {
+        s.remove(d);
+      });
+    });
 
     // update systems
     this.systemManager.update(timeElapsed, time);
@@ -159,7 +174,7 @@ export class RECS {
    */
   destroy(): void {
     this.systemManager.destroy();
-    this.spaces.forEach((s) => s._destroy());
+    this.spaces.forEach((s) => this.entityManager.destroySpace(s));
   }
 }
 

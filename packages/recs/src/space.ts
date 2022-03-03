@@ -42,12 +42,12 @@ export class Space {
   /**
    * Whether the space has been initialised
    */
-  private initialised = false;
+  initialised = false;
 
   /**
    * The spaces event system
    */
-  private events = new EventSystem({ queued: true });
+  events = new EventSystem({ queued: true });
 
   /**
    * Constructor for the Space
@@ -70,7 +70,7 @@ export class Space {
   } {
     return {
       entity: (): Entity => {
-        return this.recs.entityManager.createEntityInSpace(this);
+        return this.recs.entityManager.createEntity(this);
       },
     };
   }
@@ -80,7 +80,7 @@ export class Space {
    * @param entity the entity to remove
    */
   remove(entity: Entity): Space {
-    this.recs.entityManager.removeEntityFromSpace(entity, this);
+    this.recs.entityManager.removeEntity(entity, this);
     return this;
   }
 
@@ -111,73 +111,5 @@ export class Space {
    */
   destroy(): void {
     this.recs.remove(this);
-  }
-
-  /**
-   * Adds an entity to the space
-   * @param value the entity to add
-   * @private called internally, do not call directly
-   */
-  _add(entity: Entity): Space {
-    this.entities.set(entity.id, entity);
-
-    if (this.initialised) {
-      this.recs.entityManager.initialiseEntity(entity);
-    }
-
-    return this;
-  }
-
-  /**
-   * Initialise the space
-   * @private called internally, do not call directly
-   */
-  _init(): void {
-    this.initialised = true;
-    this.entities.forEach((e) => this.initialiseEntity(e));
-  }
-
-  /**
-   * Updates the space by stepping the spaces event system
-   * @param timeElapsed the time since the last update in seconds
-   * @private called internally, do not call directly
-   */
-  _updateEvents(): void {
-    this.events.tick();
-  }
-
-  /**
-   * Updates all entities within the space
-   * @param timeElapsed the time since the last update in seconds
-   * @private called internally, do not call directly
-   */
-  _updateEntities(): void {
-    const dead: Entity[] = [];
-
-    this.entities.forEach((e) => {
-      if (!e.alive) {
-        dead.push(e);
-      }
-    });
-
-    dead.forEach((d) => {
-      this.remove(d);
-    });
-  }
-
-  /**
-   * Destroys all entities from the space
-   * @private called internally, do not call directly
-   */
-  _destroy(): void {
-    this.entities.forEach((e) => this.remove(e));
-  }
-
-  /**
-   * Initialises an entity in a space
-   * @param e the entity to initialise
-   */
-  private initialiseEntity(e: Entity): void {
-    this.recs.entityManager.initialiseEntity(e);
   }
 }

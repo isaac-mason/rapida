@@ -56,6 +56,51 @@ export class EntityManager {
   }
 
   /**
+   * Initialises a space
+   * @param space the space to initialise
+   */
+  initialiseSpace(space: Space): void {
+    space.initialised = true;
+    space.entities.forEach((e) => this.initialiseEntity(e));
+  }
+
+  /**
+   * Initialises an entity
+   *
+   * @param entity the entity to initialise
+   */
+  initialiseEntity(entity: Entity): void {
+    // initialise the entity
+    entity.initialised = true;
+
+    // initialise components
+    entity.components.forEach((c) => this.initialiseComponent(c));
+
+    // add entity update to the update pool
+    this.entitiesToUpdate.set(entity.id, entity);
+  }
+
+  /**
+   * Initialises a component
+   *
+   * @param component the component to initialise
+   */
+  initialiseComponent(component: Component): void {
+    // run component initialisation logic
+    if (component.onInit) {
+      component.onInit();
+    }
+
+    // add the components `onUpdate` method to the component update pool if present
+    if (component.onUpdate) {
+      this.componentsToUpdate.set(component.id, component);
+    }
+
+    // inform the query manager that the component has been initialised
+    this.recs.queryManager.onEntityComponentAdded(component.entity, component);
+  }
+
+  /**
    * Steps entity event systems for all entities
    *
    * @param timeElapsed the time elapsed in seconds
@@ -113,50 +158,16 @@ export class EntityManager {
    * @param space the space to create a new entity in
    * @returns the provisioned entity
    */
-  createEntityInSpace(space: Space): Entity {
+  createEntity(space: Space): Entity {
     const entity = this.entityPool.request();
     entity.space = space;
     space.entities.set(entity.id, entity);
-    space._add(entity);
+
+    if (space.initialised) {
+      this.recs.entityManager.initialiseEntity(entity);
+    }
 
     return entity;
-  }
-
-  /**
-   * Initialises an entity
-   *
-   * @param entity the entity to initialise
-   */
-  initialiseEntity(entity: Entity): void {
-    // initialise the entity
-    entity.initialised = true;
-
-    // initialise components
-    entity.components.forEach((c) => this.initialiseComponent(c));
-
-    // add entity update to the update pool
-    this.entitiesToUpdate.set(entity.id, entity);
-  }
-
-  /**
-   * Initialises a component
-   *
-   * @param component the component to initialise
-   */
-  initialiseComponent(component: Component): void {
-    // run component initialisation logic
-    if (component.onInit) {
-      component.onInit();
-    }
-
-    // add the components `onUpdate` method to the component update pool if present
-    if (component.onUpdate) {
-      this.componentsToUpdate.set(component.id, component);
-    }
-
-    // inform the query manager that the component has been initialised
-    // todo - change to just take component
-    this.recs.queryManager.onEntityComponentAdded(component.entity, component);
   }
 
   /**
@@ -164,7 +175,7 @@ export class EntityManager {
    *
    * @param entity the entity to release
    */
-  removeEntityFromSpace(entity: Entity, space: Space): void {
+  removeEntity(entity: Entity, space: Space): void {
     // remove the entity from the space entities map
     space.entities.delete(entity.id);
 
@@ -253,5 +264,13 @@ export class EntityManager {
 
     // stage the component for cleanup on the next update
     this.componentsToCleanup.push(component);
+  }
+
+  /**
+   * Destroys a space
+   * @param space the space to destroy
+   */
+  destroySpace(space: Space): void {
+    space.entities.forEach((e) => this.removeEntity(e, space));
   }
 }
