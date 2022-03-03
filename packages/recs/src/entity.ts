@@ -5,8 +5,9 @@ import {
   EventSystem,
   uuid,
 } from '@rapidajs/rapida-common';
-import { RECS } from './recs';
+import type { ComponentClass } from './component';
 import { Component } from './component';
+import { RECS } from './recs';
 import { Space } from './space';
 
 /**
@@ -65,13 +66,13 @@ export class Entity {
    * @param c the component to add
    */
   addComponent<T extends Component>(
-    constr: { new (...args: never[]): T },
+    clazz: ComponentClass<T>,
     ...args: Parameters<T['construct']>
   ): T {
     // add the component to this entity
     const component = this.recs.entityManager.addComponentToEntity(
       this,
-      constr,
+      clazz,
       ...args
     );
 

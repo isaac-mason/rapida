@@ -1,10 +1,10 @@
 import { uuid } from '@rapidajs/rapida-common';
-import { Component } from '../component';
+import type { Component, ComponentClass } from '../component';
+import type { Entity } from '../entity';
+import type { RECS } from '../recs';
+import type { Space } from '../space';
 import { ComponentPool } from './component-pool';
-import { Entity } from '../entity';
 import { EntityPool } from './entity-pool';
-import { RECS } from '../recs';
-import { Space } from '../space';
 
 /**
  * EntityManager that manages Spaces that contain Entities, Entities themselves, and Components
@@ -59,15 +59,15 @@ export class EntityManager {
    * Adds a component to an entity
    *
    * @param entity the entity to add to
-   * @param constr the component to add
+   * @param clazz the component to add
    */
   addComponentToEntity<T extends Component>(
     entity: Entity,
-    constr: { new (...args: never[]): T },
+    clazz: ComponentClass<T>,
     ...args: Parameters<T['construct']>
   ): T {
     // request a component from the component pool
-    const component = this.componentPool.request(constr);
+    const component = this.componentPool.request(clazz);
 
     // set the components entity
     component.entity = entity;
@@ -80,7 +80,7 @@ export class EntityManager {
     }
 
     // add the component to the entity components maps
-    entity.components.set(constr, component);
+    entity.components.set(clazz, component);
 
     // initialise the component if the entity is already initialised
     if (entity.initialised) {
