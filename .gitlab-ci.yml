@@ -15,7 +15,7 @@ workflow:
     - (cd packages/postprocessing && yarn run build)
     - (cd packages/recs && yarn run build)
     - (cd packages/cannon-worker && yarn run build)
-    - (cd packages/rapida && yarn run build)
+    - (cd packages/three && yarn run build)
     # will build and test all packages and build website
     - yarn run release
     # release if we are on the main branch
