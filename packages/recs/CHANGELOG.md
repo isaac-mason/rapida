@@ -1,5 +1,11 @@
 # @rapidajs/recs
 
+## 0.1.2
+
+### Patch Changes
+
+- df794e4: Use .values() for es6 map iteration
+
 ## 0.1.0
 
 ### Minor Changes
