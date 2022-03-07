@@ -114,7 +114,7 @@ export class WebGLRenderer {
    * Updates views to process interaction events
    */
   update(): void {
-    for (const [_, view] of this.views) {
+    for (const view of this.views.values()) {
       view._update();
     }
   }

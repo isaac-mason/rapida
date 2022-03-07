@@ -12,7 +12,7 @@ See the `vanruesc/postprocessing` docs for more documentation on the post proces
 
 Over time this package will become simpler - this primarily hinges on types being added to `vanruesc/postprocessing`.
 
-## Usage with `@rapidajs
+## Usage with `@rapidajs/three`
 
 Install `@rapidajs/three`, `three` and this package:
 
