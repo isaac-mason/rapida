@@ -24,12 +24,7 @@ To track development for `rapida`, see our board on GitLab - https://gitlab.com/
 The below commands can be used to help with development:
 
 ```bash
-# Install dependencies rapida and dependent packages in the workspace
-> yarn workspaces focus @rapidajs/rapida
-
-# alternatively, install all packages in the workplace to build examples
-# note that one example requires node-datachannel which requires cmake to be installed
-# see node-datachannel for system requirements: https://www.npmjs.com/package/node-datachannel
+# Install dependencies
 > yarn install
 
 # build and test all packages
