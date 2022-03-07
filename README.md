@@ -9,7 +9,7 @@ _rápida - fast_
 | Package                                                           | Description                                                                                                                                                         |
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [`@rapidajs/recs`](./packages/recs/README.md)                     | `@rapidajs/recs` helps you build and structure games and other demanding applications with ECS architecture.                                                        |
-| [`@pmndrs/three`](./packages/three/README.md)                     | `@rapidajs/three` provides three.js utilities for managing multiple views and loading assets.                                                                       |
+| [`@rapidajs/three`](./packages/three/README.md)                   | `@rapidajs/three` provides three.js utilities for managing multiple views and loading assets.                                                                       |
 | [`@rapidajs/postprocessing`](./packages/postprocessing/README.md) | `@rapidajs/postprocessing` is a thin wrapper around vanruesc/postprocessing. It is used in @rapidajs/three to provide an easy way of using post processing effects. |
 | [`@rapidajs/cannon-worker`](./packages/cannon-worker/README.md)   | `@rapidajs/cannon-worker` makes adding cannon physics to your three.js scenes easy!                                                                                 |
 
