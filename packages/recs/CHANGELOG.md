@@ -1,5 +1,18 @@
 # @rapidajs/recs
 
+## 0.1.0
+
+### Minor Changes
+
+- Minor version bump @rapidajs/recs, @rapidajs/three, @rapidajs/postprocessing due to deprecation of @rapidajs/rapida
+
+## 0.0.14
+
+### Patch Changes
+
+- 3d8b7f9: Refactor to move more ecs management logic into internal classes
+- c194c46: Update recs default export, remove second 'time' parameter for recs World update method
+
 ## 0.0.13
 
 ### Patch Changes

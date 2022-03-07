@@ -1,5 +1,11 @@
 # @rapidajs/cannon-worker
 
+## 0.0.14
+
+### Patch Changes
+
+- 7743ae1: Reverse @rapidajs/cannon-worker dependency so @rapidajs/rapida does not depend on cannon-worker or provide physics methods
+
 ## 0.0.10
 
 ### Patch Changes

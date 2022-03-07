@@ -1,5 +1,23 @@
 # @rapidajs/rapida
 
+## 0.1.0
+
+### Minor Changes
+
+- Minor version bump @rapidajs/recs, @rapidajs/three, @rapidajs/postprocessing due to deprecation of @rapidajs/rapida
+
+### Patch Changes
+
+- Updated dependencies
+  - @rapidajs/postprocessing@0.1.0
+
+## 0.0.14
+
+### Patch Changes
+
+- 2a28b20: Fix missing support for updating webgl view scene and camera if using effect composer
+- c194c46: Create new package @rapidajs/three from view and loaders logic in @rapidajs/rapida
+
 ## 0.0.13
 
 ### Patch Changes
