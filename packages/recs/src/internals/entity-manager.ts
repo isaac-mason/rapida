@@ -115,7 +115,7 @@ export class EntityManager {
    * @param space the space to destroy
    */
   destroySpace(space: Space): void {
-    for (const [_, entity] of space.entities) {
+    for (const entity of space.entities.values()) {
       this.removeEntity(entity, space);
     }
   }
@@ -150,7 +150,7 @@ export class EntityManager {
     entity.initialised = true;
 
     // initialise components
-    for (const [_, component] of entity.components) {
+    for (const component of entity.components.values()) {
       this.initialiseComponent(component);
     }
 
@@ -164,7 +164,7 @@ export class EntityManager {
    */
   initialiseSpace(space: Space): void {
     space.initialised = true;
-    for (const [_, entity] of space.entities) {
+    for (const entity of space.entities.values()) {
       this.initialiseEntity(entity);
     }
   }
@@ -253,7 +253,7 @@ export class EntityManager {
     this.recs.queryManager.onEntityRemoved(entity);
 
     // destroy components without notifying the query manager
-    for (const [_, component] of entity.components) {
+    for (const component of entity.components.values()) {
       this.removeComponentFromEntity(entity, component, false);
     }
 
@@ -271,7 +271,7 @@ export class EntityManager {
    * @param time the current time in seconds
    */
   updateComponents(timeElapsed: number, time: number): void {
-    for (const [_, component] of this.componentsToUpdate) {
+    for (const component of this.componentsToUpdate.values()) {
       if (component.onUpdate) {
         component.onUpdate(timeElapsed, time);
       }
@@ -284,7 +284,7 @@ export class EntityManager {
    * @param timeElapsed the time elapsed in seconds
    */
   updateEntities(): void {
-    for (const [_, entity] of this.entitiesToUpdate) {
+    for (const entity of this.entitiesToUpdate.values()) {
       entity.events.tick();
     }
   }
