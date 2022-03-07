@@ -1,5 +1,13 @@
 # @rapidajs/rapida
 
+## 0.1.3
+
+### Patch Changes
+
+- update webgl-renderer to use .values for es6 map iteration
+- Updated dependencies
+  - @rapidajs/postprocessing@0.1.1
+
 ## 0.1.1
 
 ### Patch Changes
