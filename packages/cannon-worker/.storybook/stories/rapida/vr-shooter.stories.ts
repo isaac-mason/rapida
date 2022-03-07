@@ -13,13 +13,16 @@ import {
   Mesh,
   MeshBasicMaterial,
   MeshLambertMaterial,
+  PerspectiveCamera,
   RingGeometry,
+  Scene,
   SphereBufferGeometry,
   Vector3,
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerModelFactory';
-import rapida, { XRRendererMode } from '@rapidajs/rapida';
+import { XRRenderer, XRRendererMode } from '@rapidajs/three';
+import recs from '@rapidajs/recs';
 
 export default {
   title: 'Rapida / VR Shooter',
@@ -27,17 +30,15 @@ export default {
 
 export const VRShooter = () => {
   useEffect(() => {
-    const engine = rapida.engine({ debug: true });
+    const world = recs();
 
-    const world = rapida.world();
+    const scene = new Scene();
 
-    const scene = world.create.scene();
+    const camera = new PerspectiveCamera();
+    camera.position.set(0, 20, 20);
+    camera.lookAt(0, 0, 0);
 
-    const camera = world.create.camera();
-    camera.three.position.set(0, 20, 20);
-    camera.three.lookAt(0, 0, 0);
-
-    const renderer = world.create.renderer.xr({
+    const renderer = new XRRenderer({
       mode: XRRendererMode.VR,
       camera,
       scene,
@@ -45,7 +46,7 @@ export const VRShooter = () => {
     });
     document.getElementById('renderer-root').appendChild(renderer.domElement);
 
-    new OrbitControls(camera.three, renderer.domElement);
+    new OrbitControls(camera, renderer.domElement);
 
     // add lights
     const directionalLight = new DirectionalLight(0xffffff, 1.5);
@@ -223,9 +224,14 @@ export const VRShooter = () => {
     setupController(0);
     setupController(1);
 
-    engine.start(world);
+    // update loop
+    world.init();
+    
+    renderer.setAnimationLoop((delta, time) => {
+      world.update(delta, time);
+    });
 
-    return () => engine.destroy();
+    return () => world.destroy();
   });
 
   return `

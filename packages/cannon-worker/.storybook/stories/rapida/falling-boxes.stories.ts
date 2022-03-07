@@ -10,11 +10,12 @@ import {
   MeshPhongMaterial,
   PerspectiveCamera,
   PlaneGeometry,
-  Vector3,
-  WebGLRenderer
+  Scene,
+  Vector3
 } from 'three';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
-import rapida, { Component, Scene, Space, System } from '@rapidajs/rapida';
+import recs, { Component, Space, System } from '@rapidajs/recs';
+import { WebGLRenderer } from '@rapidajs/three';
 import { CannonSystem } from './cannon-system';
 
 export default {
@@ -144,17 +145,10 @@ export const FallingBoxes = ({
   }
 
   useEffect(() => {
-    const engine = rapida.engine({ debug: true });
+    const world = recs();
 
-    const world = rapida.world();
-
-    const renderer = world.create.renderer.webgl({
-      renderer: new WebGLRenderer({
-        precision: 'lowp',
-        powerPreference: 'high-performance',
-      }),
-    });
-    
+    const renderer = new WebGLRenderer();
+  
     document.getElementById('renderer-root').appendChild(renderer.domElement);
     
     const physics = new CannonWorker({
@@ -165,20 +159,19 @@ export const FallingBoxes = ({
 
     world.add.system(new CannonSystem(physics));
 
-    const scene = world.create.scene();
-    scene.three.background = new Color(LIGHT_BLUE);
+    const scene = new Scene();
+    scene.background = new Color(LIGHT_BLUE);
 
-    const threeCamera = new PerspectiveCamera(50, 1, 1, 1000);
-    const camera = world.create.camera({ id: 'camera', camera: threeCamera });
+    const camera = new PerspectiveCamera(50, 1, 1, 1000);
     camera.position.set(0, 10, 40);
-    camera.three.lookAt(0, 0, 0);
+    camera.lookAt(0, 0, 0);
 
     const view = renderer.create.view({
       camera,
       scene,
     });
 
-    new OrbitControls(camera.three, view.domElement);
+    new OrbitControls(camera, view.domElement);
 
     const directionalLight = new DirectionalLight(0xffffff, 0.75);
     directionalLight.position.set(100, 100, 100);
@@ -214,9 +207,26 @@ export const FallingBoxes = ({
     const cubeEmitter = new CubeSpawner({ space, scene, physics });
     world.add.system(cubeEmitter);
 
-    engine.start(world);
+    // simple loop
+    world.init();
+    
+    let lastCallTime = 0;
+    const loop = (elapsed: number, time: number) => {
+      world.update(elapsed, time);
+      renderer.render(elapsed);
+    };
 
-    return () => engine.destroy();
+    const demoLoop = (now: number) => {
+      const nowSeconds = now / 1000;
+      const elapsed = nowSeconds - lastCallTime;
+      loop(elapsed, nowSeconds);
+      requestAnimationFrame(demoLoop);
+      lastCallTime = nowSeconds;
+    };
+
+    requestAnimationFrame(demoLoop);
+    
+    return () => world.destroy();
   });
 
   return `

@@ -1,8 +1,8 @@
 {
-  "name": "@rapidajs/recs",
+  "name": "@rapidajs/three",
   "version": "0.0.13",
-  "description": "Reminiscent of an entity component system",
-  "homepage": "https://gitlab.com/rapidajs/rapida/-/tree/main/packages/recs",
+  "description": "goodies for three.js",
+  "homepage": "https://gitlab.com/rapidajs/rapida/-/tree/main/packages/three",
   "bugs": {
     "url": "https://gitlab.com/rapidajs/rapida/issues"
   },
@@ -14,10 +14,10 @@
     "build": "yarn run build:types && yarn run build:js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "storybook": "start-storybook -p 6009",
-    "storybook:https": "start-storybook -p 6006 --https --ssl-cert ../../dev/ca.crt --ssl-key ../../dev/ca.key",
-    "build-storybook": "build-storybook",
     "lint": "eslint . --ext .ts",
+    "storybook": "start-storybook -p 6005",
+    "storybook:https": "start-storybook -p 6005 --https --ssl-cert ../../dev/ca.crt --ssl-key ../../dev/ca.key",
+    "build-storybook": "build-storybook",
     "docs": "typedoc"
   },
   "author": "Isaac Mason",
@@ -31,6 +31,7 @@
     "@babel/plugin-proposal-optional-chaining": "^7.16.0",
     "@babel/preset-env": "^7.16.0",
     "@babel/preset-typescript": "^7.16.0",
+    "@rapidajs/recs": "0.0.13",
     "@storybook/addon-actions": "^6.4.1",
     "@storybook/addon-docs": "^6.4.1",
     "@storybook/addon-essentials": "^6.4.1",
@@ -40,7 +41,6 @@
     "@storybook/html": "^6.4.1",
     "@storybook/manager-webpack5": "^6.4.1",
     "@types/jest": "^27.0.1",
-    "@types/pino": "^6.3.11",
     "@typescript-eslint/eslint-plugin": "^5.7.0",
     "@typescript-eslint/parser": "^5.7.0",
     "anysort": "^2.0.0",
@@ -60,14 +60,24 @@
     "jest": "^27.2.0",
     "prettier": "^2.3.2",
     "process": "^0.11.10",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "typescript": "^4.4.2"
   },
   "dependencies": {
     "@jest/globals": "^27.2.0",
+    "@rapidajs/postprocessing": "0.0.3",
     "@rapidajs/rapida-common": "0.0.9",
+    "@types/three": "^0.133.0",
     "jest-mock": "^27.1.1",
+    "three": "^0.133.0",
+    "three-stdlib": "^2.7.0",
     "ts-jest": "^27.0.5",
     "typedoc": "^0.22.10",
     "typedoc-plugin-markdown": "^3.11.7"
+  },
+  "peerDependencies": {
+    "postprocessing": "^6.23.3",
+    "three": "^0.133.0"
   }
 }

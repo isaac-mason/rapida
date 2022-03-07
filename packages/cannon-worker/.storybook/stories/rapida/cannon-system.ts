@@ -1,5 +1,5 @@
 import CannonWorker from '@rapidajs/cannon-worker';
-import { System } from '@rapidajs/rapida';
+import { System } from '@rapidajs/recs';
 
 /**
  * CannonSystem steps a CannonWorker

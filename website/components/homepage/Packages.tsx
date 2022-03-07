@@ -5,28 +5,9 @@ import styled from 'styled-components';
 
 const packages = [
   {
-    name: '@rapidajs/rapida',
-    description:
-      'rapida is a javascript package that helps you create interactive 3d content for the web. It is the culmination of all of the @rapidajs packages.',
-    links: [
-      {
-        name: 'Docs',
-        href: '/docs/rapida/README',
-      },
-      {
-        name: 'Examples',
-        href: '/storybooks/rapida/index.html',
-      },
-      {
-        name: 'GitLab',
-        href: 'https://gitlab.com/rapidajs/rapida/-/tree/main/packages/rapida',
-      },
-    ],
-  },
-  {
     name: '@rapidajs/recs',
     description:
-      'recs is Reminiscent [of an] Entity Component System. It is part of the the core of rapida, and it can also be used as a standalone Entity Component System.',
+      'recs is Reminiscent [of an] Entity Component System.',
     links: [
       {
         name: 'Docs',
@@ -39,6 +20,25 @@ const packages = [
       {
         name: 'GitLab',
         href: 'https://gitlab.com/rapidajs/rapida/-/tree/main/packages/recs',
+      },
+    ],
+  },
+  {
+    name: '@rapidajs/three',
+    description:
+      '@rapidajs/three contains goodies for managing multiple views and loading assets.',
+    links: [
+      {
+        name: 'Docs',
+        href: '/docs/three/README',
+      },
+      {
+        name: 'Examples',
+        href: '/storybooks/three/index.html',
+      },
+      {
+        name: 'GitLab',
+        href: 'https://gitlab.com/rapidajs/rapida/-/tree/main/packages/three',
       },
     ],
   },

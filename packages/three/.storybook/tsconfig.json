@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@rapidajs/three": ["../src/index.ts"],
+    }
+  },
+  "extends": "../tsconfig",
+  "exclude": [],
+  "include": ["./stories/*", "stories-todo/demos", "stories-todo/postprocessing"]
+}

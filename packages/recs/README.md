@@ -4,8 +4,6 @@ recs - *Reminiscent [of an] Entity Component System*
 
 **rapida is under active alpha development and is not yet battle-tested and stable. We don't recommend using rapida in production just yet, but watch this space!**
 
-`@rapidajs/recs` is part of the core of `@rapidajs/rapida`, and can also be used standalone.
-
 - [x] Simple to use API
 - [x] Flexible and extensible!
 - [x] Avoids garbage collection without making you think too hard

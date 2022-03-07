@@ -26,6 +26,7 @@
   "scripts": {
     "build": "tsc && rollup -c",
     "storybook": "start-storybook -p 6008",
+    "storybook:https": "start-storybook -p 6008 --https --ssl-cert ../../dev/ca.crt --ssl-key ../../dev/ca.key",
     "build-storybook": "build-storybook",
     "docs": "typedoc"
   },

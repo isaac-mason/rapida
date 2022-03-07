@@ -5,7 +5,7 @@
       "path": ".."
     },
     {
-      "path": "../packages/rapida"
+      "path": "../packages/three"
     },
     {
       "path": "../packages/recs"

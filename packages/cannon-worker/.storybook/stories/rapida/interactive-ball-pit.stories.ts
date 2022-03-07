@@ -1,5 +1,7 @@
 import CannonWorker, { BodyApi, BodyType } from '@rapidajs/cannon-worker';
 import { Effects } from '@rapidajs/postprocessing';
+import recs, { Component } from '@rapidajs/recs';
+import { View, WebGLRenderer, WebGLView } from '@rapidajs/three';
 import { useEffect } from '@storybook/client-api';
 import {
   AmbientLight,
@@ -11,16 +13,9 @@ import {
   MeshLambertMaterial,
   Object3D,
   PerspectiveCamera,
-  SphereBufferGeometry,
-  WebGLRenderer,
-} from 'three';
-import rapida, {
-  Camera,
-  Component,
   Scene,
-  View,
-  WebGLView,
-} from '@rapidajs/rapida';
+  SphereBufferGeometry
+} from 'three';
 // @ts-expect-error webpack image import
 import cursorImage from '../../resources/cursor.png';
 import { CannonSystem } from './cannon-system';
@@ -96,7 +91,7 @@ class BallPitContainer extends Component {
 class Cursor extends Component {
   physics!: CannonWorker;
 
-  camera!: Camera;
+  camera!: PerspectiveCamera;
 
   view!: WebGLView;
 
@@ -106,7 +101,7 @@ class Cursor extends Component {
 
   construct = (params: {
     physics: CannonWorker;
-    camera: Camera;
+    camera: PerspectiveCamera;
     view: WebGLView;
   }) => {
     this.physics = params.physics;
@@ -227,28 +222,18 @@ class Spheres extends Component {
 
 export const InteractiveBallPit = ({ count }) => {
   useEffect(() => {
-    const engine = rapida.engine({ debug: true });
+    const world = recs();
 
-    const world = rapida.world();
+    const renderer = new WebGLRenderer();
+    document.getElementById('renderer-root').appendChild(renderer.domElement);
 
-    const renderer = world.create.renderer.webgl({
-      renderer: new WebGLRenderer({
-        precision: 'highp',
-        powerPreference: 'high-performance',
-        stencil: false,
-        alpha: false,
-        antialias: false,
-      }),
-    });
-
-    const camera = world.create.camera({
-      camera: new PerspectiveCamera(50, 1, 17, 40),
-    });
-    camera.position.set(0, 0, 40);
-
-    const scene = world.create.scene();
+    const scene = new Scene();
     const BACKGROUND = '#ffdd41'; //'#89CFF0';
-    scene.three.background = new Color(BACKGROUND);
+    scene.background = new Color(BACKGROUND);
+
+    const camera = new PerspectiveCamera(50, 1, 17, 40);
+    camera.position.set(0, 0, 40);
+    scene.add(camera);
 
     const view = renderer.create.view({
       id: 'ball-pit-view',
@@ -266,9 +251,7 @@ export const InteractiveBallPit = ({ count }) => {
       })
     );
 
-    scene.three.fog = new Fog('red', 30, 80);
-
-    document.getElementById('renderer-root').appendChild(renderer.domElement);
+    scene.fog = new Fog('red', 30, 80);
 
     const physics = new CannonWorker({
       gravity: [0, -10, 0],
@@ -314,9 +297,26 @@ export const InteractiveBallPit = ({ count }) => {
       .addComponent(Spheres, { physics, scene, view, count });
     space.create.entity().addComponent(Cursor, { physics, camera, view });
 
-    engine.start(world);
+    // simple loop
+    renderer.update();
+    world.init();
+    
+    let lastCallTime = 0;
+    const demoLoop = (now: number) => {
+      const nowSeconds = now / 1000;
+      const elapsed = nowSeconds - lastCallTime;
+      
+      world.update(elapsed, now);
+      renderer.update();
+      renderer.render(elapsed);
 
-    return () => engine.destroy();
+      requestAnimationFrame(demoLoop);
+      lastCallTime = nowSeconds;
+    };
+
+    requestAnimationFrame(demoLoop);
+
+    return () => world.destroy();
   });
 
   return `

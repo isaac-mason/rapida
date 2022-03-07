@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "outDir": "./lib",
+    "strict": true,
+    "baseUrl": ".",
+    "lib": ["webworker", "dom", "es2019"],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowJs": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "isolatedModules": true,
+    "downlevelIteration": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}

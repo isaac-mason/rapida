@@ -3,14 +3,17 @@ import CannonWorker, {
   ThreeToCannonShapeType,
 } from '@rapidajs/cannon-worker';
 import { useEffect } from '@storybook/client-api';
-import { AmbientLight, BufferGeometry, Color, Mesh } from 'three';
+import { AmbientLight, BufferGeometry, Color, Mesh, PerspectiveCamera, Scene } from 'three';
 import { Geometry } from 'three-stdlib';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import rapida, { Component, GLTF } from '@rapidajs/rapida';
+import recs, { Component } from '@rapidajs/recs';
 
 // @ts-expect-error webpack import
 import diamondGlb from '../../resources/diamond.glb';
 import { CannonSystem } from './cannon-system';
+import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
+import { Loaders } from '@rapidajs/three';
+import { WebGLRenderer } from '@rapidajs/three';
 
 export default {
   title: 'Rapida / GLTF Convex Polyhedron Physics',
@@ -70,22 +73,22 @@ class Diamonds extends Component {
 
 export const GLTFConvexPolyhedronPhysics = () => {
   useEffect(() => {
-    const engine = rapida.engine();
+    const world = recs();
 
     (async () => {
-      const world = rapida.world();
+      const loader = new Loaders();
 
-      const diamondGLTF = await world.load.gltf(diamondGlb);
+      const diamondGLTF = await loader.gltf(diamondGlb);
 
-      const renderer = world.create.renderer.webgl();
+      const renderer = new WebGLRenderer();
       document.getElementById('renderer-root').appendChild(renderer.domElement);
 
-      const scene = world.create.scene();
-      scene.three.background = new Color('#bfe3dd');
+      const scene = new Scene();
+      scene.background = new Color('#bfe3dd');
 
       scene.add(new AmbientLight(0xffffff, 1));
 
-      const camera = world.create.camera();
+      const camera = new PerspectiveCamera();
       camera.position.set(1, 2.5, 30);
 
       const view = renderer.create.view({
@@ -93,7 +96,7 @@ export const GLTFConvexPolyhedronPhysics = () => {
         scene,
       });
 
-      new OrbitControls(camera.three, view.domElement);
+      new OrbitControls(camera, view.domElement);
 
       const physics = new CannonWorker({
         gravity: [0, -10, 0],
@@ -102,7 +105,7 @@ export const GLTFConvexPolyhedronPhysics = () => {
       world.add.system(new CannonSystem(physics));
 
       physics.debugger = new CannonWorkerDebugger(physics, {
-        scene: scene.three,
+        scene: scene,
       });
 
       physics.create.plane(() => ({
@@ -119,10 +122,27 @@ export const GLTFConvexPolyhedronPhysics = () => {
 
       space.create.entity().addComponent(Diamonds, physics, diamondGLTF);
 
-      engine.start(world);
+      // simple loop
+      world.init();
+      
+      let lastCallTime = 0;
+      const loop = (elapsed: number, time: number) => {
+        world.update(elapsed, time);
+        renderer.render(elapsed);
+      };
+
+      const demoLoop = (now: number) => {
+        const nowSeconds = now / 1000;
+        const elapsed = nowSeconds - lastCallTime;
+        loop(elapsed, nowSeconds);
+        requestAnimationFrame(demoLoop);
+        lastCallTime = nowSeconds;
+      };
+
+      requestAnimationFrame(demoLoop);
     })();
 
-    return () => engine.destroy();
+    return () => world.destroy();
   });
 
   return `
