@@ -74,7 +74,7 @@ export class SystemManager {
    * Destroys all systems
    */
   destroy(): void {
-    for (const [_, system] of this.systems) {
+    for (const system of this.systems.values()) {
       this.destroySystem(system);
     }
   }
@@ -84,7 +84,7 @@ export class SystemManager {
    */
   init(): void {
     this.initialised = true;
-    for (const [_, system] of this.systems) {
+    for (const system of this.systems.values()) {
       this.initialiseSystem(system);
     }
   }
@@ -115,7 +115,7 @@ export class SystemManager {
    * @param time the current time in seconds
    */
   update(timeElapsed: number, time: number): void {
-    for (const [_, system] of this.systems) {
+    for (const system of this.systems.values()) {
       if (system.enabled && system.onUpdate) {
         system.onUpdate(timeElapsed, time);
       }

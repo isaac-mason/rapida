@@ -102,7 +102,7 @@ export class World {
    */
   destroy(): void {
     this.systemManager.destroy();
-    for (const [_, space] of this.spaces) {
+    for (const space of this.spaces.values()) {
       this.entityManager.destroySpace(space);
     }
   }
@@ -118,7 +118,7 @@ export class World {
     this.systemManager.init();
 
     // Initialise spaces
-    for (const [_, space] of this.spaces) {
+    for (const space of this.spaces.values()) {
       this.entityManager.initialiseSpace(space);
     }
   }
@@ -152,7 +152,7 @@ export class World {
     this.entityManager.updateEntities();
 
     // update spaces - steps space event system
-    for (const [_, space] of this.spaces) {
+    for (const space of this.spaces.values()) {
       space.events.tick();
     }
 
@@ -163,10 +163,10 @@ export class World {
     this.entityManager.recycle();
 
     // update entities in spaces - checks if entities are alive and releases them if they are dead
-    for (const [_, space] of this.spaces) {
+    for (const space of this.spaces.values()) {
       const dead: Entity[] = [];
 
-      for (const [__, entity] of space.entities) {
+      for (const entity of space.entities.values()) {
         if (!entity.alive) {
           dead.push(entity);
         }

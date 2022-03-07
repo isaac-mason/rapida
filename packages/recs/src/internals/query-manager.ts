@@ -81,8 +81,8 @@ export class QueryManager {
     const query = new Query(queryDescription);
     this.queries.set(dedupeString, query);
 
-    for (const [_, space] of this.recs.spaces) {
-      for (const [__, entity] of space.entities) {
+    for (const space of this.recs.spaces.values()) {
+      for (const entity of space.entities.values()) {
         if (this.evaluateQuery(query, entity)) {
           this.addEntityToQuery(query, entity);
         }
@@ -151,7 +151,7 @@ export class QueryManager {
    */
   update(): void {
     // clear the `added` and `removed` sets for all queries in preparation for the next update
-    for (const [_, query] of this.queries) {
+    for (const query of this.queries.values()) {
       query.added.clear();
       query.removed.clear();
     }
@@ -159,18 +159,12 @@ export class QueryManager {
     // process all events
     const events = this.eventsBuffer.splice(0, this.eventsBuffer.length);
     for (const event of events) {
-      if (event.type === QueryManagerEventType.ENTITY_COMPONENT_ADDED_EVENT) {
-        // handle entity component added event
-        for (const [_, query] of this.queries) {
-          if (this.queryShouldCheckComponent(query, event.component)) {
-            this.updateQueryForEntity(query, event.entity);
-          }
-        }
-      } else if (
+      if (
+        event.type === QueryManagerEventType.ENTITY_COMPONENT_ADDED_EVENT ||
         event.type === QueryManagerEventType.ENTITY_COMPONENT_REMOVED_EVENT
       ) {
-        // handle entity component removed event
-        for (const [_, query] of this.queries) {
+        // handle entity component added event
+        for (const query of this.queries.values()) {
           if (this.queryShouldCheckComponent(query, event.component)) {
             this.updateQueryForEntity(query, event.entity);
           }
@@ -181,7 +175,7 @@ export class QueryManager {
         if (queries === undefined) {
           return;
         }
-        for (const [_, query] of this.queries) {
+        for (const query of this.queries.values()) {
           this.removeEntityFromQuery(query, event.entity);
         }
       }
