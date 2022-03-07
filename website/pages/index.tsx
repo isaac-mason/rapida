@@ -68,7 +68,7 @@ const Home: NextPage = () => {
   return (
     <PageContainer>
       <Head>
-        <title>rápida - 3D for the Web</title>
+        <title>rápida - interactive content for the web</title>
         <meta
           name="description"
           content="rapida helps you create interactive content for the web"

@@ -2678,7 +2678,7 @@ __metadata:
     "@babel/plugin-transform-runtime": ^7.14.3
     "@babel/preset-env": ^7.14.4
     "@babel/preset-typescript": ^7.13.0
-    "@rapidajs/three": 0.0.14
+    "@rapidajs/three": 0.1.0
     "@rollup/plugin-babel": ^5.3.0
     "@rollup/plugin-node-resolve": ^13.0.0
     "@storybook/addon-actions": ^6.4.1
@@ -2733,7 +2733,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rapidajs/postprocessing@0.0.3, @rapidajs/postprocessing@workspace:packages/postprocessing":
+"@rapidajs/postprocessing@0.1.0, @rapidajs/postprocessing@workspace:packages/postprocessing":
   version: 0.0.0-use.local
   resolution: "@rapidajs/postprocessing@workspace:packages/postprocessing"
   dependencies:
@@ -2770,6 +2770,23 @@ __metadata:
     three: ^0.133.0
   languageName: unknown
   linkType: soft
+
+"@rapidajs/postprocessing@npm:0.0.3":
+  version: 0.0.3
+  resolution: "@rapidajs/postprocessing@npm:0.0.3"
+  dependencies:
+    "@types/three": ^0.133.0
+    postprocessing: ^6.23.3
+    stats.js: ^0.17.0
+    three: ^0.133.0
+    typedoc: ^0.22.10
+    typedoc-plugin-markdown: ^3.11.7
+  peerDependencies:
+    postprocessing: ^6.23.3
+    three: ^0.133.0
+  checksum: 23b43059e3b308657dcd4e87a1aee778bed285659a8cb1c32f822c4780117b92f02ff639cade9d1b67e567b4d5503ea0d04885981f1819dca372aea0626d4fb6
+  languageName: node
+  linkType: hard
 
 "@rapidajs/rapida-common@0.0.9, @rapidajs/rapida-common@workspace:packages/rapida-common":
   version: 0.0.0-use.local
@@ -2809,10 +2826,10 @@ __metadata:
   resolution: "@rapidajs/rapida-website@workspace:website"
   dependencies:
     "@rapidajs/cannon-worker": 0.0.14
-    "@rapidajs/postprocessing": 0.0.3
+    "@rapidajs/postprocessing": 0.1.0
     "@rapidajs/rapida": 0.0.13
     "@rapidajs/rapida-common": 0.0.9
-    "@rapidajs/recs": 0.0.14
+    "@rapidajs/recs": 0.1.0
     "@styled-icons/material": ^10.34.0
     "@types/node": 17.0.0
     "@types/react": 17.0.37
@@ -2860,7 +2877,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rapidajs/recs@0.0.14, @rapidajs/recs@workspace:packages/recs":
+"@rapidajs/recs@0.1.0, @rapidajs/recs@workspace:packages/recs":
   version: 0.0.0-use.local
   resolution: "@rapidajs/recs@workspace:packages/recs"
   dependencies:
@@ -2925,7 +2942,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rapidajs/three@0.0.14, @rapidajs/three@workspace:packages/three":
+"@rapidajs/three@0.1.0, @rapidajs/three@workspace:packages/three":
   version: 0.0.0-use.local
   resolution: "@rapidajs/three@workspace:packages/three"
   dependencies:
@@ -2938,9 +2955,9 @@ __metadata:
     "@babel/preset-env": ^7.16.0
     "@babel/preset-typescript": ^7.16.0
     "@jest/globals": ^27.2.0
-    "@rapidajs/postprocessing": 0.0.3
+    "@rapidajs/postprocessing": 0.1.0
     "@rapidajs/rapida-common": 0.0.9
-    "@rapidajs/recs": 0.0.14
+    "@rapidajs/recs": 0.1.0
     "@storybook/addon-actions": ^6.4.1
     "@storybook/addon-docs": ^6.4.1
     "@storybook/addon-essentials": ^6.4.1

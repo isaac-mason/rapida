@@ -54,7 +54,7 @@ const view = renderer.create.view({
 });
 ```
 
-1. Add a post processing effect with `Effects`
+5. Add a post processing effect with `Effects`
 
 ```ts
 view.composer.add.effects(Effects.bloom({ ... bloom effect params ... }));
