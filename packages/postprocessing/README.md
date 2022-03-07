@@ -1,6 +1,6 @@
 # @rapidajs/postprocessing
 
-`@rapidajs/postprocessing` is a thin wrapper around [vanruesc/postprocessing](https://github.com/vanruesc/postprocessing) with typed methods for creating effects. This package is used in `@rapidajs/rapida`, but can also be used standalone. 
+`@rapidajs/postprocessing` is a thin wrapper around [vanruesc/postprocessing](https://github.com/vanruesc/postprocessing) with typed methods for creating effects. This package is used in `@rapidajs/rapida`, but can also be used standalone.
 
 ---
 
@@ -10,48 +10,58 @@
 
 See the `vanruesc/postprocessing` docs for more documentation on the post processing effects included in this package - [`vanruesc/postprocessing`](https://vanruesc.github.io/postprocessing/public/docs/)
 
-Over time this package will become simpler - this primarily hinges on types being added to `vanruesc/postprocessing`. 
+Over time this package will become simpler - this primarily hinges on types being added to `vanruesc/postprocessing`.
 
-## Usage with rapida
+## Usage with `@rapidajs
 
-Install `@rapidajs/rapida`, `three` and this package:
+Install `@rapidajs/three`, `three` and this package:
 
 ```
-$ yarn add @rapidajs/rapida @rapidajs/postprocessing three
+$ yarn add @rapidajs/three @rapidajs/postprocessing three
 ```
 
 Use `@rapidajs/postprocessing` to add post processing effects to rapida views
 
+1. Gather necessary imports
+
 ```ts
-import rapida from `@rapidajs/rapida`;
-import { Effects } from `@rapidajs/postprocessing`;
+import { WebGLRenderer } from '@rapidajs/three';
+import { Scene, PerspectiveCamera } from 'three';
+import { Effects } from '@rapidajs/postprocessing';
+```
 
-// create a new rapida engine
-const engine = rapida.engine();
+2. Create a @rapidajs/three webgl renderer and append it to the dom
 
-// create a new rapida world
-const world = rapida.world();
+```ts
+const renderer = new WebGLRenderer();
+document.getElementById('app').appendChild(renderer.domElement);
+```
 
-// create a webgl renderer and append it to the dom
-const renderer = world.create.renderer.webgl();
-document.getElementById("rapida-root-div-element").appendChild(renderer.domElement);
+3. Create a scene
 
-// create a scene
-const scene = world.create.scene();
+```ts
+const scene = new Scene();
+```
 
-// ... add lights and objects to your scene ...
+4. Create a camera and a view
 
-// create a camera and a view
-const camera = world.create.camera();
+```ts
+const camera = new PerspectiveCamera();
 const view = renderer.create.view({
   scene,
   camera,
   useEffectComposer: true, // make sure to include `useEffectComposer: true`
 });
+```
 
-// add a post processing effect with `Effects` 
+1. Add a post processing effect with `Effects`
+
+```ts
 view.composer.add.effects(Effects.bloom({ ... bloom effect params ... }));
+```
 
-// start the world
-engine.start(world);
+6. Render your scene
+
+```ts
+renderer.render(timeElapsed);
 ```
