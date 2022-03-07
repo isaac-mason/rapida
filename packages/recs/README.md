@@ -201,7 +201,7 @@ recs.init();
 let lastCall = 0;
 const loop = (now: number) => {
   const elapsed = now - lastCall;
-  recs.update(elapsed, now);
+  recs.update(elapsed);
   lastCall = now;
 
   requestAnimationFrame((elapsedMs) => loop(elapsedMs / 1000));

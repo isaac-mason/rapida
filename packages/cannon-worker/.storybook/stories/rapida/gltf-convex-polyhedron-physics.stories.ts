@@ -126,18 +126,18 @@ export const GLTFConvexPolyhedronPhysics = () => {
       world.init();
       
       let lastCallTime = 0;
-      const demoLoop = (now: number) => {
+      const loop = (now: number) => {
         const nowSeconds = now / 1000;
         const elapsed = nowSeconds - lastCallTime;
         
         world.update(elapsed);
         renderer.render(elapsed);
-
-        requestAnimationFrame(demoLoop);
         lastCallTime = nowSeconds;
+
+        requestAnimationFrame(loop);
       };
 
-      requestAnimationFrame(demoLoop);
+      requestAnimationFrame(loop);
     })();
 
     return () => world.destroy();

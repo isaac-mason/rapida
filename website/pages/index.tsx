@@ -82,6 +82,8 @@ const Home: NextPage = () => {
           rapida helps you create interactive content for the web &#x1f919;
         </Description>
 
+        <Packages />
+
         <Warning>
           <p>&#9888; &#9888; &#9888;</p>
           <p>
@@ -106,8 +108,6 @@ const Home: NextPage = () => {
           </p>
           <p>&#9888; &#9888; &#9888;</p>
         </Warning>
-
-        <Packages />
 
         <FindUs />
       </PageMain>

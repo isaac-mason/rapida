@@ -86,20 +86,19 @@ export const SimpleCSSRenderer = () => {
 
     // simple loop
     let lastCallTime = 0;
-    const loop = (elapsed: number, time: number) => {
-      cssRenderer.render(elapsed);
-      webglRenderer.render(elapsed);
-    };
 
-    const demoLoop = (now: number) => {
+    const loop = (now: number) => {
       const nowSeconds = now / 1000;
       const elapsed = nowSeconds - lastCallTime;
-      loop(elapsed, nowSeconds);
-      requestAnimationFrame(demoLoop);
+
+      cssRenderer.render(elapsed);
+      webglRenderer.render(elapsed);
       lastCallTime = nowSeconds;
+      
+      requestAnimationFrame(loop);
     };
 
-    requestAnimationFrame(demoLoop);
+    requestAnimationFrame(loop);
   });
 
   return `
