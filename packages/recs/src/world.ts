@@ -80,21 +80,12 @@ export class World {
   }
 
   /**
-   * Retrieves RECS add methods
+   * Adds a system to the RECS
+   * @param system the system to add to the RECS
    */
-  get add(): {
-    /**
-     * Adds a system to the RECS
-     * @param system the system to add to the RECS
-     */
-    system: (system: System) => System;
-  } {
-    return {
-      system: (system: System): System => {
-        this.systemManager.addSystem(system);
-        return system;
-      },
-    };
+  addSystem(system: System): System {
+    this.systemManager.addSystem(system);
+    return system;
   }
 
   /**

@@ -22,7 +22,7 @@ describe('Systems and Queries Integration Tests', () => {
       };
     }
 
-    const system = world.add.system(new TestSystem());
+    const system = world.addSystem(new TestSystem());
 
     const space = world.create.space();
 
@@ -65,7 +65,7 @@ describe('Systems and Queries Integration Tests', () => {
 
       onUpdate = systemUpdateJestFn;
     }
-    world.add.system(new TestSystem());
+    world.addSystem(new TestSystem());
 
     expect(world.initialised).toBe(true);
     expect(systemInitJestFn).toHaveBeenCalledTimes(1);
@@ -101,10 +101,10 @@ describe('Systems and Queries Integration Tests', () => {
     }
 
     const systemOne = new TestSystemOne();
-    world.add.system(systemOne);
+    world.addSystem(systemOne);
 
     const systemTwo = new TestSystemTwo();
-    world.add.system(systemTwo);
+    world.addSystem(systemTwo);
 
     expect(
       world.queryManager.hasQuery({
@@ -322,7 +322,7 @@ describe('Systems and Queries Integration Tests', () => {
         };
       }
 
-      const system = world.add.system(new TestSystem());
+      const system = world.addSystem(new TestSystem());
 
       const space = world.create.space();
 
@@ -349,7 +349,7 @@ describe('Systems and Queries Integration Tests', () => {
         };
       }
 
-      const system = world.add.system(new TestSystem());
+      const system = world.addSystem(new TestSystem());
 
       const space = world.create.space();
 
@@ -388,7 +388,7 @@ describe('Systems and Queries Integration Tests', () => {
         };
       }
 
-      const system = world.add.system(new TestSystem());
+      const system = world.addSystem(new TestSystem());
 
       const space = world.create.space();
 
@@ -415,7 +415,7 @@ describe('Systems and Queries Integration Tests', () => {
         };
       }
 
-      const system = world.add.system(new TestSystem());
+      const system = world.addSystem(new TestSystem());
 
       const space = world.create.space();
 
@@ -442,7 +442,7 @@ describe('Systems and Queries Integration Tests', () => {
         };
       }
 
-      const system = world.add.system(new TestSystem());
+      const system = world.addSystem(new TestSystem());
 
       const space = world.create.space();
 
@@ -471,7 +471,7 @@ describe('Systems and Queries Integration Tests', () => {
         };
       }
 
-      const system = world.add.system(new TestSystem());
+      const system = world.addSystem(new TestSystem());
 
       const space = world.create.space();
 
@@ -502,7 +502,7 @@ describe('Systems and Queries Integration Tests', () => {
         };
       }
 
-      const system = world.add.system(new TestSystem());
+      const system = world.addSystem(new TestSystem());
 
       const space = world.create.space();
 

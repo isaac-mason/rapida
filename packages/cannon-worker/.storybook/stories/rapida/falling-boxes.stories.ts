@@ -157,7 +157,7 @@ export const FallingBoxes = ({
       size: 10000,
     });
 
-    world.add.system(new CannonSystem(physics));
+    world.addSystem(new CannonSystem(physics));
 
     const scene = new Scene();
     scene.background = new Color(LIGHT_BLUE);
@@ -205,7 +205,7 @@ export const FallingBoxes = ({
     const space = world.create.space();
 
     const cubeEmitter = new CubeSpawner({ space, scene, physics });
-    world.add.system(cubeEmitter);
+    world.addSystem(cubeEmitter);
 
     // simple loop
     world.init();

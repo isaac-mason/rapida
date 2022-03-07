@@ -166,15 +166,15 @@ const world = new World();
 Next, let's add the systems we created:
 
 ```ts
-recs.add.system(new WalkSystem());
-recs.add.system(new DrawSystem());
+world.addSystem(new WalkSystem());
+world.addSystem(new DrawSystem());
 ```
 
 Now let's create some entities for our random walkers and add `Position` and `Color` components.
 
 ```ts
 // create a space for our entities
-const space = recs.create.space();
+const space = world.create.space();
 
 // how many entities to create
 const n = 100;
@@ -196,12 +196,12 @@ for (let i = 0; i < n; i++) {
 Finally, lets start our simulation!
 
 ```ts
-recs.init();
+world.init();
 
 let lastCall = 0;
 const loop = (now: number) => {
   const elapsed = now - lastCall;
-  recs.update(elapsed);
+  world.update(elapsed);
   lastCall = now;
 
   requestAnimationFrame((elapsedMs) => loop(elapsedMs / 1000));

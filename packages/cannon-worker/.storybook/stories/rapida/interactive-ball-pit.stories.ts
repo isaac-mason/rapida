@@ -260,7 +260,7 @@ export const InteractiveBallPit = ({ count }) => {
       },
     });
 
-    world.add.system(new CannonSystem(physics));
+    world.addSystem(new CannonSystem(physics));
 
     const directionalLightOne = new DirectionalLight(0xffffff, 1);
     directionalLightOne.position.set(50, 50, 25);

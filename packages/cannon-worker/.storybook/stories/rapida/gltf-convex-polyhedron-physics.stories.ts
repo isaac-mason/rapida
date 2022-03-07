@@ -102,7 +102,7 @@ export const GLTFConvexPolyhedronPhysics = () => {
         gravity: [0, -10, 0],
       });
   
-      world.add.system(new CannonSystem(physics));
+      world.addSystem(new CannonSystem(physics));
 
       physics.debugger = new CannonWorkerDebugger(physics, {
         scene: scene,

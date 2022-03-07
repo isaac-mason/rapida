@@ -4,7 +4,6 @@ module.exports = {
   moduleDirectories: ['node_modules', '<rootDir>/src'],
   moduleFileExtensions: ['js', 'ts'],
   testPathIgnorePatterns: ['node_modules', 'lib'],
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   transform: {
     '^.+\\.ts$': 'ts-jest',
     '^.+\\.(js)$': 'babel-jest',

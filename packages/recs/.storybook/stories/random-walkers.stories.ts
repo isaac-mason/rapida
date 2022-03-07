@@ -106,8 +106,8 @@ export const RandomWalkers = () => {
   useEffect(() => {
     const world = new World();
 
-    world.add.system(new WalkSystem());
-    world.add.system(new DrawSystem());
+    world.addSystem(new WalkSystem());
+    world.addSystem(new DrawSystem());
 
     // create a space for our entities
     const space = world.create.space();
