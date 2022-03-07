@@ -1,5 +1,12 @@
 # @rapidajs/recs
 
+## 0.1.4
+
+### Patch Changes
+
+- ca9c416: Change recs api for adding systems to a world
+- ca9c416: Update README.md
+
 ## 0.1.2
 
 ### Patch Changes
