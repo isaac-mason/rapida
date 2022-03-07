@@ -7,7 +7,7 @@ import {
 } from '@rapidajs/rapida-common';
 import type { ComponentClass } from './component';
 import { Component } from './component';
-import { RECS } from './recs';
+import { World } from './world';
 import { Space } from './space';
 
 /**
@@ -57,7 +57,7 @@ export class Entity {
   /**
    * The RECS instance the entity is in
    */
-  get recs(): RECS {
+  get recs(): World {
     return this.space.recs;
   }
 

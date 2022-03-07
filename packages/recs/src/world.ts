@@ -7,9 +7,9 @@ import { EntityManager } from './internals/entity-manager';
 import { Entity } from './entity';
 
 /**
- * RECS Entity Component System that contains systems and spaces
+ * RECS world that contains systems and spaces
  */
-export class RECS {
+export class World {
   /**
    * The EntityManager for the RECS instance that manages entities and their components
    */
@@ -39,6 +39,11 @@ export class RECS {
    * The system manager for the RECS instance
    */
   systemManager: SystemManager;
+
+  /**
+   * The current time for the world
+   */
+  private time = 0;
 
   /**
    * Constructor for a RECS instance
@@ -136,9 +141,12 @@ export class RECS {
    * @param timeElapsed the time elapsed in seconds
    * @param time the current time in seconds
    */
-  update(timeElapsed: number, time: number): void {
+  update(timeElapsed: number): void {
+    // update the current time
+    this.time += timeElapsed;
+
     // update components - runs update methods for all components that have them
-    this.entityManager.updateComponents(timeElapsed, time);
+    this.entityManager.updateComponents(timeElapsed, this.time);
 
     // update entities - steps entity event system
     this.entityManager.updateEntities();
@@ -170,8 +178,6 @@ export class RECS {
     }
 
     // update systems
-    this.systemManager.update(timeElapsed, time);
+    this.systemManager.update(timeElapsed, this.time);
   }
 }
-
-export const recs = (): RECS => new RECS();

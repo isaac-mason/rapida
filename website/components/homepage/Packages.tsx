@@ -7,7 +7,7 @@ const packages = [
   {
     name: '@rapidajs/recs',
     description:
-      'recs is Reminiscent [of an] Entity Component System.',
+      '@rapidajs/recs helps you build and structure games and other demanding applications.',
     links: [
       {
         name: 'Docs',
@@ -26,7 +26,7 @@ const packages = [
   {
     name: '@rapidajs/three',
     description:
-      '@rapidajs/three contains goodies for managing multiple views and loading assets.',
+      '@rapidajs/three contains three.js utilities for managing multiple views and loading assets.',
     links: [
       {
         name: 'Docs',
@@ -45,7 +45,7 @@ const packages = [
   {
     name: '@rapidajs/postprocessing',
     description:
-      'postprocessing is a thin wrapper around vanruesc/postprocessing with typed effect factory functions. It is used in rapida to provide a typed way of creating post processing effects.',
+      '@rapidajs/postprocessing is a thin wrapper around vanruesc/postprocessing. It is used in @rapidajs/three to provide an easy way of using post processing effects.',
     links: [
       {
         name: 'Docs',
@@ -60,7 +60,7 @@ const packages = [
   {
     name: '@rapidajs/cannon-worker',
     description:
-      'cannon-worker is a javascript package that makes adding physics to your three.js scenes easy!',
+      '@rapidajs/cannon-worker makes adding cannon physics to your three.js scenes easy!',
     links: [
       {
         name: 'Docs',

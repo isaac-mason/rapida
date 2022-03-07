@@ -1,5 +1,5 @@
 import { useEffect } from '@storybook/client-api';
-import RECS, { Component, System } from '../../src';
+import World, { Component, System } from '../../src';
 
 export default {
   name: 'Random Walkers',
@@ -104,13 +104,13 @@ class WalkSystem extends System {
 
 export const RandomWalkers = () => {
   useEffect(() => {
-    const recs = RECS();
+    const world = new World();
 
-    recs.add.system(new WalkSystem());
-    recs.add.system(new DrawSystem());
+    world.add.system(new WalkSystem());
+    world.add.system(new DrawSystem());
 
     // create a space for our entities
-    const space = recs.create.space();
+    const space = world.create.space();
 
     // how many entities to create
     const n = 100;
@@ -126,12 +126,12 @@ export const RandomWalkers = () => {
       entity.addComponent(Color, i % 2 === 0 ? 'red' : 'blue');
     }
 
-    recs.init();
+    world.init();
 
     let lastCall = 0;
     const loop = (now: number) => {
       const elapsed = now - lastCall;
-      recs.update(elapsed, now);
+      world.update(elapsed);
       lastCall = now;
 
       requestAnimationFrame((elapsedMs) => loop(elapsedMs / 1000));

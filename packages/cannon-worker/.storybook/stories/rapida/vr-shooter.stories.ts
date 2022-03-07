@@ -22,7 +22,6 @@ import {
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerModelFactory';
 import { XRRenderer, XRRendererMode } from '@rapidajs/three';
-import recs from '@rapidajs/recs';
 
 export default {
   title: 'Rapida / VR Shooter',
@@ -30,8 +29,6 @@ export default {
 
 export const VRShooter = () => {
   useEffect(() => {
-    const world = recs();
-
     const scene = new Scene();
 
     const camera = new PerspectiveCamera();
@@ -223,15 +220,6 @@ export const VRShooter = () => {
 
     setupController(0);
     setupController(1);
-
-    // update loop
-    world.init();
-    
-    renderer.setAnimationLoop((delta, time) => {
-      world.update(delta, time);
-    });
-
-    return () => world.destroy();
   });
 
   return `

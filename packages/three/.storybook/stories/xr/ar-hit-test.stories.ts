@@ -1,4 +1,4 @@
-import recs, { Component } from '@rapidajs/recs';
+import World, { Component } from '@rapidajs/recs';
 import { useEffect } from '@storybook/client-api';
 import {
   AmbientLight,
@@ -22,7 +22,7 @@ export default {
 
 export const ARHitTest = () => {
   useEffect(() => {
-    const world = recs();
+    const world = new World();
 
     const space = world.create.space();
 
@@ -138,7 +138,7 @@ export const ARHitTest = () => {
     world.init();
 
     renderer.setAnimationLoop((delta, time) => {
-      world.update(delta, time)
+      world.update(delta)
     });
   });
 

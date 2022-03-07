@@ -1,5 +1,5 @@
 import { Query, QueryDescription } from '../query';
-import { RECS } from '../recs';
+import { World } from '../world';
 import { System } from '../system';
 
 /**
@@ -31,7 +31,7 @@ export class SystemManager {
   /**
    * The RECS the system manager belongs in
    */
-  private recs: RECS;
+  private recs: World;
 
   /**
    * A map of ids to systems with update methods
@@ -42,7 +42,7 @@ export class SystemManager {
    * Constructor for the SystemManager
    * @param recs the RECS instance for the SystemManager
    */
-  constructor(recs: RECS) {
+  constructor(recs: World) {
     this.recs = recs;
   }
 

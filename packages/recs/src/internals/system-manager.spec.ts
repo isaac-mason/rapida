@@ -1,10 +1,10 @@
 import { beforeEach, describe, it, jest, expect } from '@jest/globals';
 import { System } from '../system';
 import { SystemManager } from './system-manager';
-import { RECS } from '../recs';
+import { World } from '../world';
 
 describe('SystemManager', () => {
-  const recs = {} as unknown as RECS;
+  const recs = {} as unknown as World;
   let manager: SystemManager;
 
   const basicSystemInit = jest.fn();

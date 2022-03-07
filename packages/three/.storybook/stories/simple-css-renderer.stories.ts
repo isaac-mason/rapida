@@ -1,4 +1,3 @@
-import recs from '@rapidajs/recs';
 import { useEffect } from '@storybook/client-api';
 import {
   AmbientLight,
@@ -20,8 +19,6 @@ export default {
 
 export const SimpleCSSRenderer = () => {
   useEffect(() => {
-    const world = recs();
-
     // create renderers
     const webglRenderer = new WebGLRenderer();
 
@@ -88,11 +85,8 @@ export const SimpleCSSRenderer = () => {
     scene.add(domObject);
 
     // simple loop
-    world.init();
-
     let lastCallTime = 0;
     const loop = (elapsed: number, time: number) => {
-      world.update(elapsed, time);
       cssRenderer.render(elapsed);
       webglRenderer.render(elapsed);
     };

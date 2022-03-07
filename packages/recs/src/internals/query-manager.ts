@@ -1,7 +1,7 @@
 import { Component } from '../component';
 import { Entity } from '../entity';
 import { Query, QueryDescription } from '../query';
-import { RECS } from '../recs';
+import { World } from '../world';
 
 enum QueryManagerEventType {
   ENTITY_COMPONENT_ADDED_EVENT = 'ENTITY_COMPONENT_ADDED_EVENT',
@@ -54,13 +54,13 @@ export class QueryManager {
   /**
    * The RECS instance the query manager is in
    */
-  private recs: RECS;
+  private recs: World;
 
   /**
    * Constructor for a QueryManager
    * @param recs the RECS the QueryManager is in
    */
-  constructor(recs: RECS) {
+  constructor(recs: World) {
     this.recs = recs;
   }
 

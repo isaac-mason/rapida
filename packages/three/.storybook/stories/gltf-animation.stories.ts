@@ -1,4 +1,4 @@
-import recs, { Component } from '@rapidajs/recs';
+import World, { Component } from '@rapidajs/recs';
 import { useEffect } from '@storybook/client-api';
 import {
   AnimationMixer,
@@ -7,7 +7,7 @@ import {
   PerspectiveCamera,
   PMREMGenerator,
   Scene,
-  sRGBEncoding
+  sRGBEncoding,
 } from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
 import { GLTF, Loaders, WebGLRenderer } from '../../src';
@@ -48,24 +48,26 @@ class LittlestTokyoModel extends Component {
 export const GLTFAnimationExample = () => {
   useEffect(() => {
     (async () => {
-      const world = recs();
+      const world = new World();
 
       const renderer = new WebGLRenderer();
       renderer.three.outputEncoding = sRGBEncoding;
 
-      document.getElementById('renderer-root')!.appendChild(renderer.domElement);
+      document
+        .getElementById('renderer-root')!
+        .appendChild(renderer.domElement);
 
       const scene = new Scene();
       scene.background = new Color('#bfe3dd');
 
-      const camera = new PerspectiveCamera()
+      const camera = new PerspectiveCamera();
       camera.position.set(0, 0, 5);
 
       const view = renderer.create.view({
         camera,
         scene,
       });
-      
+
       const space = world.create.space();
 
       space.create.entity().addComponent(SmoothOrbitControls, camera, view);
@@ -86,20 +88,20 @@ export const GLTFAnimationExample = () => {
       world.init();
 
       let lastCallTime = 0;
-      const loop = (elapsed: number, time: number) => {
-        world.update(elapsed, time);
-        renderer.render(elapsed);
-      };
 
-      const demoLoop = (now: number) => {
+      const loop = (now: number) => {
         const nowSeconds = now / 1000;
         const elapsed = nowSeconds - lastCallTime;
-        loop(elapsed, nowSeconds);
-        requestAnimationFrame(demoLoop);
+
+        world.update(elapsed);
+        renderer.render(elapsed);
+
         lastCallTime = nowSeconds;
+
+        requestAnimationFrame(loop);
       };
 
-      requestAnimationFrame(demoLoop);
+      requestAnimationFrame(loop);
     })();
   });
 

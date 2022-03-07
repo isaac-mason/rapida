@@ -1,4 +1,4 @@
-import recs, { Component } from '@rapidajs/recs';
+import World, { Component } from '@rapidajs/recs';
 import { useEffect } from '@storybook/client-api';
 import * as three from 'three';
 import { PerspectiveCamera, Scene } from 'three';
@@ -43,7 +43,7 @@ class SpinningCubeComponent extends Component {
 
 export const HelloWorld = () => {
   useEffect(() => {
-    const world = recs();
+    const world = new World();
 
     const renderer = new WebGLRenderer();
 
@@ -81,19 +81,19 @@ export const HelloWorld = () => {
 
     let lastCallTime = 0;
 
-    const demoLoop = (now: number) => {
+    const loop = (now: number) => {
       const nowSeconds = now / 1000;
       const elapsed = nowSeconds - lastCallTime;
 
-      world.update(elapsed, now);
+      world.update(elapsed);
       renderer.render(elapsed);
 
       lastCallTime = nowSeconds;
       
-      requestAnimationFrame(demoLoop);
+      requestAnimationFrame(loop);
     };
 
-    requestAnimationFrame(demoLoop);
+    requestAnimationFrame(loop);
   });
 
   return `

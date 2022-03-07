@@ -1,12 +1,12 @@
 /* eslint-disable max-classes-per-file */
 import { describe, it, expect } from '@jest/globals';
-import { recs, Component, RECS, System, QueryDescription } from '../src';
+import { Component, World, System, QueryDescription } from '../src';
 
 describe('Systems and Queries Integration Tests', () => {
-  let world: RECS;
+  let world: World;
 
   beforeEach(() => {
-    world = recs();
+    world = new World();
     world.init();
   });
 
@@ -35,7 +35,7 @@ describe('Systems and Queries Integration Tests', () => {
     expect(system.results.testQueryName.added.size).toBe(0);
     expect(system.results.testQueryName.removed.size).toBe(0);
 
-    world.update(1, 1);
+    world.update(1);
 
     expect(system.results.testQueryName.added.size).toBe(1);
     expect(system.results.testQueryName.removed.size).toBe(0);
@@ -47,7 +47,7 @@ describe('Systems and Queries Integration Tests', () => {
     expect(system.results.testQueryName.removed.size).toBe(0);
     expect(system.results.testQueryName.all.size).toBe(1);
 
-    world.update(1, 2);
+    world.update(1);
 
     expect(system.results.testQueryName.all.size).toBe(0);
     expect(system.results.testQueryName.removed.size).toBe(1);
@@ -71,7 +71,7 @@ describe('Systems and Queries Integration Tests', () => {
     expect(systemInitJestFn).toHaveBeenCalledTimes(1);
 
     const timeElapsed = 1001;
-    world.update(timeElapsed, timeElapsed);
+    world.update(timeElapsed);
 
     expect(systemUpdateJestFn).toHaveBeenCalledTimes(1);
 
@@ -200,7 +200,7 @@ describe('Systems and Queries Integration Tests', () => {
 
       query = world.queryManager.getQuery(description);
 
-      world.update(1, 1);
+      world.update(1);
 
       expect(query.all.size).toBe(1);
       expect(query.all).toContain(entityOne);
@@ -233,7 +233,7 @@ describe('Systems and Queries Integration Tests', () => {
       entityTwo.addComponent(TestComponentOne);
       entityTwo.addComponent(TestComponentTwo);
 
-      world.update(1, 1);
+      world.update(1);
 
       expect(query.all.size).toBe(2);
       expect(query.all).toContain(entityOne);
@@ -245,7 +245,7 @@ describe('Systems and Queries Integration Tests', () => {
       const entityTwoComponentTwo = entityTwo.get(TestComponentTwo);
       entityTwo.removeComponent(entityTwoComponentTwo);
 
-      world.update(1, 2);
+      world.update(1);
 
       query = world.queryManager.getQuery(description);
 
@@ -282,7 +282,7 @@ describe('Systems and Queries Integration Tests', () => {
       entityTwo.addComponent(TestComponentOne);
       entityTwo.addComponent(TestComponentTwo);
 
-      world.update(1, 1);
+      world.update(1);
 
       expect(query.all.size).toBe(2);
       expect(query.all).toContain(entityOne);
@@ -290,7 +290,7 @@ describe('Systems and Queries Integration Tests', () => {
 
       entityOne.destroy();
 
-      world.update(1, 2);
+      world.update(1);
 
       query = world.queryManager.getQuery(description);
 
@@ -329,7 +329,7 @@ describe('Systems and Queries Integration Tests', () => {
       const entity = space.create.entity();
       entity.addComponent(TestComponentOne);
 
-      world.update(1, 1);
+      world.update(1);
 
       expect(system.results.test.added.size).toBe(1);
       expect(system.results.test.all.size).toBe(1);
@@ -356,7 +356,7 @@ describe('Systems and Queries Integration Tests', () => {
       const entity = space.create.entity();
       entity.addComponent(TestComponentOne);
 
-      world.update(1, 1);
+      world.update(1);
 
       expect(system.results.test.added.size).toBe(1);
       expect(system.results.test.all.size).toBe(1);
@@ -368,7 +368,7 @@ describe('Systems and Queries Integration Tests', () => {
 
       entity.removeComponent(TestComponentOne);
 
-      world.update(1, 2);
+      world.update(1);
 
       expect(system.results.test.added.size).toBe(0);
       expect(system.results.test.all.size).toBe(0);
@@ -395,7 +395,7 @@ describe('Systems and Queries Integration Tests', () => {
       const entity = space.create.entity();
       entity.addComponent(TestComponentTwo);
 
-      world.update(1, 1);
+      world.update(1);
 
       expect(system.results.test.added.size).toBe(1);
       expect(system.results.test.all.size).toBe(1);
@@ -422,7 +422,7 @@ describe('Systems and Queries Integration Tests', () => {
       const entity = space.create.entity();
       entity.addComponent(TestComponentOne);
 
-      world.update(1, 1);
+      world.update(1);
 
       expect(system.results.test.added.size).toBe(0);
       expect(system.results.test.all.size).toBe(0);
@@ -451,7 +451,7 @@ describe('Systems and Queries Integration Tests', () => {
       entity.addComponent(TestComponentTwo);
       entity.addComponent(TestComponentThree);
 
-      world.update(1, 1);
+      world.update(1);
 
       expect(system.results.test.added.size).toBe(1);
       expect(system.results.test.all.size).toBe(1);
@@ -480,7 +480,7 @@ describe('Systems and Queries Integration Tests', () => {
       entity.addComponent(TestComponentTwo);
       entity.addComponent(TestComponentFour);
 
-      world.update(1, 1);
+      world.update(1);
 
       expect(system.results.test.added.size).toBe(0);
       expect(system.results.test.all.size).toBe(0);
@@ -511,7 +511,7 @@ describe('Systems and Queries Integration Tests', () => {
       entity.addComponent(TestComponentTwo);
       entity.addComponent(TestComponentFour);
 
-      world.update(1, 1);
+      world.update(1);
 
       expect(system.results.test.added.size).toBe(1);
       expect(system.results.test.all.size).toBe(1);

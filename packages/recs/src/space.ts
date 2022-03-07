@@ -6,7 +6,7 @@ import {
   uuid,
 } from '@rapidajs/rapida-common';
 import { Entity } from './entity';
-import { RECS } from './recs';
+import { World } from './world';
 
 /**
  * Params for creating a new Space
@@ -47,13 +47,13 @@ export class Space {
   /**
    * The RECS instance the space is in
    */
-  recs: RECS;
+  recs: World;
 
   /**
    * Constructor for the Space
    * @param params the parameters for the space
    */
-  constructor(recs: RECS, params?: SpaceParams) {
+  constructor(recs: World, params?: SpaceParams) {
     this.recs = recs;
     this.id = params?.id || uuid();
   }

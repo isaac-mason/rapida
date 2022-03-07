@@ -1,7 +1,7 @@
 import { uuid } from '@rapidajs/rapida-common';
 import type { Component, ComponentClass } from '../component';
 import type { Entity } from '../entity';
-import type { RECS } from '../recs';
+import type { World } from '../world';
 import type { Space } from '../space';
 import { ComponentPool } from './component-pool';
 import { EntityPool } from './entity-pool';
@@ -45,13 +45,13 @@ export class EntityManager {
   /**
    * The RECS instance the entity manager is part of
    */
-  private recs: RECS;
+  private recs: World;
 
   /**
    * Constructs a new EntityManager
    * @param recs the RECS instance the entity manager is part of
    */
-  constructor(recs: RECS) {
+  constructor(recs: World) {
     this.recs = recs;
   }
 

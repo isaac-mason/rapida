@@ -6,7 +6,7 @@ import { useEffect } from '@storybook/client-api';
 import { AmbientLight, BufferGeometry, Color, Mesh, PerspectiveCamera, Scene } from 'three';
 import { Geometry } from 'three-stdlib';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import recs, { Component } from '@rapidajs/recs';
+import World, { Component } from '@rapidajs/recs';
 
 // @ts-expect-error webpack import
 import diamondGlb from '../../resources/diamond.glb';
@@ -73,7 +73,7 @@ class Diamonds extends Component {
 
 export const GLTFConvexPolyhedronPhysics = () => {
   useEffect(() => {
-    const world = recs();
+    const world = new World();
 
     (async () => {
       const loader = new Loaders();
@@ -126,15 +126,13 @@ export const GLTFConvexPolyhedronPhysics = () => {
       world.init();
       
       let lastCallTime = 0;
-      const loop = (elapsed: number, time: number) => {
-        world.update(elapsed, time);
-        renderer.render(elapsed);
-      };
-
       const demoLoop = (now: number) => {
         const nowSeconds = now / 1000;
         const elapsed = nowSeconds - lastCallTime;
-        loop(elapsed, nowSeconds);
+        
+        world.update(elapsed);
+        renderer.render(elapsed);
+
         requestAnimationFrame(demoLoop);
         lastCallTime = nowSeconds;
       };

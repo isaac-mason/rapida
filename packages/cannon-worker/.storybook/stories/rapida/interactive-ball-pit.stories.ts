@@ -1,6 +1,6 @@
 import CannonWorker, { BodyApi, BodyType } from '@rapidajs/cannon-worker';
 import { Effects } from '@rapidajs/postprocessing';
-import recs, { Component } from '@rapidajs/recs';
+import World, { Component } from '@rapidajs/recs';
 import { View, WebGLRenderer, WebGLView } from '@rapidajs/three';
 import { useEffect } from '@storybook/client-api';
 import {
@@ -222,7 +222,7 @@ class Spheres extends Component {
 
 export const InteractiveBallPit = ({ count }) => {
   useEffect(() => {
-    const world = recs();
+    const world = new World();
 
     const renderer = new WebGLRenderer();
     document.getElementById('renderer-root').appendChild(renderer.domElement);
@@ -298,7 +298,6 @@ export const InteractiveBallPit = ({ count }) => {
     space.create.entity().addComponent(Cursor, { physics, camera, view });
 
     // simple loop
-    renderer.update();
     world.init();
     
     let lastCallTime = 0;
@@ -306,9 +305,9 @@ export const InteractiveBallPit = ({ count }) => {
       const nowSeconds = now / 1000;
       const elapsed = nowSeconds - lastCallTime;
       
-      world.update(elapsed, now);
-      renderer.update();
+      world.update(elapsed);
       renderer.render(elapsed);
+      renderer.update();
 
       requestAnimationFrame(demoLoop);
       lastCallTime = nowSeconds;

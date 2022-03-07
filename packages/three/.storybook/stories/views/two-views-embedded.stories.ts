@@ -1,7 +1,7 @@
 import { useEffect } from '@storybook/client-api';
 import * as three from 'three';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
-import recs, { Component } from '@rapidajs/recs';
+import World, { Component } from '@rapidajs/recs';
 import { Scene } from 'three';
 import { WebGLRenderer } from '../../../src';
 
@@ -43,7 +43,7 @@ class SpinningCube extends Component {
 
 export const TwoViewsEmbedded = () => {
   useEffect(() => {
-    const world = recs();
+    const world = new World();
 
     const renderer = new WebGLRenderer();
 
@@ -102,22 +102,22 @@ export const TwoViewsEmbedded = () => {
 
     // simple loop
     world.init();
-    
-    let lastCallTime = 0;
-    const loop = (elapsed: number, time: number) => {
-      world.update(elapsed, time);
-      renderer.render(elapsed);
-    };
 
-    const demoLoop = (now: number) => {
+    let lastCallTime = 0;
+
+    const loop = (now: number) => {
       const nowSeconds = now / 1000;
       const elapsed = nowSeconds - lastCallTime;
-      loop(elapsed, nowSeconds);
-      requestAnimationFrame(demoLoop);
+
+      world.update(elapsed);
+      renderer.render(elapsed);
+
       lastCallTime = nowSeconds;
+      
+      requestAnimationFrame(loop);
     };
 
-    requestAnimationFrame(demoLoop);
+    requestAnimationFrame(loop);
   });
 
   return `

@@ -14,7 +14,7 @@ import {
   Vector3
 } from 'three';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
-import recs, { Component, Space, System } from '@rapidajs/recs';
+import World, { Component, Space, System } from '@rapidajs/recs';
 import { WebGLRenderer } from '@rapidajs/three';
 import { CannonSystem } from './cannon-system';
 
@@ -145,7 +145,7 @@ export const FallingBoxes = ({
   }
 
   useEffect(() => {
-    const world = recs();
+    const world = new World();
 
     const renderer = new WebGLRenderer();
   
@@ -211,21 +211,19 @@ export const FallingBoxes = ({
     world.init();
     
     let lastCallTime = 0;
-    const loop = (elapsed: number, time: number) => {
-      world.update(elapsed, time);
-      renderer.render(elapsed);
-    };
-
     const demoLoop = (now: number) => {
       const nowSeconds = now / 1000;
       const elapsed = nowSeconds - lastCallTime;
-      loop(elapsed, nowSeconds);
+      
+      world.update(elapsed);
+      renderer.render(elapsed);
+
       requestAnimationFrame(demoLoop);
       lastCallTime = nowSeconds;
     };
 
     requestAnimationFrame(demoLoop);
-    
+
     return () => world.destroy();
   });
 

@@ -40,7 +40,7 @@ http://rapidajs.dev/storybooks/recs/index.html?path=/story/random-walkers--rando
 **1. Import everything you need**
 
 ```ts
-import RECS, { Component, System } from 'recs';
+import World, { Component, System } from 'recs';
 ```
 
 **2. Create a few simple components to store some data**
@@ -157,10 +157,10 @@ class WalkSystem extends System {
 
 **5. Bringing it all together**
 
-First, create a new recs instance:
+First, create a new recs `World`:
 
 ```ts
-const recs = RECS();
+const world = new World();
 ```
 
 Next, let's add the systems we created:

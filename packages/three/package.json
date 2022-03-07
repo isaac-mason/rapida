@@ -1,6 +1,6 @@
 {
   "name": "@rapidajs/three",
-  "version": "0.0.13",
+  "version": "0.0.1",
   "description": "goodies for three.js",
   "homepage": "https://gitlab.com/rapidajs/rapida/-/tree/main/packages/three",
   "bugs": {

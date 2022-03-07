@@ -1,20 +1,20 @@
 /* eslint-disable max-classes-per-file */
 import { describe, it, expect } from '@jest/globals';
-import { recs, Component, RECS } from '../src';
+import { Component, World } from '../src';
 
 describe('Entities And Components Integration Tests', () => {
-  let R: RECS;
+  let world: World;
 
   beforeEach(() => {
-    R = recs();
+    world = new World();
   });
 
   it('entities should be able to register event handlers and emit events', () => {
-    const entity = R.create.space().create.entity();
+    const entity = world.create.space().create.entity();
 
     const mockFn = jest.fn();
 
-    R.init();
+    world.init();
 
     const subscription = entity.on('event-name', () => mockFn());
 
@@ -24,7 +24,7 @@ describe('Entities And Components Integration Tests', () => {
       topic: 'event-name',
     });
 
-    R.update(1, 1);
+    world.update(1);
 
     expect(mockFn).toBeCalledTimes(1);
 
@@ -34,13 +34,13 @@ describe('Entities And Components Integration Tests', () => {
       topic: 'event-name',
     });
 
-    R.update(1, 2);
+    world.update(1);
 
     expect(mockFn).toBeCalledTimes(1);
   });
 
   it('components can be added and removed from entities', () => {
-    const space = R.create.space();
+    const space = world.create.space();
     const entity = space.create.entity();
 
     class TestComponentOne extends Component {}
@@ -58,7 +58,7 @@ describe('Entities And Components Integration Tests', () => {
   });
 
   it('components can be added with parameters', () => {
-    const space = R.create.space();
+    const space = world.create.space();
     const entity = space.create.entity();
 
     class TestComponentWithConstructParams extends Component {
@@ -81,7 +81,7 @@ describe('Entities And Components Integration Tests', () => {
   });
 
   it('on re-adding a component to an entity, it will be newly constructed properly', () => {
-    const space = R.create.space();
+    const space = world.create.space();
     const entity = space.create.entity();
 
     class TestComponentWithConstructParams extends Component {
@@ -123,19 +123,19 @@ describe('Entities And Components Integration Tests', () => {
       onUpdate = componentUpdateJestFn;
     }
 
-    const space = R.create.space();
+    const space = world.create.space();
 
     const entity = space.create.entity();
 
     entity.addComponent(TestComponentOne);
 
-    R.init();
+    world.init();
 
-    expect(R.initialised).toBe(true);
+    expect(world.initialised).toBe(true);
     expect(componentInitJestFn).toHaveBeenCalledTimes(1);
 
     const timeElapsed = 1001;
-    R.update(timeElapsed, timeElapsed);
+    world.update(timeElapsed);
 
     expect(componentUpdateJestFn).toHaveBeenCalledTimes(1);
 
@@ -143,11 +143,11 @@ describe('Entities And Components Integration Tests', () => {
 
     entity.destroy();
 
-    R.update(timeElapsed, timeElapsed * 2);
+    world.update(timeElapsed);
 
     expect(componentUpdateJestFn).toHaveBeenCalledTimes(1);
 
-    R.destroy();
+    world.destroy();
 
     expect(componentDestroyJestFn).toHaveBeenCalledTimes(1);
   });
@@ -155,9 +155,9 @@ describe('Entities And Components Integration Tests', () => {
   it('components should have a getter for the space the component is in', () => {
     class TestComponentOne extends Component {}
 
-    R.init();
+    world.init();
 
-    const space = R.create.space();
+    const space = world.create.space();
 
     const entity = space.create.entity();
 
@@ -170,14 +170,14 @@ describe('Entities And Components Integration Tests', () => {
     class TestComponentOne extends Component {}
 
     it('should throw an error if the component is not in the entity', () => {
-      const space = R.create.space();
+      const space = world.create.space();
       const entity = space.create.entity();
 
       expect(() => entity.get(TestComponentOne)).toThrow();
     });
 
     it('should return the component instance if the component is in the entity', () => {
-      const space = R.create.space();
+      const space = world.create.space();
       const entity = space.create.entity();
 
       entity.addComponent(TestComponentOne);
@@ -190,14 +190,14 @@ describe('Entities And Components Integration Tests', () => {
     class TestComponentOne extends Component {}
 
     it('should return undefined if the component is not in the entity', () => {
-      const space = R.create.space();
+      const space = world.create.space();
       const entity = space.create.entity();
 
       expect(entity.find(TestComponentOne)).toBeUndefined();
     });
 
     it('should return the component instance if the component is in the entity', () => {
-      const space = R.create.space();
+      const space = world.create.space();
       const entity = space.create.entity();
 
       entity.addComponent(TestComponentOne);
@@ -210,7 +210,7 @@ describe('Entities And Components Integration Tests', () => {
     class TestComponentOne extends Component {}
 
     it('should throw an error if the component does not exist in the entity', () => {
-      const space = R.create.space();
+      const space = world.create.space();
       const entity = space.create.entity();
 
       expect(() => entity.removeComponent(TestComponentOne)).toThrowError();
@@ -225,7 +225,7 @@ describe('Entities And Components Integration Tests', () => {
     class TestComponentTwo extends Component {}
 
     it('should return true if the entity has the given component', () => {
-      const space = R.create.space();
+      const space = world.create.space();
       const entity = space.create.entity();
 
       entity.addComponent(TestComponentOne);
@@ -234,7 +234,7 @@ describe('Entities And Components Integration Tests', () => {
     });
 
     it('should return false if the entity does not have the given component', () => {
-      const space = R.create.space();
+      const space = world.create.space();
       const entity = space.create.entity();
 
       entity.addComponent(TestComponentOne);

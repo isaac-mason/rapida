@@ -1,18 +1,18 @@
 /* eslint-disable max-classes-per-file */
 import { describe, it, expect } from '@jest/globals';
-import { recs, RECS } from '../src';
+import { World } from '../src';
 
 describe('Spaces', () => {
-  let R: RECS;
+  let world: World;
 
   beforeEach(() => {
-    R = recs();
+    world = new World();
   });
 
   it('should be able to register event handlers and emit events', () => {
-    const space = R.create.space();
+    const space = world.create.space();
 
-    R.init();
+    world.init();
 
     const mockFn = jest.fn();
 
@@ -24,7 +24,7 @@ describe('Spaces', () => {
       topic: 'event-name',
     });
 
-    R.update(1, 1);
+    world.update(1);
 
     expect(mockFn).toBeCalledTimes(1);
 
@@ -34,40 +34,40 @@ describe('Spaces', () => {
       topic: 'event-name',
     });
 
-    R.update(1, 2);
+    world.update(1);
 
     expect(mockFn).toBeCalledTimes(1);
   });
 
   it('should should remove dead entities on update', () => {
-    const space = R.create.space();
+    const space = world.create.space();
 
     const entity = space.create.entity();
 
-    R.init();
+    world.init();
 
-    R.update(1, 1);
+    world.update(1);
 
     expect(space.entities.size).toBe(1);
 
     entity.alive = false;
 
-    R.update(1, 2);
+    world.update(1);
 
     expect(space.entities.size).toBe(0);
   });
 
   it('should destroy contained entities when destroying the space', () => {
-    const space = R.create.space();
-    expect(space.recs).toBe(R);
+    const space = world.create.space();
+    expect(space.recs).toBe(world);
 
     const entity = space.create.entity();
-    expect(R.spaces.size).toBe(1);
+    expect(world.spaces.size).toBe(1);
     expect(entity.space).toBe(space);
 
     space.destroy();
 
     expect(entity.alive).toBeFalsy();
-    expect(R.spaces.size).toBe(0);
+    expect(world.spaces.size).toBe(0);
   });
 });

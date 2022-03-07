@@ -8,28 +8,6 @@ import { FindUs } from '../components/homepage/FindUs';
 import { Packages } from '../components/homepage/Packages';
 import { PageContainer, PageMain } from '../components/homepage/Page';
 
-const CodeBlock = styled.code`
-  background-color: #333;
-  color: #fafafa;
-  border-radius: 5px;
-  padding: 2rem;
-  font-family: $rapida-font;
-  margin-bottom: 3em;
-
-  font-size: 1rem;
-  font-family: $rapida-font;
-
-  a {
-    cursor: pointer;
-    color: #fff;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-`;
-
 const Title = styled.h1`
   margin: 0;
   line-height: 1.15;
@@ -93,7 +71,7 @@ const Home: NextPage = () => {
         <title>rápida - 3D for the Web</title>
         <meta
           name="description"
-          content="rapida helps you creat interactive 3d content for the web"
+          content="rapida helps you create interactive content for the web"
         />
       </Head>
 
@@ -101,31 +79,8 @@ const Home: NextPage = () => {
         <Title>rápida</Title>
 
         <Description>
-          rapida helps you create interactive 3d content for the web &#x1f919;
+          rapida helps you create interactive content for the web &#x1f919;
         </Description>
-
-        <CodeBlock>
-          <a
-            href="#"
-            id="copyInstallCommand"
-            onClick={(e) => {
-              window.navigator.clipboard.writeText(
-                'yarn add @rapidajs/rapida three'
-              );
-              setCopied(true);
-            }}
-          >
-            &gt; yarn add @rapidajs/rapida three
-          </a>
-          <Tooltip
-            flip
-            target="copyInstallCommand"
-            placement="bottom"
-            isOpen={copied}
-          >
-            Copied to clipboard!
-          </Tooltip>
-        </CodeBlock>
 
         <Warning>
           <p>&#9888; &#9888; &#9888;</p>

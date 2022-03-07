@@ -1,5 +1,5 @@
 import { uuid } from '@rapidajs/rapida-common';
-import { RECS } from './recs';
+import { World } from './world';
 import { Query, QueryDescription } from './query';
 
 /**
@@ -88,7 +88,7 @@ export abstract class System {
   /**
    * The recs the system is in
    */
-  recs!: RECS;
+  recs!: World;
 
   /**
    * A map of query names to queries
