@@ -223,7 +223,7 @@ export class WebGLView extends View {
   /**
    * The events system for the view which is used for mouse and touch events
    */
-  private events = new EventSystem({ queued: true });
+  private events = new EventSystem({ queued: false });
 
   /**
    * A map of dom event listener names to data about listeners
@@ -383,14 +383,6 @@ export class WebGLView extends View {
   _init = (): void => {
     this._onResize();
   };
-
-  /**
-   * Updates the view
-   * @private called internally, do not call directly
-   */
-  _update(): void {
-    this.events.tick();
-  }
 
   /**
    * Handles resizing

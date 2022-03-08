@@ -111,15 +111,6 @@ export class WebGLRenderer {
   }
 
   /**
-   * Updates views to process interaction events
-   */
-  update(): void {
-    for (const view of this.views.values()) {
-      view._update();
-    }
-  }
-
-  /**
    * Destroys the renderer and all views
    */
   destroy(): void {

@@ -307,7 +307,6 @@ export const InteractiveBallPit = ({ count }) => {
       
       world.update(elapsed);
       renderer.render(elapsed);
-      renderer.update();
       lastCallTime = nowSeconds;
 
       requestAnimationFrame(loop);
