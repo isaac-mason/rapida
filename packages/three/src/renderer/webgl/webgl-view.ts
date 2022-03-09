@@ -71,7 +71,43 @@ export type WebGLViewParams = {
 };
 
 /**
- * A WebGLView that a WebGLRenderer should render
+ * WebGLView that a WebGLRenderer should render
+ *
+ * A WebGLView can either be created directly, or created via a WebGLRenderer:
+ *
+ * ```ts
+ * import { WebGLRenderer, WebGLView } from '@rapidajs/three';
+ * import { Camera, Scene } from '@rapidajs/three';
+ *
+ * const camera = new PerspectiveCamera();
+ * const scene = new Scene()
+ * const renderer = new WebGLRenderer();
+ *
+ * // add the renderer domElement to the dom before adding views
+ * document.getElementById('app').appendChild(renderer.domElement);
+ *
+ * const view = new WebGLView(renderer, {
+ *   camera,
+ *   scene
+ * })
+ * ```
+ *
+ * ```ts
+ * import { WebGLRenderer } from '@rapidajs/three';
+ * import { Camera, Scene } from '@rapidajs/three';
+ *
+ * const camera = new PerspectiveCamera();
+ * const scene = new Scene()
+ * const renderer = new WebGLRenderer();
+ *
+ * // add the renderer domElement to the dom before adding views
+ * document.getElementById('app').appendChild(renderer.domElement);
+ *
+ * const view = renderer.create.view({
+ *   camera,
+ *   scene
+ * })
+ * ```
  */
 export class WebGLView extends View {
   /**
@@ -366,23 +402,6 @@ export class WebGLView extends View {
   destroy(): void {
     this.renderer.removeView(this);
   }
-
-  /**
-   * Destroys the view
-   * @private called internally, do not call directly
-   */
-  _destroy(): void {
-    // remove the view dom element
-    this.rendererDomElement.removeChild(this.domElement);
-  }
-
-  /**
-   * Initialises the view
-   * @private called internally, do not call directly
-   */
-  _init = (): void => {
-    this._onResize();
-  };
 
   /**
    * Handles resizing
