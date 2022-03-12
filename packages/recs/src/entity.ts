@@ -11,21 +11,23 @@ import { World } from './world';
 import { Space } from './space';
 
 /**
- * Entity is a class that has an id and contains Components.
+ * An Entity is a collection of Components with a unique id.
  *
- * Entities can be created inside a Space.
+ * Entities are the 'E' in an ECS, and can have components dynamically added and removed from them.
+ *
+ * Entities are created inside a Space. See below for a basic example:
  *
  * ```ts
- * import recs from '@rapidajs/recs';
+ * import World from '@rapidajs/recs';
  *
- * const world = recs();
+ * const world = new World();
  * const space = world.create.space();
  * const entity = world.create.entity();
  * ```
  */
 export class Entity {
   /**
-   * Whether the entity is alive. If false, the entity will be destroyed by the Space on the next update
+   * Whether the entity is alive. If false, the entity will be destroyed on the next update
    */
   alive = true;
 
@@ -63,7 +65,7 @@ export class Entity {
 
   /**
    * Adds a component to the entity
-   * @param c the component to add
+   * @param clazz the component to add
    */
   addComponent<T extends Component>(
     clazz: ComponentClass<T>,

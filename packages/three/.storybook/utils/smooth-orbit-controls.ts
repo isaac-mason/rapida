@@ -12,7 +12,7 @@ export class SmoothOrbitControls extends Component {
     this.controls.dampingFactor = 0.05;
   };
 
-  onUpdate = () => {
+  onUpdate() {
     this.controls.update();
   };
 }

@@ -14,7 +14,7 @@ class SpinningCube extends Component {
 
   cube: three.Mesh;
 
-  construct = ({ scene }: { scene: Scene }) => {
+  construct({ scene }: { scene: Scene }) {
     this.scene = scene;
 
     const geometry = new three.BoxGeometry(50, 50, 50);
@@ -25,20 +25,20 @@ class SpinningCube extends Component {
     });
     this.cube = new three.Mesh(geometry, material);
     this.cube.position.set(0, 0, 0);
-  };
+  }
 
-  onInit = () => {
+  onInit() {
     this.scene.add(this.cube);
-  };
+  }
 
-  onUpdate = () => {
+  onUpdate() {
     this.cube.rotation.x += 0.005;
     this.cube.rotation.y += 0.005;
-  };
+  }
 
-  onDestroy = () => {
+  onDestroy() {
     this.scene.remove(this.cube);
-  };
+  }
 }
 
 export const TwoViewsSideBySide = () => {
@@ -122,7 +122,7 @@ export const TwoViewsSideBySide = () => {
       renderer.render(elapsed);
 
       lastCallTime = nowSeconds;
-      
+
       requestAnimationFrame(loop);
     };
 

@@ -59,11 +59,17 @@ describe('Systems and Queries Integration Tests', () => {
     const systemUpdateJestFn = jest.fn();
     const systemDestroyJestFn = jest.fn();
     class TestSystem extends System {
-      onDestroy = systemDestroyJestFn;
+      onDestroy(): void {
+        systemDestroyJestFn();
+      }
 
-      onInit = systemInitJestFn;
+      onInit(): void {
+        systemInitJestFn();
+      }
 
-      onUpdate = systemUpdateJestFn;
+      onUpdate(timeElapsed: number): void {
+        systemUpdateJestFn(timeElapsed);
+      }
     }
     world.addSystem(new TestSystem());
 

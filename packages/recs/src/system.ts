@@ -10,7 +10,7 @@ import { Query, QueryDescription } from './query';
 export type SystemQueries = { [queryName: string]: QueryDescription };
 
 /**
- * System abstract class that is extended to create a system containing custom logic for an RECS.
+ * System containing logic and queries for entities with given components.
  *
  * The System is the 'S' in ECS. Systems can be created with multiple queries for entities by what components they contain.
  * Systems have lifecycle hooks `onInit`, `onUpdate`, and `onDestroy` hook that are executed to provide logic to the RECS.
@@ -27,11 +27,11 @@ export type SystemQueries = { [queryName: string]: QueryDescription };
  *     }
  *   }
  *
- *   onInit = () => {
+ *   onInit() {
  *     // logic to run to initialise the system
  *   }
  *
- *   onUpdate = (timeElapsed: number) => {
+ *   onUpdate(timeElapsed: number) {
  *     // do something with the query results
  *
  *     // added this update
@@ -44,7 +44,7 @@ export type SystemQueries = { [queryName: string]: QueryDescription };
  *     console.log(this.results.queryName.all)
  *   }
  *
- *   onDestroy = () => {
+ *   onDestroy() {
  *     // logic to run to destroy the system
  *   }
  * }
@@ -62,33 +62,11 @@ export abstract class System {
   id = uuid();
 
   /**
-   * Logic for destruction of the system. Called on removing a System from the RECS.
-   */
-  onDestroy?: () => void = undefined;
-
-  /**
-   * Logic for initialisation of the system. Called during System construction.
-   */
-  onInit?: () => void = undefined;
-
-  /**
-   * Logic for a systems update loop
-   * @param timeElapsed the time since the last update in seconds
-   * @param time the current time in seconds
-   */
-  onUpdate?: (timeElapsed: number, time: number) => void = undefined;
-
-  /**
    * A map of query names to query descriptions
    *
    * This property should be overridden with desired System queries
    */
   queries: SystemQueries = {};
-
-  /**
-   * The recs the system is in
-   */
-  recs!: World;
 
   /**
    * A map of query names to queries
@@ -98,9 +76,31 @@ export abstract class System {
   results: { [name: string]: Query } = {};
 
   /**
+   * The World the system is in
+   */
+  world!: World;
+
+  /**
    * Destroys the system and removes it from the RECS
    */
   destroy(): void {
-    this.recs.remove(this);
+    this.world.remove(this);
   }
+
+  /**
+   * Logic for destruction of the system. Called on removing a System from the RECS.
+   */
+  onDestroy(): void {}
+
+  /**
+   * Logic for initialisation of the system. Called during System construction.
+   */
+  onInit(): void {}
+
+  /**
+   * Logic for a systems update loop
+   * @param timeElapsed the time since the last update in seconds
+   * @param time the current time in seconds
+   */
+  onUpdate(_timeElapsed: number, _time: number) {}
 }

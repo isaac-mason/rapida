@@ -13,7 +13,7 @@ class SpinningCubeComponent extends Component {
   cube!: three.Mesh;
   scene!: Scene;
 
-  construct = (params: { scene: Scene }) => {
+  construct(params: { scene: Scene }) {
     this.scene = params.scene;
 
     const geometry = new three.BoxGeometry(50, 50, 50);
@@ -27,16 +27,16 @@ class SpinningCubeComponent extends Component {
     this.cube.position.set(0, 0, 0);
   };
 
-  onInit = (): void => {
+  onInit(): void {
     this.scene.add(this.cube);
   };
 
-  onUpdate = (timeElapsed: number): void => {
+  onUpdate (timeElapsed: number): void {
     this.cube.rotation.x += timeElapsed * 0.1;
     this.cube.rotation.y += timeElapsed * 0.1;
   };
 
-  onDestroy = (): void => {
+  onDestroy(): void {
     this.scene.remove(this.cube);
   };
 }

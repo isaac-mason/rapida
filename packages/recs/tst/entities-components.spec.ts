@@ -64,9 +64,9 @@ describe('Entities And Components Integration Tests', () => {
     class TestComponentWithConstructParams extends Component {
       position!: { x: number; y: number };
 
-      construct = (x: number, y: number): void => {
+      construct(x: number, y: number): void {
         this.position = { x, y };
-      };
+      }
     }
 
     entity.addComponent(TestComponentWithConstructParams, 1, 2);
@@ -87,9 +87,9 @@ describe('Entities And Components Integration Tests', () => {
     class TestComponentWithConstructParams extends Component {
       position!: { x: number; y: number };
 
-      construct = (x: number, y: number): void => {
+      construct(x: number, y: number): void {
         this.position = { x, y };
-      };
+      }
     }
 
     entity.addComponent(TestComponentWithConstructParams, 1, 2);
@@ -110,17 +110,72 @@ describe('Entities And Components Integration Tests', () => {
     expect(componentTwo.position.y).toBe(4);
   });
 
+  it('recs will not call component onInit, onUpdate, and onDestroy methods if they have not been extended', () => {
+    const componentInitJestFn = jest.fn();
+    const componentUpdateJestFn = jest.fn();
+    const componentDestroyJestFn = jest.fn();
+
+    class MockComponent {
+      onDestroy(): void {
+        componentDestroyJestFn();
+      }
+
+      onInit(): void {
+        componentInitJestFn();
+      }
+
+      onUpdate(): void {
+        componentUpdateJestFn();
+      }
+    }
+
+    class MockComponentExtendedClass extends MockComponent {
+      construct() {}
+    }
+
+    const space = world.create.space();
+
+    const entity = space.create.entity();
+
+    entity.addComponent(MockComponentExtendedClass as any);
+
+    world.init();
+
+    expect(componentInitJestFn).toHaveBeenCalledTimes(0);
+
+    const timeElapsed = 1001;
+    world.update(timeElapsed);
+
+    expect(componentUpdateJestFn).toHaveBeenCalledTimes(0);
+
+    entity.destroy();
+
+    world.update(timeElapsed);
+
+    expect(componentUpdateJestFn).toHaveBeenCalledTimes(0);
+
+    world.destroy();
+
+    expect(componentDestroyJestFn).toHaveBeenCalledTimes(0);
+  });
+
   it('recs will call component onInit, onUpdate, and onDestroy methods', () => {
     const componentInitJestFn = jest.fn();
     const componentUpdateJestFn = jest.fn();
     const componentDestroyJestFn = jest.fn();
 
     class TestComponentOne extends Component {
-      onDestroy = componentDestroyJestFn;
+      onDestroy(): void {
+        componentDestroyJestFn();
+      }
 
-      onInit = componentInitJestFn;
+      onInit(): void {
+        componentInitJestFn();
+      }
 
-      onUpdate = componentUpdateJestFn;
+      onUpdate(timeElapsed: number): void {
+        componentUpdateJestFn(timeElapsed);
+      }
     }
 
     const space = world.create.space();

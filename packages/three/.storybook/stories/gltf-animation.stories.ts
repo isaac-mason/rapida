@@ -25,7 +25,7 @@ class LittlestTokyoModel extends Component {
   scene!: Scene;
   model!: Group;
 
-  construct = (scene: Scene, gltf: GLTF) => {
+  construct(scene: Scene, gltf: GLTF) {
     this.scene = scene;
     this.model = gltf.scene;
     this.model.position.set(0.5, 0, 0);
@@ -35,13 +35,13 @@ class LittlestTokyoModel extends Component {
     this.mixer = new AnimationMixer(this.model);
   };
 
-  onInit = () => {
+  onInit() {
     this.scene.add(this.model);
     this.mixer.clipAction(this.gltf.animations[0]).play();
   };
 
-  onUpdate = (t: number) => {
-    this.mixer.update(t);
+  onUpdate(timeElapsed: number) {
+    this.mixer.update(timeElapsed);
   };
 }
 

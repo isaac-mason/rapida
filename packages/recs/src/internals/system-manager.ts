@@ -29,21 +29,21 @@ export class SystemManager {
   private queryToSystems: Map<string, Set<System>> = new Map();
 
   /**
-   * The RECS the system manager belongs in
-   */
-  private recs: World;
-
-  /**
    * A map of ids to systems with update methods
    */
   private updatePool: Map<string, System> = new Map();
 
   /**
-   * Constructor for the SystemManager
-   * @param recs the RECS instance for the SystemManager
+   * The World the system manager belongs in
    */
-  constructor(recs: World) {
-    this.recs = recs;
+  private world: World;
+
+  /**
+   * Constructor for the SystemManager
+   * @param world the World for the SystemManager
+   */
+  constructor(world: World) {
+    this.world = world;
   }
 
   /**
@@ -51,13 +51,13 @@ export class SystemManager {
    * @param system the system to add
    */
   addSystem(system: System): SystemManager {
-    system.recs = this.recs;
+    system.world = this.world;
 
     this.systems.set(system.id, system);
 
     Object.entries(system.queries).forEach(
       ([queryName, queryDescription]: [string, QueryDescription]) => {
-        const query = this.recs.queryManager.getQuery(queryDescription);
+        const query = this.world.queryManager.getQuery(queryDescription);
         this.addSystemToQuery(query, system);
         system.results[queryName] = query;
       }
@@ -98,7 +98,7 @@ export class SystemManager {
 
     Object.entries(system.queries).forEach(
       ([queryName, queryDescription]: [string, QueryDescription]) => {
-        const query = this.recs.queryManager.getQuery(queryDescription);
+        const query = this.world.queryManager.getQuery(queryDescription);
         this.removeSystemFromQuery(query, system);
         delete system.results[queryName];
       }
@@ -116,7 +116,7 @@ export class SystemManager {
    */
   update(timeElapsed: number, time: number): void {
     for (const system of this.systems.values()) {
-      if (system.enabled && system.onUpdate) {
+      if (system.enabled) {
         system.onUpdate(timeElapsed, time);
       }
     }
@@ -134,19 +134,13 @@ export class SystemManager {
   }
 
   private destroySystem(system: System) {
-    if (system.onDestroy) {
-      system.onDestroy();
-    }
+    system.onDestroy();
   }
 
-  private initialiseSystem(s: System) {
-    if (s.onUpdate) {
-      this.updatePool.set(s.id, s);
-    }
+  private initialiseSystem(system: System) {
+    this.updatePool.set(system.id, system);
 
-    if (s.onInit) {
-      s.onInit();
-    }
+    system.onInit();
   }
 
   private removeSystemFromQuery(query: Query, system: System) {
@@ -157,7 +151,7 @@ export class SystemManager {
 
       // remove the query if it is not in use by any systems
       if (systems.size === 0) {
-        this.recs.queryManager.removeQuery(query);
+        this.world.queryManager.removeQuery(query);
       }
     }
   }

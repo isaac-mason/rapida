@@ -11,7 +11,7 @@ import {
   PerspectiveCamera,
   PlaneGeometry,
   Scene,
-  Vector3
+  Vector3,
 } from 'three';
 import { OrbitControls } from 'three-stdlib/controls/OrbitControls';
 import World, { Component, Space, System } from '@rapidajs/recs';
@@ -52,7 +52,7 @@ export const FallingBoxes = ({
 
     cubeApi!: BodyApi;
 
-    construct = ({ scene, physics }: { scene: Scene; physics: CannonPhysics }) => {
+    construct({ scene, physics }: { scene: Scene; physics: CannonPhysics }) {
       this.cubeApi = undefined;
       this.scene = scene;
       this.physics = physics;
@@ -66,12 +66,13 @@ export const FallingBoxes = ({
       this.mesh = new Mesh(geometry, material);
       this.mesh.position.set(0, 0, 0);
       this.mesh.matrixAutoUpdate = false;
-    };
+    }
 
-    onInit = (): void => {
+    onInit(): void {
       this.scene.add(this.mesh);
 
-      const { api: cubeApi } = this.physics.create.box(() => ({
+      const { api: cubeApi } = this.physics.create.box(
+        () => ({
           type: BodyType.DYNAMIC,
           args: [box.size.x, box.size.y, box.size.z],
           position: [0, 0, 0],
@@ -79,28 +80,24 @@ export const FallingBoxes = ({
           mass: box.mass,
           allowSleep: true,
         }),
-        this.mesh
+        this.mesh,
       );
 
       this.cubeApi = cubeApi;
 
       cubeApi.velocity.set(Math.random() - 0.5, 15, Math.random() - 0.5);
 
-      cubeApi.angularVelocity.set(
-        Math.random() * 5 - 2.5,
-        Math.random() * 5 - 2.5,
-        Math.random() * 5 - 2.5
-      );
+      cubeApi.angularVelocity.set(Math.random() * 5 - 2.5, Math.random() * 5 - 2.5, Math.random() * 5 - 2.5);
 
       setTimeout(() => {
         this.destroy();
       }, timeAliveMs);
-    };
+    }
 
-    destroy = (): void => {
+    destroy(): void {
       this.scene.remove(this.mesh);
       this.cubeApi.destroy();
-    };
+    }
   }
 
   class CubeSpawner extends System {
@@ -111,15 +108,7 @@ export const FallingBoxes = ({
 
     counter: number = 0;
 
-    constructor({
-      space,
-      scene,
-      physics,
-    }: {
-      space: Space;
-      scene: Scene;
-      physics: CannonPhysics;
-    }) {
+    constructor({ space, scene, physics }: { space: Space; scene: Scene; physics: CannonPhysics }) {
       super();
       this.space = space;
       this.scene = scene;
@@ -134,23 +123,23 @@ export const FallingBoxes = ({
       });
     }
 
-    onUpdate = (timeElapsed: number): void => {
+    onUpdate(timeElapsed: number): void {
       this.counter += timeElapsed;
 
       if (this.counter >= spawnInterval) {
         this.counter = 0;
         this.createFallingCube();
       }
-    };
+    }
   }
 
   useEffect(() => {
     const world = new World();
 
     const renderer = new WebGLRenderer();
-  
+
     document.getElementById('renderer-root').appendChild(renderer.domElement);
-    
+
     const physics = new CannonWorker({
       allowSleep: true,
       gravity: [gravity.x, gravity.y, gravity.z],
@@ -196,7 +185,7 @@ export const FallingBoxes = ({
 
     const planeMesh = new Mesh(
       new PlaneGeometry(150, 150, 1, 1),
-      new MeshBasicMaterial({ color: LIGHT_BLUE })
+      new MeshBasicMaterial({ color: LIGHT_BLUE }),
     );
     planeMesh.rotation.set(-Math.PI / 2, 0, 0);
     planeMesh.position.y = -10;
@@ -209,12 +198,12 @@ export const FallingBoxes = ({
 
     // simple loop
     world.init();
-    
+
     let lastCallTime = 0;
     const loop = (now: number) => {
       const nowSeconds = now / 1000;
       const elapsed = nowSeconds - lastCallTime;
-      
+
       world.update(elapsed);
       renderer.render(elapsed);
       lastCallTime = nowSeconds;

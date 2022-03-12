@@ -43,16 +43,16 @@ export class EntityManager {
   private entityPool = new EntityPool();
 
   /**
-   * The RECS instance the entity manager is part of
+   * The World the entity manager is part of
    */
-  private recs: World;
+  private world: World;
 
   /**
    * Constructs a new EntityManager
-   * @param recs the RECS instance the entity manager is part of
+   * @param world the RECS instance the entity manager is part of
    */
-  constructor(recs: World) {
-    this.recs = recs;
+  constructor(world: World) {
+    this.world = world;
   }
 
   /**
@@ -104,7 +104,7 @@ export class EntityManager {
     space.entities.set(entity.id, entity);
 
     if (space.initialised) {
-      this.recs.entityManager.initialiseEntity(entity);
+      this.world.entityManager.initialiseEntity(entity);
     }
 
     return entity;
@@ -127,17 +127,17 @@ export class EntityManager {
    */
   initialiseComponent(component: Component): void {
     // run component initialisation logic
-    if (component.onInit) {
+    if (this.isComponentMethodOverridden(component, 'onInit')) {
       component.onInit();
     }
 
-    // add the components `onUpdate` method to the component update pool if present
-    if (component.onUpdate) {
+    // add the components `onUpdate` method to the component update pool if overriden
+    if (this.isComponentMethodOverridden(component, 'onUpdate')) {
       this.componentsToUpdate.set(component.id, component);
     }
 
     // inform the query manager that the component has been initialised
-    this.recs.queryManager.onEntityComponentAdded(component.entity, component);
+    this.world.queryManager.onEntityComponentAdded(component.entity, component);
   }
 
   /**
@@ -215,19 +215,17 @@ export class EntityManager {
     component: Component,
     notifyQueryManager: boolean
   ): void {
-    // remove the onUpdate method from the component update pool
-    if (component.onUpdate) {
-      this.componentsToUpdate.delete(component.id);
-    }
+    // remove the onUpdate method from the component update pool if present
+    this.componentsToUpdate.delete(component.id);
 
     // run the onDestroy method
-    if (component.onDestroy) {
+    if (this.isComponentMethodOverridden(component, 'onDestroy')) {
       component.onDestroy();
     }
 
     if (notifyQueryManager) {
       // tell the query manager that the component has been removed from the entity
-      this.recs.queryManager.onEntityComponentRemoved(entity, component);
+      this.world.queryManager.onEntityComponentRemoved(entity, component);
     }
 
     // remove the component from the components maps
@@ -250,7 +248,7 @@ export class EntityManager {
     this.entitiesToUpdate.delete(entity.id);
 
     // emit the entity destroy event to the space
-    this.recs.queryManager.onEntityRemoved(entity);
+    this.world.queryManager.onEntityRemoved(entity);
 
     // destroy components without notifying the query manager
     for (const component of entity.components.values()) {
@@ -272,9 +270,7 @@ export class EntityManager {
    */
   updateComponents(timeElapsed: number, time: number): void {
     for (const component of this.componentsToUpdate.values()) {
-      if (component.onUpdate) {
-        component.onUpdate(timeElapsed, time);
-      }
+      component.onUpdate(timeElapsed, time);
     }
   }
 
@@ -287,5 +283,14 @@ export class EntityManager {
     for (const entity of this.entitiesToUpdate.values()) {
       entity.events.tick();
     }
+  }
+
+  private isComponentMethodOverridden(
+    instance: any,
+    methodName: string
+  ): boolean {
+    return Object.getOwnPropertyNames(instance.class.prototype).includes(
+      methodName
+    );
   }
 }

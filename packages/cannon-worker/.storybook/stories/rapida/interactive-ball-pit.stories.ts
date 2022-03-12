@@ -14,7 +14,7 @@ import {
   Object3D,
   PerspectiveCamera,
   Scene,
-  SphereBufferGeometry
+  SphereBufferGeometry,
 } from 'three';
 // @ts-expect-error webpack image import
 import cursorImage from '../../resources/cursor.png';
@@ -31,19 +31,13 @@ class BallPitContainer extends Component {
 
   planeApis!: BodyApi[];
 
-  construct = ({
-    physics,
-    view,
-  }: {
-    physics: CannonWorker;
-    view: WebGLView;
-  }) => {
+  construct({ physics, view }: { physics: CannonWorker; view: WebGLView }) {
     this.planeApis = undefined;
     this.physics = physics;
     this.view = view;
-  };
+  }
 
-  onInit = (): void => {
+  onInit(): void {
     const width = this.view.worldViewport.width * 0.6;
     const height = this.view.worldViewport.height * 0.6;
 
@@ -85,7 +79,7 @@ class BallPitContainer extends Component {
         },
       }));
     });
-  };
+  }
 }
 
 class Cursor extends Component {
@@ -99,18 +93,14 @@ class Cursor extends Component {
 
   sphereApi!: BodyApi;
 
-  construct = (params: {
-    physics: CannonWorker;
-    camera: PerspectiveCamera;
-    view: WebGLView;
-  }) => {
+  construct(params: { physics: CannonWorker; camera: PerspectiveCamera; view: WebGLView }) {
     this.physics = params.physics;
     this.camera = params.camera;
     this.view = params.view;
     this.sphereApi = undefined;
-  };
+  }
 
-  onInit = (): void => {
+  onInit(): void {
     const radius = 6;
 
     const { api: sphereApi } = this.physics.create.sphere(() => ({
@@ -131,20 +121,20 @@ class Cursor extends Component {
     this.view.on('touchmove', (event) => {
       this.updateCursorPosition(
         event.data.changedTouches[0].relativeX,
-        event.data.changedTouches[0].relativeY
+        event.data.changedTouches[0].relativeY,
       );
     });
-  };
+  }
 
-  onDestroy = (): void => {
+  onDestroy(): void {
     this.sphereApi.destroy();
-  };
+  }
 
   updateCursorPosition(x: number, y: number): void {
     this.sphereApi.position.set(
       (x * this.view.worldViewport.width) / 2,
       (y * this.view.worldViewport.height) / 2,
-      7
+      7,
     );
   }
 }
@@ -164,12 +154,7 @@ class Spheres extends Component {
 
   static radius = 1.1;
 
-  construct = (params: {
-    view: View;
-    scene: Scene;
-    physics: CannonWorker;
-    count: number;
-  }) => {
+  construct(params: { view: View; scene: Scene; physics: CannonWorker; count: number }) {
     this.count = params.count;
 
     this.sphereApi = undefined;
@@ -189,9 +174,9 @@ class Spheres extends Component {
     this.mesh.matrixAutoUpdate = false;
     (this.mesh as Object3D).castShadow = true;
     (this.mesh as Object3D).receiveShadow = true;
-  };
+  }
 
-  onInit = (): void => {
+  onInit(): void {
     this.scene.add(this.mesh);
 
     const { api: sphereApi } = this.physics.create.sphere(
@@ -204,7 +189,7 @@ class Spheres extends Component {
         mass: 200,
         allowSleep: false,
       }),
-      this.mesh
+      this.mesh,
     );
 
     this.sphereApi = sphereApi;
@@ -212,12 +197,12 @@ class Spheres extends Component {
     for (let i = 0; i < this.count; i++) {
       sphereApi.at(i).position.set(2 - Math.random() * 4, 0, 0);
     }
-  };
+  }
 
-  onDestroy = (): void => {
+  onDestroy(): void {
     this.scene.remove(this.mesh);
     this.sphereApi.destroy();
-  };
+  }
 }
 
 export const InteractiveBallPit = ({ count }) => {
@@ -248,7 +233,7 @@ export const InteractiveBallPit = ({ count }) => {
         kernelSize: 2,
         luminanceThreshold: 0.8,
         luminanceSmoothing: 0,
-      })
+      }),
     );
 
     scene.fog = new Fog('red', 30, 80);
@@ -292,19 +277,17 @@ export const InteractiveBallPit = ({ count }) => {
     const space = world.create.space();
 
     space.create.entity().addComponent(BallPitContainer, { physics, view });
-    space.create
-      .entity()
-      .addComponent(Spheres, { physics, scene, view, count });
+    space.create.entity().addComponent(Spheres, { physics, scene, view, count });
     space.create.entity().addComponent(Cursor, { physics, camera, view });
 
     // simple loop
     world.init();
-    
+
     let lastCallTime = 0;
     const loop = (now: number) => {
       const nowSeconds = now / 1000;
       const elapsed = nowSeconds - lastCallTime;
-      
+
       world.update(elapsed);
       renderer.render(elapsed);
       lastCallTime = nowSeconds;

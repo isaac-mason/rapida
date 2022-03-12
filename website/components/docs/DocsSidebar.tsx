@@ -38,6 +38,9 @@ const SidebarDiv = styled.div`
   padding-top: 4em;
   height: 100vh;
   width: 300px;
+  
+  background-color: #fff;
+  border-right: 1px solid #ccc;
 
   img {
     width: 150px;
@@ -53,8 +56,8 @@ const SidebarLinks = styled.nav`
 
   padding-left: 1.5rem;
   padding-right: 1.5rem;
-  background-color: #fff;
 
+  background-color: #fff;
   border-right: 1px solid #ccc;
 
   ${up('md')} {

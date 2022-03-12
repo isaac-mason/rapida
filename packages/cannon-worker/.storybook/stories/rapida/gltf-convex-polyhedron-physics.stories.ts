@@ -1,7 +1,4 @@
-import CannonWorker, {
-  CannonWorkerDebugger,
-  ThreeToCannonShapeType,
-} from '@rapidajs/cannon-worker';
+import CannonWorker, { CannonWorkerDebugger, ThreeToCannonShapeType } from '@rapidajs/cannon-worker';
 import { useEffect } from '@storybook/client-api';
 import { AmbientLight, BufferGeometry, Color, Mesh, PerspectiveCamera, Scene } from 'three';
 import { Geometry } from 'three-stdlib';
@@ -24,18 +21,18 @@ class Diamonds extends Component {
   physics!: CannonWorker;
   mesh!: Mesh;
 
-  construct = (physics: CannonWorker, gltf: GLTF) => {
+  construct(physics: CannonWorker, gltf: GLTF) {
     this.physics = physics;
     this.mesh = gltf.scene.children[0] as Mesh;
     this.mesh.position.set(0, -5, -10);
 
     this.gltf = gltf;
-  };
+  }
 
-  onInit = () => {
+  onInit() {
     // create a geometry from the gltf BufferGeometry
     const geo = new Geometry().fromBufferGeometry(
-      (this.gltf.scene.children[0] as Mesh).geometry as BufferGeometry
+      (this.gltf.scene.children[0] as Mesh).geometry as BufferGeometry,
     );
 
     // Merge duplicate vertices resulting from glTF export.
@@ -46,11 +43,7 @@ class Diamonds extends Component {
     this.physics.create.convexPolyhedron(() => ({
       position: [-6, 0, 0],
       mass: 10,
-      args: [
-        geo.vertices.map((v) => [v.x, v.y, v.z]),
-        geo.faces.map((f) => [f.a, f.b, f.c]),
-        [],
-      ],
+      args: [geo.vertices.map((v) => [v.x, v.y, v.z]), geo.faces.map((f) => [f.a, f.b, f.c]), []],
       angularVelocity: [0, -1, -1],
     }));
 
@@ -66,9 +59,9 @@ class Diamonds extends Component {
         conversion: {
           type: ThreeToCannonShapeType.HULL,
         },
-      }
+      },
     );
-  };
+  }
 }
 
 export const GLTFConvexPolyhedronPhysics = () => {
@@ -101,8 +94,8 @@ export const GLTFConvexPolyhedronPhysics = () => {
       const physics = new CannonWorker({
         gravity: [0, -10, 0],
       });
-  
-      world.addSystem(new CannonSystem(physics));
+
+      world.add.system(new CannonSystem(physics));
 
       physics.debugger = new CannonWorkerDebugger(physics, {
         scene: scene,
@@ -124,12 +117,12 @@ export const GLTFConvexPolyhedronPhysics = () => {
 
       // simple loop
       world.init();
-      
+
       let lastCallTime = 0;
       const loop = (now: number) => {
         const nowSeconds = now / 1000;
         const elapsed = nowSeconds - lastCallTime;
-        
+
         world.update(elapsed);
         renderer.render(elapsed);
         lastCallTime = nowSeconds;

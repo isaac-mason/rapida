@@ -23,11 +23,11 @@ class SpinningCubeComponent extends Component {
   cube!: three.Mesh;
   scene!: Scene;
 
-  construct = (params: {
+  construct(params: {
     scene: Scene;
     color: string;
     position: [number, number, number];
-  }) => {
+  }) {
     this.scene = params.scene;
 
     const geometry = new three.BoxGeometry(0.5, 0.5, 0.5);
@@ -39,16 +39,16 @@ class SpinningCubeComponent extends Component {
 
     this.cube = new three.Mesh(geometry, material);
     this.cube.position.set(...params.position);
-  };
+  }
 
-  onInit = (): void => {
+  onInit(): void {
     this.scene.add(this.cube);
-  };
+  }
 
-  onUpdate = (timeElapsed: number): void => {
+  onUpdate(timeElapsed: number): void {
     this.cube.rotation.x += timeElapsed * 0.1;
     this.cube.rotation.y += timeElapsed * 0.1;
-  };
+  }
 
   onDestroy = (): void => {
     this.scene.remove(this.cube);
@@ -122,7 +122,7 @@ const createSimpleCubesSetup = () => {
   const loop = (now: number) => {
     const nowSeconds = now / 1000;
     const elapsed = nowSeconds - lastCallTime;
-    
+
     world.update(elapsed);
     renderer.render(elapsed);
     lastCallTime = nowSeconds;
@@ -451,7 +451,13 @@ export const Grid = () => {
   return html;
 };
 
-export const HueSaturation = ({ hue, saturation }: { hue: number, saturation: number }) => {
+export const HueSaturation = ({
+  hue,
+  saturation,
+}: {
+  hue: number;
+  saturation: number;
+}) => {
   useEffect(() => {
     const { renderer, camera, scene } = createSimpleCubesSetup();
 
@@ -494,8 +500,7 @@ export const Noise = () => {
 
 export const Outline = () => {
   useEffect(() => {
-    const { renderer, camera, scene, mainCube } =
-      createSimpleCubesSetup();
+    const { renderer, camera, scene, mainCube } = createSimpleCubesSetup();
 
     const view = renderer.create.view({
       camera,
@@ -590,7 +595,13 @@ export const SSAO = () => {
   return html;
 };
 
-export const ToneMapping = ({ middleGrey, maxLuminance }: { middleGrey: number, maxLuminance: number }) => {
+export const ToneMapping = ({
+  middleGrey,
+  maxLuminance,
+}: {
+  middleGrey: number;
+  maxLuminance: number;
+}) => {
   useEffect(() => {
     const { renderer, camera, scene } = createSimpleCubesSetup();
 

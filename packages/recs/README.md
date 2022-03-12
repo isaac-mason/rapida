@@ -58,7 +58,7 @@ class Position extends Component {
   // * `recs` reuses component objects! *
   // Here we add a method `construct`, which behaves just like a `constructor`.
   // This method will be called every time a new component is being created or re-used
-  construct = (x: number, y: number) => {
+  construct(x: number, y: number) {
     this.x = x;
     this.y = y;
   };
@@ -67,7 +67,7 @@ class Position extends Component {
 class Color extends Component {
   color!: 'red' | 'blue';
 
-  construct = (color: 'red' | 'blue') => {
+  construct(color: 'red' | 'blue') {
     this.color = color;
   };
 }
@@ -92,7 +92,7 @@ class DrawSystem extends System {
   };
 
   // On each update, let's draw
-  onUpdate = () => {
+  onUpdate() {
     const ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -138,7 +138,7 @@ class WalkSystem extends System {
 
   movementCountdown = WalkSystem.timeBetweenMovements;
 
-  onUpdate = (timeElapsed: number) => {
+  onUpdate(timeElapsed: number) {
     this.movementCountdown -= timeElapsed;
 
     if (this.movementCountdown <= 0) {

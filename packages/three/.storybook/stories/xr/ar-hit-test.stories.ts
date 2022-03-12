@@ -12,6 +12,7 @@ import {
   Scene,
   Vector3,
   WebGLRenderer,
+  XRHitTestSource,
 } from 'three';
 import { ARButton } from 'three-stdlib/webxr/ARButton';
 import { XRRenderer, XRRendererMode } from '../../../src';
@@ -65,77 +66,82 @@ export const ARHitTest = () => {
       private hitTestSource = null;
       private hitTestSourceRequested = false;
 
-      onInit = () => {
-        this.reticle = new Mesh(
-          new RingGeometry(0.15, 0.2, 32).rotateX(-Math.PI / 2),
-          new MeshBasicMaterial()
-        );
-        this.reticle.matrixAutoUpdate = false;
-        this.reticle.visible = false;
-        scene.add(this.reticle);
-
-        const geometry = new CylinderGeometry(0.1, 0.1, 0.2, 32).translate(
-          0,
-          0.1,
-          0
-        );
-
-        controller.addEventListener('select', () => {
-          if (this.reticle.visible) {
-            const material = new MeshPhongMaterial({
-              color: 0xffffff * Math.random(),
-            });
-            const mesh = new Mesh(geometry, material);
-            mesh.position.setFromMatrixPosition(this.reticle.matrix);
-            mesh.scale.y = Math.random() * 2 + 1;
-            scene.add(mesh);
-          }
-        });
-
-        renderer.onFrame((event) => {
-          const referenceSpace = renderer.three.xr.getReferenceSpace();
-          const session = renderer.three.xr.getSession();
-
-          if (this.hitTestSourceRequested === false) {
-            session.requestReferenceSpace('viewer').then((referenceSpace) => {
-              session
-                .requestHitTestSource({ space: referenceSpace })
-                .then((source) => {
-                  this.hitTestSource = source;
-                });
-            });
-
-            session.addEventListener('end', () => {
-              this.hitTestSourceRequested = false;
-              this.hitTestSource = null;
-            });
-
-            this.hitTestSourceRequested = true;
-          }
-
-          if (this.hitTestSource) {
-            const hitTestResults = event.data.frame.getHitTestResults(
-              this.hitTestSource
-            );
-
-            if (hitTestResults.length) {
-              const hit = hitTestResults[0];
-
-              this.reticle.visible = true;
-              this.reticle.matrix.fromArray(
-                hit.getPose(referenceSpace).transform.matrix
-              );
-            } else {
-              this.reticle.visible = false;
-            }
-          }
-        });
+      onInit() {
+        
       };
     }
 
-    space.create.entity().addComponent(HitTestIndicator);
+    // space.create.entity().addComponent(HitTestIndicator);
 
     world.init();
+
+    let hitTestSource: XRHitTestSource | null = null;
+    let hitTestSourceRequested = false;
+
+    const reticle = new Mesh(
+      new RingGeometry(0.15, 0.2, 32).rotateX(-Math.PI / 2),
+      new MeshBasicMaterial()
+    );
+    reticle.matrixAutoUpdate = false;
+    reticle.visible = false;
+    scene.add(reticle);
+
+    const geometry = new CylinderGeometry(0.1, 0.1, 0.2, 32).translate(
+      0,
+      0.1,
+      0
+    );
+
+    controller.addEventListener('select', () => {
+      if (reticle.visible) {
+        const material = new MeshPhongMaterial({
+          color: 0xffffff * Math.random(),
+        });
+        const mesh = new Mesh(geometry, material);
+        mesh.position.setFromMatrixPosition(reticle.matrix);
+        mesh.scale.y = Math.random() * 2 + 1;
+        scene.add(mesh);
+      }
+    });
+
+    renderer.onFrame((event) => {
+      const referenceSpace = renderer.three.xr.getReferenceSpace();
+      const session = renderer.three.xr.getSession();
+
+      if (hitTestSourceRequested === false) {
+        session.requestReferenceSpace('viewer').then((referenceSpace) => {
+          session
+            .requestHitTestSource({ space: referenceSpace })
+            .then((source) => {
+              hitTestSource = source;
+            });
+        });
+
+        session.addEventListener('end', () => {
+          hitTestSourceRequested = false;
+          hitTestSource = null;
+        });
+
+        hitTestSourceRequested = true;
+      }
+
+      if (hitTestSource) {
+        const hitTestResults = event.data.frame.getHitTestResults(
+          hitTestSource
+        );
+
+        if (hitTestResults.length) {
+          const hit = hitTestResults[0];
+
+          reticle.visible = true;
+          reticle.matrix.fromArray(
+            hit.getPose(referenceSpace).transform.matrix
+          );
+        } else {
+          reticle.visible = false;
+        }
+      }
+    });
 
     renderer.setAnimationLoop((delta, time) => {
       world.update(delta)

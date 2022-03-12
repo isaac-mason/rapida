@@ -52,16 +52,16 @@ export class QueryManager {
   private eventsBuffer: QueryManagerEvent[] = [];
 
   /**
-   * The RECS instance the query manager is in
+   * The World the query manager is in
    */
-  private recs: World;
+  private world: World;
 
   /**
    * Constructor for a QueryManager
-   * @param recs the RECS the QueryManager is in
+   * @param world the World the QueryManager is in
    */
-  constructor(recs: World) {
-    this.recs = recs;
+  constructor(world: World) {
+    this.world = world;
   }
 
   /**
@@ -81,7 +81,7 @@ export class QueryManager {
     const query = new Query(queryDescription);
     this.queries.set(dedupeString, query);
 
-    for (const space of this.recs.spaces.values()) {
+    for (const space of this.world.spaces.values()) {
       for (const entity of space.entities.values()) {
         if (this.evaluateQuery(query, entity)) {
           this.addEntityToQuery(query, entity);

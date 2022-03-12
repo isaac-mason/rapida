@@ -13,11 +13,11 @@ export class CannonSystem extends System {
     this.cannon = cannon;
   }
 
-  onUpdate = (timeElapsed: number): void => {
+  onUpdate(timeElapsed: number): void {
     this.cannon.step(timeElapsed);
-  };
+  }
 
-  onDestroy = (): void => {
+  onDestroy(): void {
     this.cannon.terminate();
-  };
+  }
 }

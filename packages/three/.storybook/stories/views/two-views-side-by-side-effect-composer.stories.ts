@@ -27,16 +27,16 @@ class SpinningCube extends Component {
     this.cube.position.set(0, 0, 0);
   };
 
-  onInit = () => {
+  onInit() {
     this.scene.add(this.cube);
   };
 
-  onUpdate = () => {
+  onUpdate() {
     this.cube.rotation.x += 0.005;
     this.cube.rotation.y += 0.005;
   };
 
-  onDestroy = () => {
+  onDestroy() {
     this.scene.remove(this.cube);
   };
 }

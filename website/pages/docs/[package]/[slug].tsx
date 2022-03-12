@@ -248,7 +248,7 @@ const getAllPagesForPackage = (packageName: string): Page[] => {
 
     const slug = splitName
       .slice(1, splitName.length)
-      .join('~')
+      .join('-')
       .replace('.md', '');
 
     pages.push({
@@ -330,7 +330,7 @@ const rewriteLinks = (
 
         const newHref = `/docs/${path[0]}/${path
           .slice(1, path.length)
-          .join('~')}`;
+          .join('-')}`;
 
         // construct the new link
         const newLink = `${namePart}(${newHref})`;

@@ -47,34 +47,16 @@ export abstract class Component {
   }
 
   /**
-   * Destruction logic
-   */
-  onDestroy: (() => void) | undefined = undefined;
-
-  /**
-   * Initialisation logic
-   */
-  onInit: (() => void) | undefined = undefined;
-
-  /**
-   * Update logic for the component
-   * If this method is not implemented in a component it will not be added to the update job pool
-   * @param timeElapsed the time since the last update for this component in seconds
-   * @param time the current time in seconds
-   */
-  onUpdate: ((timeElapsed: number, time: number) => void) | undefined =
-    undefined;
-
-  /**
    * The entity this component belongs to. Set on adding to an Entity.
    */
   private _entity?: Entity;
 
   /**
-   * Method for "re-constructing" a component object instance.
+   * Method for "constructing" a component instance.
    *
    * If a component has properties, this method should be implemented to set initial values for all of them.
-   * If a component has no properties and instead just acts as a tag component, then this method does not need to be implemented.
+   *
+   * If a component is a tag with no properties, this method does not need to be implemented.
    *
    * Non-static component properties should not have values defined in the constructor, but should be initialised in this `construct` method.
    * The reason for this is component object instances will be reused, so in order to prevent unexpected behavior, they should be initialised in the `construct` method,
@@ -88,11 +70,11 @@ export abstract class Component {
    * class MyComponent extends Component {
    *   exampleProperty!: number;
    *
-   *   construct = (): void => {
+   *   construct(): void {
    *     this.exampleProperty = 1; // here we initialise the value of exampleProperty
    *   }
    *
-   *   onUpdate = (): void => {
+   *   onUpdate(): void {
    *     // because we used the not-null operator `!:` the type of `this.exampleProperty` here will be `number`, as opposed to `number | undefined`
    *     this.exampleProperty += 1;
    *   }
@@ -100,5 +82,23 @@ export abstract class Component {
    * ```
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-function, class-methods-use-this
-  construct: (..._args: any[]) => void = () => {};
+  construct(..._args: any[]) {}
+
+  /**
+   * Destruction logic
+   */
+  onDestroy(): void {}
+
+  /**
+   * Initialisation logic
+   */
+  onInit(): void {}
+
+  /**
+   * Update logic for the component
+   * If this method is not implemented in a component it will not be added to the update job pool
+   * @param timeElapsed the time since the last update for this component in seconds
+   * @param time the current time in seconds
+   */
+  onUpdate(_timeElapsed: number, _time: number) {}
 }
