@@ -12,8 +12,10 @@ export type SystemQueries = { [queryName: string]: QueryDescription };
 /**
  * System containing logic and queries for entities with given components.
  *
- * The System is the 'S' in ECS. Systems can be created with multiple queries for entities by what components they contain.
- * Systems have lifecycle hooks `onInit`, `onUpdate`, and `onDestroy` hook that are executed to provide logic to the RECS.
+ * Systems can be created with multiple Queries for Entities by what Components they contain.
+ *
+ * Systems have lifecycle methods `onInit`, `onUpdate`, and `onDestroy` that are executed as part of World updates.
+ *
  * Systems also have their own events system `events` that can be used to run that isn't required to be run on every update.
  *
  * ```ts

@@ -90,18 +90,8 @@ export type WebGLViewParams = {
  *   camera,
  *   scene
  * })
- * ```
  *
- * ```ts
- * import { WebGLRenderer } from '@rapidajs/three';
- * import { Camera, Scene } from '@rapidajs/three';
- *
- * const camera = new PerspectiveCamera();
- * const scene = new Scene()
- * const renderer = new WebGLRenderer();
- *
- * // add the renderer domElement to the dom before adding views
- * document.getElementById('app').appendChild(renderer.domElement);
+ * // OR
  *
  * const view = renderer.create.view({
  *   camera,

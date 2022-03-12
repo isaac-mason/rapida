@@ -8,9 +8,9 @@ import { Entity } from './entity';
 import { Query, QueryDescription } from '.';
 
 /**
- * A World that can contain Spaces with Entities, Systems, and Queries for Entities
+ * A World that can contain Spaces with Entities, Systems, and Queries.
  *
- * ```
+ * ```ts
  * import { World } from "@rapidajs/recs";
  *
  * const world = new World();

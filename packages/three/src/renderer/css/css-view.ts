@@ -38,9 +38,7 @@ export type CSSViewParams = {
 };
 
 /**
- * A CSSView within a CSSRenderer.
- *
- * Each CSSView actually has its own three-stdlib CSS3DRenderer.
+ * A CSSView within a CSSRenderer
  */
 export class CSSView extends View {
   /**

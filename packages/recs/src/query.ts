@@ -26,8 +26,7 @@ export type QueryDescription = {
  *
  * Queries can either be created as part of Systems, or they can be created standalone.
  *
- * Queries are updated as part of the world update loop.
- * Changes to entity components are queued and processed once per world update.
+ * Changes to Entity Components are queued, and Query results are updated as part of the World update loop.
  *
  * Query results can also be retrieved once-off without creating a persistent query with `world.queryOnce(...)`.
  *
@@ -37,39 +36,35 @@ export type QueryDescription = {
  * // create a world
  * const world = new World();
  *
- * // create some testing components
- * class TestComponentOne extends Component {}
- * class TestComponentTwo extends Component {}
- * class TestComponentThree extends Component {}
- * class TestComponentFour extends Component {}
+ * // create some example components
+ * class ExampleComponentOne extends Component {}
+ * class ExampleComponentTwo extends Component {}
+ * class ExampleComponentThree extends Component {}
+ * class ExampleComponentFour extends Component {}
  *
  * // create a query description containing rules for a query
  * const queryDescription: QueryDescription = {
- *   all: [TestComponentOne],
- *   one: [TestComponentOne, TestComponentTwo],
- *   not: [TestComponentFour],
+ *   all: [ExampleComponentOne],
+ *   one: [ExampleComponentOne, ExampleComponentTwo],
+ *   not: [ExampleComponentFour],
  * };
  *
  * // get once-off query results
- * world.queryOnce({
- *   all: [TestComponentOne],
- * });
+ * world.queryOnce(queryDescription);
  *
  * // get once-off query results, re-using existing query results if available
- * world.queryOnce({
- *   all: [TestComponentOne],
- * }, { useExisting: true });
+ * world.queryOnce(queryDescription, { useExisting: true });
  *
  * // get a query that will update every world update
  * const query = world.query({
- *   all: [TestComponentOne]
+ *   all: [ExampleComponentOne]
  * });
  *
  * // create a system with a query
  * class ExampleSystem extends System {
  *   queries = {
  *     exampleQueryName: {
- *       all: [TestComponentOne],
+ *       all: [ExampleComponentOne],
  *     },
  *   };
  *

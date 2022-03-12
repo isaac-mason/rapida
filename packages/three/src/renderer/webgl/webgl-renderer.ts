@@ -19,7 +19,7 @@ export type WebGLRendererParams = {
 /**
  * WebGLRenderer is a wrapper around the three.js WebGLRenderer provides a simple API for managing multiple views.
  *
- * The `domElement` property should be added to the dom immediately after construction.
+ * After construction, the `domElement` property should be added to the dom.
  *
  * Example usage:
  *

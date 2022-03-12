@@ -3,7 +3,7 @@ import { CSSView, CSSViewParams } from './css-view';
 /**
  * CSSRenderer is a thin wrapper around the CSS3DRenderer three js class with support for multiple views
  *
- * After construction, the domElement property, which contains a div dom element, should be added to the dom.
+ * After construction, the `domElement` property should be added to the dom.
  */
 export class CSSRenderer {
   /**
