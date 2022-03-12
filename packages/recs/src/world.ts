@@ -1,11 +1,11 @@
 import { uuid } from '@rapidajs/rapida-common';
-import { System } from './system';
-import { Space, SpaceParams } from './space';
-import { SystemManager } from './internals/system-manager';
-import { QueryManager } from './internals/query-manager';
-import { EntityManager } from './internals/entity-manager';
 import { Entity } from './entity';
-import { Query, QueryDescription } from '.';
+import { EntityManager } from './internals/entity-manager';
+import { QueryManager } from './internals/query-manager';
+import { SystemManager } from './internals/system-manager';
+import { Query, QueryDescription } from './query';
+import { Space, SpaceParams } from './space';
+import { System } from './system';
 
 /**
  * A World that can contain Spaces with Entities, Systems, and Queries.
