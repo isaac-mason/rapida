@@ -1,5 +1,12 @@
 # @rapidajs/recs
 
+## 0.2.0
+
+### Minor Changes
+
+- 45f936c: Add support for using queries outside of a system
+- 5b27d39: Change recs Component and System lifecycle methods to be class methods instead of optional properties
+
 ## 0.1.4
 
 ### Patch Changes

@@ -133,7 +133,9 @@ export class Entity {
    * @param value a constructor for the component type to retrieve
    * @returns the component if it is found, or undefined
    */
-  find<T extends Component | Component>(value: ComponentClass): T | undefined {
+  find<T extends Component | Component>(
+    value: ComponentClass<T>
+  ): T | undefined {
     const component: Component | undefined = this.components.get(value);
 
     if (component) {
@@ -148,7 +150,7 @@ export class Entity {
    * @param value a constructor for the component type to retrieve
    * @returns the component
    */
-  get<T extends Component | Component>(value: ComponentClass): T {
+  get<T extends Component | Component>(value: ComponentClass<T>): T {
     const component: T | undefined = this.find(value);
 
     if (component) {

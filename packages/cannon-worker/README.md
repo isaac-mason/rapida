@@ -58,5 +58,5 @@ api.position.set(Math.sin(clock.getElapsedTime()) * 5, 0, 0));
 6. You can use the body api to subscribe to properties to get updates on each physics step.
 
 ```ts
-const unsubscribe = api.velocity.subscribe((velocity) => console.log(velocity));
+api.velocity.subscribe((velocity) => console.log(velocity));
 ```

@@ -1,6 +1,6 @@
 {
   "name": "@rapidajs/three",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "goodies for three.js",
   "homepage": "https://gitlab.com/rapidajs/rapida/-/tree/main/packages/three",
   "bugs": {
@@ -31,7 +31,7 @@
     "@babel/plugin-proposal-optional-chaining": "^7.16.0",
     "@babel/preset-env": "^7.16.0",
     "@babel/preset-typescript": "^7.16.0",
-    "@rapidajs/recs": "0.1.4",
+    "@rapidajs/recs": "0.2.0",
     "@storybook/addon-actions": "^6.4.1",
     "@storybook/addon-docs": "^6.4.1",
     "@storybook/addon-essentials": "^6.4.1",

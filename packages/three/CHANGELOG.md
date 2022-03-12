@@ -1,5 +1,13 @@
 # @rapidajs/rapida
 
+## 0.2.0
+
+### Patch Changes
+
+- 66385a6: Change WebGLRenderer `renderer` param to be constructor params for a three WebGLRenderer, instead of a three renderer instance
+- 66385a6: Expose WebGLRenderer addView method
+- 8045146: Remove update method for webgl view events, process interaction events immediately
+
 ## 0.1.3
 
 ### Patch Changes
