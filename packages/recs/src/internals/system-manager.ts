@@ -149,8 +149,10 @@ export class SystemManager {
     if (systems !== undefined) {
       systems.delete(system);
 
-      // remove the query if it is not in use by any systems
-      if (systems.size === 0) {
+      // remove the query if
+      // - the query is standalone ie only used by systems
+      // - it is not being used by any systems
+      if (!query.standalone && systems.size === 0) {
         this.world.queryManager.removeQuery(query);
       }
     }

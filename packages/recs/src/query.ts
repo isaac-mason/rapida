@@ -56,6 +56,13 @@ export class Query {
   removed: Set<Entity> = new Set();
 
   /**
+   * Whether the query is used outside of a system
+   *
+   * If true, the query will not be removed from the world when all systems using it are removed.
+   */
+  standalone = false;
+
+  /**
    * Constructor for a new query instance
    * @param queryDescription the query description
    */

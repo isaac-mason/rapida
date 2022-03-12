@@ -81,12 +81,9 @@ export class QueryManager {
     const query = new Query(queryDescription);
     this.queries.set(dedupeString, query);
 
-    for (const space of this.world.spaces.values()) {
-      for (const entity of space.entities.values()) {
-        if (this.evaluateQuery(query, entity)) {
-          this.addEntityToQuery(query, entity);
-        }
-      }
+    const matches = this.getQueryResults(query.description);
+    for (const entity of matches.values()) {
+      this.addEntityToQuery(query, entity);
     }
 
     return query;
@@ -139,6 +136,30 @@ export class QueryManager {
   }
 
   /**
+   * Executes a query and returns a set of the matching Entities
+   *
+   * If the query already exists in a system, the results are taken from the existing query.
+   * If it does not exist, the query is executed once-off.
+   *
+   * @param queryDescription the query description
+   */
+  query(
+    queryDescription: QueryDescription,
+    options?: { useExisting: boolean }
+  ): Set<Entity> {
+    const key = Query.getDescriptionDedupeString(queryDescription);
+
+    if (options?.useExisting) {
+      const existingQuery = this.queries.get(key);
+      if (existingQuery) {
+        return existingQuery.all;
+      }
+    }
+
+    return this.getQueryResults(queryDescription);
+  }
+
+  /**
    * Removes a query from the query manager
    * @param query the query to remove
    */
@@ -187,28 +208,44 @@ export class QueryManager {
     query.added.add(entity);
   }
 
-  private evaluateQuery(query: Query, entity: Entity): boolean {
+  private evaluateQuery(
+    queryDescription: QueryDescription,
+    entity: Entity
+  ): boolean {
     if (
-      query.description.not &&
-      query.description.not.some((c) => entity.has(c))
+      queryDescription.not &&
+      queryDescription.not.some((c) => entity.has(c))
     ) {
       return false;
     }
 
     if (
-      query.description.all &&
-      query.description.all.some((c) => !entity.has(c))
+      queryDescription.all &&
+      queryDescription.all.some((c) => !entity.has(c))
     ) {
       return false;
     }
     if (
-      query.description.one &&
-      query.description.one.every((c) => !entity.has(c))
+      queryDescription.one &&
+      queryDescription.one.every((c) => !entity.has(c))
     ) {
       return false;
     }
 
     return true;
+  }
+
+  private getQueryResults(queryDescription: QueryDescription): Set<Entity> {
+    const matches: Set<Entity> = new Set();
+    for (const space of this.world.spaces.values()) {
+      for (const entity of space.entities.values()) {
+        if (this.evaluateQuery(queryDescription, entity)) {
+          matches.add(entity);
+        }
+      }
+    }
+
+    return matches;
   }
 
   private queryShouldCheckComponent(
@@ -235,7 +272,7 @@ export class QueryManager {
       this.entityQueries.set(entity.id, entityQueries);
     }
 
-    const match = this.evaluateQuery(query, entity);
+    const match = this.evaluateQuery(query.description, entity);
     const currentlyHasEntity = query.all.has(entity);
 
     if (match && !currentlyHasEntity) {

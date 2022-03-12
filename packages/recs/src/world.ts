@@ -5,6 +5,7 @@ import { SystemManager } from './internals/system-manager';
 import { QueryManager } from './internals/query-manager';
 import { EntityManager } from './internals/entity-manager';
 import { Entity } from './entity';
+import { Query, QueryDescription } from '.';
 
 /**
  * RECS world that contains systems and spaces
@@ -115,29 +116,65 @@ export class World {
   }
 
   /**
+   * Retrieves a query from a query description
+   *
+   * @param queryDescription the query description
+   * @returns the query
+   */
+  query(queryDescription: QueryDescription): Query {
+    const query = this.queryManager.getQuery(queryDescription);
+
+    // set the query to be standalone so it cannot be removed by system related cleanup
+    query.standalone = true;
+
+    return query;
+  }
+
+  /**
+   * Retrieves once-off query results without creating a persistent Query
+   * @param queryDescription the query description
+   * @param options options for the query
+   * @returns a set of matching
+   */
+  queryOnce(
+    queryDescription: QueryDescription,
+    options?: {
+      /**
+       * Whether existing query results should be used
+       */
+      useExisting: boolean;
+    }
+  ): Set<Entity> {
+    return this.queryManager.query(queryDescription, options);
+  }
+
+  /**
    * Removes from the RECS instance
    * @param value the value to remove
    */
-  remove(value: System | Space): void {
+  remove(value: System | Space | Query): void {
     if (value instanceof System) {
       this.systemManager.removeSystem(value);
     } else if (value instanceof Space) {
       this.spaces.delete(value.id);
       this.entityManager.destroySpace(value);
+    } else if (value instanceof Query) {
+      this.queryManager.removeQuery(value);
     }
   }
 
   /**
-   * Updates the RECS instance
-   * @param timeElapsed the time elapsed in seconds
-   * @param time the current time in seconds
+   * Updates the World
+   * @param timeElapsed the time elapsed in seconds, uses 0 if not specified
    */
-  update(timeElapsed: number): void {
+  update(timeElapsed?: number): void {
+    const elapsed = timeElapsed || 0;
+
     // update the current time
-    this.time += timeElapsed;
+    this.time += elapsed;
 
     // update components - runs update methods for all components that have them
-    this.entityManager.updateComponents(timeElapsed, this.time);
+    this.entityManager.updateComponents(elapsed, this.time);
 
     // update entities - steps entity event system
     this.entityManager.updateEntities();
@@ -169,6 +206,6 @@ export class World {
     }
 
     // update systems
-    this.systemManager.update(timeElapsed, this.time);
+    this.systemManager.update(elapsed, this.time);
   }
 }
