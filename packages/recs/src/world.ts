@@ -15,13 +15,16 @@ import { System } from './system';
  *
  * const world = new World();
  *
+ * // initialise the world
+ * world.init();
+ *
  * // update the world without specifying time elapsed
  * // (timeElapsed in Components and Systems will be 0)
- * world.update()
+ * world.update();
  *
  * // update the world with a specified time elapsed
  * // (timeElapsed in Components and Systems will be set to this value)
- * world.update(0.1)
+ * world.update(0.1);
  * ```
  */
 export class World {

@@ -25,9 +25,9 @@ The structure of RECS was partially inspired by how SimonDev structures the code
 
 You can use `recs` as *~more* of a pure ECS with data-only `Components` belonging to `Entities` that are managed by `Systems` with `Queries`.
 
-You can also optionally add behavior to `recs` `Components` for unity-like Game Objects.
+You can also optionally add behavior to Components for unity-like Game Objects.
 
-`recs` also contains an event system for eventing in spaces and entities.
+`recs` also contains an event system for eventing in Spaces and Entities.
 
 ## Getting Started
 
@@ -37,10 +37,10 @@ You can find the full example and code here:
 
 http://rapidajs.dev/storybooks/recs/index.html?path=/story/random-walkers--random-walkers
 
-**1. Import everything you need**
+**1. Import everything we need**
 
 ```ts
-import World, { Component, System } from 'recs';
+import World, { Component, System } from '@rapidajs/recs';
 ```
 
 **2. Create a few simple components to store some data**
