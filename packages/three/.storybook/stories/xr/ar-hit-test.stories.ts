@@ -32,11 +32,11 @@ export const ARHitTest = () => {
     const camera = new PerspectiveCamera(70, 1, 0.01, 20);
     camera.position.set(0, 0, 500);
 
-    const renderer =  new XRRenderer({
+    const renderer = new XRRenderer({
       mode: XRRendererMode.AR,
       camera,
       scene,
-      renderer: new WebGLRenderer({ antialias: true }),
+      renderer: { antialias: true },
     });
     document.getElementById('renderer-root').appendChild(renderer.domElement);
 

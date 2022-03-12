@@ -4,6 +4,7 @@ import {
   PerspectiveCamera,
   Scene,
   WebGLRenderer,
+  WebGLRendererParameters,
   XRFrame,
 } from 'three';
 import { ARButton } from 'three-stdlib/webxr/ARButton';
@@ -45,7 +46,7 @@ export type XRRendererParams = {
   /**
    * The three WebGLRenderer to use
    */
-  renderer?: WebGLRenderer;
+  renderer?: WebGLRendererParameters;
 
   /**
    * The scene to render
@@ -132,7 +133,7 @@ export class XRRenderer {
     camera,
   }: XRRendererParams) {
     this.mode = mode;
-    this.three = renderer || new WebGLRenderer();
+    this.three = new WebGLRenderer(renderer || {});
     this.three.xr.enabled = true;
     this.scene = scene;
     this.camera = camera;

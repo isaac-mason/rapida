@@ -50,7 +50,7 @@ class SpinningCubeComponent extends Component {
     this.cube.rotation.y += timeElapsed * 0.1;
   }
 
-  onDestroy = (): void => {
+  onDestroy(): void {
     this.scene.remove(this.cube);
   };
 }
@@ -59,12 +59,11 @@ const createSimpleCubesSetup = () => {
   const world = new World();
 
   const renderer = new WebGLRenderer({
-    renderer: new ThreeWebGLRenderer({
+    renderer: {
       powerPreference: 'high-performance',
       precision: 'highp',
       antialias: false,
-      stencil: false,
-    }),
+    },
   });
 
   document.getElementById('renderer-root')!.appendChild(renderer.domElement);

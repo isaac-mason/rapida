@@ -75,7 +75,7 @@ export const TwoViewsSideBySideWithEffectComposer = () => {
       useEffectComposer: true,
       effectComposer: {
         normalPass: false,
-      }
+      },
     });
 
     const viewTwo = renderer.create.view({
