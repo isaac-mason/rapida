@@ -1,5 +1,11 @@
 # @rapidajs/recs
 
+## 0.3.0
+
+### Minor Changes
+
+- 8a11bb4: Add QueryDescription all components shorthand usage
+
 ## 0.2.0
 
 ### Minor Changes

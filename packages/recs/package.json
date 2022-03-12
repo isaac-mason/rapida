@@ -1,6 +1,6 @@
 {
   "name": "@rapidajs/recs",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Reminiscent of an entity component system",
   "homepage": "https://gitlab.com/rapidajs/rapida/-/tree/main/packages/recs",
   "bugs": {
