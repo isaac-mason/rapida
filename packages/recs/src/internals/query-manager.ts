@@ -212,6 +212,10 @@ export class QueryManager {
     queryDescription: QueryDescription,
     entity: Entity
   ): boolean {
+    if (Array.isArray(queryDescription)) {
+      return queryDescription.every((c) => entity.has(c));
+    }
+
     if (
       queryDescription.not &&
       queryDescription.not.some((c) => entity.has(c))
@@ -252,7 +256,10 @@ export class QueryManager {
     query: Query,
     component: Component
   ): boolean {
-    if (query.description.not !== undefined) {
+    if (
+      !Array.isArray(query.description) &&
+      query.description.not !== undefined
+    ) {
       return true;
     }
 

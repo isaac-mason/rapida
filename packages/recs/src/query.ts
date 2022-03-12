@@ -13,11 +13,13 @@ export enum QueryConditionType {
 /**
  * Type for query conditions
  */
-export type QueryDescription = {
-  [QueryConditionType.ALL]?: ComponentClass[];
-  [QueryConditionType.NOT]?: ComponentClass[];
-  [QueryConditionType.ONE]?: ComponentClass[];
-};
+export type QueryDescription =
+  | ComponentClass[]
+  | {
+      [QueryConditionType.ALL]?: ComponentClass[];
+      [QueryConditionType.NOT]?: ComponentClass[];
+      [QueryConditionType.ONE]?: ComponentClass[];
+    };
 
 /**
  * A Query for Entities with specified Components.
@@ -42,7 +44,10 @@ export type QueryDescription = {
  * class ExampleComponentThree extends Component {}
  * class ExampleComponentFour extends Component {}
  *
- * // create a query description containing rules for a query
+ * // create a simple query description
+ * const simpleQueryDescription: QueryDescription = [ExampleComponentOne, ExampleComponentTwo];
+ *
+ * // create a complex query description
  * const queryDescription: QueryDescription = {
  *   all: [ExampleComponentOne],
  *   one: [ExampleComponentOne, ExampleComponentTwo],
@@ -118,23 +123,34 @@ export class Query {
    * @param queryDescription the query description
    */
   constructor(queryDescription: QueryDescription) {
+    const isArray = Array.isArray(queryDescription);
+
+    // check if the query is valid
+    // must have at least one query type, and must not have an empty array of components
     if (
-      !queryDescription.all &&
-      !queryDescription.one &&
-      !queryDescription.not
+      (isArray && queryDescription.length === 0) ||
+      (!isArray &&
+        ((!queryDescription.all &&
+          !queryDescription.one &&
+          !queryDescription.not) ||
+          (queryDescription.all && queryDescription.all.length === 0) ||
+          (queryDescription.one && queryDescription.one.length === 0) ||
+          (queryDescription.not && queryDescription.not.length === 0)))
     ) {
       throw new Error('Query must have at least one condition');
     }
 
     this.key = Query.getDescriptionDedupeString(queryDescription);
     this.description = queryDescription;
-    this.components = Array.from(
-      new Set<ComponentClass>([
-        ...(queryDescription.all ? queryDescription.all : []),
-        ...(queryDescription.one ? queryDescription.one : []),
-        ...(queryDescription.not ? queryDescription.not : []),
-      ])
-    );
+    this.components = isArray
+      ? queryDescription
+      : Array.from(
+          new Set<ComponentClass>([
+            ...(queryDescription.all ? queryDescription.all : []),
+            ...(queryDescription.one ? queryDescription.one : []),
+            ...(queryDescription.not ? queryDescription.not : []),
+          ])
+        );
   }
 
   /**
@@ -144,6 +160,12 @@ export class Query {
    * @private called internally, do not call directly
    */
   public static getDescriptionDedupeString(query: QueryDescription): string {
+    if (Array.isArray(query)) {
+      return query
+        .map((c) => `${QueryConditionType.ALL}:${c.constructor.name}`)
+        .join('-');
+    }
+
     return Object.entries(query)
       .flatMap(([type, components]) => {
         if (type === QueryConditionType.ALL) {

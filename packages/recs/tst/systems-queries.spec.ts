@@ -207,13 +207,14 @@ describe('Systems and Queries Integration Tests', () => {
     });
 
     it('should reuse existing queries', () => {
-      const description: QueryDescription = {
+      const descriptionOne: QueryDescription = {
         all: [TestComponentOne],
       };
 
-      const queryOne = world.query(description);
+      const descriptionTwo: QueryDescription = [TestComponentOne];
 
-      const queryTwo = world.query(description);
+      const queryOne = world.query(descriptionOne);
+      const queryTwo = world.query(descriptionTwo);
 
       expect(queryOne).toBeTruthy();
       expect(queryTwo).toBeTruthy();
@@ -558,9 +559,7 @@ describe('Systems and Queries Integration Tests', () => {
     it('updates system query results if an entity matches a query with the ALL condition', () => {
       class TestSystem extends System {
         queries = {
-          test: {
-            all: [TestComponentOne, TestComponentTwo, TestComponentThree],
-          },
+          test: [TestComponentOne, TestComponentTwo, TestComponentThree],
         };
       }
 
