@@ -13,6 +13,7 @@ const SidebarWrapper = styled.div`
   z-index: 1000;
 
   overflow-y: scroll;
+  overflow-x: hidden;
 
   transform: translateX(-110vw);
   transition: transform 0.3s ease;

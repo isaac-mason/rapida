@@ -13,16 +13,48 @@ import { Space } from './space';
 /**
  * An Entity is a collection of Components with a unique id.
  *
- * Entities are the 'E' in an ECS, and can have components dynamically added and removed from them.
+ * Entities can have components dynamically added and removed from them.
  *
- * Entities are created inside a Space. See below for a basic example:
+ * Aside from containing Components, Entities in recs also have an event system that can be used to share data.
  *
  * ```ts
- * import World from '@rapidajs/recs';
+ * import { Component, World } from '@rapidajs/recs';
  *
+ * // example tag component without any data or behavior
+ * class ExampleComponent extends Component {}
+ *
+ * // create a world, space, and an entity
  * const world = new World();
  * const space = world.create.space();
  * const entity = world.create.entity();
+ *
+ * // try retrieving a component that isn't in the entity
+ * entity.find(ExampleComponent) // returns `undefined`
+ * entity.get(ExampleComponent) // throws Error
+ *
+ * // add ExampleComponent to the entity
+ * const exampleComponent = entity.addComponent(ExampleComponent);
+ *
+ * entity.has(ExampleComponent); // returns `true`
+ * entity.get(ExampleComponent) // returns `exampleComponent`
+ * entity.get(ExampleComponent) // returns `exampleComponent`
+ *
+ * // subscribe to an entity event
+ * space.on("event-name", (event) => {
+ *   console.log(event);
+ * });
+ *
+ * // emit an entity event
+ * space.emit({
+ *   topic: "event-name",
+ *   data: { x: 0, y: 0 },
+ * });
+ *
+ * // remove the component
+ * entity.removeComponent(ExampleComponent);
+ *
+ * // destroy the entity
+ * entity.destroy();
  * ```
  */
 export class Entity {

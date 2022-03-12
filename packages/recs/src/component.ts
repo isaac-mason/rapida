@@ -7,11 +7,60 @@ export type ComponentClass<T extends Component | Component = Component> = {
 };
 
 /**
- * Component that has data and behavior through lifecycle hooks, and can be added to an entity.
+ * Components can have both data and behavior, and belong to a single Entity.
  *
- * This class should be extended to add fields for data, and to set the methods `construct`, `onInit`, `onUpdate`, and `onDestroy`.
+ * If you are looking to use recs as more of a traditional ECS, Components should only contain data. If the `onUpdate` method is not overridden, the method will not be executed in world updates.
  *
- * A constructor should not be added to classes extending `Component`. See the documentation for the `construct` method for initializing properties.
+ * The `onUpdate` method is only recommended for use on Components that will not have many instances, for example, player controller Components.
+ *
+ * A constructor should not be added to classes extending `Component`, as Component objects are reused. See the documentation for the `construct` method for initializing properties.
+ *
+ * ```ts
+ * import { Component, World } from "@rapidajs/recs";
+ *
+ * class ExampleComponent extends Component {
+ *   // When using typescript, the `!:` not null assertion can be used as a "late-init" syntax.
+ *   // You must take care to set all class properties in the `construct` method.
+ *   x!: number;
+ *   y!: number;
+ *
+ *   // Think of the `construct` method as a constructor.
+ *   // Component objects are re-used, and this `construct` method is run on reuse.
+ *   // If properties should be set from "constructor" arguments, or have default values,
+ *   // those properties should be set here.
+ *   construct(x: number, y: number) {
+ *     this.x = x;
+ *     this.y = y;
+ *   }
+ *
+ *   onInit() {
+ *     // called on component init
+ *   }
+ *
+ *   onUpdate(timeElapsed: number, currentTime: number) {
+ *     // called on component updates
+ *     // if this method is not overridden, it will not be executed
+ *   }
+ *
+ *   onDestroy() {
+ *     // called on destroying the component
+ *   }
+ * }
+ *
+ * // create a world
+ * const world = new World();
+ *
+ * // create a space
+ * const space = world.create.space();
+ *
+ * // create an entity in the space
+ * const entity = space.create.entity();
+ *
+ * // add the example component to the entity
+ * const x = 1;
+ * const y = 2;
+ * entity.addComponent(ExampleComponent, x, y);
+ * ```
  */
 export abstract class Component {
   /**

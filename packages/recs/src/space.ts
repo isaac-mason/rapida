@@ -19,9 +19,41 @@ export type SpaceParams = {
 };
 
 /**
- * Space that contains entities and manages entities and their lifecycle.
+ * Spaces are containers for Entities that can be added and removed from a world.
  *
- * Spaces can be added to a RECS instance and then affected by the systems in the RECS.
+ * They are useful for grouping Entities together that work together to do something.
+ * For example, separate spaces could be used in a game to represent different rooms.
+ * On entering a room, a Space could be created to house all Entities for that room,
+ * then the Space could be removed on leaving that room.
+ *
+ * Aside from containing Entities, Spaces also have an event system that can be used to share data.
+ *
+ * ```ts
+ * import { World } from "@rapidajs/recs";
+ *
+ * // create a new world
+ * const world = new World();
+ *
+ * // create a space in the world
+ * const space = world.create.space();
+ *
+ * // create an entity in the space
+ * const entity = space.create.entity();
+ *
+ * // subscribe to a space event
+ * space.on("event-name", (event) => {
+ *   console.log(event);
+ * });
+ *
+ * // emit a space event
+ * space.emit({
+ *   topic: "event-name",
+ *   data: { x: 0, y: 0 },
+ * });
+ *
+ * // destroy the space and all entities in it
+ * space.destroy();
+ * ```
  */
 export class Space {
   /**
@@ -83,15 +115,15 @@ export class Space {
   }
 
   /**
-   * Broadcasts an event for handling by the space
-   * @param event the event to broadcast
+   * Broadcasts an event to the Space
+   * @param event the event to broadcast in the Space
    */
   emit<E extends Event | Event>(event: E): void {
     return this.events.emit(event);
   }
 
   /**
-   * Adds a handler for space events
+   * Adds a handler for Space events
    * @param eventName the event name
    * @param handlerName the name of the handler
    * @param handler the handler function

@@ -20,9 +20,65 @@ export type QueryDescription = {
 };
 
 /**
- * Query for entities with given components
+ * A Query for Entities with specified Components.
  *
  * Queries can contain a minimum of one and a maximum of three conditions, the `all`, `one`, and `not` QueryConditionType conditions.
+ *
+ * Queries can either be created as part of Systems, or they can be created standalone.
+ *
+ * Queries are updated as part of the world update loop.
+ * Changes to entity components are queued and processed once per world update.
+ *
+ * Query results can also be retrieved once-off without creating a persistent query with `world.queryOnce(...)`.
+ *
+ * ```ts
+ * import { Component, System, World, QueryDescription } from "@rapidajs/recs";
+ *
+ * // create a world
+ * const world = new World();
+ *
+ * // create some testing components
+ * class TestComponentOne extends Component {}
+ * class TestComponentTwo extends Component {}
+ * class TestComponentThree extends Component {}
+ * class TestComponentFour extends Component {}
+ *
+ * // create a query description containing rules for a query
+ * const queryDescription: QueryDescription = {
+ *   all: [TestComponentOne],
+ *   one: [TestComponentOne, TestComponentTwo],
+ *   not: [TestComponentFour],
+ * };
+ *
+ * // get once-off query results
+ * world.queryOnce({
+ *   all: [TestComponentOne],
+ * });
+ *
+ * // get once-off query results, re-using existing query results if available
+ * world.queryOnce({
+ *   all: [TestComponentOne],
+ * }, { useExisting: true });
+ *
+ * // get a query that will update every world update
+ * const query = world.query({
+ *   all: [TestComponentOne]
+ * });
+ *
+ * // create a system with a query
+ * class ExampleSystem extends System {
+ *   queries = {
+ *     exampleQueryName: {
+ *       all: [TestComponentOne],
+ *     },
+ *   };
+ *
+ *   onUpdate() {
+ *     this.results.exampleQueryName.all.forEach((entity) => console.log(entity));
+ *   }
+ * }
+ * world.addSystem(new ExampleSystem());
+ * ```
  */
 export class Query {
   /**

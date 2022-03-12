@@ -16,9 +16,9 @@ export type SystemQueries = { [queryName: string]: QueryDescription };
  * Systems have lifecycle hooks `onInit`, `onUpdate`, and `onDestroy` hook that are executed to provide logic to the RECS.
  * Systems also have their own events system `events` that can be used to run that isn't required to be run on every update.
  *
- * Below is an example of a simple system
  * ```ts
  * class ExampleSystem extends System {
+ *   // queries to create the system with
  *   queries = {
  *     queryName: {
  *       all: [ComponentOne, ComponentTwo],

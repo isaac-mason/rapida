@@ -8,7 +8,21 @@ import { Entity } from './entity';
 import { Query, QueryDescription } from '.';
 
 /**
- * RECS world that contains systems and spaces
+ * A World that can contain Spaces with Entities, Systems, and Queries for Entities
+ *
+ * ```
+ * import { World } from "@rapidajs/recs";
+ *
+ * const world = new World();
+ *
+ * // update the world without specifying time elapsed
+ * // (timeElapsed in Components and Systems will be 0)
+ * world.update()
+ *
+ * // update the world with a specified time elapsed
+ * // (timeElapsed in Components and Systems will be set to this value)
+ * world.update(0.1)
+ * ```
  */
 export class World {
   /**
