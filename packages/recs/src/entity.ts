@@ -133,9 +133,7 @@ export class Entity {
    * @param value a constructor for the component type to retrieve
    * @returns the component if it is found, or undefined
    */
-  find<T extends Component | Component>(value: {
-    new (...args: never[]): T;
-  }): T | undefined {
+  find<T extends Component | Component>(value: ComponentClass): T | undefined {
     const component: Component | undefined = this.components.get(value);
 
     if (component) {
@@ -150,9 +148,7 @@ export class Entity {
    * @param value a constructor for the component type to retrieve
    * @returns the component
    */
-  get<T extends Component | Component>(value: {
-    new (...args: never[]): T;
-  }): T {
+  get<T extends Component | Component>(value: ComponentClass): T {
     const component: T | undefined = this.find(value);
 
     if (component) {
@@ -167,7 +163,7 @@ export class Entity {
    * @param constr the component constructor, a component instance, or the string name of the component
    * @returns whether the entity contains the given component
    */
-  has(value: { new (...args: never[]): Component }): boolean {
+  has(value: ComponentClass): boolean {
     return this.components.has(value);
   }
 
@@ -189,13 +185,7 @@ export class Entity {
    * The value can either be a Component constructor, or the component instance itself
    * @param value the component to remove and destroy
    */
-  removeComponent(
-    value:
-      | Component
-      | {
-          new (...args: never[]): Component;
-        }
-  ): Entity {
+  removeComponent(value: Component | ComponentClass): Entity {
     let component: Component;
 
     // retrieve the component
