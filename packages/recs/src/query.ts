@@ -55,7 +55,7 @@ export type QueryDescription =
  * };
  *
  * // get once-off query results
- * world.queryOnce(queryDescription);
+ * world.queryOnce(simpleQueryDescription);
  *
  * // get once-off query results, re-using existing query results if available
  * world.queryOnce(queryDescription, { useExisting: true });
