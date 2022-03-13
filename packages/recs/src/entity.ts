@@ -69,6 +69,11 @@ export class Entity {
   components: Map<{ new (...args: never[]): Component }, Component> = new Map();
 
   /**
+   * Components queued for removal on the next update
+   */
+  componentsToRemove: Component[] = [];
+
+  /**
    * The event system for the entity
    */
   events = new EventSystem({ queued: true });
@@ -115,9 +120,15 @@ export class Entity {
 
   /**
    * Destroy the entities components and set the entity as dead immediately
+   * @param options options for destroying the entity
+   * @param options.immediately whether the entity should be destroyed immediately, or in the next update
    */
-  destroy(): void {
-    this.space.remove(this);
+  destroy(options?: { immediately?: boolean }): void {
+    if (options?.immediately) {
+      this.space.remove(this);
+    } else {
+      this.alive = false;
+    }
   }
 
   /**
@@ -186,11 +197,15 @@ export class Entity {
    * Removes a component from the entity and destroys it
    * The value can either be a Component constructor, or the component instance itself
    * @param value the component to remove and destroy
+   * @param options options for destroying the entity
+   * @param options.immediately whether the component should be removed immediately
    */
-  removeComponent(value: Component | ComponentClass): Entity {
+  removeComponent(
+    value: Component | ComponentClass,
+    options?: { immediately?: boolean }
+  ): Entity {
     let component: Component;
 
-    // retrieve the component
     if (value instanceof Component) {
       if (!this.components.has(value.class)) {
         throw new Error('Component does not exist in Entity');
@@ -204,8 +219,11 @@ export class Entity {
       component = c;
     }
 
-    // remove the component from this entity
-    this.recs.entityManager.removeComponentFromEntity(this, component, true);
+    if (options?.immediately) {
+      this.recs.entityManager.removeComponentFromEntity(this, component, true);
+    } else {
+      this.componentsToRemove.push(component);
+    }
 
     return this;
   }

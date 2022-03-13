@@ -42,18 +42,26 @@ describe('Spaces', () => {
   it('should should remove dead entities on update', () => {
     const space = world.create.space();
 
-    const entity = space.create.entity();
+    const entityOne = space.create.entity();
+    const entityTwo = space.create.entity();
 
     world.init();
 
     world.update(1);
 
-    expect(space.entities.size).toBe(1);
+    expect(space.entities.size).toBe(2);
 
-    entity.alive = false;
+    entityOne.destroy();
+
+    expect(space.entities.size).toBe(2);
 
     world.update(1);
 
+    expect(space.entities.size).toBe(1);
+
+    entityTwo.destroy({ immediately: true });
+
+    // should be destroyed without an update
     expect(space.entities.size).toBe(0);
   });
 

@@ -118,6 +118,11 @@ export class Query {
    */
   standalone = false;
 
+  // todo - some 'updated' method to support react wrapper re-rendering on query contents changing
+
+  // todo - change `added`, `removed`, `all` to be arrays, use shift filter to delete in-place quickly
+  // https://stackoverflow.com/questions/30304719/javascript-fastest-way-to-remove-object-from-array
+
   /**
    * Constructor for a new query instance
    * @param queryDescription the query description

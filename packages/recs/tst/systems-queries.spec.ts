@@ -400,7 +400,7 @@ describe('Systems and Queries Integration Tests', () => {
         all: [TestComponentOne],
       };
 
-      let query = world.queryManager.getQuery(description);
+      const query = world.queryManager.getQuery(description);
 
       expect(world.queryManager.queries.size).toBe(1);
 
@@ -425,9 +425,11 @@ describe('Systems and Queries Integration Tests', () => {
 
       entityOne.destroy();
 
-      world.update(1);
+      expect(query.all.size).toBe(2);
+      expect(query.all).toContain(entityOne);
+      expect(query.all).toContain(entityTwo);
 
-      query = world.queryManager.getQuery(description);
+      world.update(1);
 
       expect(query.all.size).toBe(1);
       expect(query.all).not.toContain(entityOne);

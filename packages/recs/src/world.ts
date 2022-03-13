@@ -190,6 +190,15 @@ export class World {
     // update the current time
     this.time += elapsed;
 
+    // clean up dead entities
+    this.cleanUpDeadEntitiesAndComponents();
+
+    // update queries
+    this.queryManager.update();
+
+    // recycle destroyed entities and components after queries have been updated
+    this.entityManager.recycle();
+
     // update components - runs update methods for all components that have them
     this.entityManager.updateComponents(elapsed, this.time);
 
@@ -201,12 +210,11 @@ export class World {
       space.events.tick();
     }
 
-    // update queries
-    this.queryManager.update();
+    // update systems
+    this.systemManager.update(elapsed, this.time);
+  }
 
-    // recycle destroyed entities and components after queries have been updated
-    this.entityManager.recycle();
-
+  private cleanUpDeadEntitiesAndComponents(): void {
     // update entities in spaces - checks if entities are alive and releases them if they are dead
     for (const space of this.spaces.values()) {
       const dead: Entity[] = [];
@@ -214,6 +222,15 @@ export class World {
       for (const entity of space.entities.values()) {
         if (!entity.alive) {
           dead.push(entity);
+        } else {
+          // if the entity is still alive, clean up components
+          for (const component of entity.componentsToRemove) {
+            this.entityManager.removeComponentFromEntity(
+              entity,
+              component,
+              true
+            );
+          }
         }
       }
 
@@ -221,8 +238,5 @@ export class World {
         space.remove(d);
       }
     }
-
-    // update systems
-    this.systemManager.update(elapsed, this.time);
   }
 }

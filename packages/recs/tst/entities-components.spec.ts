@@ -41,20 +41,34 @@ describe('Entities And Components Integration Tests', () => {
 
   it('components can be added and removed from entities', () => {
     const space = world.create.space();
-    const entity = space.create.entity();
+    const entityOne = space.create.entity();
+    const entityTwo = space.create.entity();
 
     class TestComponentOne extends Component {}
     class TestComponentTwo extends Component {}
 
-    entity.addComponent(TestComponentOne);
+    entityOne.addComponent(TestComponentOne);
+    entityTwo.addComponent(TestComponentOne);
 
-    expect(entity.has(TestComponentOne)).toBeTruthy();
-    expect(entity.has(TestComponentTwo)).toBeFalsy();
+    expect(entityOne.has(TestComponentOne)).toBeTruthy();
+    expect(entityOne.has(TestComponentTwo)).toBeFalsy();
 
-    entity.removeComponent(TestComponentOne);
+    expect(entityTwo.has(TestComponentOne)).toBeTruthy();
+    expect(entityTwo.has(TestComponentTwo)).toBeFalsy();
 
-    expect(entity.has(TestComponentOne)).toBeFalsy();
-    expect(entity.has(TestComponentTwo)).toBeFalsy();
+    entityOne.removeComponent(TestComponentOne, { immediately: true });
+    entityTwo.removeComponent(TestComponentOne);
+
+    expect(entityOne.has(TestComponentOne)).toBeFalsy();
+    expect(entityOne.has(TestComponentTwo)).toBeFalsy();
+
+    expect(entityTwo.has(TestComponentOne)).toBeTruthy();
+    expect(entityTwo.has(TestComponentTwo)).toBeFalsy();
+
+    world.update();
+
+    expect(entityTwo.has(TestComponentOne)).toBeFalsy();
+    expect(entityTwo.has(TestComponentTwo)).toBeFalsy();
   });
 
   it('components can be added with parameters', () => {
@@ -100,7 +114,9 @@ describe('Entities And Components Integration Tests', () => {
     expect(componentOne.position.x).toBe(1);
     expect(componentOne.position.y).toBe(2);
 
-    entity.removeComponent(TestComponentWithConstructParams);
+    entity.removeComponent(TestComponentWithConstructParams, {
+      immediately: true,
+    });
 
     expect(entity.has(TestComponentWithConstructParams)).toBeFalsy();
 
@@ -302,12 +318,17 @@ describe('Entities And Components Integration Tests', () => {
       expect(entity.has(TestComponentOne)).toBe(true);
       expect(entity.has(TestComponentTwo)).toBe(true);
 
-      entity.removeComponent(TestComponentOne);
+      entity.removeComponent(TestComponentOne, { immediately: true });
 
       expect(entity.has(TestComponentOne)).toBe(false);
       expect(entity.has(TestComponentTwo)).toBe(true);
 
       entity.removeComponent(componentTwo);
+
+      expect(entity.has(TestComponentOne)).toBe(false);
+      expect(entity.has(TestComponentTwo)).toBe(true);
+
+      world.update();
 
       expect(entity.has(TestComponentOne)).toBe(false);
       expect(entity.has(TestComponentTwo)).toBe(false);
