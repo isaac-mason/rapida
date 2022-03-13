@@ -286,7 +286,7 @@ export class EntityManager {
   }
 
   private isComponentMethodOverridden(
-    instance: any,
+    instance: Component,
     methodName: string
   ): boolean {
     return Object.getOwnPropertyNames(instance.class.prototype).includes(
