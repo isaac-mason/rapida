@@ -1,5 +1,11 @@
 # @rapidajs/recs
 
+## 0.4.1
+
+### Patch Changes
+
+- 2078fe1: Update recs query manager to use splice instead of filter for removing entities
+
 ## 0.4.0
 
 ### Minor Changes
