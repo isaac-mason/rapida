@@ -31,8 +31,6 @@ type QueryManagerEvent =
   | EntityComponentRemovedEvent
   | EntityRemovedEvent;
 
-type QueryActions = { add: Set<Entity>; remove: Set<Entity> };
-
 /**
  * QueryManager is an internal class that manages Query class instances
  * @private internal class, do not use directly
@@ -179,11 +177,10 @@ export class QueryManager {
     for (const event of this.eventsBuffer.splice(0, this.eventsBuffer.length)) {
       if (event.type === QueryManagerEventType.ENTITY_REMOVED_EVENT) {
         for (const query of this.queries.values()) {
-          // const index = query.all.findIndex((e) => e === event.entity);
-          // if (index !== -1) {
-          //   query.all.splice(index, 1);
-          // }
-          query.all = query.all.filter((e) => e !== event.entity);
+          const index = query.all.findIndex((e) => e === event.entity);
+          if (index !== -1) {
+            query.all.splice(index, 1);
+          }
           query.removed.push(event.entity);
         }
       } else {
@@ -206,11 +203,10 @@ export class QueryManager {
               query.added.push(event.entity);
             }
             if (!match && currentlyHasEntity) {
-              // const index = query.all.findIndex((e) => e === event.entity);
-              // if (index !== -1) {
-              //   query.all.splice(index, 1);
-              // }
-              query.all = query.all.filter((e) => e !== event.entity);
+              const index = query.all.findIndex((e) => e === event.entity);
+              if (index !== -1) {
+                query.all.splice(index, 1);
+              }
               query.removed.push(event.entity);
             }
           }
