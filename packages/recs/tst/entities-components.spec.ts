@@ -69,6 +69,17 @@ describe('Entities And Components Integration Tests', () => {
 
     expect(entityTwo.has(TestComponentOne)).toBeFalsy();
     expect(entityTwo.has(TestComponentTwo)).toBeFalsy();
+
+    entityOne.addComponent(TestComponentOne);
+    entityTwo.addComponent(TestComponentOne);
+
+    world.update();
+
+    expect(entityOne.has(TestComponentOne)).toBeTruthy();
+    expect(entityOne.has(TestComponentTwo)).toBeFalsy();
+
+    expect(entityTwo.has(TestComponentOne)).toBeTruthy();
+    expect(entityTwo.has(TestComponentTwo)).toBeFalsy();
   });
 
   it('components can be added with parameters', () => {

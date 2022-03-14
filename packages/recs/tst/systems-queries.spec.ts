@@ -481,7 +481,7 @@ describe('Systems and Queries Integration Tests', () => {
       const entity = space.create.entity();
       entity.addComponent(TestComponentOne);
 
-      world.update(1);
+      world.update();
 
       expect(system.results.test.added.length).toBe(1);
       expect(system.results.test.all.length).toBe(1);
@@ -493,7 +493,7 @@ describe('Systems and Queries Integration Tests', () => {
 
       entity.removeComponent(TestComponentOne);
 
-      world.update(1);
+      world.update();
 
       expect(system.results.test.added.length).toBe(0);
       expect(system.results.test.all.length).toBe(0);

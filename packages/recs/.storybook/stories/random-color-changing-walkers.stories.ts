@@ -21,13 +21,8 @@ class Position extends Component {
   }
 }
 
-class Color extends Component {
-  color!: 'red' | 'blue';
-
-  construct(color: 'red' | 'blue') {
-    this.color = color;
-  }
-}
+class Red extends Component {}
+class Blue extends Component {}
 
 const BOX_SIZE = 2;
 
@@ -39,8 +34,10 @@ class DrawSystem extends System {
   queries = {
     // this query is called `toDraw`
     toDraw: {
-      // we want to find entities with all of these components
-      all: [Position, Color],
+      // we want to find entities with a position
+      all: [Position],
+      // we want to find entities that are either red or blue
+      one: [Red, Blue],
     },
   };
 
@@ -61,7 +58,7 @@ class DrawSystem extends System {
       const { x, y } = entity.get(Position);
 
       // let's also get the color for this random walker
-      const { color } = entity.get(Color);
+      const color: 'red' | 'blue' = entity.has(Red) ? 'red' : 'blue';
 
       // draw the box
       ctx.fillStyle = color;
@@ -105,7 +102,7 @@ class WalkSystem extends System {
 class FlipSystem extends System {
   queries = {
     walkers: {
-      all: [Color],
+      one: [Red, Blue],
     },
   };
 
@@ -113,11 +110,12 @@ class FlipSystem extends System {
     this.results.walkers.all.forEach((entity) => {
       // small chance of changing color
       if (Math.random() >= 0.95) {
-        const color = entity.get(Color);
-        if (color.color === 'red') {
-          color.color = 'blue';
+        if (entity.has(Blue)) {
+          entity.removeComponent(Blue);
+          entity.addComponent(Red);
         } else {
-          color.color = 'red';
+          entity.removeComponent(Red);
+          entity.addComponent(Blue);
         }
       }
     });
@@ -146,7 +144,7 @@ export const RandomColorChangingWalkers = () => {
         Math.random() * 10 - 5,
         Math.random() * 10 - 5
       );
-      entity.addComponent(Color, i % 2 === 0 ? 'red' : 'blue');
+      entity.addComponent(i % 2 === 0 ? Red : Blue);
     }
 
     world.init();

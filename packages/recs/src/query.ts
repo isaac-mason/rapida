@@ -161,7 +161,7 @@ export class Query {
    */
   public static getDescriptionDedupeString(query: QueryDescription): string {
     if (Array.isArray(query)) {
-      return query.map((c) => `${c.name}`).join('-');
+      return query.map((c) => `${c.name}`).join('&');
     }
 
     return Object.entries(query)
@@ -173,6 +173,6 @@ export class Query {
         return [`${type}:${components.sort().map((c) => c.name)}`];
       })
       .sort()
-      .join('-');
+      .join('&');
   }
 }

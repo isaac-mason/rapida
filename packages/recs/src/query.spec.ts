@@ -60,7 +60,7 @@ describe('Query', () => {
       };
 
       expect(Query.getDescriptionDedupeString(queryOne)).toEqual(
-        'TestComponentOne-TestComponentTwo'
+        'TestComponentOne&TestComponentTwo'
       );
     });
 

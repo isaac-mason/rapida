@@ -224,7 +224,10 @@ export class World {
           dead.push(entity);
         } else {
           // if the entity is still alive, clean up components
-          for (const component of entity.componentsToRemove) {
+          for (const component of entity.componentsToRemove.splice(
+            0,
+            entity.componentsToRemove.length
+          )) {
             this.entityManager.removeComponentFromEntity(
               entity,
               component,
