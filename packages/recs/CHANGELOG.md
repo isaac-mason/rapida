@@ -1,5 +1,17 @@
 # @rapidajs/recs
 
+## 0.4.0
+
+### Minor Changes
+
+- c56428f: Change default entity and component removal logic to be queued, add 'immediate' option to entity '.destroy()' and '.removeComponent()'
+- d32fc1e: Change query 'added', 'removed', 'all' to be arrays instead of sets
+
+### Patch Changes
+
+- 8502597: Fix unreleased bug for queued component deletion deleting previously deleted components on every update
+- d32fc1e: Refactor query manager, fix Query duplication key bug where class name was not being included
+
 ## 0.3.0
 
 ### Minor Changes
