@@ -187,12 +187,12 @@ export class QueryManager {
         for (const query of this.queries.values()) {
           // if the event component is relevant to the query
           if (
-            // if the only condition is a `not` condition, the query should check the component
+            // if the only condition is a `not` condition, the entity should be reindexed
             (!Array.isArray(query.description) &&
               query.description.one === undefined &&
               query.description.all === undefined &&
               query.description.not !== undefined) ||
-            // if the component is mentioned in one of the queries conditions, the query should check the component
+            // if the component is mentioned in one of the queries conditions, the entity should be reindexed
             query.components.includes(event.component.class)
           ) {
             const match = this.evaluateQuery(query.description, event.entity);
