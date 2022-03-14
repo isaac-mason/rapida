@@ -25,7 +25,7 @@ The below commands can be used to help with development:
 # Install dependencies
 > yarn install
 
-# build and test all packages
+# Build and test all packages
 > yarn run release
 
 # Start storybook for all packages
