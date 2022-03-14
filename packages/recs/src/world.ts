@@ -161,7 +161,7 @@ export class World {
        */
       useExisting: boolean;
     }
-  ): Set<Entity> {
+  ): Entity[] {
     return this.queryManager.query(queryDescription, options);
   }
 

@@ -36,27 +36,27 @@ describe('Systems and Queries Integration Tests', () => {
       entity.addComponent(TestComponentOne);
       entity.addComponent(TestComponentTwo);
 
-      expect(system.results.testQueryName.all.size).toBe(0);
-      expect(system.results.testQueryName.added.size).toBe(0);
-      expect(system.results.testQueryName.removed.size).toBe(0);
+      expect(system.results.testQueryName.all.length).toBe(0);
+      expect(system.results.testQueryName.added.length).toBe(0);
+      expect(system.results.testQueryName.removed.length).toBe(0);
 
       world.update(1);
 
-      expect(system.results.testQueryName.added.size).toBe(1);
-      expect(system.results.testQueryName.removed.size).toBe(0);
-      expect(system.results.testQueryName.all.size).toBe(1);
+      expect(system.results.testQueryName.added.length).toBe(1);
+      expect(system.results.testQueryName.removed.length).toBe(0);
+      expect(system.results.testQueryName.all.length).toBe(1);
 
       entity.removeComponent(TestComponentOne);
 
-      expect(system.results.testQueryName.all.size).toBe(1);
-      expect(system.results.testQueryName.removed.size).toBe(0);
-      expect(system.results.testQueryName.all.size).toBe(1);
+      expect(system.results.testQueryName.all.length).toBe(1);
+      expect(system.results.testQueryName.removed.length).toBe(0);
+      expect(system.results.testQueryName.all.length).toBe(1);
 
       world.update(1);
 
-      expect(system.results.testQueryName.all.size).toBe(0);
-      expect(system.results.testQueryName.removed.size).toBe(1);
-      expect(system.results.testQueryName.all.size).toBe(0);
+      expect(system.results.testQueryName.all.length).toBe(0);
+      expect(system.results.testQueryName.removed.length).toBe(1);
+      expect(system.results.testQueryName.all.length).toBe(0);
     });
 
     it('recs will call system onInit, onUpdate, and onDestroy methods', () => {
@@ -202,8 +202,8 @@ describe('Systems and Queries Integration Tests', () => {
       const query = world.query(description);
 
       expect(query).toBeTruthy();
-      expect(query.all.size).toBe(1);
-      expect(query.all.has(entity)).toBeTruthy();
+      expect(query.all.length).toBe(1);
+      expect(query.all.includes(entity)).toBeTruthy();
     });
 
     it('should reuse existing queries', () => {
@@ -237,8 +237,8 @@ describe('Systems and Queries Integration Tests', () => {
       world.update(1);
 
       expect(query).toBeTruthy();
-      expect(query.all.size).toBe(1);
-      expect(query.all.has(entityOne)).toBeTruthy();
+      expect(query.all.length).toBe(1);
+      expect(query.all.includes(entityOne)).toBeTruthy();
 
       world.remove(query);
 
@@ -248,9 +248,9 @@ describe('Systems and Queries Integration Tests', () => {
       world.update(1);
 
       expect(query).toBeTruthy();
-      expect(query.all.size).toBe(1);
-      expect(query.all.has(entityOne)).toBeTruthy();
-      expect(query.all.has(entityTwo)).toBeFalsy();
+      expect(query.all.length).toBe(1);
+      expect(query.all.includes(entityOne)).toBeTruthy();
+      expect(query.all.includes(entityTwo)).toBeFalsy();
     });
   });
 
@@ -278,14 +278,14 @@ describe('Systems and Queries Integration Tests', () => {
 
       // persisted query should not have updated yet
       expect(query).toBeTruthy();
-      expect(query.all.size).toBe(1);
-      expect(onceOffQueryResults.has(entityOne)).toBeTruthy();
+      expect(query.all.length).toBe(1);
+      expect(onceOffQueryResults.includes(entityOne)).toBeTruthy();
 
       // once of query results should have done a fresh query and have both entities
       expect(onceOffQueryResults).toBeTruthy();
-      expect(onceOffQueryResults.size).toBe(2);
-      expect(onceOffQueryResults.has(entityOne)).toBeTruthy();
-      expect(onceOffQueryResults.has(entityTwo)).toBeTruthy();
+      expect(onceOffQueryResults.length).toBe(2);
+      expect(onceOffQueryResults.includes(entityOne)).toBeTruthy();
+      expect(onceOffQueryResults.includes(entityTwo)).toBeTruthy();
     });
 
     it('should reuse query results if "useExisting" option is true', () => {
@@ -311,13 +311,13 @@ describe('Systems and Queries Integration Tests', () => {
 
       // persisted query should not have updated yet
       expect(query).toBeTruthy();
-      expect(query.all.size).toBe(1);
-      expect(onceOffQueryResults.has(entityOne)).toBeTruthy();
+      expect(query.all.length).toBe(1);
+      expect(onceOffQueryResults.includes(entityOne)).toBeTruthy();
 
       // reused query results should not have updated yet
       expect(onceOffQueryResults).toBeTruthy();
-      expect(onceOffQueryResults.size).toBe(1);
-      expect(onceOffQueryResults.has(entityOne)).toBeTruthy();
+      expect(onceOffQueryResults.length).toBe(1);
+      expect(onceOffQueryResults.includes(entityOne)).toBeTruthy();
     });
   });
 
@@ -345,9 +345,9 @@ describe('Systems and Queries Integration Tests', () => {
 
       world.update(1);
 
-      expect(query.all.size).toBe(1);
-      expect(query.all).toContain(entityOne);
-      expect(query.all).not.toContain(entityTwo);
+      expect(query.all.length).toBe(1);
+      expect(query.all.includes(entityOne)).toBeTruthy();
+      expect(query.all.includes(entityTwo)).toBeFalsy();
     });
   });
 
@@ -359,7 +359,7 @@ describe('Systems and Queries Integration Tests', () => {
 
       let query = world.queryManager.getQuery(description);
       expect(world.queryManager.queries.size).toBe(1);
-      expect(query.all.size).toBe(0);
+      expect(query.all.length).toBe(0);
 
       const space = world.create.space();
 
@@ -374,9 +374,9 @@ describe('Systems and Queries Integration Tests', () => {
 
       world.update(1);
 
-      expect(query.all.size).toBe(2);
-      expect(query.all).toContain(entityOne);
-      expect(query.all).toContain(entityTwo);
+      expect(query.all.length).toBe(2);
+      expect(query.all.includes(entityOne)).toBeTruthy();
+      expect(query.all.includes(entityTwo)).toBeTruthy();
 
       const entityOneComponentOne = entityOne.get(TestComponentOne);
       entityOne.removeComponent(entityOneComponentOne);
@@ -388,9 +388,9 @@ describe('Systems and Queries Integration Tests', () => {
 
       query = world.queryManager.getQuery(description);
 
-      expect(query.all.size).toBe(1);
-      expect(query.all).not.toContain(entityOne);
-      expect(query.all).toContain(entityTwo);
+      expect(query.all.length).toBe(1);
+      expect(query.all.includes(entityOne)).toBeFalsy();
+      expect(query.all.includes(entityTwo)).toBeTruthy();
     });
   });
 
@@ -404,7 +404,7 @@ describe('Systems and Queries Integration Tests', () => {
 
       expect(world.queryManager.queries.size).toBe(1);
 
-      expect(query.all.size).toBe(0);
+      expect(query.all.length).toBe(0);
 
       const space = world.create.space();
 
@@ -419,21 +419,21 @@ describe('Systems and Queries Integration Tests', () => {
 
       world.update(1);
 
-      expect(query.all.size).toBe(2);
-      expect(query.all).toContain(entityOne);
-      expect(query.all).toContain(entityTwo);
+      expect(query.all.length).toBe(2);
+      expect(query.all.includes(entityOne)).toBeTruthy();
+      expect(query.all.includes(entityTwo)).toBeTruthy();
 
       entityOne.destroy();
 
-      expect(query.all.size).toBe(2);
-      expect(query.all).toContain(entityOne);
-      expect(query.all).toContain(entityTwo);
+      expect(query.all.length).toBe(2);
+      expect(query.all.includes(entityOne)).toBeTruthy();
+      expect(query.all.includes(entityTwo)).toBeTruthy();
 
       world.update(1);
 
-      expect(query.all.size).toBe(1);
-      expect(query.all).not.toContain(entityOne);
-      expect(query.all).toContain(entityTwo);
+      expect(query.all.length).toBe(1);
+      expect(query.all.includes(entityOne)).toBeFalsy();
+      expect(query.all.includes(entityTwo)).toBeTruthy();
     });
   });
 
@@ -456,13 +456,13 @@ describe('Systems and Queries Integration Tests', () => {
 
       world.update(1);
 
-      expect(system.results.test.added.size).toBe(1);
-      expect(system.results.test.all.size).toBe(1);
-      expect(system.results.test.removed.size).toBe(0);
+      expect(system.results.test.added.length).toBe(1);
+      expect(system.results.test.all.length).toBe(1);
+      expect(system.results.test.removed.length).toBe(0);
 
-      expect(system.results.test.all.has(entity)).toBeTruthy();
-      expect(system.results.test.added.has(entity)).toBeTruthy();
-      expect(system.results.test.removed.has(entity)).toBeFalsy();
+      expect(system.results.test.all.includes(entity)).toBeTruthy();
+      expect(system.results.test.added.includes(entity)).toBeTruthy();
+      expect(system.results.test.removed.includes(entity)).toBeFalsy();
     });
 
     it('does not update system query results an entity does not match a query with the ONE condition', () => {
@@ -483,25 +483,25 @@ describe('Systems and Queries Integration Tests', () => {
 
       world.update(1);
 
-      expect(system.results.test.added.size).toBe(1);
-      expect(system.results.test.all.size).toBe(1);
-      expect(system.results.test.removed.size).toBe(0);
+      expect(system.results.test.added.length).toBe(1);
+      expect(system.results.test.all.length).toBe(1);
+      expect(system.results.test.removed.length).toBe(0);
 
-      expect(system.results.test.all.has(entity)).toBeTruthy();
-      expect(system.results.test.added.has(entity)).toBeTruthy();
-      expect(system.results.test.removed.has(entity)).toBeFalsy();
+      expect(system.results.test.all.includes(entity)).toBeTruthy();
+      expect(system.results.test.added.includes(entity)).toBeTruthy();
+      expect(system.results.test.removed.includes(entity)).toBeFalsy();
 
       entity.removeComponent(TestComponentOne);
 
       world.update(1);
 
-      expect(system.results.test.added.size).toBe(0);
-      expect(system.results.test.all.size).toBe(0);
-      expect(system.results.test.removed.size).toBe(1);
+      expect(system.results.test.added.length).toBe(0);
+      expect(system.results.test.all.length).toBe(0);
+      expect(system.results.test.removed.length).toBe(1);
 
-      expect(system.results.test.all.has(entity)).toBeFalsy();
-      expect(system.results.test.added.has(entity)).toBeFalsy();
-      expect(system.results.test.removed.has(entity)).toBeTruthy();
+      expect(system.results.test.all.includes(entity)).toBeFalsy();
+      expect(system.results.test.added.includes(entity)).toBeFalsy();
+      expect(system.results.test.removed.includes(entity)).toBeTruthy();
     });
 
     it('updates system query results if an entity matches a query with the NOT condition', () => {
@@ -522,13 +522,13 @@ describe('Systems and Queries Integration Tests', () => {
 
       world.update(1);
 
-      expect(system.results.test.added.size).toBe(1);
-      expect(system.results.test.all.size).toBe(1);
-      expect(system.results.test.removed.size).toBe(0);
+      expect(system.results.test.added.length).toBe(1);
+      expect(system.results.test.all.length).toBe(1);
+      expect(system.results.test.removed.length).toBe(0);
 
-      expect(system.results.test.all.has(entity)).toBeTruthy();
-      expect(system.results.test.added.has(entity)).toBeTruthy();
-      expect(system.results.test.removed.has(entity)).toBeFalsy();
+      expect(system.results.test.all.includes(entity)).toBeTruthy();
+      expect(system.results.test.added.includes(entity)).toBeTruthy();
+      expect(system.results.test.removed.includes(entity)).toBeFalsy();
     });
 
     it('does not update system query results if an entity does not match a query with the NOT condition', () => {
@@ -549,13 +549,13 @@ describe('Systems and Queries Integration Tests', () => {
 
       world.update(1);
 
-      expect(system.results.test.added.size).toBe(0);
-      expect(system.results.test.all.size).toBe(0);
-      expect(system.results.test.removed.size).toBe(0);
+      expect(system.results.test.added.length).toBe(0);
+      expect(system.results.test.all.length).toBe(0);
+      expect(system.results.test.removed.length).toBe(0);
 
-      expect(system.results.test.all.has(entity)).toBeFalsy();
-      expect(system.results.test.added.has(entity)).toBeFalsy();
-      expect(system.results.test.removed.has(entity)).toBeFalsy();
+      expect(system.results.test.all.includes(entity)).toBeFalsy();
+      expect(system.results.test.added.includes(entity)).toBeFalsy();
+      expect(system.results.test.removed.includes(entity)).toBeFalsy();
     });
 
     it('updates system query results if an entity matches a query with the ALL condition', () => {
@@ -576,13 +576,13 @@ describe('Systems and Queries Integration Tests', () => {
 
       world.update(1);
 
-      expect(system.results.test.added.size).toBe(1);
-      expect(system.results.test.all.size).toBe(1);
-      expect(system.results.test.removed.size).toBe(0);
+      expect(system.results.test.added.length).toBe(1);
+      expect(system.results.test.all.length).toBe(1);
+      expect(system.results.test.removed.length).toBe(0);
 
-      expect(system.results.test.all.has(entity)).toBeTruthy();
-      expect(system.results.test.added.has(entity)).toBeTruthy();
-      expect(system.results.test.removed.has(entity)).toBeFalsy();
+      expect(system.results.test.all.includes(entity)).toBeTruthy();
+      expect(system.results.test.added.includes(entity)).toBeTruthy();
+      expect(system.results.test.removed.includes(entity)).toBeFalsy();
     });
 
     it('does not update system query results if an entity does not match a query with the ALL condition', () => {
@@ -605,13 +605,13 @@ describe('Systems and Queries Integration Tests', () => {
 
       world.update(1);
 
-      expect(system.results.test.added.size).toBe(0);
-      expect(system.results.test.all.size).toBe(0);
-      expect(system.results.test.removed.size).toBe(0);
+      expect(system.results.test.added.length).toBe(0);
+      expect(system.results.test.all.length).toBe(0);
+      expect(system.results.test.removed.length).toBe(0);
 
-      expect(system.results.test.all.has(entity)).toBeFalsy();
-      expect(system.results.test.added.has(entity)).toBeFalsy();
-      expect(system.results.test.removed.has(entity)).toBeFalsy();
+      expect(system.results.test.all.includes(entity)).toBeFalsy();
+      expect(system.results.test.added.includes(entity)).toBeFalsy();
+      expect(system.results.test.removed.includes(entity)).toBeFalsy();
     });
 
     it('updates system query results if an entity matches a query with multiple condition', () => {
@@ -636,13 +636,13 @@ describe('Systems and Queries Integration Tests', () => {
 
       world.update(1);
 
-      expect(system.results.test.added.size).toBe(1);
-      expect(system.results.test.all.size).toBe(1);
-      expect(system.results.test.removed.size).toBe(0);
+      expect(system.results.test.added.length).toBe(1);
+      expect(system.results.test.all.length).toBe(1);
+      expect(system.results.test.removed.length).toBe(0);
 
-      expect(system.results.test.all.has(entity)).toBeTruthy();
-      expect(system.results.test.added.has(entity)).toBeTruthy();
-      expect(system.results.test.removed.has(entity)).toBeFalsy();
+      expect(system.results.test.all.includes(entity)).toBeTruthy();
+      expect(system.results.test.added.includes(entity)).toBeTruthy();
+      expect(system.results.test.removed.includes(entity)).toBeFalsy();
     });
   });
 });

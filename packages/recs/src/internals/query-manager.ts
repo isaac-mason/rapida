@@ -31,6 +31,8 @@ type QueryManagerEvent =
   | EntityComponentRemovedEvent
   | EntityRemovedEvent;
 
+type QueryActions = { add: Set<Entity>; remove: Set<Entity> };
+
 /**
  * QueryManager is an internal class that manages Query class instances
  * @private internal class, do not use directly
@@ -42,14 +44,14 @@ export class QueryManager {
   queries: Map<string, Query> = new Map();
 
   /**
-   * A map of entity ids and a set of queries the entity is part of
-   */
-  private entityQueries: Map<string, Set<Query>> = new Map();
-
-  /**
    * A buffer of query manager events to process on the next update call
    */
   private eventsBuffer: QueryManagerEvent[] = [];
+
+  /**
+   * Map of queries to entity actions
+   */
+  private queryToEntityActions: Map<Query, QueryActions> = new Map();
 
   /**
    * The World the query manager is in
@@ -80,10 +82,12 @@ export class QueryManager {
 
     const query = new Query(queryDescription);
     this.queries.set(dedupeString, query);
+    this.queryToEntityActions.set(query, { add: new Set(), remove: new Set() });
 
     const matches = this.getQueryResults(query.description);
     for (const entity of matches.values()) {
-      this.addEntityToQuery(query, entity);
+      query.all.push(entity);
+      query.added.push(entity);
     }
 
     return query;
@@ -146,7 +150,7 @@ export class QueryManager {
   query(
     queryDescription: QueryDescription,
     options?: { useExisting: boolean }
-  ): Set<Entity> {
+  ): Entity[] {
     const key = Query.getDescriptionDedupeString(queryDescription);
 
     if (options?.useExisting) {
@@ -165,47 +169,66 @@ export class QueryManager {
    */
   removeQuery(query: Query): void {
     this.queries.delete(query.key);
+    this.queryToEntityActions.delete(query);
   }
 
   /**
-   * Updates queries with the query manager events stored in the buffer
+   * Updates queries with buffered entity and component events
    */
   update(): void {
-    // clear the `added` and `removed` sets for all queries in preparation for the next update
-    for (const query of this.queries.values()) {
-      query.added.clear();
-      query.removed.clear();
+    for (const actions of this.queryToEntityActions.values()) {
+      actions.add.clear();
+      actions.remove.clear();
     }
 
-    // process all events
     const events = this.eventsBuffer.splice(0, this.eventsBuffer.length);
+
     for (const event of events) {
-      if (
-        event.type === QueryManagerEventType.ENTITY_COMPONENT_ADDED_EVENT ||
-        event.type === QueryManagerEventType.ENTITY_COMPONENT_REMOVED_EVENT
-      ) {
-        // handle entity component added event
+      if (event.type === QueryManagerEventType.ENTITY_REMOVED_EVENT) {
         for (const query of this.queries.values()) {
-          if (this.queryShouldCheckComponent(query, event.component)) {
-            this.updateQueryForEntity(query, event.entity);
+          const queryActions = this.queryToEntityActions.get(query);
+          if (queryActions) queryActions.remove.add(event.entity);
+        }
+      } else {
+        for (const query of this.queries.values()) {
+          // if the event component is relevant to the query
+          if (
+            // if the only condition is a `not` condition, the query should check the component
+            (!Array.isArray(query.description) &&
+              query.description.one === undefined &&
+              query.description.all === undefined &&
+              query.description.not !== undefined) ||
+            // if the component is mentioned in one of the queries conditions, the query should check the component
+            query.components.includes(event.component.class)
+          ) {
+            const match = this.evaluateQuery(query.description, event.entity);
+            const currentlyHasEntity = query.all.includes(event.entity);
+
+            let action: 'add' | 'remove' | undefined;
+            if (match && !currentlyHasEntity) {
+              action = 'add';
+            }
+            if (!match && currentlyHasEntity) {
+              action = 'remove';
+            }
+
+            if (action !== undefined) {
+              const queryActions = this.queryToEntityActions.get(query);
+              if (queryActions) queryActions[action].add(event.entity);
+            }
           }
-        }
-      } else if (event.type === QueryManagerEventType.ENTITY_REMOVED_EVENT) {
-        // handle entity removed event
-        const queries = this.entityQueries.get(event.entity.id);
-        if (queries === undefined) {
-          return;
-        }
-        for (const query of this.queries.values()) {
-          this.removeEntityFromQuery(query, event.entity);
         }
       }
     }
-  }
 
-  private addEntityToQuery(query: Query, entity: Entity): void {
-    query.all.add(entity);
-    query.added.add(entity);
+    for (const [query, actions] of this.queryToEntityActions) {
+      query.added = Array.from(actions.add);
+      query.removed = Array.from(actions.remove);
+      query.all = [
+        ...query.all.filter((queryEntity) => !actions.remove.has(queryEntity)),
+        ...query.added,
+      ];
+    }
   }
 
   private evaluateQuery(
@@ -239,57 +262,16 @@ export class QueryManager {
     return true;
   }
 
-  private getQueryResults(queryDescription: QueryDescription): Set<Entity> {
-    const matches: Set<Entity> = new Set();
+  private getQueryResults(queryDescription: QueryDescription): Entity[] {
+    const matches: Entity[] = [];
     for (const space of this.world.spaces.values()) {
       for (const entity of space.entities.values()) {
         if (this.evaluateQuery(queryDescription, entity)) {
-          matches.add(entity);
+          matches.push(entity);
         }
       }
     }
 
     return matches;
-  }
-
-  private queryShouldCheckComponent(
-    query: Query,
-    component: Component
-  ): boolean {
-    if (
-      !Array.isArray(query.description) &&
-      query.description.not !== undefined
-    ) {
-      return true;
-    }
-
-    return query.components.includes(component.class);
-  }
-
-  private removeEntityFromQuery(query: Query, entity: Entity): void {
-    query.all.delete(entity);
-    query.removed.add(entity);
-  }
-
-  private updateQueryForEntity(query: Query, entity: Entity): void {
-    let entityQueries = this.entityQueries.get(entity.id);
-
-    if (entityQueries === undefined) {
-      entityQueries = new Set<Query>();
-      this.entityQueries.set(entity.id, entityQueries);
-    }
-
-    const match = this.evaluateQuery(query.description, entity);
-    const currentlyHasEntity = query.all.has(entity);
-
-    if (match && !currentlyHasEntity) {
-      this.addEntityToQuery(query, entity);
-      entityQueries.add(query);
-    } else if (!match && currentlyHasEntity) {
-      this.removeEntityFromQuery(query, entity);
-      entityQueries.delete(query);
-    }
-
-    this.entityQueries.set(entity.id, entityQueries);
   }
 }

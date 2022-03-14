@@ -54,6 +54,16 @@ describe('Query', () => {
   });
 
   describe('getKey', () => {
+    it('should contain class names', () => {
+      const queryOne: QueryDescription = {
+        all: [TestComponentOne, TestComponentTwo],
+      };
+
+      expect(Query.getDescriptionDedupeString(queryOne)).toEqual(
+        'TestComponentOne-TestComponentTwo'
+      );
+    });
+
     it('should return the same key for two matching query descriptions', () => {
       const queryOne: QueryDescription = {
         one: [TestComponentOne, TestComponentTwo],

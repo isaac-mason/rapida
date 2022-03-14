@@ -84,12 +84,12 @@ export class Query {
   /**
    * Entities added to the query on the latest update
    */
-  added: Set<Entity> = new Set();
+  added: Entity[] = [];
 
   /**
    * The current entities matched by the query
    */
-  all: Set<Entity> = new Set();
+  all: Entity[] = [];
 
   /**
    * A list of all component classes that are involved in the conditions for this query
@@ -109,7 +109,7 @@ export class Query {
   /**
    * Entities removed from the query on the latest update
    */
-  removed: Set<Entity> = new Set();
+  removed: Entity[] = [];
 
   /**
    * Whether the query is used outside of a system
@@ -117,11 +117,6 @@ export class Query {
    * If true, the query will not be removed from the world when all systems using it are removed.
    */
   standalone = false;
-
-  // todo - some 'updated' method to support react wrapper re-rendering on query contents changing
-
-  // todo - change `added`, `removed`, `all` to be arrays, use shift filter to delete in-place quickly
-  // https://stackoverflow.com/questions/30304719/javascript-fastest-way-to-remove-object-from-array
 
   /**
    * Constructor for a new query instance
@@ -166,18 +161,16 @@ export class Query {
    */
   public static getDescriptionDedupeString(query: QueryDescription): string {
     if (Array.isArray(query)) {
-      return query
-        .map((c) => `${QueryConditionType.ALL}:${c.constructor.name}`)
-        .join('-');
+      return query.map((c) => `${c.name}`).join('-');
     }
 
     return Object.entries(query)
       .flatMap(([type, components]) => {
         if (type === QueryConditionType.ALL) {
-          return components.map((c) => `${type}:${c.constructor.name}`).sort();
+          return components.map((c) => `${c.name}`).sort();
         }
 
-        return [`${type}:${components.sort().map((c) => c.constructor.name)}`];
+        return [`${type}:${components.sort().map((c) => c.name)}`];
       })
       .sort()
       .join('-');
