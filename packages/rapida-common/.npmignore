@@ -1,0 +1,7 @@
+src
+coverage
+docs
+.eslintrc.js
+.prettierrc.js
+jest.config.js
+
