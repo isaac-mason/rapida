@@ -1,4 +1,4 @@
-import { Component } from '../component';
+import { Component, ComponentClass } from '../component';
 import { Entity } from '../entity';
 import { Query, QueryDescription } from '../query';
 import { World } from '../world';
@@ -26,11 +26,6 @@ type EntityRemovedEvent = {
   type: QueryManagerEventType.ENTITY_REMOVED_EVENT;
 };
 
-type QueryManagerEvent =
-  | EntityComponentAddedEvent
-  | EntityComponentRemovedEvent
-  | EntityRemovedEvent;
-
 /**
  * QueryManager is an internal class that manages Query class instances
  * @private internal class, do not use directly
@@ -41,14 +36,14 @@ export class QueryManager {
    */
   queries: Map<string, Query> = new Map();
 
-  /**
-   * A buffer of query manager events to process on the next update call
-   */
-  private eventsBuffer: QueryManagerEvent[] = [];
+  private entityRemovalsBuffer: EntityRemovedEvent[] = [];
 
-  /**
-   * The World the query manager is in
-   */
+  private entityCompositionChangesBuffer: Map<Entity, ComponentClass[]> =
+    new Map();
+
+  private entityCompositionChangesBufferTemp: Map<Entity, ComponentClass[]> =
+    new Map();
+
   private world: World;
 
   /**
@@ -101,11 +96,13 @@ export class QueryManager {
    * @param component the component added to the query
    */
   onEntityComponentAdded(entity: Entity, component: Component): void {
-    this.eventsBuffer.push({
-      type: QueryManagerEventType.ENTITY_COMPONENT_ADDED_EVENT,
-      entity,
-      component,
-    });
+    let compositionChange = this.entityCompositionChangesBuffer.get(entity);
+
+    if (!compositionChange) {
+      this.entityCompositionChangesBuffer.set(entity, [component.class]);
+    } else {
+      compositionChange.push(component.class);
+    }
   }
 
   /**
@@ -114,11 +111,13 @@ export class QueryManager {
    * @param component the component added to the query
    */
   onEntityComponentRemoved(entity: Entity, component: Component): void {
-    this.eventsBuffer.push({
-      type: QueryManagerEventType.ENTITY_COMPONENT_REMOVED_EVENT,
-      entity,
-      component,
-    });
+    let compositionChange = this.entityCompositionChangesBuffer.get(entity);
+
+    if (!compositionChange) {
+      this.entityCompositionChangesBuffer.set(entity, [component.class]);
+    } else {
+      compositionChange.push(component.class);
+    }
   }
 
   /**
@@ -126,7 +125,7 @@ export class QueryManager {
    * @param entity the query
    */
   onEntityRemoved(entity: Entity): void {
-    this.eventsBuffer.push({
+    this.entityRemovalsBuffer.push({
       type: QueryManagerEventType.ENTITY_REMOVED_EVENT,
       entity,
     });
@@ -174,46 +173,63 @@ export class QueryManager {
       query.removed = [];
     }
 
-    const events = this.eventsBuffer.splice(0, this.eventsBuffer.length);
-    for (const event of events) {
-      if (event.type === QueryManagerEventType.ENTITY_REMOVED_EVENT) {
-        for (const query of this.queries.values()) {
-          const index = query.all.findIndex((e) => e === event.entity);
-          if (index !== -1) {
-            query.all.splice(index, 1);
-          }
-          query.removed.push(event.entity);
+    // process entity removals
+    const entityRemovals = this.entityRemovalsBuffer.splice(
+      0,
+      this.entityRemovalsBuffer.length
+    );
+    for (const event of entityRemovals) {
+      for (const query of this.queries.values()) {
+        const index = query.all.findIndex((e) => e === event.entity);
+        if (index !== -1) {
+          query.all.splice(index, 1);
         }
-      } else {
-        for (const query of this.queries.values()) {
-          // if the event component is relevant to the query
-          if (
-            // if the only condition is a `not` condition, the entity should be reindexed
-            (!Array.isArray(query.description) &&
-              query.description.one === undefined &&
-              query.description.all === undefined &&
-              query.description.not !== undefined) ||
-            // if the component is mentioned in one of the queries conditions, the entity should be reindexed
-            query.components.includes(event.component.class)
-          ) {
-            const match = this.evaluateQuery(query.description, event.entity);
-            const currentlyHasEntity = query.all.includes(event.entity);
+        query.removed.push(event.entity);
+      }
 
-            if (match && !currentlyHasEntity) {
-              query.all.push(event.entity);
-              query.added.push(event.entity);
+      // do not process component composition updates as the entity will be removed from all queries
+      this.entityCompositionChangesBuffer.delete(event.entity);
+    }
+
+    const entityCompositionChanges = this.entityCompositionChangesBuffer;
+
+    // swap the references for the entity composition changes buffers
+    this.entityCompositionChangesBuffer =
+      this.entityCompositionChangesBufferTemp;
+    this.entityCompositionChangesBufferTemp = entityCompositionChanges;
+
+    for (const [entity, components] of entityCompositionChanges) {
+      for (const query of this.queries.values()) {
+        // if the event component is relevant to the query
+        if (
+          // if the only condition is a `not` condition, the entity should be reindexed
+          (!Array.isArray(query.description) &&
+            query.description.one === undefined &&
+            query.description.all === undefined &&
+            query.description.not !== undefined) ||
+          // if the component is mentioned in one of the queries conditions, the entity should be reindexed
+          this.hasIntersection(query.components, components)
+        ) {
+          const match = this.evaluateQuery(query.description, entity);
+          const currentlyHasEntity = query.all.includes(entity);
+
+          if (match && !currentlyHasEntity) {
+            query.all.push(entity);
+            query.added.push(entity);
+          }
+          if (!match && currentlyHasEntity) {
+            const index = query.all.findIndex((e) => e === entity);
+            if (index !== -1) {
+              query.all.splice(index, 1);
             }
-            if (!match && currentlyHasEntity) {              
-              const index = query.all.findIndex((e) => e === event.entity);
-              if (index !== -1) {
-                query.all.splice(index, 1);
-              }
-              query.removed.push(event.entity);
-            }
+            query.removed.push(entity);
           }
         }
       }
     }
+
+    // clear the entity composition changes map
+    this.entityCompositionChangesBufferTemp.clear();
   }
 
   private evaluateQuery(
@@ -221,25 +237,25 @@ export class QueryManager {
     entity: Entity
   ): boolean {
     if (Array.isArray(queryDescription)) {
-      return queryDescription.every((c) => entity.has(c));
+      return queryDescription.every((c) => entity.components.has(c));
     }
 
     if (
       queryDescription.not &&
-      queryDescription.not.some((c) => entity.has(c))
+      queryDescription.not.some((c) => entity.components.has(c))
     ) {
       return false;
     }
 
     if (
       queryDescription.all &&
-      queryDescription.all.some((c) => !entity.has(c))
+      queryDescription.all.some((c) => !entity.components.has(c))
     ) {
       return false;
     }
     if (
       queryDescription.one &&
-      queryDescription.one.every((c) => !entity.has(c))
+      queryDescription.one.every((c) => !entity.components.has(c))
     ) {
       return false;
     }
@@ -258,5 +274,10 @@ export class QueryManager {
     }
 
     return matches;
+  }
+
+  private hasIntersection(a: ComponentClass[], b: ComponentClass[]): boolean {
+    var setB = new Set(b);
+    return [...new Set(a)].filter((x) => setB.has(x)).length !== 0;
   }
 }

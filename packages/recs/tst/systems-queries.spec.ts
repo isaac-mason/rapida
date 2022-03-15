@@ -339,6 +339,109 @@ describe('Systems and Queries Integration Tests', () => {
   // ctx.destroyEntity(entity1);
 
   describe('On Entity Component Changes', () => {
+    it('should add entities to a query if the entity matches the query', () => {
+      const description: QueryDescription = {
+        all: [TestComponentOne],
+      };
+
+      let query = world.queryManager.getQuery(description);
+
+      expect(world.queryManager.queries.size).toBe(1);
+
+      const space = world.create.space();
+
+      const entityOne = space.create.entity();
+
+      entityOne.addComponent(TestComponentOne);
+
+      const entityTwo = space.create.entity();
+
+      entityTwo.addComponent(TestComponentTwo);
+
+      query = world.queryManager.getQuery(description);
+
+      world.update(1);
+
+      expect(query.all.length).toBe(1);
+      expect(query.all.includes(entityOne)).toBeTruthy();
+      expect(query.all.includes(entityTwo)).toBeFalsy();
+    });
+
+    it('should remove entities from a query if an entity no longer matches the query', () => {
+      const description: QueryDescription = {
+        all: [TestComponentOne],
+      };
+
+      let query = world.queryManager.getQuery(description);
+      expect(world.queryManager.queries.size).toBe(1);
+      expect(query.all.length).toBe(0);
+
+      const space = world.create.space();
+
+      const entityOne = space.create.entity();
+
+      entityOne.addComponent(TestComponentOne);
+
+      const entityTwo = space.create.entity();
+
+      entityTwo.addComponent(TestComponentOne);
+      entityTwo.addComponent(TestComponentTwo);
+
+      world.update(1);
+
+      expect(query.all.length).toBe(2);
+      expect(query.all.includes(entityOne)).toBeTruthy();
+      expect(query.all.includes(entityTwo)).toBeTruthy();
+
+      const entityOneComponentOne = entityOne.get(TestComponentOne);
+      entityOne.removeComponent(entityOneComponentOne);
+
+      const entityTwoComponentTwo = entityTwo.get(TestComponentTwo);
+      entityTwo.removeComponent(entityTwoComponentTwo);
+
+      world.update(1);
+
+      query = world.queryManager.getQuery(description);
+
+      expect(query.all.length).toBe(1);
+      expect(query.all.includes(entityOne)).toBeFalsy();
+      expect(query.all.includes(entityTwo)).toBeTruthy();
+    });
+
+    it('should not put entities in added or removed if the query un-matches then matches again between updates', () => {
+      const description: QueryDescription = {
+        one: [TestComponentOne, TestComponentTwo],
+      };
+
+      let query = world.queryManager.getQuery(description);
+      expect(world.queryManager.queries.size).toBe(1);
+      expect(query.all.length).toBe(0);
+
+      const space = world.create.space();
+
+      const entity = space.create.entity();
+
+      entity.addComponent(TestComponentOne);
+
+      world.update(1);
+
+      expect(query.all.length).toBe(1);
+      expect(query.all.includes(entity)).toBeTruthy();
+      expect(query.added.length).toBe(1);
+      expect(query.added.includes(entity)).toBeTruthy();
+      expect(query.removed.length).toBe(0);
+      
+      entity.removeComponent(TestComponentOne)
+      entity.addComponent(TestComponentTwo);
+
+      world.update(1);
+
+      expect(query.all.length).toBe(1);
+      expect(query.all.includes(entity)).toBeTruthy();
+      expect(query.added.length).toBe(0);
+      expect(query.removed.length).toBe(0);
+    });
+
     it('should keep track of multiple separate queries', () => {
       const query = world.query([TestComponentOne, TestComponentTwo]);
 
@@ -420,75 +523,6 @@ describe('Systems and Queries Integration Tests', () => {
       exampleFunctionSystem();
       expect(query.all.length).toBe(3);
       expect(updates).toBe(15);
-    });
-
-    it('should add entities to a query if the entity matches the query', () => {
-      const description: QueryDescription = {
-        all: [TestComponentOne],
-      };
-
-      let query = world.queryManager.getQuery(description);
-
-      expect(world.queryManager.queries.size).toBe(1);
-
-      const space = world.create.space();
-
-      const entityOne = space.create.entity();
-
-      entityOne.addComponent(TestComponentOne);
-
-      const entityTwo = space.create.entity();
-
-      entityTwo.addComponent(TestComponentTwo);
-
-      query = world.queryManager.getQuery(description);
-
-      world.update(1);
-
-      expect(query.all.length).toBe(1);
-      expect(query.all.includes(entityOne)).toBeTruthy();
-      expect(query.all.includes(entityTwo)).toBeFalsy();
-    });
-
-    it('should remove entities from a query if an entity no longer matches the query', () => {
-      const description: QueryDescription = {
-        all: [TestComponentOne],
-      };
-
-      let query = world.queryManager.getQuery(description);
-      expect(world.queryManager.queries.size).toBe(1);
-      expect(query.all.length).toBe(0);
-
-      const space = world.create.space();
-
-      const entityOne = space.create.entity();
-
-      entityOne.addComponent(TestComponentOne);
-
-      const entityTwo = space.create.entity();
-
-      entityTwo.addComponent(TestComponentOne);
-      entityTwo.addComponent(TestComponentTwo);
-
-      world.update(1);
-
-      expect(query.all.length).toBe(2);
-      expect(query.all.includes(entityOne)).toBeTruthy();
-      expect(query.all.includes(entityTwo)).toBeTruthy();
-
-      const entityOneComponentOne = entityOne.get(TestComponentOne);
-      entityOne.removeComponent(entityOneComponentOne);
-
-      const entityTwoComponentTwo = entityTwo.get(TestComponentTwo);
-      entityTwo.removeComponent(entityTwoComponentTwo);
-
-      world.update(1);
-
-      query = world.queryManager.getQuery(description);
-
-      expect(query.all.length).toBe(1);
-      expect(query.all.includes(entityOne)).toBeFalsy();
-      expect(query.all.includes(entityTwo)).toBeTruthy();
     });
   });
 
