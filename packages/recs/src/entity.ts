@@ -97,7 +97,7 @@ export class Entity {
    * The RECS instance the entity is in
    */
   get recs(): World {
-    return this.space.recs;
+    return this.space.world;
   }
 
   /**

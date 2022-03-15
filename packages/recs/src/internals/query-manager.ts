@@ -174,7 +174,8 @@ export class QueryManager {
       query.removed = [];
     }
 
-    for (const event of this.eventsBuffer.splice(0, this.eventsBuffer.length)) {
+    const events = this.eventsBuffer.splice(0, this.eventsBuffer.length);
+    for (const event of events) {
       if (event.type === QueryManagerEventType.ENTITY_REMOVED_EVENT) {
         for (const query of this.queries.values()) {
           const index = query.all.findIndex((e) => e === event.entity);
@@ -202,7 +203,7 @@ export class QueryManager {
               query.all.push(event.entity);
               query.added.push(event.entity);
             }
-            if (!match && currentlyHasEntity) {
+            if (!match && currentlyHasEntity) {              
               const index = query.all.findIndex((e) => e === event.entity);
               if (index !== -1) {
                 query.all.splice(index, 1);

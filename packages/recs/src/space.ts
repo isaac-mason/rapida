@@ -77,16 +77,17 @@ export class Space {
   initialised = false;
 
   /**
-   * The RECS instance the space is in
+   * The world the space is in
    */
-  recs: World;
+  world: World;
 
   /**
    * Constructor for the Space
+   * @param world the world the space is in
    * @param params the parameters for the space
    */
-  constructor(recs: World, params?: SpaceParams) {
-    this.recs = recs;
+  constructor(world: World, params?: SpaceParams) {
+    this.world = world;
     this.id = params?.id || uuid();
   }
 
@@ -102,7 +103,7 @@ export class Space {
   } {
     return {
       entity: (): Entity => {
-        return this.recs.entityManager.createEntity(this);
+        return this.world.entityManager.createEntity(this);
       },
     };
   }
@@ -111,7 +112,7 @@ export class Space {
    * Destroys the space and removes it from the RECS
    */
   destroy(): void {
-    this.recs.remove(this);
+    this.world.remove(this);
   }
 
   /**
@@ -141,7 +142,7 @@ export class Space {
    * @param entity the entity to remove
    */
   remove(entity: Entity): Space {
-    this.recs.entityManager.removeEntity(entity, this);
+    this.world.entityManager.removeEntity(entity, this);
     return this;
   }
 }

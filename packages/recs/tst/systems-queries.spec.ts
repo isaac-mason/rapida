@@ -321,7 +321,107 @@ describe('Systems and Queries Integration Tests', () => {
     });
   });
 
-  describe('onEntityComponentAdded', () => {
+  // const entity1 = ctx.createEntity();
+  // const entity2 = ctx.createEntity();
+
+  // ctx.addPositionComponent(entity1);
+  // ctx.addVelocityComponent(entity1);
+
+  // ctx.addPositionComponent(entity2);
+  // ctx.addVelocityComponent(entity2);
+
+  // ctx.updateMovementSystem();
+
+  // ctx.removePositionComponent(entity1);
+
+  // ctx.updateMovementSystem();
+
+  // ctx.destroyEntity(entity1);
+
+  describe('On Entity Component Changes', () => {
+    it('should keep track of multiple separate queries', () => {
+      const query = world.query([TestComponentOne, TestComponentTwo]);
+
+      let updates = 0;
+      const exampleFunctionSystem = () => {
+        query.all.forEach((e) => {
+          updates++;
+        })
+      }
+
+      const space = world.create.space();
+
+      const entity_1 = space.create.entity();
+      const entity_2 = space.create.entity();
+
+      entity_1.addComponent(TestComponentOne);
+      entity_1.addComponent(TestComponentTwo);
+
+      entity_2.addComponent(TestComponentOne);
+      entity_2.addComponent(TestComponentTwo);
+
+      world.update();
+      exampleFunctionSystem();
+      expect(query.all.length).toBe(2);
+      expect(updates).toBe(2);
+
+      entity_1.removeComponent(TestComponentOne);
+
+      world.update();
+      exampleFunctionSystem();
+      expect(query.all.length).toBe(1);
+      expect(updates).toBe(3);
+
+      entity_1.destroy();
+
+      const entity_3 = space.create.entity();
+      const entity_4 = space.create.entity();
+
+      entity_3.addComponent(TestComponentOne);
+      entity_3.addComponent(TestComponentTwo);
+
+      entity_4.addComponent(TestComponentOne);
+      entity_4.addComponent(TestComponentTwo);
+
+      world.update();
+      exampleFunctionSystem();
+      expect(query.all.length).toBe(3);
+      expect(updates).toBe(6);
+
+      entity_4.removeComponent(TestComponentOne);
+
+      world.update();
+      exampleFunctionSystem();
+      expect(query.all.length).toBe(2);
+      expect(updates).toBe(8);
+
+      entity_4.destroy();
+
+      expect(query.all.length).toBe(2);
+      expect(updates).toBe(8);
+
+      const entity_5 = space.create.entity();
+      const entity_6 = space.create.entity();
+
+      entity_5.addComponent(TestComponentOne);
+      entity_5.addComponent(TestComponentTwo);
+
+      entity_6.addComponent(TestComponentOne);
+      entity_6.addComponent(TestComponentTwo);
+
+      world.update();
+      exampleFunctionSystem();
+      expect(query.all.length).toBe(4);
+      expect(updates).toBe(12);
+
+      entity_6.removeComponent(TestComponentOne);
+
+      world.update();
+      exampleFunctionSystem();
+      expect(query.all.length).toBe(3);
+      expect(updates).toBe(15);
+    });
+
     it('should add entities to a query if the entity matches the query', () => {
       const description: QueryDescription = {
         all: [TestComponentOne],
@@ -349,9 +449,7 @@ describe('Systems and Queries Integration Tests', () => {
       expect(query.all.includes(entityOne)).toBeTruthy();
       expect(query.all.includes(entityTwo)).toBeFalsy();
     });
-  });
 
-  describe('On Entity Component Changes', () => {
     it('should remove entities from a query if an entity no longer matches the query', () => {
       const description: QueryDescription = {
         all: [TestComponentOne],

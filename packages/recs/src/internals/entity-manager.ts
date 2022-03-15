@@ -183,6 +183,8 @@ export class EntityManager {
       // reset the entity
       entity.id = uuid();
       entity.events.reset();
+      entity.componentsToRemove = [];
+      entity.alive = true;
 
       // release the entity back into the entity pool
       this.entityPool.release(entity);
@@ -195,7 +197,8 @@ export class EntityManager {
     );
 
     for (const component of components) {
-      // clear the components entity field
+      // reset the component
+      component.id = uuid();
       component.entity = undefined;
 
       // release the component back into the update pool

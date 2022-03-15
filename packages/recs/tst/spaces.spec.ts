@@ -67,7 +67,7 @@ describe('Spaces', () => {
 
   it('should destroy contained entities when destroying the space', () => {
     const space = world.create.space();
-    expect(space.recs).toBe(world);
+    expect(space.world).toBe(world);
 
     const entity = space.create.entity();
     expect(world.spaces.size).toBe(1);
