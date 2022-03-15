@@ -12,7 +12,11 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "isolatedModules": true,
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "paths": {
+      "*": ["types/*"],
+      "@rapidajs/three": ["./src"]
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules", "**/*.spec.ts"]

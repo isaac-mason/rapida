@@ -1,7 +1,6 @@
 import CannonWorker, { BodyApi, BodyType } from '@rapidajs/cannon-worker';
-import { Effects } from '@rapidajs/postprocessing';
 import World, { Component } from '@rapidajs/recs';
-import { View, WebGLRenderer, WebGLView } from '@rapidajs/three';
+import { Effects, View, WebGLRenderer, WebGLView } from '@rapidajs/three';
 import { useEffect } from '@storybook/client-api';
 import {
   AmbientLight,

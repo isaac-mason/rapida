@@ -26,7 +26,7 @@ const packages = [
   {
     name: '@rapidajs/three',
     description:
-      '@rapidajs/three contains three.js utilities for managing multiple views and loading assets.',
+      '@rapidajs/three contains three.js utilities for managing multiple views, using postprocessing effects, and loading assets.',
     links: [
       {
         name: 'Docs',
@@ -39,21 +39,6 @@ const packages = [
       {
         name: 'GitLab',
         href: 'https://gitlab.com/rapidajs/rapida/-/tree/main/packages/three',
-      },
-    ],
-  },
-  {
-    name: '@rapidajs/postprocessing',
-    description:
-      '@rapidajs/postprocessing is a thin wrapper around vanruesc/postprocessing. It is used in @rapidajs/three to provide an easy way of using post processing effects.',
-    links: [
-      {
-        name: 'Docs',
-        href: '/docs/postprocessing/README',
-      },
-      {
-        name: 'GitLab',
-        href: 'https://gitlab.com/rapidajs/rapida/-/tree/main/packages/postprocessing',
       },
     ],
   },

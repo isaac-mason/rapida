@@ -66,10 +66,10 @@
   },
   "dependencies": {
     "@jest/globals": "^27.2.0",
-    "@rapidajs/postprocessing": "0.1.1",
     "@rapidajs/rapida-common": "0.0.9",
     "@types/three": "^0.133.0",
     "jest-mock": "^27.1.1",
+    "postprocessing": "^6.23.3",
     "three": "^0.133.0",
     "three-stdlib": "^2.7.0",
     "ts-jest": "^27.0.5",

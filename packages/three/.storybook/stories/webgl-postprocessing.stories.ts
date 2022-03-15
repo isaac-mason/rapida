@@ -1,4 +1,4 @@
-import { Effects } from '@rapidajs/postprocessing';
+import { Effects } from '@rapidajs/three';
 import World, { Component } from '@rapidajs/recs';
 import { useEffect } from '@storybook/client-api';
 import * as three from 'three';

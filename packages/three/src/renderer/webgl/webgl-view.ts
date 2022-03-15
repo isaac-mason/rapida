@@ -1,4 +1,4 @@
-import { EffectComposer, EffectComposerParams } from '@rapidajs/postprocessing';
+import { EffectComposer, EffectComposerParams } from '@rapidajs/three';
 import { EventHandler, EventSystem, uuid } from '@rapidajs/rapida-common';
 import { OrthographicCamera, PerspectiveCamera, Scene, Vector3 } from 'three';
 import { View } from '../view';

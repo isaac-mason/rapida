@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@rapidajs/cannon-worker": "0.0.14",
-    "@rapidajs/postprocessing": "0.1.1",
     "@rapidajs/rapida": "0.0.13",
     "@rapidajs/rapida-common": "0.0.9",
     "@rapidajs/recs": "0.4.1",

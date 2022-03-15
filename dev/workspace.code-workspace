@@ -17,9 +17,6 @@
       "path": "../packages/rapida-common"
     },
     {
-      "path": "../packages/postprocessing"
-    },
-    {
       "path": "../website"
     }
   ],

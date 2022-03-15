@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "demo": "yarn build && yarn test && yarn website:build && http-server website/out",
-    "build": "(cd ./packages/rapida-common && yarn build) && (cd ./packages/postprocessing && yarn build) && (cd ./packages/cannon-worker && yarn build) && (cd ./packages/recs && yarn build) && (cd ./packages/three && yarn build)",
+    "build": "(cd ./packages/rapida-common && yarn build) && (cd ./packages/cannon-worker && yarn build) && (cd ./packages/recs && yarn build) && (cd ./packages/three && yarn build)",
     "test": "(cd ./packages/rapida-common && yarn test) && (cd ./packages/three && yarn test) && (cd ./packages/recs && yarn test)",
     "docs": "yarn workspaces foreach --no-private run docs",
     "release": "yarn build && yarn test && yarn website:build",
@@ -18,7 +18,7 @@
     "storybook:prep-local-https": "yarn storybook:local-https-generate-ca && yarn storybook:local-https-generate-crt",
     "storybook:local-https-generate-ca": "openssl req -x509 -nodes -new -sha512 -days 365 -newkey rsa:4096 -keyout dev/ca.key -out dev/ca.pem -subj \"/C=US/CN=MY-CA\"",
     "storybook:local-https-generate-crt": "openssl x509 -outform pem -in dev/ca.pem -out dev/ca.crt",
-    "website:docs": "yarn docs && rm -rf website/generated/docs && mkdir -p website/generated/docs && cp -R packages/three/docs website/generated/docs/three && cp -R packages/cannon-worker/docs website/generated/docs/cannon-worker && cp -R packages/recs/docs website/generated/docs/recs && cp -R packages/postprocessing/docs website/generated/docs/postprocessing",
+    "website:docs": "yarn docs && rm -rf website/generated/docs && mkdir -p website/generated/docs && cp -R packages/three/docs website/generated/docs/three && cp -R packages/cannon-worker/docs website/generated/docs/cannon-worker && cp -R packages/recs/docs website/generated/docs/recs",
     "website:storybooks": "yarn storybook:build && rm -rf ./website/public/storybooks && mkdir -p ./website/public/storybooks && cp -R packages/three/storybook-static website/public/storybooks/three && cp -R packages/recs/storybook-static website/public/storybooks/recs && cp -R packages/cannon-worker/storybook-static website/public/storybooks/cannon-worker",
     "website:build": "yarn website:storybooks && yarn website:docs && (cd website && yarn build)"
   },
