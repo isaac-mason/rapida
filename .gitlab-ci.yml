@@ -16,8 +16,6 @@ workflow:
 
 pages:
   stage: workflow
-  needs:
-    - workflow
   only:
     - main
   environment:
