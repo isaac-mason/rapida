@@ -1,5 +1,11 @@
 # @rapidajs/rapida-common
 
+## 0.5.0
+
+### Patch Changes
+
+- cb772b8: Remove unused dependency on 'three'
+
 ## 0.0.9
 
 ### Patch Changes

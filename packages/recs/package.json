@@ -1,6 +1,6 @@
 {
   "name": "@rapidajs/recs",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Reminiscent of an entity component system",
   "homepage": "https://gitlab.com/rapidajs/rapida/-/tree/main/packages/recs",
   "bugs": {
@@ -64,7 +64,7 @@
   },
   "dependencies": {
     "@jest/globals": "^27.2.0",
-    "@rapidajs/rapida-common": "0.0.9",
+    "@rapidajs/rapida-common": "0.5.0",
     "jest-mock": "^27.1.1",
     "ts-jest": "^27.0.5",
     "typedoc": "^0.22.10",

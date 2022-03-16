@@ -1,5 +1,16 @@
 # @rapidajs/rapida
 
+## 0.5.0
+
+### Minor Changes
+
+- cb772b8: Publish as commonjs
+
+### Patch Changes
+
+- Updated dependencies [cb772b8]
+  - @rapidajs/rapida-common@0.5.0
+
 ## 0.2.0
 
 ### Patch Changes

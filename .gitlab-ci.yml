@@ -6,24 +6,17 @@ stages:
 workflow:
   stage: workflow
   only:
-    - main
     - merge_requests
   script:
-    # build npm packages
+    # install npm packages
     - yarn install
-    - (cd packages/rapida-common && yarn run build)
-    - (cd packages/postprocessing && yarn run build)
-    - (cd packages/recs && yarn run build)
-    - (cd packages/cannon-worker && yarn run build)
-    - (cd packages/three && yarn run build)
-    # will build and test all packages and build website
+    # will build and test everything
     - yarn run release
-    # release if we are on the main branch
-    - |- 
-      if [[ $CI_COMMIT_BRANCH == "main" ]]; then
-        # publish npm packages if on the main branch
-        yarn dlx @changesets/cli@^2.18.1 publish --otp=$NPM_TOKEN
-      fi
+    # - |- 
+    #   if [[ $CI_COMMIT_BRANCH == "main" ]]; then
+    #     # publish npm packages if on the main branch
+    #     yarn dlx @changesets/cli@^2.18.1 publish --otp=$NPM_TOKEN
+    #   fi
   coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
 
 pages:
@@ -37,8 +30,8 @@ pages:
     url: "https://rapidajs.dev/"
   script:
     - yarn install
-    - yarn build
-    - yarn website:build 
+    # will build and test everything, including the website
+    - yarn run release 
     - |- 
       if [[ $CI_COMMIT_BRANCH == "main" ]]; then
         # copy @rapidajs/rapida-website files in place for gitlab pages

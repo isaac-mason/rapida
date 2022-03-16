@@ -1,5 +1,17 @@
 # @rapidajs/recs
 
+## 0.5.0
+
+### Minor Changes
+
+- cb772b8: Publish as commonjs
+
+### Patch Changes
+
+- 951d84d: Add missing entity reuse cleanup logic
+- Updated dependencies [cb772b8]
+  - @rapidajs/rapida-common@0.5.0
+
 ## 0.4.1
 
 ### Patch Changes
