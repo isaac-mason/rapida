@@ -2742,35 +2742,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@rapidajs/cannon-worker@npm:0.0.10":
-  version: 0.0.10
-  resolution: "@rapidajs/cannon-worker@npm:0.0.10"
-  dependencies:
-    "@types/three": ^0.133.0
-    cannon-es: ^0.18.0
-    cannon-es-debugger: ^0.1.4
-    three: ^0.133.0
-  checksum: 06b91ef6ff542a617667959e3d59529a7f6db6980811b1d023cc4bb281f70593b1f187463fb43bd1678568a89340c3ce9ee768da14d724eecf896a9e0f868713
-  languageName: node
-  linkType: hard
-
-"@rapidajs/postprocessing@npm:0.0.3":
-  version: 0.0.3
-  resolution: "@rapidajs/postprocessing@npm:0.0.3"
-  dependencies:
-    "@types/three": ^0.133.0
-    postprocessing: ^6.23.3
-    stats.js: ^0.17.0
-    three: ^0.133.0
-    typedoc: ^0.22.10
-    typedoc-plugin-markdown: ^3.11.7
-  peerDependencies:
-    postprocessing: ^6.23.3
-    three: ^0.133.0
-  checksum: 23b43059e3b308657dcd4e87a1aee778bed285659a8cb1c32f822c4780117b92f02ff639cade9d1b67e567b4d5503ea0d04885981f1819dca372aea0626d4fb6
-  languageName: node
-  linkType: hard
-
 "@rapidajs/rapida-common@0.5.0, @rapidajs/rapida-common@workspace:packages/rapida-common":
   version: 0.0.0-use.local
   resolution: "@rapidajs/rapida-common@workspace:packages/rapida-common"
@@ -2801,28 +2772,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@rapidajs/rapida-common@npm:0.0.9":
-  version: 0.0.9
-  resolution: "@rapidajs/rapida-common@npm:0.0.9"
-  dependencies:
-    "@jest/globals": ^27.2.0
-    "@types/three": ^0.133.0
-    ramda: ^0.27.1
-    uuid: ^8.3.2
-  peerDependencies:
-    three: ^0.133.0
-  checksum: d5d8d0159d3faa51fdaec3faa464375777a6b6d16d8be4cf42142597d4d6ae30fb6adcad20a8334b8697bdf4e61dfb8fbe4619d52abc756b9b7aafa041cd2073
-  languageName: node
-  linkType: hard
-
 "@rapidajs/rapida-website@workspace:website":
   version: 0.0.0-use.local
   resolution: "@rapidajs/rapida-website@workspace:website"
   dependencies:
     "@rapidajs/cannon-worker": 0.0.14
-    "@rapidajs/rapida": 0.0.13
     "@rapidajs/rapida-common": 0.5.0
     "@rapidajs/recs": 0.5.0
+    "@rapidajs/three": 0.5.0
     "@styled-icons/material": ^10.34.0
     "@types/node": 17.0.0
     "@types/react": 17.0.37
@@ -2843,32 +2800,6 @@ __metadata:
     typescript: 4.5.4
   languageName: unknown
   linkType: soft
-
-"@rapidajs/rapida@npm:0.0.13":
-  version: 0.0.13
-  resolution: "@rapidajs/rapida@npm:0.0.13"
-  dependencies:
-    "@jest/globals": ^27.2.0
-    "@rapidajs/cannon-worker": 0.0.10
-    "@rapidajs/postprocessing": 0.0.3
-    "@rapidajs/rapida-common": 0.0.9
-    "@rapidajs/recs": 0.0.13
-    "@types/stats.js": ^0.17.0
-    "@types/three": ^0.133.0
-    jest-mock: ^27.1.1
-    stats.js: ^0.17.0
-    three: ^0.133.0
-    three-stdlib: ^2.7.0
-    ts-jest: ^27.0.5
-    typedoc: ^0.22.10
-    typedoc-plugin-markdown: ^3.11.7
-  peerDependencies:
-    "@rapidajs/cannon-worker": 0.0.10
-    postprocessing: ^6.23.3
-    three: ^0.133.0
-  checksum: 729fec1481df6c90462c9389e29cc6bdcabf20143fa04863e78f2baa42a1cdd2431759fc5470c9cc0ba2e05176cc79e1414d1346964dc73cad95347142955f04
-  languageName: node
-  linkType: hard
 
 "@rapidajs/recs@0.5.0, @rapidajs/recs@workspace:packages/recs":
   version: 0.0.0-use.local
@@ -2920,20 +2851,6 @@ __metadata:
     typescript: ^4.4.2
   languageName: unknown
   linkType: soft
-
-"@rapidajs/recs@npm:0.0.13":
-  version: 0.0.13
-  resolution: "@rapidajs/recs@npm:0.0.13"
-  dependencies:
-    "@jest/globals": ^27.2.0
-    "@rapidajs/rapida-common": 0.0.9
-    jest-mock: ^27.1.1
-    ts-jest: ^27.0.5
-    typedoc: ^0.22.10
-    typedoc-plugin-markdown: ^3.11.7
-  checksum: 2b18665aac88c625bca5fbd8ecc50f6c2b091077afab3ff262c253cc6d3d4eb42bf774e7f1ce817e29a9b5e287c9c8a9aa9ebbe2e24ca9eb425993b0068db918
-  languageName: node
-  linkType: hard
 
 "@rapidajs/three@0.5.0, @rapidajs/three@workspace:packages/three":
   version: 0.0.0-use.local
@@ -4822,13 +4739,6 @@ __metadata:
   version: 2.0.1
   resolution: "@types/stack-utils@npm:2.0.1"
   checksum: 205fdbe3326b7046d7eaf5e494d8084f2659086a266f3f9cf00bccc549c8e36e407f88168ad4383c8b07099957ad669f75f2532ed4bc70be2b037330f7bae019
-  languageName: node
-  linkType: hard
-
-"@types/stats.js@npm:^0.17.0":
-  version: 0.17.0
-  resolution: "@types/stats.js@npm:0.17.0"
-  checksum: ac8dc5e622fa3b7cc37b9e21663193a2f171a4f5896285e4dfc04f2874acbb75edc958f077bffbd85b0ae358daa5bf4ecbc71210386a4300bff05d09435e35f9
   languageName: node
   linkType: hard
 
@@ -16998,13 +16908,6 @@ __metadata:
     define-property: ^0.2.5
     object-copy: ^0.1.0
   checksum: 8657485b831f79e388a437260baf22784540417a9b29e11572c87735df24c22b84eda42107403a64b30861b2faf13df9f7fc5525d51f9d1d2303aba5cbf4e12c
-  languageName: node
-  linkType: hard
-
-"stats.js@npm:^0.17.0":
-  version: 0.17.0
-  resolution: "stats.js@npm:0.17.0"
-  checksum: 62d55d9e28e701f5638eac312ab45f66da8cc14b43d4eba4d3ab5a26f444a91d3e0dd1f52e8fc182b03cae955dae4af471d54f1975525cc1e47dfa89a54a47c6
   languageName: node
   linkType: hard
 
