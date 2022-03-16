@@ -12,11 +12,6 @@ workflow:
     - yarn install
     # will build and test everything
     - yarn run release
-    # - |- 
-    #   if [[ $CI_COMMIT_BRANCH == "main" ]]; then
-    #     # publish npm packages if on the main branch
-    #     yarn dlx @changesets/cli@^2.18.1 publish --otp=$NPM_TOKEN
-    #   fi
   coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
 
 pages:
