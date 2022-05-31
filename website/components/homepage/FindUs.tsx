@@ -19,6 +19,6 @@ export const FindUs = () => (
   <Links>
     <a href="https://gitlab.com/rapidajs/rapida">GitLab</a>
     <a href="https://github.com/rapidajs/rapida">GitHub (mirror)</a>
-    <a href="https://www.npmjs.com/package/@rapidajs/rapida">NPM</a>
+    <a href="https://www.npmjs.com/package/@rapidajs/recs">NPM</a>
   </Links>
 );
