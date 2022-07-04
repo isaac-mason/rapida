@@ -12,7 +12,7 @@ _rápida - fast_
 | [`@rapidajs/three`](./packages/three/README.md)                 | `@rapidajs/three` provides three.js utilities for managing multiple views, using postprocessing effects, and loading assets. |
 | [`@rapidajs/cannon-worker`](./packages/cannon-worker/README.md) | `@rapidajs/cannon-worker` makes adding cannon physics to your three.js scenes easy!                                          |
 
-See the rapida website for documentation and examples - [rapidajs.dev](https://rapidajs.dev/)
+See the rapida website for documentation and examples - [rapida.isaacmason.com](https://rapida.isaacmason.com/)
 
 ## Development
 

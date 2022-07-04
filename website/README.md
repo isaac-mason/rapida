@@ -1,6 +1,6 @@
 # rapida-website
 
-Repository for the next.js rapida website - https://rapidajs.dev/
+Repository for the next.js rapida website - https://rapida.isaacmason.com/
 
 ## Getting Started
 

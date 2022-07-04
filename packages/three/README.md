@@ -18,7 +18,7 @@ To get started install `@rapidajs/three` and `three`.
 
 `@rapidajs/three` currently cannot be used without a bundler. A basic example of using `@rapidajs/three` with parcel can be found here: https://gitlab.com/rapidajs/rapida-typescript-parcel/-/blob/main/package.json
 
-Visit the [rapidajs website](https://rapidajs.dev/) for documentation and examples.
+Visit the [rapidajs website](https://rapida.isaacmason.com/) for documentation and examples.
 
 ## Example Usage
 

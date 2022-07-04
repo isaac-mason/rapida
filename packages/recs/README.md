@@ -13,7 +13,7 @@ recs - *Reminiscent [of an] Entity Component System*
 > yarn add @rapidajs/recs
 ```
 
-See the rapida website for documentation and examples: https://rapidajs.dev/ 
+See the rapida website for documentation and examples: https://rapida.isaacmason.com/ 
 
 ## Introduction
 
@@ -35,7 +35,7 @@ You can also optionally add behavior to Components for unity-like Game Objects.
 
 You can find the full example and code here:
 
-http://rapidajs.dev/storybooks/recs/index.html?path=/story/random-walkers--random-walkers
+http://rapida.isaacmason.com/storybooks/recs/index.html?path=/story/random-walkers--random-walkers
 
 **1. Import everything we need**
 

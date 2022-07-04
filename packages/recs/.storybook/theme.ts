@@ -6,6 +6,6 @@ import logo from './resources/rapida-logo.png';
 export default create({
   base: 'light',
   brandTitle: 'rapida',
-  brandUrl: 'https://rapidajs.dev',
+  brandUrl: 'https://rapida.isaacmason.com',
   brandImage: logo,
 });
